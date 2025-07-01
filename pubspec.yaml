@@ -1,0 +1,43 @@
+name: career_coach
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # logic
+  auto_route: ^10.1.0+1
+  flutter_bloc: ^9.1.1
+  get_it: ^8.0.3
+  shared_preferences: ^2.5.3
+
+  # ui
+  flutter_svg: ^2.2.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  auto_route_generator: ^10.2.3
+  build_runner: ^2.4.9
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/nunito.ttf
+
