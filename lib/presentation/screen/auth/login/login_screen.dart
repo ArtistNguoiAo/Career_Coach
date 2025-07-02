@@ -128,26 +128,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.language.forgotPassword,
                         style: TextStyleUtils.normal(
                           color: context.theme.primaryColor,
-                          fontSize: 12,
+                          fontSize: 14,
                         ),
                       ),
                     )
                   ),
                   Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        AutoRouter.of(context).push(OverViewRoute());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: context.theme.primaryColor,
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        context.language.login,
-                        textAlign: TextAlign.center,
-                        style: TextStyleUtils.bold(
-                          color: context.theme.backgroundColor,
+                        child: Text(
+                          context.language.login,
+                          textAlign: TextAlign.center,
+                          style: TextStyleUtils.bold(
+                            color: context.theme.backgroundColor,
+                          ),
                         ),
                       ),
                     ),
