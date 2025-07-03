@@ -45,4 +45,34 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get back => 'Back';
+
+  @override
+  String get haveAGoodDay => 'Have a good day';
+
+  @override
+  String get welcomeApp => 'Welcome to Career Coach!';
+
+  @override
+  String get introduce => "Create a professional CV in minutes. Make a strong impression on employers!";
+
+  @override
+  String get hello => 'Hello';
+
+  @override
+  String get cvAndCl => 'CV and Cover Letter';
+
+  @override
+  String get cv => 'CV';
+
+  @override
+  String get cl => 'Cover Letter';
+
+  @override
+  String get outstanding => 'Outstanding';
+
+  @override
+  String get tool => 'Tool';
+
+  @override
+  String get calculateGrossNetSalary => 'Calculate Gross/Net Salary';
 }

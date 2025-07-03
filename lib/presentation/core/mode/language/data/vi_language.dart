@@ -45,4 +45,34 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get back => 'Quay lại';
+
+  @override
+  String get haveAGoodDay => 'Chúc bạn một ngày tốt lành';
+
+  @override
+  String get welcomeApp => 'Welcome to Career Coach!';
+
+  @override
+  String get introduce => "Tạo CV chuyên nghiệp trong vài phút. Gây ấn tượng mạnh với nhà tuyển dụng!";
+
+  @override
+  String get hello => 'Xin chào';
+
+  @override
+  String get cvAndCl => 'CV và Thư xin việc';
+
+  @override
+  String get cv => 'CV';
+
+  @override
+  String get cl => 'Thư xin việc';
+
+  @override
+  String get outstanding => 'Nổi bật';
+
+  @override
+  String get tool => 'Công cụ';
+
+  @override
+  String get calculateGrossNetSalary => 'Tính lương Gross - Net';
 }

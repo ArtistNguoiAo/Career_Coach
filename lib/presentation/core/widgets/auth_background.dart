@@ -24,6 +24,7 @@ class AuthBackground extends StatelessWidget {
           ),
           SvgPicture.asset(
             MediaUtils.imgAuthBackground,
+            width: MediaQuery.of(context).size.width,
             fit: BoxFit.fitWidth,
           ),
           Positioned(

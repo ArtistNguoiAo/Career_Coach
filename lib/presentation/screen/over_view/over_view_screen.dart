@@ -25,9 +25,12 @@ class _OverViewScreenState extends State<OverViewScreen> {
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-
         return Scaffold(
-          body: child,
+          extendBody: true,
+          body: Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: child,
+          ),
           bottomNavigationBar: CrystalNavigationBar(
             currentIndex: tabsRouter.activeIndex,
             onTap: (index) => tabsRouter.setActiveIndex(index),
@@ -38,22 +41,22 @@ class _OverViewScreenState extends State<OverViewScreen> {
               CrystalNavigationBarItem(
                 icon: IconlyBold.home,
                 unselectedIcon: IconlyLight.home,
-                selectedColor: context.theme.primaryColor,
+                selectedColor: context.theme.backgroundColor,
               ),
               CrystalNavigationBarItem(
                 icon: IconlyBold.paper,
                 unselectedIcon: IconlyLight.paper,
-                selectedColor: context.theme.primaryColor,
+                selectedColor: context.theme.backgroundColor,
               ),
               CrystalNavigationBarItem(
                 icon: IconlyBold.chat,
                 unselectedIcon: IconlyLight.chat,
-                selectedColor: context.theme.primaryColor,
+                selectedColor: context.theme.backgroundColor,
               ),
               CrystalNavigationBarItem(
                 icon: IconlyBold.profile,
                 unselectedIcon: IconlyLight.profile,
-                selectedColor: context.theme.primaryColor,
+                selectedColor: context.theme.backgroundColor,
               ),
             ],
           ),
