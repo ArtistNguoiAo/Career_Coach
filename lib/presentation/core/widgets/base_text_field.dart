@@ -3,7 +3,7 @@ import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
 
 class BaseTextField extends StatefulWidget {
-  BaseTextField({
+  const BaseTextField({
     super.key,
     required this.controller,
     this.border,
@@ -52,7 +52,7 @@ class _BaseTextFieldState extends State<BaseTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField( // Change to TextFormField
+    return TextFormField(
       controller: widget.controller,
       validator: widget.validator,
       readOnly: widget.readOnly ?? false,

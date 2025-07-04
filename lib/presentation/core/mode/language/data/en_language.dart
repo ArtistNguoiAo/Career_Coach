@@ -75,4 +75,28 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get calculateGrossNetSalary => 'Calculate Gross/Net Salary';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get good => 'Good';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get bad => 'Bad';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get cvAndCl_2 => 'CV & CL';
+
+  @override
+  String get chatBot => 'Chat Bot';
+
+  @override
+  String get profile => 'Profile';
 }

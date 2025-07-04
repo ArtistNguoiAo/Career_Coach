@@ -20,4 +20,13 @@ class LightTheme extends BaseTheme {
 
   @override
   Color get textColor => const Color(0xFF000000);
+
+  @override
+  Color get goodColor => const Color(0xFF38B61B);
+
+  @override
+  Color get mediumColor => const Color(0xFFFF8C00);
+
+  @override
+  Color get badColor => const Color(0xFFFF0000);
 }

@@ -68,7 +68,7 @@ class ListInterviewRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i3.ListInterviewScreen();
+      return _i3.ListInterviewScreen();
     },
   );
 }

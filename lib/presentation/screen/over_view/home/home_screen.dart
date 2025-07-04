@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             _outstanding(),
             const SizedBox(height: 16),
             _tool(),
+            const SizedBox(height: 16),
           ],
         ),
       )

@@ -5,4 +5,7 @@ abstract class BaseTheme {
   Color get borderColor;
   Color get backgroundColor;
   Color get textColor;
+  Color get goodColor;
+  Color get mediumColor;
+  Color get badColor;
 }

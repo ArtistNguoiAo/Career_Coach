@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 @RoutePage()
 class OverViewScreen extends StatefulWidget {
@@ -26,37 +26,38 @@ class _OverViewScreenState extends State<OverViewScreen> {
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
-          extendBody: true,
           body: Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: child,
           ),
-          bottomNavigationBar: CrystalNavigationBar(
+          bottomNavigationBar: SalomonBottomBar(
             currentIndex: tabsRouter.activeIndex,
             onTap: (index) => tabsRouter.setActiveIndex(index),
-            marginR: EdgeInsets.symmetric(vertical: 16, horizontal: 64),
-            paddingR: EdgeInsets.symmetric(vertical: 0),
-            backgroundColor: context.theme.textColor.withAlpha((255 * 0.1).round()),
+            backgroundColor: context.theme.backgroundColor,
             items: [
-              CrystalNavigationBarItem(
-                icon: IconlyBold.home,
-                unselectedIcon: IconlyLight.home,
-                selectedColor: context.theme.backgroundColor,
+              SalomonBottomBarItem(
+                icon: Icon(IconlyLight.home),
+                activeIcon: Icon(IconlyBold.home),
+                selectedColor: context.theme.primaryColor,
+                title: Text(context.language.home),
               ),
-              CrystalNavigationBarItem(
-                icon: IconlyBold.paper,
-                unselectedIcon: IconlyLight.paper,
-                selectedColor: context.theme.backgroundColor,
+              SalomonBottomBarItem(
+                icon: Icon(IconlyLight.document),
+                activeIcon: Icon(IconlyBold.document),
+                selectedColor: context.theme.primaryColor,
+                title: Text(context.language.cvAndCl_2),
               ),
-              CrystalNavigationBarItem(
-                icon: IconlyBold.chat,
-                unselectedIcon: IconlyLight.chat,
-                selectedColor: context.theme.backgroundColor,
+              SalomonBottomBarItem(
+                icon: Icon(IconlyLight.chat),
+                activeIcon: Icon(IconlyBold.chat),
+                selectedColor: context.theme.primaryColor,
+                title: Text(context.language.chatBot),
               ),
-              CrystalNavigationBarItem(
-                icon: IconlyBold.profile,
-                unselectedIcon: IconlyLight.profile,
-                selectedColor: context.theme.backgroundColor,
+              SalomonBottomBarItem(
+                icon: Icon(IconlyLight.profile),
+                activeIcon: Icon(IconlyBold.profile),
+                selectedColor: context.theme.primaryColor,
+                title: Text(context.language.profile),
               ),
             ],
           ),

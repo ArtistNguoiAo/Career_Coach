@@ -75,4 +75,28 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get calculateGrossNetSalary => 'Tính lương Gross - Net';
+
+  @override
+  String get search => 'Tìm kiếm';
+
+  @override
+  String get good => 'Tốt';
+
+  @override
+  String get medium => 'Trung bình';
+
+  @override
+  String get bad => 'Kém';
+
+  @override
+  String get home => 'Trang chủ';
+
+  @override
+  String get cvAndCl_2 => 'CV & CL';
+
+  @override
+  String get chatBot => 'Trợ lý ảo';
+
+  @override
+  String get profile => 'Hồ sơ';
 }

@@ -22,4 +22,12 @@ abstract class BaseLanguage {
   String get outstanding;
   String get tool;
   String get calculateGrossNetSalary;
+  String get search;
+  String get good;
+  String get medium;
+  String get bad;
+  String get home;
+  String get cvAndCl_2;
+  String get chatBot;
+  String get profile;
 }
