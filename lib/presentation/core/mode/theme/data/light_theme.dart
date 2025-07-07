@@ -29,4 +29,7 @@ class LightTheme extends BaseTheme {
 
   @override
   Color get badColor => const Color(0xFFFF0000);
+
+  @override
+  Color get typeAccountColor => const Color(0xFFEBEBEB);
 }

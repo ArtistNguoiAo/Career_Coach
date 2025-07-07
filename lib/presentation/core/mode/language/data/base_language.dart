@@ -30,4 +30,8 @@ abstract class BaseLanguage {
   String get cvAndCl_2;
   String get chatBot;
   String get profile;
+  String get workExperience;
+  String get professionalPosition;
+  String get notUpdate;
+  String get edit;
 }

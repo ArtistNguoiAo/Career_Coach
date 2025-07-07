@@ -99,4 +99,16 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get workExperience => 'Work experience';
+
+  @override
+  String get professionalPosition => 'Professional position';
+
+  @override
+  String get notUpdate => 'Not updated';
+
+  @override
+  String get edit => 'Edit';
 }

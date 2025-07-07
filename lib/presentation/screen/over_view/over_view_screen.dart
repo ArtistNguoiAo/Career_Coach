@@ -17,7 +17,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [
+      routes: [
         HomeRoute(),
         ListCvAndClRoute(),
         ListInterviewRoute(),

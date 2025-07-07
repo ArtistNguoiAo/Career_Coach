@@ -8,4 +8,5 @@ abstract class BaseTheme {
   Color get goodColor;
   Color get mediumColor;
   Color get badColor;
+  Color get typeAccountColor;
 }

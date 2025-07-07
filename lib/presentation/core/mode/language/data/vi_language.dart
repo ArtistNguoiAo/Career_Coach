@@ -99,4 +99,16 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get profile => 'Hồ sơ';
+
+  @override
+  String get workExperience => 'Kinh nghiệm làm việc';
+
+  @override
+  String get professionalPosition => 'Vị trí chuyên môn';
+
+  @override
+  String get notUpdate => 'Chưa cập nhật';
+
+  @override
+  String get edit => 'Sửa';
 }
