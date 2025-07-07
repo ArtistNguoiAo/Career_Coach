@@ -24,6 +24,7 @@ import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart
     as _i5;
 import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
     as _i6;
+import 'package:flutter/material.dart' as _i9;
 
 /// generated route for
 /// [_i1.HomeScreen]
@@ -59,18 +60,46 @@ class ListCvAndClRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ListInterviewScreen]
-class ListInterviewRoute extends _i8.PageRouteInfo<void> {
-  const ListInterviewRoute({List<_i8.PageRouteInfo>? children})
-    : super(ListInterviewRoute.name, initialChildren: children);
+class ListInterviewRoute extends _i8.PageRouteInfo<ListInterviewRouteArgs> {
+  ListInterviewRoute({_i9.Key? key, List<_i8.PageRouteInfo>? children})
+    : super(
+        ListInterviewRoute.name,
+        args: ListInterviewRouteArgs(key: key),
+        initialChildren: children,
+      );
 
   static const String name = 'ListInterviewRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return _i3.ListInterviewScreen();
+      final args = data.argsAs<ListInterviewRouteArgs>(
+        orElse: () => const ListInterviewRouteArgs(),
+      );
+      return _i3.ListInterviewScreen(key: args.key);
     },
   );
+}
+
+class ListInterviewRouteArgs {
+  const ListInterviewRouteArgs({this.key});
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return 'ListInterviewRouteArgs{key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ListInterviewRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for

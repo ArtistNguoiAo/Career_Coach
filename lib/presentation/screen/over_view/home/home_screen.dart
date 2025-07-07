@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this); // 3 tab
+    tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: context.theme.textColor.withOpacity(0.1),
+                color: context.theme.textColor.withAlpha((255 * 0.1).round()),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
