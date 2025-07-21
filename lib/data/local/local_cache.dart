@@ -7,7 +7,6 @@ class LocalCache {
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
-
   }
 
   static Future<void> setBool(String key, bool value) async {

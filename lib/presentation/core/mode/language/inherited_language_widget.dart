@@ -30,7 +30,7 @@ class InheritedLanguageWidget extends InheritedWidget {
       case LanguageModeEnum.vi:
         return ViLanguage();
       default:
-        return EnLanguage();
+        return ViLanguage();
     }
   }
 }
