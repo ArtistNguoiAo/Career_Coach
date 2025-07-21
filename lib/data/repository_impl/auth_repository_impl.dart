@@ -1,5 +1,8 @@
 import 'package:career_coach/data/data_source/auth_data_source.dart';
+import 'package:career_coach/data/mapper/auth_mapper.dart';
+import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
+import 'package:career_coach/domain/entity/auth_entity.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,8 +16,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phone,
     required String password,
     required String avatar,
-  }) {
-    return _authDataSource.register(
+  }) async {
+    return await _authDataSource.register(
       registerRequestBody: RegisterRequestBody(
         fullName: fullName,
         email: email,
@@ -25,4 +28,18 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
+  @override
+  Future<AuthEntity> login({
+    required String login,
+    required String password,
+  }) async {
+    final authModel = await _authDataSource.login(
+      loginRequestBody: LoginRequestBody(
+        login: login,
+        password: password,
+      ),
+    );
+
+    return AuthMapper.toEntity(authModel);
+  }
 }

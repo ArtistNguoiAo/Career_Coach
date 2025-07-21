@@ -111,4 +111,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get edit => 'Edit';
+
+  @override
+  String get loading => 'Loading';
 }

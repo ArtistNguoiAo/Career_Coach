@@ -11,6 +11,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   Future<void> init() async {
     final themeModeString = await LocalCache.getString(StringCache.theme);
     if (themeModeString.isEmpty) {
+      await LocalCache.setString(StringCache.theme, ThemeModeEnum.light.name);
       emit(const ThemeState(themeModeEnum: ThemeModeEnum.light));
     } else {
       emit(ThemeState(themeModeEnum: ThemeModeEnum.values.byName(themeModeString)));

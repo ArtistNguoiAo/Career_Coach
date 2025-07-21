@@ -11,6 +11,6 @@ class ApiException implements Exception {
 
   @override
   String toString() {
-    return 'ApiException: [$errorCode] $message (isOk: $isOk)';
+    return '[$errorCode] $message';
   }
 }

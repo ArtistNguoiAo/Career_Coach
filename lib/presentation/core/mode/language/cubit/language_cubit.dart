@@ -11,6 +11,7 @@ class LanguageCubit extends Cubit<LanguageState> {
   Future<void> init() async {
     final languageModeString = await LocalCache.getString(StringCache.language);
     if (languageModeString.isEmpty) {
+      await LocalCache.setString(StringCache.language, LanguageModeEnum.vi.name);
       emit(const LanguageState(languageModeEnum: LanguageModeEnum.vi));
     } else {
       emit(LanguageState(languageModeEnum: LanguageModeEnum.values.byName(languageModeString)));

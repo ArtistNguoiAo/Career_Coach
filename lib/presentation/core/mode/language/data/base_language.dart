@@ -34,4 +34,5 @@ abstract class BaseLanguage {
   String get professionalPosition;
   String get notUpdate;
   String get edit;
+  String get loading;
 }
