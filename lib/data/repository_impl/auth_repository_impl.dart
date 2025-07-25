@@ -2,8 +2,11 @@ import 'package:career_coach/data/data_source/auth_data_source.dart';
 import 'package:career_coach/data/mapper/auth_mapper.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
+import 'package:career_coach/data/request_body/provider_login_request_body.dart';
 import 'package:career_coach/domain/entity/auth_entity.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
+
+import '../local/local_cache.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource _authDataSource;
@@ -39,7 +42,26 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       ),
     );
+    await LocalCache.setString(StringCache.accessToken, authModel.accessToken);
+    await LocalCache.setString(StringCache.refreshToken, authModel.refreshToken);
+    return AuthMapper.toEntity(authModel);
+  }
 
+  @override
+  Future<AuthEntity> loginWithProvider({
+    required String externalToken,
+    required String provider,
+    required String deviceInfo,
+  }) async {
+    final authModel = await _authDataSource.loginWithProvider(
+      providerLoginRequestBody: ProviderLoginRequestBody(
+        externalToken: externalToken,
+        provider: provider,
+        deviceInfo: deviceInfo,
+      ),
+    );
+    await LocalCache.setString(StringCache.accessToken, authModel.accessToken);
+    await LocalCache.setString(StringCache.refreshToken, authModel.refreshToken);
     return AuthMapper.toEntity(authModel);
   }
 }

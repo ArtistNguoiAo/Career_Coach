@@ -10,7 +10,7 @@ abstract class UserModel with _$UserModel {
     @Default('') String keycloakId,
     @Default('') String fullName,
     @Default('') String email,
-    @Default('') String username,
+    @Default('') String phone,
     @Default('') String avatar,
   }) = _UserModel;
 

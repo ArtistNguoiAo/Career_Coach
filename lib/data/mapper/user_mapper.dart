@@ -8,7 +8,7 @@ class UserMapper {
       keycloakId: userModel.keycloakId,
       fullName: userModel.fullName,
       email: userModel.email,
-      username: userModel.username,
+      phone: userModel.phone,
       avatar: userModel.avatar,
     );
   }

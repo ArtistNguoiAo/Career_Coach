@@ -1,7 +1,11 @@
 import 'package:career_coach/data/api_response/base_data_source.dart';
+import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/model/auth_model.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
+
+import '../request_body/provider_login_request_body.dart';
+import '../request_body/refresh_request_body.dart';
 
 class AuthDataSource {
   final BaseDataSource _baseDataSource;
@@ -23,6 +27,46 @@ class AuthDataSource {
     return await _baseDataSource.post<AuthModel>(
       '/auth/sign-in',
       data: loginRequestBody.toJson(),
+      fromJsonT: (json) {
+        if (json == null) return AuthModel();
+        final data = json['data'];
+        return data != null ? AuthModel.fromJson(data) : AuthModel();
+      },
+      useToken: false,
+    );
+  }
+
+  Future<void> logout() async {
+    return await _baseDataSource.post<void>(
+        '/auth/logout',
+        data: {
+          'refreshToken': LocalCache.getString(StringCache.refreshToken),
+        },
+        fromJsonT: (json) => json['data']
+    );
+  }
+
+  Future<AuthModel> refresh({
+    required RefreshRequestBody refreshRequestBody,
+  }) async {
+    return await _baseDataSource.post<AuthModel>(
+      '/auth/refresh',
+      data: refreshRequestBody.toJson(),
+      fromJsonT: (json) {
+        if (json == null) return AuthModel();
+        final data = json['data'];
+        return data != null ? AuthModel.fromJson(data) : AuthModel();
+      },
+      useToken: false,
+    );
+  }
+
+  Future<AuthModel> loginWithProvider({
+    required ProviderLoginRequestBody providerLoginRequestBody,
+  }) async {
+    return await _baseDataSource.post<AuthModel>(
+      '/auth/token-exchange',
+      data: providerLoginRequestBody.toJson(),
       fromJsonT: (json) {
         if (json == null) return AuthModel();
         final data = json['data'];

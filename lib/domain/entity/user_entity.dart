@@ -3,7 +3,7 @@ class UserEntity {
   final String keycloakId;
   final String fullName;
   final String email;
-  final String username;
+  final String phone;
   final String avatar;
 
   UserEntity({
@@ -11,7 +11,7 @@ class UserEntity {
     required this.keycloakId,
     required this.fullName,
     required this.email,
-    required this.username,
+    required this.phone,
     required this.avatar,
   });
 }

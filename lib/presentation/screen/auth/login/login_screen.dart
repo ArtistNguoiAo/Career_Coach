@@ -113,8 +113,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SvgPicture.asset(MediaUtils.icGoogle, height: 36, width: 36),
-                      SvgPicture.asset(MediaUtils.icFacebook, height: 36, width: 36),
+                      InkWell(
+                        onTap: () {
+                          context.read<LoginCubit>().loginWithGoogle();
+                        },
+                        child: SvgPicture.asset(MediaUtils.icGoogle, height: 36, width: 36),
+                      ),
+                      SvgPicture.asset(MediaUtils.icGithub, height: 36, width: 36),
                     ],
                   ),
                   const SizedBox(height: 16),

@@ -11,5 +11,6 @@ class MediaUtils {
   // icons
   static String get icGoogle => '$baseIcon/ic_google.svg';
   static String get icFacebook => '$baseIcon/ic_facebook.svg';
+  static String get icGithub => '$baseIcon/ic_github.svg';
   static String get icAvatarDefault => '$baseIcon/ic_avatar_default.svg';
 }

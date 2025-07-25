@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:career_coach/data/api_response/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
+import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
 import 'package:meta/meta.dart';
 
@@ -11,6 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   final loginUseCase = getIt<LoginUseCase>();
+  final googleLoginUseCase = getIt<GoogleLoginUseCase>();
 
   Future<void> init() async {
     final login = await LocalCache.getString(StringCache.login);
@@ -20,7 +22,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> login({required String login, required String password, required bool rememberMe}) async {
-    final currentState = state as LoginLoaded;
     emit(LoginLoading());
     try {
       print("TrungLQ: Login successful with login: $login, password: $password, rememberMe: $rememberMe");
@@ -38,6 +39,26 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
+      emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
+    }
+  }
+
+  Future<void> loginWithGoogle() async {
+    emit(LoginLoading());
+    try {
+      await googleLoginUseCase.call();
+      emit(LoginSuccess());
+    } on ApiException catch (e) {
+      emit(LoginError(error: e.toString()));
+      final login = await LocalCache.getString(StringCache.login);
+      final password = await LocalCache.getString(StringCache.password);
+      final rememberMe = await LocalCache.getBool(StringCache.rememberMe);
+      emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
+    } catch (e) {
+      emit(LoginError(error: 'Google Sign In failed: ${e.toString()}'));
+      final login = await LocalCache.getString(StringCache.login);
+      final password = await LocalCache.getString(StringCache.password);
+      final rememberMe = await LocalCache.getBool(StringCache.rememberMe);
       emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
     }
   }
