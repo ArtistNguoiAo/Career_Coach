@@ -1,0 +1,34 @@
+import 'package:career_coach/data/api_response/base_data_source.dart';
+import 'package:career_coach/data/model/auth_model.dart';
+import 'package:career_coach/data/request_body/login_request_body.dart';
+import 'package:career_coach/data/request_body/register_request_body.dart';
+
+class AuthDataSource {
+  final BaseDataSource _baseDataSource;
+  AuthDataSource(this._baseDataSource);
+
+  Future<void> register({
+    required RegisterRequestBody registerRequestBody,
+  }) async {
+    return await _baseDataSource.post<void>(
+      '/auth/sign-up',
+      data: registerRequestBody.toJson(),
+      fromJsonT: (json) => json['data'],
+    );
+  }
+
+  Future<AuthModel> login({
+    required LoginRequestBody loginRequestBody,
+  }) async {
+    return await _baseDataSource.post<AuthModel>(
+      '/auth/sign-in',
+      data: loginRequestBody.toJson(),
+      fromJsonT: (json) {
+        if (json == null) return AuthModel();
+        final data = json['data'];
+        return data != null ? AuthModel.fromJson(data) : AuthModel();
+      },
+      useToken: false,
+    );
+  }
+}

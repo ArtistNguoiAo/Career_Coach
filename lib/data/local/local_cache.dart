@@ -7,7 +7,6 @@ class LocalCache {
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
-
   }
 
   static Future<void> setBool(String key, bool value) async {
@@ -32,7 +31,7 @@ class StringCache {
 
   static String theme = 'cached_theme';
   static String language = 'cached_language';
-  static String account = 'cached_account';
+  static String login = 'cached_login';
   static String password = 'cached_password';
   static String rememberMe = 'cache_remember_me';
   static String accessToken = 'cached_access_token';

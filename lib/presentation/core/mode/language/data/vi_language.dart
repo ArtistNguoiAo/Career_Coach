@@ -111,4 +111,7 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get edit => 'Sửa';
+
+  @override
+  String get loading => 'Đang tải';
 }
