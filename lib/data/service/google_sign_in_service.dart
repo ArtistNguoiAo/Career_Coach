@@ -15,7 +15,7 @@ class GoogleSignInService {
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       print(googleAuth.idToken);
       print(googleAuth.accessToken);
-      return googleAuth.idToken;
+      return googleAuth.accessToken;
     } catch (error) {
       print('Google Sign In Error: $error');
       return null;
