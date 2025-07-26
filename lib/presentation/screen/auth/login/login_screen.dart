@@ -119,7 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: SvgPicture.asset(MediaUtils.icGoogle, height: 36, width: 36),
                       ),
-                      SvgPicture.asset(MediaUtils.icGithub, height: 36, width: 36),
+                      InkWell(
+                        onTap: () {
+                          context.read<LoginCubit>().loginWithGitHub(context);
+                        },
+                        child: SvgPicture.asset(MediaUtils.icGithub, height: 36, width: 36),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),

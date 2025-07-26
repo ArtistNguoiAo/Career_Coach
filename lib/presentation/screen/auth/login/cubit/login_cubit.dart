@@ -3,7 +3,9 @@ import 'package:career_coach/data/api_response/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
+import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'login_state.dart';
@@ -13,6 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   final loginUseCase = getIt<LoginUseCase>();
   final googleLoginUseCase = getIt<GoogleLoginUseCase>();
+  final githubLoginUseCase = getIt<GitHubLoginUseCase>();
 
   Future<void> init() async {
     final login = await LocalCache.getString(StringCache.login);
@@ -50,16 +53,19 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
-      final login = await LocalCache.getString(StringCache.login);
-      final password = await LocalCache.getString(StringCache.password);
-      final rememberMe = await LocalCache.getBool(StringCache.rememberMe);
-      emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
     } catch (e) {
       emit(LoginError(error: 'Google Sign In failed: ${e.toString()}'));
-      final login = await LocalCache.getString(StringCache.login);
-      final password = await LocalCache.getString(StringCache.password);
-      final rememberMe = await LocalCache.getBool(StringCache.rememberMe);
-      emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
+    }
+  }
+
+  Future<void> loginWithGitHub(BuildContext context) async {
+    try {
+      await githubLoginUseCase.call(context);
+      emit(LoginSuccess());
+    } on ApiException catch (e) {
+      emit(LoginError(error: e.toString()));
+    } catch (e) {
+      emit(LoginError(error: 'GitHub Sign In failed: ${e.toString()}'));
     }
   }
 }

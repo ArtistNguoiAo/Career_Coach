@@ -22,6 +22,8 @@ dependencies:
   curl_logger_dio_interceptor: ^1.0.0
   google_sign_in: ^6.3.0
   device_info_plus: ^11.5.0
+  webview_flutter: ^4.4.2
+  url_launcher: ^6.2.1
 
   # ui
   flutter_svg: ^2.2.0
