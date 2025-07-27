@@ -13,4 +13,14 @@ abstract class AuthRepository {
     required String login,
     required String password,
   });
+
+  Future<AuthEntity> loginWithProvider({
+    required String externalToken,
+    required String provider,
+    required String deviceInfo,
+  });
+
+  Future<void> logout({
+    required String refreshToken,
+  });
 }
