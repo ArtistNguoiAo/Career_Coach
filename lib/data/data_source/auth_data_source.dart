@@ -1,7 +1,7 @@
 import 'package:career_coach/data/api_response/base_data_source.dart';
-import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/model/auth_model.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
+import 'package:career_coach/data/request_body/logout_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
 
 import '../request_body/provider_login_request_body.dart';
@@ -9,11 +9,10 @@ import '../request_body/refresh_request_body.dart';
 
 class AuthDataSource {
   final BaseDataSource _baseDataSource;
+
   AuthDataSource(this._baseDataSource);
 
-  Future<void> register({
-    required RegisterRequestBody registerRequestBody,
-  }) async {
+  Future<void> register({required RegisterRequestBody registerRequestBody}) async {
     return await _baseDataSource.post<void>(
       '/auth/sign-up',
       data: registerRequestBody.toJson(),
@@ -21,9 +20,7 @@ class AuthDataSource {
     );
   }
 
-  Future<AuthModel> login({
-    required LoginRequestBody loginRequestBody,
-  }) async {
+  Future<AuthModel> login({required LoginRequestBody loginRequestBody}) async {
     return await _baseDataSource.post<AuthModel>(
       '/auth/sign-in',
       data: loginRequestBody.toJson(),
@@ -36,19 +33,15 @@ class AuthDataSource {
     );
   }
 
-  Future<void> logout() async {
+  Future<void> logout({required LogoutRequestBody logoutRequestBody}) async {
     return await _baseDataSource.post<void>(
-        '/auth/logout',
-        data: {
-          'refreshToken': LocalCache.getString(StringCache.refreshToken),
-        },
-        fromJsonT: (json) => json['data']
+      '/auth/logout',
+      data: logoutRequestBody.toJson(),
+      fromJsonT: (json) => json['data'],
     );
   }
 
-  Future<AuthModel> refresh({
-    required RefreshRequestBody refreshRequestBody,
-  }) async {
+  Future<AuthModel> refresh({required RefreshRequestBody refreshRequestBody}) async {
     return await _baseDataSource.post<AuthModel>(
       '/auth/refresh',
       data: refreshRequestBody.toJson(),
@@ -61,9 +54,7 @@ class AuthDataSource {
     );
   }
 
-  Future<AuthModel> loginWithProvider({
-    required ProviderLoginRequestBody providerLoginRequestBody,
-  }) async {
+  Future<AuthModel> loginWithProvider({required ProviderLoginRequestBody providerLoginRequestBody}) async {
     return await _baseDataSource.post<AuthModel>(
       '/auth/token-exchange',
       data: providerLoginRequestBody.toJson(),

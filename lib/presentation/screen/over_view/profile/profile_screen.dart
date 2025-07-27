@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_avatar.dart';
+import 'package:career_coach/presentation/screen/over_view/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
@@ -17,27 +20,53 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          _header(),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                _basicProfile(
-                  title: context.language.workExperience,
-                  values: [],
-                ),
-                const SizedBox(height: 8),
-                _basicProfile(
-                  title: context.language.professionalPosition,
-                  values: ['Flutter Developer', 'Mobile Developer'],
-                ),
-              ],
-            ),
-          ),
-        ],
+    return BlocProvider(
+      create: (context) => ProfileCubit()..init(),
+      child: Scaffold(
+        body: BlocConsumer<ProfileCubit, ProfileState>(
+          listener: (context, state) {
+            if (state is ProfileLogoutSuccess) {
+              context.router.replace(const LoginRoute());
+            }
+          },
+          builder: (context, state) {
+            if(state is ProfileLoaded) {
+              return Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      context.read<ProfileCubit>().logout();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: context.theme.backgroundColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconlyLight.setting,
+                            color: context.theme.textColor,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Logout",
+                            style: TextStyleUtils.normal(
+                              fontSize: 16,
+                              color: context.theme.textColor,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
@@ -52,8 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: context.theme.backgroundColor
+                shape: BoxShape.circle,
+                color: context.theme.backgroundColor
             ),
             child: BaseAvatar(
               url: '',
@@ -70,11 +99,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Le Quoc Trung',
-                        style: TextStyleUtils.bold(
-                          fontSize: 18,
-                          color: context.theme.backgroundColor,
-                        )
+                          'Le Quoc Trung',
+                          style: TextStyleUtils.bold(
+                            fontSize: 18,
+                            color: context.theme.backgroundColor,
+                          )
                       ),
                     ),
                     InkWell(
@@ -98,10 +127,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'toanquen13@gmail.com',
-                      style: TextStyleUtils.normal(
-                        color: context.theme.backgroundColor,
-                      )
+                        'toanquen13@gmail.com',
+                        style: TextStyleUtils.normal(
+                          color: context.theme.backgroundColor,
+                        )
                     ),
                   ],
                 ),
@@ -114,10 +143,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '0333982632',
-                      style: TextStyleUtils.normal(
-                        color: context.theme.backgroundColor,
-                      )
+                        '0333982632',
+                        style: TextStyleUtils.normal(
+                          color: context.theme.backgroundColor,
+                        )
                     ),
                   ],
                 ),
@@ -184,29 +213,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ]
-        else ...[
-          ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  values[index],
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.primaryColor,
+        else
+          ...[
+            ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (_, __) => const SizedBox(width: 4),
-            itemCount: values.length,
-          )
-        ]
+                  child: Text(
+                    values[index],
+                    style: TextStyleUtils.normal(
+                      fontSize: 16,
+                      color: context.theme.primaryColor,
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (_, __) => const SizedBox(width: 4),
+              itemCount: values.length,
+            )
+          ]
       ],
     );
   }

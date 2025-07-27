@@ -27,9 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({required String login, required String password, required bool rememberMe}) async {
     emit(LoginLoading());
     try {
-      print("TrungLQ: Login successful with login: $login, password: $password, rememberMe: $rememberMe");
       await loginUseCase.call(login: login, password: password);
-      print("TrungLQ: Login successful with login: $login, password: $password, rememberMe: $rememberMe");
       if (rememberMe) {
         await LocalCache.setString(StringCache.login, login);
         await LocalCache.setString(StringCache.password, password);

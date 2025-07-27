@@ -16,12 +16,10 @@ class GitHubOAuthService {
       ).push<String>(MaterialPageRoute(builder: (context) => _GitHubOAuthWebView()));
 
       if (result != null && result.isNotEmpty) {
-        print('GitHub Access Token: $result');
         return result;
       }
       return null;
     } catch (error) {
-      print('GitHub Sign In Error: $error');
       return null;
     }
   }
@@ -52,7 +50,6 @@ class _GitHubOAuthWebViewState extends State<_GitHubOAuthWebView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
-            print('Page started loading: $url');
             _handleUrl(url);
           },
           onPageFinished: (String url) {
@@ -75,7 +72,6 @@ class _GitHubOAuthWebViewState extends State<_GitHubOAuthWebView> {
   }
 
   void _handleUrl(String url) {
-    print('Handling URL: $url');
 
     if (url.startsWith(GitHubOAuthService._redirectUri)) {
       final uri = Uri.parse(url);
@@ -83,13 +79,11 @@ class _GitHubOAuthWebViewState extends State<_GitHubOAuthWebView> {
       final error = uri.queryParameters['error'];
 
       if (error != null) {
-        print('GitHub OAuth Error: $error');
         Navigator.of(context).pop(null);
         return;
       }
 
       if (code != null) {
-        print('GitHub OAuth Code: $code');
         _exchangeCodeForToken(code);
         return;
       }
@@ -117,16 +111,13 @@ class _GitHubOAuthWebViewState extends State<_GitHubOAuthWebView> {
         final accessToken = data['access_token'];
 
         if (accessToken != null) {
-          print('GitHub Access Token obtained: $accessToken');
           Navigator.of(context).pop(accessToken);
           return;
         }
       }
 
-      print('Failed to exchange code for token');
       Navigator.of(context).pop(null);
     } catch (e) {
-      print('Error exchanging code for token: $e');
       Navigator.of(context).pop(null);
     }
   }

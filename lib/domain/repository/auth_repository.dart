@@ -1,5 +1,4 @@
 import 'package:career_coach/domain/entity/auth_entity.dart';
-import 'package:career_coach/data/request_body/provider_login_request_body.dart';
 
 abstract class AuthRepository {
   Future<void> register({
@@ -19,5 +18,9 @@ abstract class AuthRepository {
     required String externalToken,
     required String provider,
     required String deviceInfo,
+  });
+
+  Future<void> logout({
+    required String refreshToken,
   });
 }
