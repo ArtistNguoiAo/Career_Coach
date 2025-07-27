@@ -49,7 +49,9 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> loginWithGoogle() async {
     emit(LoginLoading());
     try {
-      await googleLoginUseCase.call();
+      final authEntity = await googleLoginUseCase.call();
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
@@ -60,7 +62,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> loginWithGitHub(BuildContext context) async {
     try {
-      await githubLoginUseCase.call(context);
+      final authEntity = await githubLoginUseCase.call(context);
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));

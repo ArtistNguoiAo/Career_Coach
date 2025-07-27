@@ -17,6 +17,7 @@ class AuthDataSource {
       '/auth/sign-up',
       data: registerRequestBody.toJson(),
       fromJsonT: (json) => json,
+      useToken: false,
     );
   }
 
@@ -24,6 +25,15 @@ class AuthDataSource {
     return await _baseDataSource.post<AuthModel>(
       '/auth/sign-in',
       data: loginRequestBody.toJson(),
+      fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
+      useToken: false,
+    );
+  }
+
+  Future<AuthModel> loginWithProvider({required ProviderLoginRequestBody providerLoginRequestBody}) async {
+    return await _baseDataSource.post<AuthModel>(
+      '/auth/token-exchange',
+      data: providerLoginRequestBody.toJson(),
       fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
       useToken: false,
     );
@@ -41,24 +51,7 @@ class AuthDataSource {
     return await _baseDataSource.post<AuthModel>(
       '/auth/refresh',
       data: refreshRequestBody.toJson(),
-      fromJsonT: (json) {
-        if (json == null) return AuthModel();
-        final data = json['data'];
-        return data != null ? AuthModel.fromJson(data) : AuthModel();
-      },
-      useToken: false,
-    );
-  }
-
-  Future<AuthModel> loginWithProvider({required ProviderLoginRequestBody providerLoginRequestBody}) async {
-    return await _baseDataSource.post<AuthModel>(
-      '/auth/token-exchange',
-      data: providerLoginRequestBody.toJson(),
-      fromJsonT: (json) {
-        if (json == null) return AuthModel();
-        final data = json['data'];
-        return data != null ? AuthModel.fromJson(data) : AuthModel();
-      },
+      fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
       useToken: false,
     );
   }
