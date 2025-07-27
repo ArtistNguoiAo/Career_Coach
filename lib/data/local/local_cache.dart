@@ -24,6 +24,10 @@ class LocalCache {
   static Future<String> getString(String key) async {
     return _prefs?.getString(key) ?? '';
   }
+
+  static Future<void> clear() async {
+    await _prefs?.clear();
+  }
 }
 
 class StringCache {
