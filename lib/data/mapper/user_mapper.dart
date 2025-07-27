@@ -4,12 +4,11 @@ import 'package:career_coach/domain/entity/user_entity.dart';
 class UserMapper {
   static UserEntity toEntity(UserModel userModel) {
     return UserEntity(
-      id: userModel.id,
-      keycloakId: userModel.keycloakId,
-      fullName: userModel.fullName,
-      email: userModel.email,
-      phone: userModel.phone,
       avatar: userModel.avatar,
+      phone: userModel.phone,
+      email: userModel.email,
+      fullName: userModel.fullName,
+      roles: userModel.roles,
     );
   }
 }

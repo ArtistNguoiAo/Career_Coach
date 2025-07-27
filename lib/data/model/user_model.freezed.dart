@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
- String get id; String get keycloakId; String get fullName; String get email; String get phone; String get avatar;
+ String get avatar; String get phone; String get email; String get fullName; List<String> get roles;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.keycloakId, keycloakId) || other.keycloakId == keycloakId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&const DeepCollectionEquality().equals(other.roles, roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,keycloakId,fullName,email,phone,avatar);
+int get hashCode => Object.hash(runtimeType,avatar,phone,email,fullName,const DeepCollectionEquality().hash(roles));
 
 @override
 String toString() {
-  return 'UserModel(id: $id, keycloakId: $keycloakId, fullName: $fullName, email: $email, phone: $phone, avatar: $avatar)';
+  return 'UserModel(avatar: $avatar, phone: $phone, email: $email, fullName: $fullName, roles: $roles)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String keycloakId, String fullName, String email, String phone, String avatar
+ String avatar, String phone, String email, String fullName, List<String> roles
 });
 
 
@@ -65,15 +65,14 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? keycloakId = null,Object? fullName = null,Object? email = null,Object? phone = null,Object? avatar = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? avatar = null,Object? phone = null,Object? email = null,Object? fullName = null,Object? roles = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,keycloakId: null == keycloakId ? _self.keycloakId : keycloakId // ignore: cast_nullable_to_non_nullable
-as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+avatar: null == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
-as String,avatar: null == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
-as String,
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String,roles: null == roles ? _self.roles : roles // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -158,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String keycloakId,  String fullName,  String email,  String phone,  String avatar)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String avatar,  String phone,  String email,  String fullName,  List<String> roles)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone,_that.avatar);case _:
+return $default(_that.avatar,_that.phone,_that.email,_that.fullName,_that.roles);case _:
   return orElse();
 
 }
@@ -179,10 +178,10 @@ return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String keycloakId,  String fullName,  String email,  String phone,  String avatar)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String avatar,  String phone,  String email,  String fullName,  List<String> roles)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone,_that.avatar);case _:
+return $default(_that.avatar,_that.phone,_that.email,_that.fullName,_that.roles);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +198,10 @@ return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String keycloakId,  String fullName,  String email,  String phone,  String avatar)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String avatar,  String phone,  String email,  String fullName,  List<String> roles)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone,_that.avatar);case _:
+return $default(_that.avatar,_that.phone,_that.email,_that.fullName,_that.roles);case _:
   return null;
 
 }
@@ -214,15 +213,20 @@ return $default(_that.id,_that.keycloakId,_that.fullName,_that.email,_that.phone
 @JsonSerializable()
 
 class _UserModel implements UserModel {
-  const _UserModel({this.id = '', this.keycloakId = '', this.fullName = '', this.email = '', this.phone = '', this.avatar = ''});
+  const _UserModel({this.avatar = '', this.phone = '', this.email = '', this.fullName = '', final  List<String> roles = const []}): _roles = roles;
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
-@override@JsonKey() final  String id;
-@override@JsonKey() final  String keycloakId;
-@override@JsonKey() final  String fullName;
-@override@JsonKey() final  String email;
-@override@JsonKey() final  String phone;
 @override@JsonKey() final  String avatar;
+@override@JsonKey() final  String phone;
+@override@JsonKey() final  String email;
+@override@JsonKey() final  String fullName;
+ final  List<String> _roles;
+@override@JsonKey() List<String> get roles {
+  if (_roles is EqualUnmodifiableListView) return _roles;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_roles);
+}
+
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.keycloakId, keycloakId) || other.keycloakId == keycloakId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.avatar, avatar) || other.avatar == avatar));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.avatar, avatar) || other.avatar == avatar)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&const DeepCollectionEquality().equals(other._roles, _roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,keycloakId,fullName,email,phone,avatar);
+int get hashCode => Object.hash(runtimeType,avatar,phone,email,fullName,const DeepCollectionEquality().hash(_roles));
 
 @override
 String toString() {
-  return 'UserModel(id: $id, keycloakId: $keycloakId, fullName: $fullName, email: $email, phone: $phone, avatar: $avatar)';
+  return 'UserModel(avatar: $avatar, phone: $phone, email: $email, fullName: $fullName, roles: $roles)';
 }
 
 
@@ -257,7 +261,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String keycloakId, String fullName, String email, String phone, String avatar
+ String avatar, String phone, String email, String fullName, List<String> roles
 });
 
 
@@ -274,15 +278,14 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? keycloakId = null,Object? fullName = null,Object? email = null,Object? phone = null,Object? avatar = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? avatar = null,Object? phone = null,Object? email = null,Object? fullName = null,Object? roles = null,}) {
   return _then(_UserModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,keycloakId: null == keycloakId ? _self.keycloakId : keycloakId // ignore: cast_nullable_to_non_nullable
-as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+avatar: null == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
-as String,avatar: null == avatar ? _self.avatar : avatar // ignore: cast_nullable_to_non_nullable
-as String,
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String,roles: null == roles ? _self._roles : roles // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

@@ -33,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if(state is ProfileLoaded) {
               return Column(
                 children: [
+                  _header(),
                   InkWell(
                     onTap: () {
                       context.read<ProfileCubit>().logout();

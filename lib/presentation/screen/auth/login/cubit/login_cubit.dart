@@ -27,7 +27,9 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({required String login, required String password, required bool rememberMe}) async {
     emit(LoginLoading());
     try {
-      await loginUseCase.call(login: login, password: password);
+      final authEntity = await loginUseCase.call(login: login, password: password);
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
       if (rememberMe) {
         await LocalCache.setString(StringCache.login, login);
         await LocalCache.setString(StringCache.password, password);

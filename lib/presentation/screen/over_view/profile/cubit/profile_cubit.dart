@@ -14,13 +14,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> init() async {
     try {
-      print('TrungLQ: ProfileCubit init called');
-      final refreshToken = await LocalCache.getString(StringCache.refreshToken);
-      if (refreshToken.isEmpty) {
-        emit(ProfileError(error: 'No refresh token found'));
-      } else {
-        emit(ProfileLoaded());
-      }
+      emit(ProfileLoaded());
     } on ApiException catch (e) {
       emit(ProfileError(error: e.toString()));
     }

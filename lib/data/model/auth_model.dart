@@ -10,7 +10,7 @@ abstract class AuthModel with _$AuthModel {
     @Default('') String accessToken,
     @Default('') String refreshToken,
     @Default('') String tokenType,
-    @Default('') String expiresIn,
+    @Default(0) int expiresIn,
     UserModel? user,
   }) = _AuthModel;
 

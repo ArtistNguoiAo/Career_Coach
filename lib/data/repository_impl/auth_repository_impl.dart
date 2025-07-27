@@ -43,8 +43,6 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       ),
     );
-    await LocalCache.setString(StringCache.accessToken, authModel.accessToken);
-    await LocalCache.setString(StringCache.refreshToken, authModel.refreshToken);
     return AuthMapper.toEntity(authModel);
   }
 
