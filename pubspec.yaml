@@ -20,6 +20,10 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   curl_logger_dio_interceptor: ^1.0.0
+  google_sign_in: ^6.3.0
+  device_info_plus: ^11.5.0
+  webview_flutter: ^4.4.2
+  url_launcher: ^6.2.1
 
   # ui
   flutter_svg: ^2.2.0
@@ -52,4 +56,3 @@ flutter:
     - family: Nunito
       fonts:
         - asset: assets/fonts/nunito.ttf
-

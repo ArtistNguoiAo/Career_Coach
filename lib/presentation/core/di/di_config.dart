@@ -5,6 +5,8 @@ import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
+import 'package:career_coach/domain/use_case/google_login_use_case.dart';
+import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -26,5 +28,7 @@ class DiConfig {
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
     getIt.registerLazySingleton<LoginUseCase>(() => LoginUseCase(getIt.get()));
+    getIt.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCase(getIt.get()));
+    getIt.registerLazySingleton<GitHubLoginUseCase>(() => GitHubLoginUseCase(getIt.get()));
   }
 }
