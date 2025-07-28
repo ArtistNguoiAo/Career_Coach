@@ -39,6 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
         await LocalCache.setString(StringCache.password, '');
         await LocalCache.setBool(StringCache.rememberMe, false);
       }
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
@@ -52,6 +53,7 @@ class LoginCubit extends Cubit<LoginState> {
       final authEntity = await googleLoginUseCase.call();
       await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
       await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
@@ -65,6 +67,7 @@ class LoginCubit extends Cubit<LoginState> {
       final authEntity = await githubLoginUseCase.call(context);
       await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
       await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));

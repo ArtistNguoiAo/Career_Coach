@@ -24,6 +24,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final refreshToken = await LocalCache.getString(StringCache.refreshToken);
       await logoutUseCase.call(refreshToken: refreshToken);
+      await LocalCache.setBool(StringCache.isLoggedIn, false);
       emit(ProfileLogoutSuccess());
     } on ApiException catch (e){
       emit(ProfileError(error: e.toString()));

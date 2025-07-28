@@ -33,6 +33,7 @@ class LocalCache {
 class StringCache {
   StringCache._();
 
+  static String isLoggedIn = 'cached_is_logged_in';
   static String theme = 'cached_theme';
   static String language = 'cached_language';
   static String login = 'cached_login';

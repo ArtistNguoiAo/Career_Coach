@@ -10,7 +10,6 @@ class BaseDataSource {
   BaseDataSource._(this._dio);
 
   static Future<BaseDataSource> init() async {
-    // final language = await LocalCache.getString(StringCache.language);
     final dio = Dio(
       BaseOptions(
         baseUrl: 'https://career-be.notarget.id.vn/api/v1',
@@ -18,7 +17,6 @@ class BaseDataSource {
         receiveTimeout: const Duration(seconds: 10),
         headers: {
           'accept': '*/*',
-          // 'Accept-Language': language,
           'Content-Type': 'application/json',
         },
       ),
@@ -47,19 +45,37 @@ class BaseDataSource {
         onError: (DioException error, handler) async {
           if (error.response?.statusCode == 401 &&
               !error.requestOptions.path.contains('/auth/refresh')) {
-            final newToken = await _refreshToken(dio);
-            if (newToken != null) {
-              await LocalCache.setString(StringCache.accessToken, newToken);
+            try {
+              final newToken = await _refreshToken(dio);
+              if (newToken != null) {
+                await LocalCache.setString(StringCache.accessToken, newToken);
 
-              final clonedRequest = error.requestOptions;
-              clonedRequest.headers['Authorization'] = 'Bearer $newToken';
+                final clonedRequest = error.requestOptions;
+                clonedRequest.headers['Authorization'] = 'Bearer $newToken';
 
-              final response = await dio.fetch(clonedRequest);
-              return handler.resolve(response);
-            } else {
-              await LocalCache.clear();
-              return handler.reject(error);
+                final response = await dio.fetch(clonedRequest);
+                return handler.resolve(response);
+              } else {
+                await LocalCache.clear();
+                return handler.reject(error);
+              }
+            } catch (e) {
+              if(e is DioException) {
+                await LocalCache.clear();
+                return handler.reject(
+                  DioException(
+                    requestOptions: error.requestOptions,
+                    error: ApiException(
+                      errorCode: e.response?.data['result']['errorCode'] ?? 'UNKNOWN_ERROR',
+                      message: e.response?.data['result']['message'] ?? 'An unknown error occurred',
+                      isOk: false,
+                      isUnauthorized: true,
+                    ),
+                  ),
+                );
+              }
             }
+
           }
           return handler.next(error);
         },
@@ -232,8 +248,8 @@ class BaseDataSource {
 
       final newToken = response.data['data']['accessToken'];
       return newToken;
-    } catch (_) {
-      return null;
+    } on DioException {
+      rethrow;
     }
   }
 }
