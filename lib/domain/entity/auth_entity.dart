@@ -4,7 +4,7 @@ class AuthEntity {
   final String accessToken;
   final String refreshToken;
   final String tokenType;
-  final String expiresIn;
+  final int expiresIn;
   UserEntity? user;
 
   AuthEntity({

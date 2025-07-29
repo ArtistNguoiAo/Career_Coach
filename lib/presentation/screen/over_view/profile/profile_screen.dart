@@ -26,13 +26,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileLogoutSuccess) {
-              context.router.replace(const LoginRoute());
+              context.router.replaceAll([const LoginRoute()]);
             }
           },
           builder: (context, state) {
             if(state is ProfileLoaded) {
               return Column(
                 children: [
+                  _header(),
                   InkWell(
                     onTap: () {
                       context.read<ProfileCubit>().logout();

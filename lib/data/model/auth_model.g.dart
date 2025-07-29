@@ -10,7 +10,7 @@ _AuthModel _$AuthModelFromJson(Map<String, dynamic> json) => _AuthModel(
   accessToken: json['accessToken'] as String? ?? '',
   refreshToken: json['refreshToken'] as String? ?? '',
   tokenType: json['tokenType'] as String? ?? '',
-  expiresIn: json['expiresIn'] as String? ?? '',
+  expiresIn: (json['expiresIn'] as num?)?.toInt() ?? 0,
   user: json['user'] == null
       ? null
       : UserModel.fromJson(json['user'] as Map<String, dynamic>),

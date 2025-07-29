@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -50,8 +49,9 @@ class DialogUtils {
     }
   }
 
-  static void showErrorDialog({required BuildContext context, required String message}) {
+  static void showErrorDialog({required BuildContext context, required String message, Function? onClose}) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -77,6 +77,9 @@ class DialogUtils {
             InkWell(
               onTap: () {
                 AutoRouter.of(context).maybePop();
+                if (onClose != null) {
+                  onClose();
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),

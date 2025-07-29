@@ -1,17 +1,15 @@
 class UserEntity {
-  final String id;
-  final String keycloakId;
-  final String fullName;
-  final String email;
-  final String phone;
   final String avatar;
+  final String phone;
+  final String email;
+  final String fullName;
+  final List<String> roles;
 
   UserEntity({
-    required this.id,
-    required this.keycloakId,
-    required this.fullName,
-    required this.email,
-    required this.phone,
     required this.avatar,
+    required this.phone,
+    required this.email,
+    required this.fullName,
+    required this.roles,
   });
 }

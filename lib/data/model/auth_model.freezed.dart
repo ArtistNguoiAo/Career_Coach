@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthModel {
 
- String get accessToken; String get refreshToken; String get tokenType; String get expiresIn; UserModel? get user;
+ String get accessToken; String get refreshToken; String get tokenType; int get expiresIn; UserModel? get user;
 /// Create a copy of AuthModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AuthModelCopyWith<$Res>  {
   factory $AuthModelCopyWith(AuthModel value, $Res Function(AuthModel) _then) = _$AuthModelCopyWithImpl;
 @useResult
 $Res call({
- String accessToken, String refreshToken, String tokenType, String expiresIn, UserModel? user
+ String accessToken, String refreshToken, String tokenType, int expiresIn, UserModel? user
 });
 
 
@@ -71,7 +71,7 @@ accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: ca
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
-as String,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as int,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel?,
   ));
 }
@@ -169,7 +169,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  String expiresIn,  UserModel? user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel? user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthModel() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -190,7 +190,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  String expiresIn,  UserModel? user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel? user)  $default,) {final _that = this;
 switch (_that) {
 case _AuthModel():
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -210,7 +210,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  String tokenType,  String expiresIn,  UserModel? user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  String tokenType,  int expiresIn,  UserModel? user)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthModel() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn,_that.user);case _:
@@ -225,13 +225,13 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 @JsonSerializable()
 
 class _AuthModel implements AuthModel {
-  const _AuthModel({this.accessToken = '', this.refreshToken = '', this.tokenType = '', this.expiresIn = '', this.user});
+  const _AuthModel({this.accessToken = '', this.refreshToken = '', this.tokenType = '', this.expiresIn = 0, this.user});
   factory _AuthModel.fromJson(Map<String, dynamic> json) => _$AuthModelFromJson(json);
 
 @override@JsonKey() final  String accessToken;
 @override@JsonKey() final  String refreshToken;
 @override@JsonKey() final  String tokenType;
-@override@JsonKey() final  String expiresIn;
+@override@JsonKey() final  int expiresIn;
 @override final  UserModel? user;
 
 /// Create a copy of AuthModel
@@ -267,7 +267,7 @@ abstract mixin class _$AuthModelCopyWith<$Res> implements $AuthModelCopyWith<$Re
   factory _$AuthModelCopyWith(_AuthModel value, $Res Function(_AuthModel) _then) = __$AuthModelCopyWithImpl;
 @override @useResult
 $Res call({
- String accessToken, String refreshToken, String tokenType, String expiresIn, UserModel? user
+ String accessToken, String refreshToken, String tokenType, int expiresIn, UserModel? user
 });
 
 
@@ -290,7 +290,7 @@ accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: ca
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,tokenType: null == tokenType ? _self.tokenType : tokenType // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
-as String,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as int,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel?,
   ));
 }

@@ -27,7 +27,9 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({required String login, required String password, required bool rememberMe}) async {
     emit(LoginLoading());
     try {
-      await loginUseCase.call(login: login, password: password);
+      final authEntity = await loginUseCase.call(login: login, password: password);
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
       if (rememberMe) {
         await LocalCache.setString(StringCache.login, login);
         await LocalCache.setString(StringCache.password, password);
@@ -37,6 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
         await LocalCache.setString(StringCache.password, '');
         await LocalCache.setBool(StringCache.rememberMe, false);
       }
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
@@ -47,7 +50,10 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> loginWithGoogle() async {
     emit(LoginLoading());
     try {
-      await googleLoginUseCase.call();
+      final authEntity = await googleLoginUseCase.call();
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));
@@ -58,7 +64,10 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> loginWithGitHub(BuildContext context) async {
     try {
-      await githubLoginUseCase.call(context);
+      final authEntity = await githubLoginUseCase.call(context);
+      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
+      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(error: e.toString()));

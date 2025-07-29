@@ -10,14 +10,15 @@ class BaseDataSource {
   BaseDataSource._(this._dio);
 
   static Future<BaseDataSource> init() async {
-    final language = await LocalCache.getString(StringCache.language);
-    final token = await LocalCache.getString(StringCache.accessToken);
     final dio = Dio(
       BaseOptions(
         baseUrl: 'https://career-be.notarget.id.vn/api/v1',
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
-        headers: {'accept': '*/*', 'Accept-Language': language, 'Content-Type': 'application/json'},
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json',
+        },
       ),
     );
 
@@ -34,6 +35,53 @@ class BaseDataSource {
       ),
     );
 
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final language = await LocalCache.getString(StringCache.language);
+          options.headers['Accept-Language'] = language;
+          return handler.next(options);
+        },
+        onError: (DioException error, handler) async {
+          if (error.response?.statusCode == 401 &&
+              !error.requestOptions.path.contains('/auth/refresh')) {
+            try {
+              final newToken = await _refreshToken(dio);
+              if (newToken != null) {
+                await LocalCache.setString(StringCache.accessToken, newToken);
+
+                final clonedRequest = error.requestOptions;
+                clonedRequest.headers['Authorization'] = 'Bearer $newToken';
+
+                final response = await dio.fetch(clonedRequest);
+                return handler.resolve(response);
+              } else {
+                await LocalCache.clear();
+                return handler.reject(error);
+              }
+            } catch (e) {
+              if(e is DioException) {
+                await LocalCache.clear();
+                return handler.reject(
+                  DioException(
+                    requestOptions: error.requestOptions,
+                    error: ApiException(
+                      errorCode: e.response?.data['result']['errorCode'] ?? 'UNKNOWN_ERROR',
+                      message: e.response?.data['result']['message'] ?? 'An unknown error occurred',
+                      isOk: false,
+                      isUnauthorized: true,
+                    ),
+                  ),
+                );
+              }
+            }
+
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+
     return BaseDataSource._(dio);
   }
 
@@ -43,38 +91,15 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
-  }) async {
-    try {
-      final headers = await _buildHeaders(useToken);
-      final response = await _dio.get(
-        path,
-        queryParameters: queryParameters,
-        data: data,
-        options: Options(headers: headers),
-      );
-      return _handleResponse(response, fromJsonT);
-    } on DioException catch (e) {
-      if (e.response != null) {
-        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
-        throw ApiException(
-          errorCode: errorResponse.result.errorCode,
-          message: errorResponse.result.message,
-          isOk: errorResponse.result.isOk,
-        );
-      } else {
-        throw ApiException(
-          errorCode: 'UNKNOWN_ERROR',
-          message: e.message ?? 'An unknown error occurred',
-          isOk: false,
-        );
-      }
-    } catch (e) {
-      throw ApiException(
-        errorCode: 'UNKNOWN_ERROR',
-        message: e.toString(),
-        isOk: false,
-      );
-    }
+  }) {
+    return _request<T>(
+      method: 'GET',
+      path: path,
+      queryParameters: queryParameters,
+      data: data,
+      fromJsonT: fromJsonT,
+      useToken: useToken,
+    );
   }
 
   Future<T> post<T>(
@@ -83,38 +108,15 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
-  }) async {
-    try {
-      final headers = await _buildHeaders(useToken);
-      final response = await _dio.post(
-        path,
-        queryParameters: queryParameters,
-        data: data,
-        options: Options(headers: headers),
-      );
-      return _handleResponse<T>(response, fromJsonT);
-    } on DioException catch (e) {
-      if (e.response != null) {
-        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
-        throw ApiException(
-          errorCode: errorResponse.result.errorCode,
-          message: errorResponse.result.message,
-          isOk: errorResponse.result.isOk,
-        );
-      } else {
-        throw ApiException(
-          errorCode: 'UNKNOWN_ERROR',
-          message: e.message ?? 'An unknown error occurred',
-          isOk: false,
-        );
-      }
-    } catch (e) {
-      throw ApiException(
-        errorCode: 'UNKNOWN_ERROR',
-        message: e.toString(),
-        isOk: false,
-      );
-    }
+  }) {
+    return _request<T>(
+      method: 'POST',
+      path: path,
+      queryParameters: queryParameters,
+      data: data,
+      fromJsonT: fromJsonT,
+      useToken: useToken,
+    );
   }
 
   Future<T> put<T>(
@@ -123,38 +125,15 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
-  }) async {
-    try {
-      final headers = await _buildHeaders(useToken);
-      final response = await _dio.put(
-        path,
-        queryParameters: queryParameters,
-        data: data,
-        options: Options(headers: headers),
-      );
-      return _handleResponse<T>(response, fromJsonT);
-    } on DioException catch (e) {
-      if (e.response != null) {
-        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
-        throw ApiException(
-          errorCode: errorResponse.result.errorCode,
-          message: errorResponse.result.message,
-          isOk: errorResponse.result.isOk,
-        );
-      } else {
-        throw ApiException(
-          errorCode: 'UNKNOWN_ERROR',
-          message: e.message ?? 'An unknown error occurred',
-          isOk: false,
-        );
-      }
-    } catch (e) {
-      throw ApiException(
-        errorCode: 'UNKNOWN_ERROR',
-        message: e.toString(),
-        isOk: false,
-      );
-    }
+  }) {
+    return _request<T>(
+      method: 'PUT',
+      path: path,
+      queryParameters: queryParameters,
+      data: data,
+      fromJsonT: fromJsonT,
+      useToken: useToken,
+    );
   }
 
   Future<T> delete<T>(
@@ -163,31 +142,38 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+  }) {
+    return _request<T>(
+      method: 'DELETE',
+      path: path,
+      queryParameters: queryParameters,
+      data: data,
+      fromJsonT: fromJsonT,
+      useToken: useToken,
+    );
+  }
+
+  Future<T> _request<T>({
+    required String method,
+    required String path,
+    Map<String, dynamic>? queryParameters,
+    Object? data,
+    required T Function(dynamic json) fromJsonT,
+    bool useToken = true,
   }) async {
+    final headers = await _buildHeaders(useToken);
+
     try {
-      final headers = await _buildHeaders(useToken);
-      final response = await _dio.delete(
+      final response = await _dio.request(
         path,
         queryParameters: queryParameters,
         data: data,
-        options: Options(headers: headers),
+        options: Options(method: method, headers: headers),
       );
+
       return _handleResponse<T>(response, fromJsonT);
     } on DioException catch (e) {
-      if (e.response != null) {
-        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
-        throw ApiException(
-          errorCode: errorResponse.result.errorCode,
-          message: errorResponse.result.message,
-          isOk: errorResponse.result.isOk,
-        );
-      } else {
-        throw ApiException(
-          errorCode: 'UNKNOWN_ERROR',
-          message: e.message ?? 'An unknown error occurred',
-          isOk: false,
-        );
-      }
+      throw _handleError<T>(e, fromJsonT);
     } catch (e) {
       throw ApiException(
         errorCode: 'UNKNOWN_ERROR',
@@ -211,14 +197,59 @@ class BaseDataSource {
     return apiResponse.data;
   }
 
+  ApiException _handleError<T>(DioException e, T Function(dynamic) fromJsonT) {
+    if (e.response != null) {
+      try {
+        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
+        return ApiException(
+          errorCode: errorResponse.result.errorCode,
+          message: errorResponse.result.message,
+          isOk: errorResponse.result.isOk,
+        );
+      } catch (_) {
+        return ApiException(
+          errorCode: 'INVALID_RESPONSE',
+          message: 'Cannot parse error response',
+          isOk: false,
+        );
+      }
+    } else {
+      return ApiException(
+        errorCode: 'UNKNOWN_ERROR',
+        message: e.message ?? 'An unknown error occurred',
+        isOk: false,
+      );
+    }
+  }
+
+
   Future<Map<String, String>> _buildHeaders(bool useToken) async {
     final language = await LocalCache.getString(StringCache.language);
-    final headers = <String, String>{'accept': '*/*', 'Accept-Language': language, 'Content-Type': 'application/json'};
+    final headers = <String, String>{
+      'accept': '*/*',
+      'Accept-Language': language,
+      'Content-Type': 'application/json',
+    };
 
     if (useToken) {
       final token = await LocalCache.getString(StringCache.accessToken);
       headers['Authorization'] = 'Bearer $token';
     }
     return headers;
+  }
+
+  static Future<String?> _refreshToken(Dio dio) async {
+    final refreshToken = await LocalCache.getString(StringCache.refreshToken);
+
+    try {
+      final response = await dio.post('/auth/refresh', data: {
+        'refreshToken': refreshToken,
+      });
+
+      final newToken = response.data['data']['accessToken'];
+      return newToken;
+    } on DioException {
+      rethrow;
+    }
   }
 }

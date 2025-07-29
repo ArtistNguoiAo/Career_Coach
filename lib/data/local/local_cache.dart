@@ -24,11 +24,16 @@ class LocalCache {
   static Future<String> getString(String key) async {
     return _prefs?.getString(key) ?? '';
   }
+
+  static Future<void> clear() async {
+    await _prefs?.clear();
+  }
 }
 
 class StringCache {
   StringCache._();
 
+  static String isLoggedIn = 'cached_is_logged_in';
   static String theme = 'cached_theme';
   static String language = 'cached_language';
   static String login = 'cached_login';

@@ -16,7 +16,8 @@ class AuthDataSource {
     return await _baseDataSource.post<void>(
       '/auth/sign-up',
       data: registerRequestBody.toJson(),
-      fromJsonT: (json) => json['data'],
+      fromJsonT: (json) => json,
+      useToken: false,
     );
   }
 
@@ -24,32 +25,7 @@ class AuthDataSource {
     return await _baseDataSource.post<AuthModel>(
       '/auth/sign-in',
       data: loginRequestBody.toJson(),
-      fromJsonT: (json) {
-        if (json == null) return AuthModel();
-        final data = json['data'];
-        return data != null ? AuthModel.fromJson(data) : AuthModel();
-      },
-      useToken: false,
-    );
-  }
-
-  Future<void> logout({required LogoutRequestBody logoutRequestBody}) async {
-    return await _baseDataSource.post<void>(
-      '/auth/logout',
-      data: logoutRequestBody.toJson(),
-      fromJsonT: (json) => json['data'],
-    );
-  }
-
-  Future<AuthModel> refresh({required RefreshRequestBody refreshRequestBody}) async {
-    return await _baseDataSource.post<AuthModel>(
-      '/auth/refresh',
-      data: refreshRequestBody.toJson(),
-      fromJsonT: (json) {
-        if (json == null) return AuthModel();
-        final data = json['data'];
-        return data != null ? AuthModel.fromJson(data) : AuthModel();
-      },
+      fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
       useToken: false,
     );
   }
@@ -58,11 +34,24 @@ class AuthDataSource {
     return await _baseDataSource.post<AuthModel>(
       '/auth/token-exchange',
       data: providerLoginRequestBody.toJson(),
-      fromJsonT: (json) {
-        if (json == null) return AuthModel();
-        final data = json['data'];
-        return data != null ? AuthModel.fromJson(data) : AuthModel();
-      },
+      fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
+      useToken: false,
+    );
+  }
+
+  Future<void> logout({required LogoutRequestBody logoutRequestBody}) async {
+    return await _baseDataSource.post<void>(
+      '/auth/logout',
+      data: logoutRequestBody.toJson(),
+      fromJsonT: (json) => json,
+    );
+  }
+
+  Future<AuthModel> refresh({required RefreshRequestBody refreshRequestBody}) async {
+    return await _baseDataSource.post<AuthModel>(
+      '/auth/refresh',
+      data: refreshRequestBody.toJson(),
+      fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
       useToken: false,
     );
   }
