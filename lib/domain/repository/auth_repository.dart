@@ -1,4 +1,5 @@
 import 'package:career_coach/domain/entity/auth_entity.dart';
+import 'package:career_coach/domain/entity/user_entity.dart';
 
 abstract class AuthRepository {
   Future<void> register({
@@ -23,4 +24,6 @@ abstract class AuthRepository {
   Future<void> logout({
     required String refreshToken,
   });
+
+  Future<UserEntity> getProfile();
 }

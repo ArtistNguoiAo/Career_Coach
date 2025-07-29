@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if(state is ProfileLoaded) {
               return Column(
                 children: [
-                  _header(),
+                  _header(state.userEntity),
                   InkWell(
                     onTap: () {
                       context.read<ProfileCubit>().logout();
@@ -72,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _header() {
+  Widget _header(UserEntity userEntity) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -86,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: context.theme.backgroundColor
             ),
             child: BaseAvatar(
-              url: '',
+              url: userEntity.avatar,
               size: 100,
               padding: 16,
             ),
@@ -100,7 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                          'Le Quoc Trung',
+                          userEntity.fullName,
                           style: TextStyleUtils.bold(
                             fontSize: 18,
                             color: context.theme.backgroundColor,
@@ -128,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                        'toanquen13@gmail.com',
+                        userEntity.email,
                         style: TextStyleUtils.normal(
                           color: context.theme.backgroundColor,
                         )
@@ -144,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                        '0333982632',
+                        userEntity.phone,
                         style: TextStyleUtils.normal(
                           color: context.theme.backgroundColor,
                         )
@@ -158,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Text(
-                    'Tai khoan thuong',
+                    userEntity.roles.firstOrNull.toString(),
                     style: TextStyleUtils.normal(
                       color: context.theme.textColor,
                       fontSize: 12,

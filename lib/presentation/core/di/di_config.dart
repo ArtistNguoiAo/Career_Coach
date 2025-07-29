@@ -3,6 +3,7 @@ import 'package:career_coach/data/data_source/auth_data_source.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
+import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
@@ -32,5 +33,6 @@ class DiConfig {
     getIt.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCase(getIt.get()));
     getIt.registerLazySingleton<GitHubLoginUseCase>(() => GitHubLoginUseCase(getIt.get()));
     getIt.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetProfileUseCase>(() => GetProfileUseCase(getIt.get()));
   }
 }
