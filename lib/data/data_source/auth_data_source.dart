@@ -1,6 +1,5 @@
 import 'package:career_coach/data/api_response/base_data_source.dart';
 import 'package:career_coach/data/model/auth_model.dart';
-import 'package:career_coach/data/model/user_model.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/logout_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
@@ -54,13 +53,6 @@ class AuthDataSource {
       data: refreshRequestBody.toJson(),
       fromJsonT: (json) => json != null ? AuthModel.fromJson(json) : AuthModel(),
       useToken: false,
-    );
-  }
-
-  Future<UserModel> getProfile() async {
-    return await _baseDataSource.get<UserModel>(
-      '/auth/profile',
-      fromJsonT: (json) => json != null ? UserModel.fromJson(json) : UserModel(),
     );
   }
 }

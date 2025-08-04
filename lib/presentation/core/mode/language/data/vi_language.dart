@@ -114,4 +114,37 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get loading => 'Đang tải';
+
+  @override
+  String get manageCv => 'Quản lý CV';
+
+  @override
+  String get manageCl => 'Quản lý CL';
+
+  @override
+  String get accountSettings => 'Cài đặt tài khoản';
+
+  @override
+  String get upgradeToPremium => 'Nâng cấp lên Premium';
+
+  @override
+  String get changePassword => 'Đổi mật khẩu';
+
+  @override
+  String get deleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get logout => 'Đăng xuất';
+
+  @override
+  String get policyAndSupport => 'Chính sách & Hỗ trợ';
+
+  @override
+  String get appReview => 'Đánh giá ứng dụng';
+
+  @override
+  String get feedback => 'Phản hồi';
+
+  @override
+  String get checkForNewUpdate => 'Kiểm tra cập nhật mới';
 }

@@ -1,8 +1,11 @@
 import 'package:career_coach/data/api_response/base_data_source.dart';
 import 'package:career_coach/data/data_source/auth_data_source.dart';
+import 'package:career_coach/data/data_source/user_data_soure.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
+import 'package:career_coach/domain/repository/user_repository.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
@@ -23,9 +26,11 @@ class DiConfig {
 
     // data source
     getIt.registerLazySingleton<AuthDataSource>(() => AuthDataSource(getIt.get()));
+    getIt.registerLazySingleton<UserDataSource>(() => UserDataSource(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));

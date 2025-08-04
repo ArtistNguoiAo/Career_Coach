@@ -35,4 +35,15 @@ abstract class BaseLanguage {
   String get notUpdate;
   String get edit;
   String get loading;
+  String get manageCv;
+  String get manageCl;
+  String get accountSettings;
+  String get upgradeToPremium;
+  String get changePassword;
+  String get deleteAccount;
+  String get logout;
+  String get policyAndSupport;
+  String get appReview;
+  String get feedback;
+  String get checkForNewUpdate;
 }

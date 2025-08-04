@@ -1,12 +1,10 @@
 import 'package:career_coach/data/data_source/auth_data_source.dart';
 import 'package:career_coach/data/mapper/auth_mapper.dart';
-import 'package:career_coach/data/mapper/user_mapper.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/logout_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
 import 'package:career_coach/data/request_body/provider_login_request_body.dart';
 import 'package:career_coach/domain/entity/auth_entity.dart';
-import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -72,11 +70,4 @@ class AuthRepositoryImpl implements AuthRepository {
       ),
     );
   }
-
-  @override
-  Future<UserEntity> getProfile() async {
-    final userModel = await _authDataSource.getProfile();
-    return UserMapper.toEntity(userModel);
-  }
-
 }

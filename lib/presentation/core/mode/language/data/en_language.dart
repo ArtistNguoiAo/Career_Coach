@@ -114,4 +114,37 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get loading => 'Loading';
+
+  @override
+  String get manageCv => 'Manage CV';
+
+  @override
+  String get manageCl => 'Manage CL';
+
+  @override
+  String get accountSettings => 'Account Settings';
+
+  @override
+  String get upgradeToPremium => 'Upgrade to Premium';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get policyAndSupport => 'Policy & Support';
+
+  @override
+  String get appReview => 'App Review';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get checkForNewUpdate => 'Check for new update';
 }

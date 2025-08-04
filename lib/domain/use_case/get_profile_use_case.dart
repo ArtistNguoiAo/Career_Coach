@@ -1,12 +1,12 @@
 import 'package:career_coach/domain/entity/user_entity.dart';
-import 'package:career_coach/domain/repository/auth_repository.dart';
+import 'package:career_coach/domain/repository/user_repository.dart';
 
 class GetProfileUseCase {
-  final AuthRepository _authRepository;
+  final UserRepository _userRepository;
 
-  GetProfileUseCase(this._authRepository);
+  GetProfileUseCase(this._userRepository);
 
   Future<UserEntity> call() async {
-    return await _authRepository.getProfile();
+    return await _userRepository.getProfile();
   }
 }
