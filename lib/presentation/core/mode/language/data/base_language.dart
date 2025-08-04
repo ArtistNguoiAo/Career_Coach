@@ -46,4 +46,8 @@ abstract class BaseLanguage {
   String get appReview;
   String get feedback;
   String get checkForNewUpdate;
+  String get profileUpdate;
+  String get chooseImage;
+  String get fromGallery;
+  String get fromCamera;
 }

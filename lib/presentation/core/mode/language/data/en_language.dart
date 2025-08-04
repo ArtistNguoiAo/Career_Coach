@@ -147,4 +147,16 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get checkForNewUpdate => 'Check for new update';
+
+  @override
+  String get profileUpdate => 'Update Profile';
+
+  @override
+  String get chooseImage => 'Choose Image';
+
+  @override
+  String get fromGallery => 'From Gallery';
+
+  @override
+  String get fromCamera => 'From Camera';
 }

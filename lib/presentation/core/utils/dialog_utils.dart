@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DialogUtils {
@@ -99,6 +103,103 @@ class DialogUtils {
             ),
           ],
         );
+      },
+    );
+  }
+
+  static void showChooseImageDialog({required BuildContext context, required Function(File?) onClose}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          content: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Text(
+                  context.language.chooseImage,
+                  style: TextStyleUtils.bold(
+                    fontSize: 18,
+                    color: context.theme.textColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  AutoRouter.of(context).maybePop();
+                },
+                child: Icon(
+                  FontAwesomeIcons.circleXmark,
+                  size: 24,
+                  color: context.theme.iconFeatureColor,
+                ),
+              )
+            ],
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(true);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: context.theme.primaryColor),
+                  color: context.theme.primaryColor,
+                ),
+                child: Text(
+                  context.language.fromCamera,
+                  style: TextStyleUtils.normal(
+                    fontSize: 16,
+                    color: context.theme.backgroundColor,
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(false);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: context.theme.primaryColor),
+                  color: context.theme.primaryColor,
+                ),
+                child: Text(
+                  context.language.fromGallery,
+                  style: TextStyleUtils.normal(
+                    fontSize: 16,
+                    color: context.theme.backgroundColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then(
+      (value) async {
+        if (value != null && value is bool) {
+          final ImagePicker picker = ImagePicker();
+          final XFile? image;
+          if (value) {
+            image = await picker.pickImage(source: ImageSource.camera);
+          } else {
+            image = await picker.pickImage(source: ImageSource.gallery);
+          }
+          if (image != null) {
+            final File file = File(image.path);
+            onClose(file);
+          } else {
+            onClose(null);
+          }
+        }
       },
     );
   }

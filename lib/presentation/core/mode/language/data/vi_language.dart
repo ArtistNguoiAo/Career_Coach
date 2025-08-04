@@ -147,4 +147,16 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get checkForNewUpdate => 'Kiểm tra cập nhật mới';
+
+  @override
+  String get profileUpdate => 'Cập nhật hồ sơ';
+
+  @override
+  String get chooseImage => 'Chọn hình ảnh';
+
+  @override
+  String get fromGallery => 'Từ thư viện';
+
+  @override
+  String get fromCamera => 'Từ camera';
 }
