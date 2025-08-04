@@ -5,7 +5,11 @@ sealed class ProfileState {}
 
 final class ProfileInitial extends ProfileState {}
 
-final class ProfileLoaded extends ProfileState {}
+final class ProfileLoaded extends ProfileState {
+  final UserEntity userEntity;
+
+  ProfileLoaded({required this.userEntity});
+}
 
 final class ProfileLogoutSuccess extends ProfileState {}
 

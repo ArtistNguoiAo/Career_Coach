@@ -8,13 +8,14 @@ class TextStyleUtils {
     double fontSize = 16,
     Color? color,
     TextDecoration decoration = TextDecoration.none,
+    String? fontFamily,
   }) {
     return TextStyle(
       fontSize: fontSize,
       color: color,
       fontWeight: FontWeight.w400,
       decoration: decoration,
-      fontFamily: FontUtils.nunito,
+      fontFamily: fontFamily ?? FontUtils.roboto,
     );
   }
 
@@ -22,13 +23,14 @@ class TextStyleUtils {
     double fontSize = 16,
     Color? color,
     TextDecoration decoration = TextDecoration.none,
+    String? fontFamily,
   }) {
     return TextStyle(
       fontSize: fontSize,
       color: color,
       fontWeight: FontWeight.w700,
       decoration: decoration,
-      fontFamily: FontUtils.nunito,
+      fontFamily: fontFamily ?? FontUtils.roboto,
     );
   }
 }

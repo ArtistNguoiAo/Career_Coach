@@ -32,4 +32,13 @@ class DarkTheme extends BaseTheme {
 
   @override
   Color get typeAccountColor => const Color(0xFFEBEBEB);
+
+  @override
+  Color get primaryDarkColor => const Color(0xFF006846);
+
+  @override
+  Color get iconFeatureColor => const Color(0xFF9E9E9E);
+
+  @override
+  Color get premiumColor => const Color(0xFFFFDD00);
 }

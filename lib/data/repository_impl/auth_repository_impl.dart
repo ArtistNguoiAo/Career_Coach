@@ -7,8 +7,6 @@ import 'package:career_coach/data/request_body/provider_login_request_body.dart'
 import 'package:career_coach/domain/entity/auth_entity.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 
-import '../local/local_cache.dart';
-
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource _authDataSource;
   AuthRepositoryImpl(this._authDataSource);

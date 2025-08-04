@@ -53,6 +53,7 @@ flutter:
     - assets/icons/
 
   fonts:
-    - family: Nunito
+    - family: Roboto
       fonts:
-        - asset: assets/fonts/nunito.ttf
+        - asset: assets/fonts/roboto.ttf
+

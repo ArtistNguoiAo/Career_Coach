@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_avatar.dart';
 import 'package:career_coach/presentation/screen/over_view/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iconly/iconly.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -28,68 +29,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (state is ProfileLogoutSuccess) {
               context.router.replaceAll([const LoginRoute()]);
             }
+            if (state is ProfileError) {
+              DialogUtils.showErrorDialog(
+                context: context,
+                message: state.error,
+              );
+            }
           },
           builder: (context, state) {
-            if(state is ProfileLoaded) {
-              return Column(
+            return Container(
+              color: context.theme.backgroundColor,
+              child: Column(
                 children: [
-                  _header(),
-                  InkWell(
-                    onTap: () {
-                      context.read<ProfileCubit>().logout();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: context.theme.backgroundColor,
-                        borderRadius: BorderRadius.circular(8),
+                  if (state is ProfileLoaded) ...[
+                    _header(state.userEntity),
+                  ] else ...[
+                    _header(
+                      UserEntity(
+                        fullName: "",
+                        email: "",
+                        phone: "",
+                        avatar: "",
+                        roles: [],
                       ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconlyLight.setting,
-                            color: context.theme.textColor,
+                    ),
+                  ],
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _featureProfile(),
+                        Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(vertical: 16),
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: context.theme.typeAccountColor,
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            "Logout",
+                          child: Text(
+                            '${context.language.version}: 1.0.0',
                             style: TextStyleUtils.normal(
-                              fontSize: 16,
                               color: context.theme.textColor,
                             ),
-                          )
-                        ],
-                      ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        _logoutButton(),
+                      ],
                     ),
                   )
                 ],
-              );
-            }
-            return Container();
+              ),
+            );
           },
         ),
       ),
     );
   }
 
-  Widget _header() {
+  Widget _header(UserEntity userEntity) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: context.theme.primaryColor,
-      ),
+      decoration: BoxDecoration(color: context.theme.primaryColor),
       child: Row(
         children: [
           Container(
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: context.theme.backgroundColor
+              shape: BoxShape.circle,
+              color: context.theme.backgroundColor,
             ),
-            child: BaseAvatar(
-              url: '',
-              size: 100,
-              padding: 16,
-            ),
+            child: BaseAvatar(url: userEntity.avatar, size: 100, padding: 16),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -100,17 +108,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                          'Le Quoc Trung',
-                          style: TextStyleUtils.bold(
-                            fontSize: 18,
-                            color: context.theme.backgroundColor,
-                          )
+                        userEntity.fullName,
+                        style: TextStyleUtils.bold(
+                          fontSize: 18,
+                          color: context.theme.backgroundColor,
+                        ),
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                       child: Icon(
                         FontAwesomeIcons.penToSquare,
                         color: context.theme.backgroundColor,
@@ -128,10 +134,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                        'toanquen13@gmail.com',
-                        style: TextStyleUtils.normal(
-                          color: context.theme.backgroundColor,
-                        )
+                      userEntity.email,
+                      style: TextStyleUtils.normal(
+                        color: context.theme.backgroundColor,
+                      ),
                     ),
                   ],
                 ),
@@ -144,10 +150,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                        '0333982632',
-                        style: TextStyleUtils.normal(
-                          color: context.theme.backgroundColor,
-                        )
+                      userEntity.phone,
+                      style: TextStyleUtils.normal(
+                        color: context.theme.backgroundColor,
+                      ),
                     ),
                   ],
                 ),
@@ -158,27 +164,206 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Text(
-                    'Tai khoan thuong',
+                    userEntity.roles.firstOrNull.toString(),
                     style: TextStyleUtils.normal(
                       color: context.theme.textColor,
                       fontSize: 12,
                     ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _basicProfile({
-    required String title,
-    required List<String> values,
-  }) {
+  Widget _featureProfile() {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _basicProfile(
+            title: context.language.workExperience,
+            values: ["5 years", "2 years", "1 year"],
+          ),
+          SizedBox(height: 8),
+          _basicProfile(
+            title: context.language.professionalPosition,
+            values: [],
+          ),
+          Container(
+            height: 1,
+            color: context.theme.borderColor,
+            margin: EdgeInsets.symmetric(vertical: 16),
+          ),
+          _manageCvAndCl(),
+          Container(
+            height: 1,
+            color: context.theme.borderColor,
+            margin: EdgeInsets.symmetric(vertical: 16),
+          ),
+          Text(
+            context.language.accountSettings,
+            style: TextStyleUtils.bold(
+              fontSize: 16,
+              color: context.theme.textColor,
+            ),
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.crown,
+            iconColor: context.theme.premiumColor,
+            title: context.language.upgradeToPremium,
+            onTap: () {},
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.key,
+            title: context.language.changePassword,
+            onTap: () {},
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.ban,
+            title: context.language.deleteAccount,
+            onTap: () {},
+          ),
+          Container(
+            height: 1,
+            color: context.theme.borderColor,
+            margin: EdgeInsets.symmetric(vertical: 16),
+          ),
+          Text(
+            context.language.policyAndSupport,
+            style: TextStyleUtils.bold(
+              fontSize: 16,
+              color: context.theme.textColor,
+            ),
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.thumbsUp,
+            title: context.language.appReview,
+            onTap: () {},
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.reply,
+            title: context.language.feedback,
+            onTap: () {},
+          ),
+          _featureProfileItem(
+            icon: FontAwesomeIcons.rotate,
+            title: context.language.checkForNewUpdate,
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _manageCvAndCl() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.theme.typeAccountColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: context.theme.backgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    FontAwesomeIcons.briefcase,
+                    color: context.theme.primaryColor,
+                    size: 16,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        context.language.manageCv,
+                        style: TextStyleUtils.bold(
+                          fontSize: 16,
+                          color: context.theme.textColor,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "0",
+                      style: TextStyleUtils.bold(
+                        fontSize: 24,
+                        color: context.theme.primaryDarkColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.theme.typeAccountColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: context.theme.backgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    FontAwesomeIcons.briefcase,
+                    color: context.theme.primaryColor,
+                    size: 16,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        context.language.manageCl,
+                        style: TextStyleUtils.bold(
+                          fontSize: 16,
+                          color: context.theme.textColor,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "0",
+                      style: TextStyleUtils.bold(
+                        fontSize: 24,
+                        color: context.theme.primaryDarkColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _basicProfile({required String title, required List<String> values}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           children: [
@@ -192,9 +377,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Text(
                 context.language.edit,
                 style: TextStyleUtils.bold(
@@ -202,10 +385,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: context.theme.primaryColor,
                 ),
               ),
-            )
+            ),
           ],
         ),
-        if(values.isEmpty)...[
+        if (values.isEmpty) ...[
           Text(
             context.language.notUpdate,
             style: TextStyleUtils.normal(
@@ -213,32 +396,103 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: context.theme.textColor,
             ),
           ),
-        ]
-        else
-          ...[
-            ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    values[index],
-                    style: TextStyleUtils.normal(
-                      fontSize: 16,
-                      color: context.theme.primaryColor,
+        ] else ...[
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(values.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.theme.primaryColor.withAlpha(
+                        (255 * 0.1).round(),
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      values[index],
+                      style: TextStyleUtils.normal(
+                        fontSize: 16,
+                        color: context.theme.primaryColor,
+                      ),
                     ),
                   ),
                 );
-              },
-              separatorBuilder: (_, __) => const SizedBox(width: 4),
-              itemCount: values.length,
-            )
-          ]
+              }),
+            ),
+          ),
+        ],
       ],
+    );
+  }
+
+  Widget _featureProfileItem({
+    required IconData icon,
+    Color? iconColor,
+    required String title,
+    required Function() onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.only(top: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              color: iconColor ?? context.theme.iconFeatureColor,
+              size: 20,
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyleUtils.normal(
+                  color: context.theme.textColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              FontAwesomeIcons.chevronRight,
+              color: context.theme.iconFeatureColor,
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _logoutButton() {
+    return InkWell(
+      onTap: () {
+        context.read<ProfileCubit>().logout();
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            context.language.logout,
+            style: TextStyleUtils.bold(
+              color: context.theme.primaryDarkColor,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Icon(
+            FontAwesomeIcons.arrowRightFromBracket,
+            color: context.theme.primaryDarkColor,
+            size: 20,
+          ),
+        ],
+      ),
     );
   }
 }

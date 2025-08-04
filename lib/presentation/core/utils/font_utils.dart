@@ -1,5 +1,5 @@
 class FontUtils {
   FontUtils._();
 
-  static const String nunito = 'Nunito';
+  static const String roboto = 'Roboto';
 }

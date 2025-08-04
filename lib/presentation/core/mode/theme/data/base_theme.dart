@@ -9,4 +9,7 @@ abstract class BaseTheme {
   Color get mediumColor;
   Color get badColor;
   Color get typeAccountColor;
+  Color get primaryDarkColor;
+  Color get iconFeatureColor;
+  Color get premiumColor;
 }
