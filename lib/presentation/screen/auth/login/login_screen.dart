@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginError) {
           DialogUtils.hideLoadingDialog(context);
-          DialogUtils.showErrorDialog(context: context, message: state.error);
+          DialogUtils.showErrorDialog(context: context, message: state.message);
         }
       },
       builder: (context, state) {

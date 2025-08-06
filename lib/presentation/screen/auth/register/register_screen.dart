@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/auth_background.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
@@ -49,7 +50,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _registerForm() {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-
+        if (state is RegisterSuccess) {
+          DialogUtils.hideLoadingDialog(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Registration successful! Please log in.",
+                style: TextStyleUtils.normal(
+                    color: context.theme.backgroundColor,
+                    fontSize: 12
+                ),
+              ),
+              backgroundColor: context.theme.goodColor,
+              duration: const Duration(seconds: 1),
+            ),
+          );
+        }
+        if (state is RegisterLoading) {
+          DialogUtils.showLoadingDialog(context);
+        }
+        if (state is RegisterError) {
+          DialogUtils.hideLoadingDialog(context);
+          DialogUtils.showErrorDialog(context: context, message: state.message);
+        }
       },
       builder: (context, state) {
         return Column(

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:career_coach/data/api_response/api_exception.dart';
+import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
@@ -42,7 +42,7 @@ class LoginCubit extends Cubit<LoginState> {
       await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
-      emit(LoginError(error: e.toString()));
+      emit(LoginError(message: e.toString()));
       emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
     }
   }
@@ -56,9 +56,9 @@ class LoginCubit extends Cubit<LoginState> {
       await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
-      emit(LoginError(error: e.toString()));
+      emit(LoginError(message: e.toString()));
     } catch (e) {
-      emit(LoginError(error: 'Google Sign In failed: ${e.toString()}'));
+      emit(LoginError(message: 'Google Sign In failed: ${e.toString()}'));
     }
   }
 
@@ -70,9 +70,9 @@ class LoginCubit extends Cubit<LoginState> {
       await LocalCache.setBool(StringCache.isLoggedIn, true);
       emit(LoginSuccess());
     } on ApiException catch (e) {
-      emit(LoginError(error: e.toString()));
+      emit(LoginError(message: e.toString()));
     } catch (e) {
-      emit(LoginError(error: 'GitHub Sign In failed: ${e.toString()}'));
+      emit(LoginError(message: 'GitHub Sign In failed: ${e.toString()}'));
     }
   }
 }

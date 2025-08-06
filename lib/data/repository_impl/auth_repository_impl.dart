@@ -1,5 +1,5 @@
-import 'package:career_coach/data/data_source/auth_data_source.dart';
 import 'package:career_coach/data/mapper/auth_mapper.dart';
+import 'package:career_coach/data/remote/auth_remote.dart';
 import 'package:career_coach/data/request_body/login_request_body.dart';
 import 'package:career_coach/data/request_body/logout_request_body.dart';
 import 'package:career_coach/data/request_body/register_request_body.dart';
@@ -8,8 +8,8 @@ import 'package:career_coach/domain/entity/auth_entity.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthDataSource _authDataSource;
-  AuthRepositoryImpl(this._authDataSource);
+  final AuthRemote _authRemote;
+  AuthRepositoryImpl(this._authRemote);
 
   @override
   Future<void> register({
@@ -19,7 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String avatar,
   }) async {
-    return await _authDataSource.register(
+    final response = await _authRemote.register(
       registerRequestBody: RegisterRequestBody(
         fullName: fullName,
         email: email,
@@ -28,6 +28,8 @@ class AuthRepositoryImpl implements AuthRepository {
         avatar: avatar,
       ),
     );
+    print("TrungLQ: register response: ${response}");
+    return response.data;
   }
 
   @override
@@ -35,13 +37,13 @@ class AuthRepositoryImpl implements AuthRepository {
     required String login,
     required String password,
   }) async {
-    final authModel = await _authDataSource.login(
+    final response = await _authRemote.login(
       loginRequestBody: LoginRequestBody(
         login: login,
         password: password,
       ),
     );
-    return AuthMapper.toEntity(authModel);
+    return AuthMapper.toEntity(response.data);
   }
 
   @override
@@ -50,24 +52,25 @@ class AuthRepositoryImpl implements AuthRepository {
     required String provider,
     required String deviceInfo,
   }) async {
-    final authModel = await _authDataSource.loginWithProvider(
+    final response = await _authRemote.loginWithProvider(
       providerLoginRequestBody: ProviderLoginRequestBody(
         externalToken: externalToken,
         provider: provider,
         deviceInfo: deviceInfo,
       ),
     );
-    return AuthMapper.toEntity(authModel);
+    return AuthMapper.toEntity(response.data);
   }
 
   @override
   Future<void> logout({
     required String refreshToken,
   }) async {
-    return await _authDataSource.logout(
+    final response = await _authRemote.logout(
       logoutRequestBody: LogoutRequestBody(
         refreshToken: refreshToken,
       ),
     );
+    return response.data;
   }
 }

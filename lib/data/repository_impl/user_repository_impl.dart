@@ -1,28 +1,28 @@
 import 'dart:io';
 
-import 'package:career_coach/data/data_source/user_data_soure.dart';
 import 'package:career_coach/data/mapper/user_mapper.dart';
+import 'package:career_coach/data/remote/user_remote.dart';
 import 'package:career_coach/data/request_body/update_avatar_request_body.dart';
 import 'package:career_coach/data/request_body/update_profile_request_body.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final UserDataSource _userDataSource;
-  UserRepositoryImpl(this._userDataSource);
+  final UserRemote _userRemote;
+  UserRepositoryImpl(this._userRemote);
 
   @override
   Future<UserEntity> getProfile() async {
-    final userModel = await _userDataSource.getProfile();
-    return UserMapper.toEntity(userModel);
+    final response = await _userRemote.getProfile();
+    return UserMapper.toEntity(response.data);
   }
 
   @override
   Future<UserEntity> updateAvatar(File avatar) async {
-    final userModel = await _userDataSource.updateAvatar(
+    final response = await _userRemote.updateAvatar(
       updateAvatarRequestBody: UpdateAvatarRequestBody(avatar: avatar),
     );
-    return UserMapper.toEntity(userModel);
+    return UserMapper.toEntity(response.data);
   }
 
   @override
@@ -31,13 +31,13 @@ class UserRepositoryImpl implements UserRepository {
     required String email,
     required String phone,
   }) async {
-    final userModel = await _userDataSource.updateProfile(
+    final response = await _userRemote.updateProfile(
       updateProfileRequestBody: UpdateProfileRequestBody(
         fullName: fullName,
         email: email,
         phone: phone,
       ),
     );
-    return UserMapper.toEntity(userModel);
+    return UserMapper.toEntity(response.data);
   }
 }
