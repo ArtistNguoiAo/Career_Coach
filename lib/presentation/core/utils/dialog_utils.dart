@@ -203,4 +203,103 @@ class DialogUtils {
       },
     );
   }
+
+  static void showWarningChangeDialog({required BuildContext context, required Function(bool) onClose}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: context.theme.backgroundColor,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Text(
+                      context.language.cancelChange,
+                      style: TextStyleUtils.bold(
+                        fontSize: 18,
+                        color: context.theme.textColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      AutoRouter.of(context).maybePop();
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.circleXmark,
+                      size: 24,
+                      color: context.theme.iconFeatureColor,
+                    ),
+                  )
+                ],
+              ),
+              Text(
+                context.language.contentCancelChange,
+                style: TextStyleUtils.normal(
+                  fontSize: 16,
+                  color: context.theme.textColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        AutoRouter.of(context).maybePop(true);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: context.theme.lightGreyColor,
+                        ),
+                        child: Text(
+                          context.language.continueChange,
+                          style: TextStyleUtils.bold(
+                            fontSize: 16,
+                            color: context.theme.textColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        AutoRouter.of(context).maybePop(false);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: context.theme.badColor.withAlpha((255 * 0.1).round())
+                        ),
+                        child: Text(
+                          context.language.cancelChange2,
+                          style: TextStyleUtils.bold(
+                            fontSize: 16,
+                            color: context.theme.badColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    ).then((value) async {
+
+      },
+    );
+  }
 }

@@ -13,6 +13,7 @@ import 'package:career_coach/domain/use_case/register_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
+import 'package:career_coach/domain/use_case/update_profile_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -41,5 +42,6 @@ class DiConfig {
     getIt.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(getIt.get()));
     getIt.registerLazySingleton<GetProfileUseCase>(() => GetProfileUseCase(getIt.get()));
     getIt.registerLazySingleton<UpdateAvatarUseCase>(() => UpdateAvatarUseCase(getIt.get()));
+    getIt.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(getIt.get()));
   }
 }

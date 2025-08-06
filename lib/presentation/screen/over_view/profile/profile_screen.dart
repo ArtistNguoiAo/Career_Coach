@@ -132,12 +132,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: () {
                         AutoRouter.of(
                           context,
-                        ).push(ProfileUpdateRoute(userEntity: userEntity));
+                        ).push(ProfileUpdateRoute(userEntity: userEntity)).then(
+                          (value) {
+                            context.read<ProfileCubit>().init();
+                          },
+                        );
                       },
                       child: Icon(
                         FontAwesomeIcons.penToSquare,
                         color: context.theme.backgroundColor,
-                        size: 16,
+                        size: 20,
                       ),
                     ),
                   ],

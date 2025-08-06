@@ -12,4 +12,5 @@ abstract class BaseTheme {
   Color get primaryDarkColor;
   Color get iconFeatureColor;
   Color get premiumColor;
+  Color get lightGreyColor;
 }

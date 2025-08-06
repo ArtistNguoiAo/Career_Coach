@@ -159,4 +159,22 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get fromCamera => 'Từ camera';
+
+  @override
+  String get save => 'Lưu';
+
+  @override
+  String get updateProfileSuccess => 'Cập nhật hồ sơ thành công';
+
+  @override
+  String get cancelChange => 'Hủy thay đổi';
+
+  @override
+  String get contentCancelChange => 'Các thay đổi của bạn có thể không được lưu. Bạn có chắc muốn huỷ bỏ tất cả các thay đổi không?';
+
+  @override
+  String get continueChange => 'Tiếp tục sửa';
+
+  @override
+  String get cancelChange2 => 'Hủy bỏ thay đổi';
 }

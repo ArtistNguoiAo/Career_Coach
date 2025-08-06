@@ -41,4 +41,7 @@ class DarkTheme extends BaseTheme {
 
   @override
   Color get premiumColor => const Color(0xFFFFDD00);
+
+  @override
+  Color get lightGreyColor => const Color(0xFFF5F5F5);
 }

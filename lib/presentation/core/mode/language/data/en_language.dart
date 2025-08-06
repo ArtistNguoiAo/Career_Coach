@@ -159,4 +159,22 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get fromCamera => 'From Camera';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get updateProfileSuccess => 'Profile updated successfully';
+
+  @override
+  String get cancelChange => 'Cancel Change';
+
+  @override
+  String get contentCancelChange => 'Your changes may not be saved. Are you sure you want to discard all changes?';
+
+  @override
+  String get continueChange => 'Continue Change';
+
+  @override
+  String get cancelChange2 => 'Cancel Change';
 }

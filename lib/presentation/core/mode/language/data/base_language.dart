@@ -50,4 +50,10 @@ abstract class BaseLanguage {
   String get chooseImage;
   String get fromGallery;
   String get fromCamera;
+  String get save;
+  String get updateProfileSuccess;
+  String get cancelChange;
+  String get contentCancelChange;
+  String get continueChange;
+  String get cancelChange2;
 }
