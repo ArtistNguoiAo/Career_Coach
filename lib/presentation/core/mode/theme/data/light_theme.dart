@@ -40,5 +40,8 @@ class LightTheme extends BaseTheme {
   Color get iconFeatureColor => const Color(0xFF9E9E9E);
 
   @override
-  Color get premiumColor => const Color(0xFFFFDD00); // Gold color for premium features
+  Color get premiumColor => const Color(0xFFFFDD00);
+
+  @override
+  Color get lightGreyColor => const Color(0xFFF5F5F5);
 }

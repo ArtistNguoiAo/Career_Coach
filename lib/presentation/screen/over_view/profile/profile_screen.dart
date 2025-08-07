@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   if (state is ProfileLoaded) ...[
-                    _header(state.userEntity),
+                    _header(state.userEntity, context),
                   ] else ...[
                     _header(
                       UserEntity(
@@ -52,6 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         avatar: "",
                         roles: [],
                       ),
+                      context,
                     ),
                   ],
                   SingleChildScrollView(
@@ -73,10 +74,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        _logoutButton(),
+                        _logoutButton(context),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             );
@@ -86,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _header(UserEntity userEntity) {
+  Widget _header(UserEntity userEntity, BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(color: context.theme.primaryColor),
@@ -97,7 +98,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               shape: BoxShape.circle,
               color: context.theme.backgroundColor,
             ),
-            child: BaseAvatar(url: userEntity.avatar, size: 100, padding: 16),
+            child: BaseAvatar(
+              url: userEntity.avatar,
+              size: 100,
+              padding: 16,
+              onTap: () {
+                DialogUtils.showChooseImageDialog(
+                  context: context,
+                  onClose: (avatar) {
+                    context.read<ProfileCubit>().updateAvatar(avatar);
+                  },
+                );
+              },
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -116,11 +129,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        AutoRouter.of(
+                          context,
+                        ).push(ProfileUpdateRoute(userEntity: userEntity)).then(
+                          (value) {
+                            context.read<ProfileCubit>().init();
+                          },
+                        );
+                      },
                       child: Icon(
                         FontAwesomeIcons.penToSquare,
                         color: context.theme.backgroundColor,
-                        size: 16,
+                        size: 20,
                       ),
                     ),
                   ],
@@ -471,7 +492,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _logoutButton() {
+  Widget _logoutButton(BuildContext context) {
     return InkWell(
       onTap: () {
         context.read<ProfileCubit>().logout();
@@ -481,9 +502,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Text(
             context.language.logout,
-            style: TextStyleUtils.bold(
-              color: context.theme.primaryDarkColor,
-            ),
+            style: TextStyleUtils.bold(color: context.theme.primaryDarkColor),
           ),
           const SizedBox(width: 8),
           Icon(

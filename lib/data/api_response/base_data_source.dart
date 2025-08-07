@@ -15,10 +15,7 @@ class BaseDataSource {
         baseUrl: 'https://career-be.notarget.id.vn/api/v1',
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
-        headers: {
-          'accept': '*/*',
-          'Content-Type': 'application/json',
-        },
+        headers: {'accept': '*/*'},
       ),
     );
 
@@ -60,14 +57,18 @@ class BaseDataSource {
                 return handler.reject(error);
               }
             } catch (e) {
-              if(e is DioException) {
+              if (e is DioException) {
                 await LocalCache.clear();
                 return handler.reject(
                   DioException(
                     requestOptions: error.requestOptions,
                     error: ApiException(
-                      errorCode: e.response?.data['result']['errorCode'] ?? 'UNKNOWN_ERROR',
-                      message: e.response?.data['result']['message'] ?? 'An unknown error occurred',
+                      errorCode:
+                          e.response?.data['result']['errorCode'] ??
+                          'UNKNOWN_ERROR',
+                      message:
+                          e.response?.data['result']['message'] ??
+                          'An unknown error occurred',
                       isOk: false,
                       isUnauthorized: true,
                     ),
@@ -75,7 +76,6 @@ class BaseDataSource {
                 );
               }
             }
-
           }
           return handler.next(error);
         },
@@ -91,6 +91,7 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+    bool isFormData = false,
   }) {
     return _request<T>(
       method: 'GET',
@@ -99,6 +100,7 @@ class BaseDataSource {
       data: data,
       fromJsonT: fromJsonT,
       useToken: useToken,
+      isFormData: isFormData,
     );
   }
 
@@ -108,6 +110,7 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+    bool isFormData = false,
   }) {
     return _request<T>(
       method: 'POST',
@@ -116,6 +119,7 @@ class BaseDataSource {
       data: data,
       fromJsonT: fromJsonT,
       useToken: useToken,
+      isFormData: isFormData,
     );
   }
 
@@ -125,6 +129,7 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+    bool isFormData = false,
   }) {
     return _request<T>(
       method: 'PUT',
@@ -133,6 +138,7 @@ class BaseDataSource {
       data: data,
       fromJsonT: fromJsonT,
       useToken: useToken,
+      isFormData: isFormData,
     );
   }
 
@@ -142,6 +148,7 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+    bool isFormData = false,
   }) {
     return _request<T>(
       method: 'DELETE',
@@ -150,6 +157,7 @@ class BaseDataSource {
       data: data,
       fromJsonT: fromJsonT,
       useToken: useToken,
+      isFormData: isFormData,
     );
   }
 
@@ -160,8 +168,12 @@ class BaseDataSource {
     Object? data,
     required T Function(dynamic json) fromJsonT,
     bool useToken = true,
+    bool isFormData = false,
   }) async {
-    final headers = await _buildHeaders(useToken);
+    final headers = await _buildHeaders(
+      useToken: useToken,
+      isFormData: isFormData,
+    );
 
     try {
       final response = await _dio.request(
@@ -200,7 +212,10 @@ class BaseDataSource {
   ApiException _handleError<T>(DioException e, T Function(dynamic) fromJsonT) {
     if (e.response != null) {
       try {
-        final errorResponse = ApiResponse<T>.fromJson(e.response!.data, fromJsonT);
+        final errorResponse = ApiResponse<T>.fromJson(
+          e.response!.data,
+          fromJsonT,
+        );
         return ApiException(
           errorCode: errorResponse.result.errorCode,
           message: errorResponse.result.message,
@@ -222,13 +237,15 @@ class BaseDataSource {
     }
   }
 
-
-  Future<Map<String, String>> _buildHeaders(bool useToken) async {
+  Future<Map<String, String>> _buildHeaders({
+    required bool useToken,
+    required bool isFormData,
+  }) async {
     final language = await LocalCache.getString(StringCache.language);
     final headers = <String, String>{
       'accept': '*/*',
       'Accept-Language': language,
-      'Content-Type': 'application/json',
+      'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
     };
 
     if (useToken) {
@@ -242,9 +259,10 @@ class BaseDataSource {
     final refreshToken = await LocalCache.getString(StringCache.refreshToken);
 
     try {
-      final response = await dio.post('/auth/refresh', data: {
-        'refreshToken': refreshToken,
-      });
+      final response = await dio.post(
+        '/auth/refresh',
+        data: {'refreshToken': refreshToken},
+      );
 
       final newToken = response.data['data']['accessToken'];
       return newToken;
