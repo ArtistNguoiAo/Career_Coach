@@ -177,4 +177,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get cancelChange2 => 'Cancel Change';
+
+  @override
+  String get passwordNotMatch => 'Password does not match';
+
+  @override
+  String get registerSuccess => 'Register success';
 }

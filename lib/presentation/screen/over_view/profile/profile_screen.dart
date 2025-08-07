@@ -134,7 +134,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context,
                         ).push(ProfileUpdateRoute(userEntity: userEntity)).then(
                           (value) {
-                            context.read<ProfileCubit>().init();
+                            if (value == true) {
+                              context.read<ProfileCubit>().init();
+                            }
                           },
                         );
                       },

@@ -23,7 +23,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       final userEntity = await getProfileUseCase.call();
       emit(ProfileLoaded(userEntity: userEntity));
-    } on ApiException catch (e) {
+    }
+    on ApiException catch (e) {
+      emit(ProfileError(error: e.toString()));
+    }
+    catch (e) {
       emit(ProfileError(error: e.toString()));
     }
   }
@@ -38,7 +42,12 @@ class ProfileCubit extends Cubit<ProfileState> {
       }
       final userEntity = await updateAvatarUseCase.call(avatar);
       emit(ProfileLoaded(userEntity: userEntity));
-    } on ApiException catch (e) {
+    }
+    on ApiException catch (e) {
+      emit(ProfileError(error: e.toString()));
+      emit(ProfileLoaded(userEntity: currentState.userEntity));
+    }
+    catch (e) {
       emit(ProfileError(error: e.toString()));
       emit(ProfileLoaded(userEntity: currentState.userEntity));
     }
@@ -49,8 +58,14 @@ class ProfileCubit extends Cubit<ProfileState> {
       final refreshToken = await LocalCache.getString(StringCache.refreshToken);
       await logoutUseCase.call(refreshToken: refreshToken);
       await LocalCache.setBool(StringCache.isLoggedIn, false);
+      await LocalCache.setString(StringCache.accessToken, '');
+      await LocalCache.setString(StringCache.refreshToken, '');
       emit(ProfileLogoutSuccess());
-    } on ApiException catch (e){
+    }
+    on ApiException catch (e){
+      emit(ProfileError(error: e.toString()));
+    }
+    catch (e) {
       emit(ProfileError(error: e.toString()));
     }
   }

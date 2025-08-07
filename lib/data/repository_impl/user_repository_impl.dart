@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:career_coach/data/mapper/user_mapper.dart';
 import 'package:career_coach/data/remote/user_remote.dart';
-import 'package:career_coach/data/request_body/update_avatar_request_body.dart';
 import 'package:career_coach/data/request_body/update_profile_request_body.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
@@ -20,7 +19,8 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<UserEntity> updateAvatar(File avatar) async {
     final response = await _userRemote.updateAvatar(
-      updateAvatarRequestBody: UpdateAvatarRequestBody(avatar: avatar),
+      avatar: avatar,
+      // updateAvatarRequestBody: UpdateAvatarRequestBody(avatar: avatar),
     );
     return UserMapper.toEntity(response.data);
   }

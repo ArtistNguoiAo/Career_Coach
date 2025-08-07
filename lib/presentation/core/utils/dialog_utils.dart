@@ -252,7 +252,7 @@ class DialogUtils {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        AutoRouter.of(context).maybePop(true);
+                        AutoRouter.of(context).maybePop(false);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
@@ -273,7 +273,7 @@ class DialogUtils {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        AutoRouter.of(context).maybePop(false);
+                        AutoRouter.of(context).maybePop(true);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
@@ -298,8 +298,7 @@ class DialogUtils {
         );
       },
     ).then((value) async {
-
-      },
-    );
+      onClose(value);
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/domain/use_case/update_profile_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
@@ -30,7 +31,11 @@ class ProfileUpdateCubit extends Cubit<ProfileUpdateState> {
       );
       emit(ProfileUpdateSuccess());
       emit(ProfileUpdateLoaded(userEntity: updatedUser));
-    } catch (e) {
+    }
+    on ApiException catch (e) {
+      emit(ProfileUpdateError(message: e.toString()));
+    }
+    catch (e) {
       emit(ProfileUpdateError(message: e.toString()));
     }
   }

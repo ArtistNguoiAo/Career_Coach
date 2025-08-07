@@ -43,7 +43,9 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccess());
     } on ApiException catch (e) {
       emit(LoginError(message: e.toString()));
-      emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
+    }
+    catch (e) {
+      emit(LoginError(message: e.toString()));
     }
   }
 

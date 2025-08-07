@@ -56,4 +56,6 @@ abstract class BaseLanguage {
   String get contentCancelChange;
   String get continueChange;
   String get cancelChange2;
+  String get passwordNotMatch;
+  String get registerSuccess;
 }

@@ -177,4 +177,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get cancelChange2 => 'Hủy bỏ thay đổi';
+
+  @override
+  String get passwordNotMatch => 'Mật khẩu không khớp';
+
+  @override
+  String get registerSuccess => 'Đăng ký thành công';
 }

@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                "Registration successful! Please log in.",
+                context.language.registerSuccess,
                 style: TextStyleUtils.normal(
                     color: context.theme.backgroundColor,
                     fontSize: 12
@@ -65,6 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               duration: const Duration(seconds: 1),
             ),
           );
+          AutoRouter.of(context).maybePop();
         }
         if (state is RegisterLoading) {
           DialogUtils.showLoadingDialog(context);

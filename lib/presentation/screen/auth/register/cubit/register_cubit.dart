@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
 part 'register_state.dart';
@@ -29,8 +31,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
         emit(RegisterSuccess());
       } else {
-        emit(RegisterError(message: 'Passwords do not match'));
+        emit(RegisterError(message: '[error] Passwords do not match'));
       }
+    }
+    on ApiException catch (e) {
+      emit(RegisterError(message: e.toString()));
     }
     catch (e) {
       emit(RegisterError(message: e.toString()));
