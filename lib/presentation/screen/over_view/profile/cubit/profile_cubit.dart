@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:career_coach/data/api_response/api_exception.dart';
+import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';

@@ -1,7 +1,7 @@
-import 'package:career_coach/data/api_response/base_data_source.dart';
-import 'package:career_coach/data/data_source/auth_data_source.dart';
-import 'package:career_coach/data/data_source/user_data_soure.dart';
+import 'package:career_coach/data/data_source/api_service.dart';
 import 'package:career_coach/data/local/local_cache.dart';
+import 'package:career_coach/data/remote/auth_remote.dart';
+import 'package:career_coach/data/remote/user_remote.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
@@ -22,13 +22,11 @@ class DiConfig {
   static Future<void> init() async {
     // init
     await LocalCache.init();
-    final baseDataSource = await BaseDataSource.init();
-    getIt.registerSingleton<BaseDataSource>(baseDataSource);
-    await getIt.allReady();
+    getIt.registerLazySingleton<ApiService>(() => ApiService());
 
-    // data source
-    getIt.registerLazySingleton<AuthDataSource>(() => AuthDataSource(getIt.get()));
-    getIt.registerLazySingleton<UserDataSource>(() => UserDataSource(getIt.get()));
+    // remote
+    getIt.registerLazySingleton<AuthRemote>(() => AuthRemote(getIt.get()));
+    getIt.registerLazySingleton<UserRemote>(() => UserRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
@@ -43,5 +41,7 @@ class DiConfig {
     getIt.registerLazySingleton<GetProfileUseCase>(() => GetProfileUseCase(getIt.get()));
     getIt.registerLazySingleton<UpdateAvatarUseCase>(() => UpdateAvatarUseCase(getIt.get()));
     getIt.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(getIt.get()));
+
+    await getIt.allReady();
   }
 }

@@ -27,6 +27,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           password: password,
           avatar: '',
         );
+        emit(RegisterSuccess());
       } else {
         emit(RegisterError(message: 'Passwords do not match'));
       }

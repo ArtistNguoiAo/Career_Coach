@@ -22,9 +22,9 @@ final class LoginLoaded extends LoginState {
 final class LoginSuccess extends LoginState {}
 
 final class LoginError extends LoginState {
-  final String error;
+  final String message;
 
   LoginError({
-    required this.error,
+    required this.message,
   });
 }
