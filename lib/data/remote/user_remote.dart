@@ -16,14 +16,17 @@ abstract class UserRemote {
   @GET('/profile')
   Future<ApiResponse<UserModel>> getProfile();
 
+  @POST('/avatar')
   @MultiPart()
-  @POST('/profile')
   Future<ApiResponse<UserModel>> updateAvatar({
-    @Part(name: 'avatar') required File avatar,
+    @Part(name: 'avatar', contentType: 'image/jpeg') required File avatar,
   });
 
   @PUT('/profile')
   Future<ApiResponse<UserModel>> updateProfile({
     @Body() required UpdateProfileRequestBody updateProfileRequestBody,
   });
+
+  @DELETE('/account')
+  Future<ApiResponse<void>> deleteAccount();
 }

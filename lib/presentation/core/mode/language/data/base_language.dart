@@ -58,4 +58,8 @@ abstract class BaseLanguage {
   String get cancelChange2;
   String get passwordNotMatch;
   String get registerSuccess;
+  String get deleteAccountSuccess;
+  String get deleteAccountContent;
+  String get cancel;
+  String get delete;
 }

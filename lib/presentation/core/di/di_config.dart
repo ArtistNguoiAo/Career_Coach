@@ -6,6 +6,7 @@ import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
+import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
@@ -41,6 +42,7 @@ class DiConfig {
     getIt.registerLazySingleton<GetProfileUseCase>(() => GetProfileUseCase(getIt.get()));
     getIt.registerLazySingleton<UpdateAvatarUseCase>(() => UpdateAvatarUseCase(getIt.get()));
     getIt.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(getIt.get()));
+    getIt.registerLazySingleton<DeleteAccountUseCase>(() => DeleteAccountUseCase(getIt.get()));
 
     await getIt.allReady();
   }

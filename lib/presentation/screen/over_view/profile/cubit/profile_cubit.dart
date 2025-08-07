@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
+import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
@@ -18,6 +19,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final logoutUseCase = getIt<LogoutUseCase>();
   final getProfileUseCase = getIt<GetProfileUseCase>();
   final updateAvatarUseCase = getIt<UpdateAvatarUseCase>();
+  final deleteAccountUseCase = getIt<DeleteAccountUseCase>();
 
   Future<void> init() async {
     try {
@@ -61,6 +63,20 @@ class ProfileCubit extends Cubit<ProfileState> {
       await LocalCache.setString(StringCache.accessToken, '');
       await LocalCache.setString(StringCache.refreshToken, '');
       emit(ProfileLogoutSuccess());
+    }
+    on ApiException catch (e){
+      emit(ProfileError(error: e.toString()));
+    }
+    catch (e) {
+      emit(ProfileError(error: e.toString()));
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      await deleteAccountUseCase.call();
+      await LocalCache.clear();
+      emit(ProfileDeleteAccountSuccess());
     }
     on ApiException catch (e){
       emit(ProfileError(error: e.toString()));

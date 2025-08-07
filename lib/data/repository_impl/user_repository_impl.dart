@@ -20,7 +20,6 @@ class UserRepositoryImpl implements UserRepository {
   Future<UserEntity> updateAvatar(File avatar) async {
     final response = await _userRemote.updateAvatar(
       avatar: avatar,
-      // updateAvatarRequestBody: UpdateAvatarRequestBody(avatar: avatar),
     );
     return UserMapper.toEntity(response.data);
   }
@@ -39,5 +38,11 @@ class UserRepositoryImpl implements UserRepository {
       ),
     );
     return UserMapper.toEntity(response.data);
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    final response = await _userRemote.deleteAccount();
+    return response.data;
   }
 }
