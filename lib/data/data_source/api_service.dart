@@ -1,6 +1,7 @@
 import 'package:career_coach/data/data_source/api_url.dart';
 import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
+import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -15,6 +16,7 @@ class ApiService extends DioMixin{
       baseUrl: ApiUrl.baseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
+      validateStatus: (status) => status! < 600,
       headers: {'accept': '*/*'},
     );
 
@@ -36,15 +38,40 @@ class ApiService extends DioMixin{
           final language = await LocalCache.getString(StringCache.language);
           final token = await LocalCache.getString(StringCache.accessToken);
           if (token.isNotEmpty) {
-            options.headers.putIfAbsent('Authorization', () => 'Bearer $token');
+            options.headers['Authorization'] = 'Bearer $token';
           }
           if (language.isNotEmpty) {
-            options.headers.putIfAbsent('Accept-Language', () => language);
+            options.headers['Accept-Language'] = language;
           }
-          options.headers.putIfAbsent('Content-Type', () => 'application/json');
-
+          options.headers['Content-Type'] = 'application/json';
           return handler.next(options);
         },
+        onResponse: (response, handler) {
+          final data = response.data;
+
+          final result = data['result'];
+
+          if (result['isOk'] == false) {
+            return handler.reject(
+              DioException(
+                requestOptions: response.requestOptions,
+                response: response,
+                type: DioExceptionType.badResponse,
+                message: result['message'] ?? 'Có lỗi xảy ra',
+                error: ApiException(
+                  errorCode: result['errorCode'] ?? 'UNKNOWN_ERROR',
+                  message: result['message'] ?? 'Có lỗi xảy ra',
+                  isOk: result?['isOk'] ?? false,
+                  isUnauthorized: result['errorCode'] == '401',
+                ),
+              ),
+            );
+          }
+          else {
+            return handler.next(response);
+          }
+        },
+
         onError: (DioException error, handler) async {
           if (error.response?.statusCode == 401 &&
               !error.requestOptions.path.contains('/auth/refresh')) {
@@ -54,7 +81,7 @@ class ApiService extends DioMixin{
                 await LocalCache.setString(StringCache.accessToken, newToken);
 
                 final clonedRequest = error.requestOptions;
-                clonedRequest.headers.putIfAbsent('Authorization', () => 'Bearer $newToken');
+                clonedRequest.headers['Authorization'] = 'Bearer $newToken';
 
                 final response = await fetch(clonedRequest);
                 return handler.resolve(response);
@@ -86,6 +113,10 @@ class ApiService extends DioMixin{
           return handler.next(error);
         },
       ),
+      CurlLoggerDioInterceptor(
+        printOnSuccess: true,
+        convertFormData: true,
+      ),
     ]);
 
   }
@@ -104,6 +135,16 @@ class ApiService extends DioMixin{
       return response.data['data']['accessToken'];
     } on DioException {
       rethrow;
+    }
+  }
+
+  @override
+  Future<Response<T>> fetch<T>(RequestOptions requestOptions) async {
+    try {
+      final Response<T> res = await super.fetch(requestOptions);
+      return res;
+    } on DioException catch (e) {
+      throw e.error ?? e;
     }
   }
 }

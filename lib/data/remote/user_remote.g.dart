@@ -50,16 +50,27 @@ class _UserRemote implements UserRemote {
   }
 
   @override
-  Future<ApiResponse<UserModel>> updateAvatar({
-    required UpdateAvatarRequestBody updateAvatarRequestBody,
-  }) async {
+  Future<ApiResponse<UserModel>> updateAvatar({required File avatar}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(updateAvatarRequestBody.toJson());
+    final _data = FormData();
+    _data.files.add(
+      MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(
+          avatar.path,
+          filename: avatar.path.split(Platform.pathSeparator).last,
+        ),
+      ),
+    );
     final _options = _setStreamType<ApiResponse<UserModel>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(
+            method: 'POST',
+            headers: _headers,
+            extra: _extra,
+            contentType: 'multipart/form-data',
+          )
           .compose(
             _dio.options,
             '/profile',

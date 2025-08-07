@@ -28,7 +28,6 @@ class AuthRepositoryImpl implements AuthRepository {
         avatar: avatar,
       ),
     );
-    print("TrungLQ: register response: ${response}");
     return response.data;
   }
 

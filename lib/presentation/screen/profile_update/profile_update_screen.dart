@@ -24,18 +24,15 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
+  var isChange = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              DialogUtils.showWarningChangeDialog(
-                context: context,
-                onClose: (check) {
-
-                }
-              );
+              AutoRouter.of(context).maybePop(isChange);
             },
             child: Icon(
               FontAwesomeIcons.chevronLeft,
@@ -113,6 +110,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                     const SizedBox(height: 32),
                     InkWell(
                       onTap: () {
+                        isChange = true;
                         context.read<ProfileUpdateCubit>().updateProfile(
                           fullName: _fullNameController.text,
                           email: _emailController.text,
