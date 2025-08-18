@@ -15,6 +15,8 @@ final class ProfileLoaded extends ProfileState {
 
 final class ProfileLogoutSuccess extends ProfileState {}
 
+final class ProfileDeleteAccountSuccess extends ProfileState {}
+
 final class ProfileError extends ProfileState {
   final String error;
 

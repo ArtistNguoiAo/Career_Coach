@@ -29,6 +29,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (state is ProfileLogoutSuccess) {
               context.router.replaceAll([const LoginRoute()]);
             }
+            if (state is ProfileDeleteAccountSuccess) {
+              context.router.replaceAll([const LoginRoute()]);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    context.language.deleteAccountSuccess,
+                    style: TextStyleUtils.normal(
+                      color: context.theme.backgroundColor,
+                      fontSize: 12,
+                    ),
+                  ),
+                  backgroundColor: context.theme.goodColor,
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            }
             if (state is ProfileError) {
               DialogUtils.showErrorDialog(
                 context: context,
@@ -58,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SingleChildScrollView(
                     child: Column(
                       children: [
-                        _featureProfile(),
+                        _featureProfile(context),
                         Container(
                           width: double.infinity,
                           margin: const EdgeInsets.symmetric(vertical: 16),
@@ -130,15 +146,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        AutoRouter.of(
-                          context,
-                        ).push(ProfileUpdateRoute(userEntity: userEntity)).then(
-                          (value) {
-                            if (value == true) {
-                              context.read<ProfileCubit>().init();
-                            }
-                          },
-                        );
+                        AutoRouter.of(context)
+                            .push(ProfileUpdateRoute(userEntity: userEntity))
+                            .then((value) {
+                              if (value == true) {
+                                context.read<ProfileCubit>().init();
+                              }
+                            });
                       },
                       child: Icon(
                         FontAwesomeIcons.penToSquare,
@@ -202,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _featureProfile() {
+  Widget _featureProfile(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8),
       child: Column(
@@ -249,7 +263,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _featureProfileItem(
             icon: FontAwesomeIcons.ban,
             title: context.language.deleteAccount,
-            onTap: () {},
+            onTap: () {
+              DialogUtils.showDeleteAccountDialog(
+                context: context,
+                onDelete: (check) {
+                  context.read<ProfileCubit>().deleteAccount();
+                },
+              );
+            },
           ),
           Container(
             height: 1,

@@ -183,4 +183,16 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get registerSuccess => 'Đăng ký thành công';
+
+  @override
+  String get deleteAccountSuccess => 'Xóa tài khoản thành công';
+
+  @override
+  String get deleteAccountContent => 'Bạn có chắc chắn muốn xóa tài khoản của mình? Hành động này không thể hoàn tác.';
+
+  @override
+  String get cancel => 'Hủy';
+
+  @override
+  String get delete => 'Xóa';
 }

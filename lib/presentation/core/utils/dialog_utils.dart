@@ -16,34 +16,35 @@ class DialogUtils {
     if (_isShowing) return;
     _isShowing = true;
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            elevation: 8.0,
-            contentPadding: const EdgeInsets.all(16.0),
-            content: SizedBox(
-              width: 150.0,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LoadingAnimationWidget.fourRotatingDots(
-                    color: context.theme.primaryColor,
-                    size: 40,
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 8.0,
+          contentPadding: const EdgeInsets.all(16.0),
+          content: SizedBox(
+            width: 150.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LoadingAnimationWidget.fourRotatingDots(
+                  color: context.theme.primaryColor,
+                  size: 40,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '${context.language.loading}...',
+                  style: TextStyleUtils.bold(
+                    fontSize: 16,
+                    color: context.theme.textColor,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${context.language.loading}...',
-                    style: TextStyleUtils.bold(
-                      fontSize: 16,
-                      color: context.theme.textColor,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   static void hideLoadingDialog(BuildContext context) {
@@ -53,7 +54,11 @@ class DialogUtils {
     }
   }
 
-  static void showErrorDialog({required BuildContext context, required String message, Function? onClose}) {
+  static void showErrorDialog({
+    required BuildContext context,
+    required String message,
+    Function? onClose,
+  }) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -62,11 +67,7 @@ class DialogUtils {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                IconlyBold.danger,
-                size: 22,
-                color: context.theme.badColor,
-              ),
+              Icon(IconlyBold.danger, size: 22, color: context.theme.badColor),
               const SizedBox(height: 10),
               Text(
                 message,
@@ -86,7 +87,10 @@ class DialogUtils {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: context.theme.primaryColor),
@@ -107,7 +111,10 @@ class DialogUtils {
     );
   }
 
-  static void showChooseImageDialog({required BuildContext context, required Function(File?) onClose}) {
+  static void showChooseImageDialog({
+    required BuildContext context,
+    required Function(File?) onClose,
+  }) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -136,7 +143,7 @@ class DialogUtils {
                   size: 24,
                   color: context.theme.iconFeatureColor,
                 ),
-              )
+              ),
             ],
           ),
           actions: [
@@ -145,7 +152,10 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(true);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: context.theme.primaryColor),
@@ -165,7 +175,10 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(false);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: context.theme.primaryColor),
@@ -183,28 +196,29 @@ class DialogUtils {
           ],
         );
       },
-    ).then(
-      (value) async {
-        if (value != null && value is bool) {
-          final ImagePicker picker = ImagePicker();
-          final XFile? image;
-          if (value) {
-            image = await picker.pickImage(source: ImageSource.camera);
-          } else {
-            image = await picker.pickImage(source: ImageSource.gallery);
-          }
-          if (image != null) {
-            final File file = File(image.path);
-            onClose(file);
-          } else {
-            onClose(null);
-          }
+    ).then((value) async {
+      if (value != null && value is bool) {
+        final ImagePicker picker = ImagePicker();
+        final XFile? image;
+        if (value) {
+          image = await picker.pickImage(source: ImageSource.camera);
+        } else {
+          image = await picker.pickImage(source: ImageSource.gallery);
         }
-      },
-    );
+        if (image != null) {
+          final File file = File(image.path);
+          onClose(file);
+        } else {
+          onClose(null);
+        }
+      }
+    });
   }
 
-  static void showWarningChangeDialog({required BuildContext context, required Function(bool) onClose}) {
+  static void showWarningChangeDialog({
+    required BuildContext context,
+    required Function(bool) onClose,
+  }) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -236,7 +250,7 @@ class DialogUtils {
                       size: 24,
                       color: context.theme.iconFeatureColor,
                     ),
-                  )
+                  ),
                 ],
               ),
               Text(
@@ -255,7 +269,10 @@ class DialogUtils {
                         AutoRouter.of(context).maybePop(false);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 16,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: context.theme.lightGreyColor,
@@ -276,10 +293,15 @@ class DialogUtils {
                         AutoRouter.of(context).maybePop(true);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 16,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: context.theme.badColor.withAlpha((255 * 0.1).round())
+                          color: context.theme.badColor.withAlpha(
+                            (255 * 0.1).round(),
+                          ),
                         ),
                         child: Text(
                           context.language.cancelChange2,
@@ -292,13 +314,92 @@ class DialogUtils {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         );
       },
     ).then((value) async {
       onClose(value);
+    });
+  }
+
+  static void showDeleteAccountDialog({
+    required BuildContext context,
+    required Function onDelete,
+  }) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: context.theme.backgroundColor,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(IconlyBold.danger, size: 22, color: context.theme.badColor),
+              const SizedBox(height: 10),
+              Text(
+                context.language.deleteAccountContent,
+                style: TextStyleUtils.normal(
+                  fontSize: 16,
+                  color: context.theme.textColor,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(true);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: context.theme.badColor.withAlpha((255 * 0.1).round()),
+                ),
+                child: Text(
+                  context.language.delete,
+                  style: TextStyleUtils.normal(
+                    fontSize: 16,
+                    color: context.theme.badColor,
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(false);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: context.theme.lightGreyColor,
+                ),
+                child: Text(
+                  context.language.cancel,
+                  style: TextStyleUtils.normal(
+                    fontSize: 16,
+                    color: context.theme.textColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((value) async {
+      if(value != null && value is bool && value) {
+        await onDelete(value);
+      }
     });
   }
 }

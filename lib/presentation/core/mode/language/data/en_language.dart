@@ -183,4 +183,16 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get registerSuccess => 'Register success';
+
+  @override
+  String get deleteAccountSuccess => 'Delete account success';
+
+  @override
+  String get deleteAccountContent => 'Are you sure you want to delete your account? This action cannot be undone.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get delete => 'Delete';
 }
