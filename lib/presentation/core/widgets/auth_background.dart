@@ -28,8 +28,8 @@ class AuthBackground extends StatelessWidget {
             fit: BoxFit.fitWidth,
           ),
           Positioned(
-            top: 10,
-            left: 10,
+            top: MediaQuery.of(context).padding.top,
+            left: 16,
             child: Text(
               context.language.appName,
               style: TextStyleUtils.bold(

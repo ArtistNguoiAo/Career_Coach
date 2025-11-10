@@ -11,58 +11,61 @@ class HeaderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 200 + MediaQuery.of(context).padding.top,
       child: Stack(
         children: [
           Container(
-              height: 150,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              width: double.infinity,
-              color: context.theme.primaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          context.language.welcomeApp,
-                          style: TextStyleUtils.bold(
-                            fontSize: 20,
-                            color: context.theme.backgroundColor,
-                          ),
+            height: 150 + MediaQuery.of(context).padding.top,
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              top: MediaQuery.of(context).padding.top + 12,
+            ),
+            width: double.infinity,
+            color: context.theme.primaryColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        context.language.welcomeApp,
+                        style: TextStyleUtils.bold(
+                          fontSize: 20,
+                          color: context.theme.backgroundColor,
                         ),
                       ),
-                      const SizedBox(width: 16),
-                      InkWell(
-                        onTap: () {
-
-                        },
-                        child: Stack(
-                          children: [
-                            Icon(
-                              IconlyBold.notification,
-                              color: context.theme.backgroundColor,
-                              size: 28,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    context.language.introduce,
-                    style: TextStyleUtils.normal(
-                      fontSize: 16,
-                      color: context.theme.backgroundColor,
                     ),
+                    const SizedBox(width: 16),
+                    InkWell(
+                      onTap: () {},
+                      child: Stack(
+                        children: [
+                          Icon(
+                            IconlyBold.notification,
+                            color: context.theme.backgroundColor,
+                            size: 28,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  context.language.introduce,
+                  style: TextStyleUtils.normal(
+                    fontSize: 16,
+                    color: context.theme.backgroundColor,
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           Positioned(
-            top: 100,
+            top: 100 + MediaQuery.of(context).padding.top,
             left: 16,
             child: InkWell(
               splashColor: Colors.transparent,
@@ -77,7 +80,9 @@ class HeaderView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: context.theme.borderColor.withAlpha((0.5 * 255).round()),
+                      color: context.theme.borderColor.withAlpha(
+                        (0.5 * 255).round(),
+                      ),
                       spreadRadius: 2,
                       blurRadius: 6,
                       offset: const Offset(0, 3),
@@ -87,11 +92,7 @@ class HeaderView extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BaseAvatar(
-                      url: '',
-                      size: 80,
-                      padding: 16,
-                    ),
+                    BaseAvatar(url: '', size: 80, padding: 16),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(

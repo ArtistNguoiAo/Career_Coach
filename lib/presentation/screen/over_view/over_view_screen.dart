@@ -26,10 +26,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
-          body: Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: child,
-          ),
+          body: child,
           bottomNavigationBar: SalomonBottomBar(
             currentIndex: tabsRouter.activeIndex,
             onTap: (index) => tabsRouter.setActiveIndex(index),

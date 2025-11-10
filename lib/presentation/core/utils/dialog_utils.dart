@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class DialogUtils {
   static bool _isShowing = false;
@@ -27,10 +29,7 @@ class DialogUtils {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                LoadingAnimationWidget.fourRotatingDots(
-                  color: context.theme.primaryColor,
-                  size: 40,
-                ),
+                Lottie.asset(MediaUtils.ltLoading, width: 80, fit: BoxFit.cover),
                 const SizedBox(height: 16),
                 Text(
                   '${context.language.loading}...',

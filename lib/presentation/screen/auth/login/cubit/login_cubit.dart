@@ -11,7 +11,7 @@ import 'package:meta/meta.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit() : super(LoginState());
 
   final loginUseCase = getIt<LoginUseCase>();
   final googleLoginUseCase = getIt<GoogleLoginUseCase>();
@@ -21,15 +21,63 @@ class LoginCubit extends Cubit<LoginState> {
     final login = await LocalCache.getString(StringCache.login);
     final password = await LocalCache.getString(StringCache.password);
     final rememberMe = await LocalCache.getBool(StringCache.rememberMe);
-    emit(LoginLoaded(login: login, password: password, rememberMe: rememberMe));
+    emit(
+      state.copyWith(login: login, password: password, rememberMe: rememberMe),
+    );
   }
 
-  Future<void> login({required String login, required String password, required bool rememberMe}) async {
-    emit(LoginLoading());
+  Future<void> updateRememberMe({
+    required String login,
+    required String password,
+  }) async {
+    emit(
+      state.copyWith(
+        login: login,
+        password: password,
+        rememberMe: !state.rememberMe,
+      ),
+    );
+  }
+
+  Future<void> updateObscure({
+    required String login,
+    required String password,
+  }) async {
+    emit(
+      state.copyWith(
+        login: login,
+        password: password,
+        isObscure: !state.isObscure,
+      ),
+    );
+  }
+
+  Future<void> login({
+    required String login,
+    required String password,
+    required bool rememberMe,
+  }) async {
+    emit(
+      state.copyWith(
+        login: login,
+        password: password,
+        rememberMe: rememberMe,
+        isLoading: true,
+      ),
+    );
     try {
-      final authEntity = await loginUseCase.call(login: login, password: password);
-      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
-      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      final authEntity = await loginUseCase.call(
+        login: login,
+        password: password,
+      );
+      await LocalCache.setString(
+        StringCache.accessToken,
+        authEntity.accessToken,
+      );
+      await LocalCache.setString(
+        StringCache.refreshToken,
+        authEntity.refreshToken,
+      );
       if (rememberMe) {
         await LocalCache.setString(StringCache.login, login);
         await LocalCache.setString(StringCache.password, password);
@@ -40,41 +88,79 @@ class LoginCubit extends Cubit<LoginState> {
         await LocalCache.setBool(StringCache.rememberMe, false);
       }
       await LocalCache.setBool(StringCache.isLoggedIn, true);
-      emit(LoginSuccess());
+      emit(state.copyWith(isLoading: false, isSuccess: true));
     } on ApiException catch (e) {
-      emit(LoginError(message: e.toString()));
-    }
-    catch (e) {
-      emit(LoginError(message: e.toString()));
+      emit(
+        state.copyWith(
+          login: login,
+          password: password,
+          rememberMe: rememberMe,
+          isLoading: false,
+          error: e.toString(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          login: login,
+          password: password,
+          rememberMe: rememberMe,
+          isLoading: false,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
   Future<void> loginWithGoogle() async {
-    emit(LoginLoading());
+    emit(state.copyWith(isLoading: true));
     try {
       final authEntity = await googleLoginUseCase.call();
-      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
-      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setString(
+        StringCache.accessToken,
+        authEntity.accessToken,
+      );
+      await LocalCache.setString(
+        StringCache.refreshToken,
+        authEntity.refreshToken,
+      );
       await LocalCache.setBool(StringCache.isLoggedIn, true);
-      emit(LoginSuccess());
+      emit(state.copyWith(isLoading: false, isSuccess: true));
     } on ApiException catch (e) {
-      emit(LoginError(message: e.toString()));
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     } catch (e) {
-      emit(LoginError(message: 'Google Sign In failed: ${e.toString()}'));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: 'Google Sign In failed: ${e.toString()}',
+        ),
+      );
     }
   }
 
   Future<void> loginWithGitHub(BuildContext context) async {
+    emit(state.copyWith(isLoading: true));
     try {
       final authEntity = await githubLoginUseCase.call(context);
-      await LocalCache.setString(StringCache.accessToken, authEntity.accessToken);
-      await LocalCache.setString(StringCache.refreshToken, authEntity.refreshToken);
+      await LocalCache.setString(
+        StringCache.accessToken,
+        authEntity.accessToken,
+      );
+      await LocalCache.setString(
+        StringCache.refreshToken,
+        authEntity.refreshToken,
+      );
       await LocalCache.setBool(StringCache.isLoggedIn, true);
-      emit(LoginSuccess());
+      emit(state.copyWith(isLoading: false, isSuccess: true));
     } on ApiException catch (e) {
-      emit(LoginError(message: e.toString()));
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     } catch (e) {
-      emit(LoginError(message: 'GitHub Sign In failed: ${e.toString()}'));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: 'GitHub Sign In failed: ${e.toString()}',
+        ),
+      );
     }
   }
 }

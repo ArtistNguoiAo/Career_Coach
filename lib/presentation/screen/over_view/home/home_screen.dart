@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:career_coach/presentation/screen/over_view/home/cubit/home_cubit.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/header_view.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/title_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 @RoutePage()
@@ -15,7 +17,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -33,20 +36,29 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            HeaderView(),
-            const SizedBox(height: 16),
-            _cvAndCl(),
-            const SizedBox(height: 16),
-            _outstanding(),
-            const SizedBox(height: 16),
-            _tool(),
-            const SizedBox(height: 16),
-          ],
-        ),
-      )
+        body: BlocProvider(
+          create: (context) =>
+          HomeCubit()
+            ..init(),
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HeaderView(),
+                    const SizedBox(height: 16),
+                    _cvAndCl(),
+                    const SizedBox(height: 16),
+                    _outstanding(),
+                    const SizedBox(height: 16),
+                    _tool(),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              );
+            },
+          ),
+        )
     );
   }
 
@@ -75,32 +87,32 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: TabBarView(
-            controller: tabController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 100,
-                    color: context.theme.primaryColor,
-                  );
-                },
-                separatorBuilder: (_, __) => SizedBox(width: 8),
-                itemCount: 10,
-              ),
-              ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 100,
-                    color: context.theme.primaryColor,
-                  );
-                },
-                separatorBuilder: (_, __) => SizedBox(width: 8),
-                itemCount: 10,
-              ),
-            ]
+              controller: tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 100,
+                      color: context.theme.primaryColor,
+                    );
+                  },
+                  separatorBuilder: (_, __) => SizedBox(width: 8),
+                  itemCount: 10,
+                ),
+                ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 100,
+                      color: context.theme.primaryColor,
+                    );
+                  },
+                  separatorBuilder: (_, __) => SizedBox(width: 8),
+                  itemCount: 10,
+                ),
+              ]
           ),
         ),
       ],
@@ -120,8 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               autoPlay: true,
               enlargeCenterPage: true,
               viewportFraction: 0.7,
-              onPageChanged: (index, reason) {
-                },
+              onPageChanged: (index, reason) {},
             ),
             items: [
               Container(
@@ -179,11 +190,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  context.language.calculateGrossNetSalary,
-                  style: TextStyleUtils.normal(
-                    color: context.theme.textColor,
-                    fontSize: 16,
-                  )
+                    context.language.calculateGrossNetSalary,
+                    style: TextStyleUtils.normal(
+                      color: context.theme.textColor,
+                      fontSize: 16,
+                    )
                 ),
               ),
               const SizedBox(width: 8),
