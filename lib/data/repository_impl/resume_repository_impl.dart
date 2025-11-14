@@ -18,6 +18,6 @@ class ResumeRepositoryImpl implements ResumeRepository {
       size: size,
       type: type,
     );
-    return response.data.map(ResumeMapper.toEntity).toList();
+    return response.data.content.map(ResumeMapper.toEntity).toList();
   }
 }

@@ -30,3 +30,29 @@ class Result {
 
   Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
+
+@JsonSerializable(genericArgumentFactories: true)
+class Page<T> {
+  final int totalPages;
+  final int totalElements;
+  final int size;
+  final int number;
+  final List<T> content;
+
+  Page({
+    required this.totalPages,
+    required this.totalElements,
+    required this.size,
+    required this.number,
+    required this.content,
+  });
+
+  factory Page.fromJson(
+      Map<String, dynamic> json,
+      T Function(Object? json) fromJsonT,
+      ) =>
+      _$PageFromJson(json, fromJsonT);
+
+  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
+      _$PageToJson(this, toJsonT);
+}

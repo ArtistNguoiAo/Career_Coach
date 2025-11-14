@@ -3,6 +3,7 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/screen/over_view/home/cubit/home_cubit.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/header_view.dart';
+import 'package:career_coach/presentation/screen/over_view/home/view/resume_view.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/title_view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -17,105 +18,40 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocProvider(
-          create: (context) =>
-          HomeCubit()
-            ..init(),
-          child: BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    HeaderView(),
-                    const SizedBox(height: 16),
-                    _cvAndCl(),
-                    const SizedBox(height: 16),
-                    _outstanding(),
-                    const SizedBox(height: 16),
-                    _tool(),
-                    const SizedBox(height: 16),
-                  ],
-                ),
-              );
-            },
-          ),
-        )
-    );
-  }
+      body: BlocProvider(
+        create: (context) => HomeCubit()..init(),
+        child: BlocConsumer<HomeCubit, HomeState>(
+          listener: (context, state) {
 
-  Widget _cvAndCl() {
-    return Column(
-      children: [
-        TitleView(title: context.language.cvAndCl),
-        TabBar(
-          controller: tabController,
-          dividerColor: Colors.transparent,
-          indicatorColor: context.theme.primaryColor,
-          labelColor: context.theme.primaryColor,
-          unselectedLabelColor: context.theme.borderColor,
-          tabs: [
-            Tab(
-              text: context.language.cv,
-            ),
-            Tab(
-              text: context.language.cl,
-            ),
-          ],
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  HeaderView(),
+                  const SizedBox(height: 16),
+                  ResumeView(listResume: state.listResume),
+                  const SizedBox(height: 16),
+                  _outstanding(),
+                  const SizedBox(height: 16),
+                  _tool(),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            );
+          },
         ),
-        const SizedBox(height: 8),
-        Container(
-          height: 200,
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: TabBarView(
-              controller: tabController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 100,
-                      color: context.theme.primaryColor,
-                    );
-                  },
-                  separatorBuilder: (_, __) => SizedBox(width: 8),
-                  itemCount: 10,
-                ),
-                ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 100,
-                      color: context.theme.primaryColor,
-                    );
-                  },
-                  separatorBuilder: (_, __) => SizedBox(width: 8),
-                  itemCount: 10,
-                ),
-              ]
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -146,10 +82,10 @@ class _HomeScreenState extends State<HomeScreen>
               Container(
                 width: double.infinity,
                 color: context.theme.primaryColor,
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -190,11 +126,11 @@ class _HomeScreenState extends State<HomeScreen>
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                    context.language.calculateGrossNetSalary,
-                    style: TextStyleUtils.normal(
-                      color: context.theme.textColor,
-                      fontSize: 16,
-                    )
+                  context.language.calculateGrossNetSalary,
+                  style: TextStyleUtils.normal(
+                    color: context.theme.textColor,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -205,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

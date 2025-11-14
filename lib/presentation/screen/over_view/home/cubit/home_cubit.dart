@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:career_coach/data/exception/api_exception.dart';
+import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
 import 'package:meta/meta.dart';
@@ -12,14 +14,16 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> init() async {
     try {
-      final resumes = await getListResumeUseCase.call(
+      final listResume = await getListResumeUseCase.call(
         page: 0,
-        size: 10,
+        size: 5,
         type: '',
       );
-
+      emit(state.copyWith(listResume: listResume));
+    } on ApiException catch (e) {
+      emit(state.copyWith(error: e.message));
     } catch (e) {
-
+      emit(state.copyWith(error: e.toString()));
     }
   }
 }

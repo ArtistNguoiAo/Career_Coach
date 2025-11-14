@@ -11,7 +11,7 @@ abstract class ResumeRemote {
   factory ResumeRemote(ApiService apiService) = _ResumeRemote;
 
   @GET('')
-  Future<ApiResponse<List<ResumeModel>>> getListResume({
+  Future<ApiResponse<Page<ResumeModel>>> getListResume({
     @Query('page') required int page,
     @Query('size') required int size,
     @Query('type') required String type,
