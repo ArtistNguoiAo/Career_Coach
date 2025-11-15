@@ -1,6 +1,9 @@
 enum TypeResumeEnum {
   basic,
   modern,
+  creative,
+  professional,
+  technical,
 }
 
 extension TypeResumeEnumExtension on TypeResumeEnum {
@@ -10,6 +13,12 @@ extension TypeResumeEnumExtension on TypeResumeEnum {
         return 'basic';
       case TypeResumeEnum.modern:
         return 'modern';
+      case TypeResumeEnum.creative:
+        return 'creative';
+      case TypeResumeEnum.professional:
+        return 'professional';
+      case TypeResumeEnum.technical:
+        return 'technical';
     }
   }
 
@@ -19,6 +28,12 @@ extension TypeResumeEnumExtension on TypeResumeEnum {
         return TypeResumeEnum.basic;
       case 'modern':
         return TypeResumeEnum.modern;
+      case 'creative':
+        return TypeResumeEnum.creative;
+      case 'professional':
+        return TypeResumeEnum.professional;
+      case 'technical':
+        return TypeResumeEnum.technical;
       default:
         throw ArgumentError('Unknown TypeResumeEnum: $type');
     }

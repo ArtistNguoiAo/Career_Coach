@@ -3,6 +3,7 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/title_view.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResumeView extends StatefulWidget {
   const ResumeView({super.key, required this.listResume});
@@ -47,7 +48,7 @@ class _ResumeViewState extends State<ResumeView>
         ),
         const SizedBox(height: 8),
         Container(
-          height: 250,
+          height: 300,
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: TabBarView(
@@ -59,7 +60,7 @@ class _ResumeViewState extends State<ResumeView>
                 itemBuilder: (context, index) {
                   return _itemResume(widget.listResume[index]);
                 },
-                separatorBuilder: (_, __) => SizedBox(width: 8),
+                separatorBuilder: (_, __) => SizedBox(width: 16),
                 itemCount: widget.listResume.length,
               ),
               ListView.separated(
@@ -67,7 +68,7 @@ class _ResumeViewState extends State<ResumeView>
                 itemBuilder: (context, index) {
                   return _itemResume(widget.listResume[index]);
                 },
-                separatorBuilder: (_, __) => SizedBox(width: 8),
+                separatorBuilder: (_, __) => SizedBox(width: 16),
                 itemCount: widget.listResume.length,
               ),
             ],
@@ -78,23 +79,79 @@ class _ResumeViewState extends State<ResumeView>
   }
 
   Widget _itemResume(ResumeEntity resumeEntity) {
-    return Column(
-      children: [
-        Expanded(
-          child: Image.network(
-            resumeEntity.thumbnailUrl,
-            height: double.infinity,
-            fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: context.theme.borderColor),
+        color: context.theme.backgroundColor,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(4),
+                topRight: Radius.circular(4),
+              ),
+              child: Banner(
+                message: resumeEntity.type.name,
+                location: BannerLocation.topEnd,
+                color: context.theme.goodColor,
+                child: Image.network(
+                  resumeEntity.thumbnailUrl,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          resumeEntity.title,
-          style: TextStyleUtils.normal(
-            color: context.theme.textColor,
+          const SizedBox(height: 8),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              resumeEntity.title,
+              style: TextStyleUtils.bold(color: context.theme.textColor),
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 8),
+              Icon(
+                FontAwesomeIcons.eye,
+                size: 14,
+                color: context.theme.iconFeatureColor,
+              ),
+              SizedBox(width: 4),
+              Text(
+                resumeEntity.viewCount.toString(),
+                style: TextStyleUtils.normal(
+                  fontSize: 14,
+                  color: context.theme.iconFeatureColor,
+                ),
+              ),
+              SizedBox(width: 8),
+              Icon(
+                FontAwesomeIcons.download,
+                size: 14,
+                color: context.theme.iconFeatureColor,
+              ),
+              SizedBox(width: 4),
+              Text(
+                resumeEntity.downloadCount.toString(),
+                style: TextStyleUtils.normal(
+                  fontSize: 14,
+                  color: context.theme.iconFeatureColor,
+                ),
+              ),
+              SizedBox(width: 8),
+            ],
+          ),
+          const SizedBox(height: 4),
+        ],
+      ),
     );
   }
 }
