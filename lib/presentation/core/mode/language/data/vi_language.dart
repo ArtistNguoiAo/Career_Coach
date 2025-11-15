@@ -195,4 +195,16 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get delete => 'Xóa';
+
+  @override
+  String get useThisTemplate => 'Sử dụng mẫu này';
+
+  @override
+  String get changeTemplate => 'Thay đổi mẫu';
+
+  @override
+  String get editTheme => 'Sửa giao diện';
+
+  @override
+  String get editContent => 'Sửa nội dung';
 }

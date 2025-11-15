@@ -195,4 +195,16 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get useThisTemplate => 'Use this template';
+
+  @override
+  String get changeTemplate => 'Change template';
+
+  @override
+  String get editTheme => 'Edit theme';
+
+  @override
+  String get editContent => 'Edit content';
 }

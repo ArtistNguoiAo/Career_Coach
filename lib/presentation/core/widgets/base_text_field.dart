@@ -23,6 +23,9 @@ class BaseTextField extends StatefulWidget {
     this.fillColor,
     this.onChanged,
     this.readOnly,
+    this.isCollapsed,
+    this.contentPadding,
+    this.textAlign,
   });
 
   final TextEditingController controller;
@@ -43,6 +46,9 @@ class BaseTextField extends StatefulWidget {
   final Color? fillColor;
   final Function(String)? onChanged;
   final bool? readOnly;
+  final bool? isCollapsed;
+  final EdgeInsetsGeometry? contentPadding;
+  final TextAlign? textAlign;
 
   @override
   State<BaseTextField> createState() => _BaseTextFieldState();
@@ -56,8 +62,11 @@ class _BaseTextFieldState extends State<BaseTextField> {
       controller: widget.controller,
       validator: widget.validator,
       readOnly: widget.readOnly ?? false,
+      textAlign: widget.textAlign ?? TextAlign.start,
       decoration: InputDecoration(
         isDense: true,
+        isCollapsed: widget.isCollapsed,
+        contentPadding: widget.contentPadding,
         filled: widget.fillColor != null,
         fillColor: widget.fillColor,
         border: widget.border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: context.theme.borderColor)),

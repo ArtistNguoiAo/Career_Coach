@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 
 class DialogUtils {
@@ -29,7 +28,11 @@ class DialogUtils {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Lottie.asset(MediaUtils.ltLoading, width: 80, fit: BoxFit.cover),
+                Lottie.asset(
+                  MediaUtils.ltLoading,
+                  width: 80,
+                  fit: BoxFit.cover,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   '${context.language.loading}...',
@@ -396,8 +399,65 @@ class DialogUtils {
         );
       },
     ).then((value) async {
-      if(value != null && value is bool && value) {
+      if (value != null && value is bool && value) {
         await onDelete(value);
+      }
+    });
+  }
+
+  static void showPreviewResumeDialog({
+    required BuildContext context,
+    required String resumeImageUrl,
+    required Function onUseTemplate,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Stack(
+            children: [
+              Center(
+                child: Image.network(
+                  resumeImageUrl,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Center(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      AutoRouter.of(context).maybePop(true);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: context.theme.primaryColor,
+                      ),
+                      child: Text(
+                        context.language.useThisTemplate,
+                        style: TextStyleUtils.normal(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((value) async {
+      if (value != null && value is bool && value) {
+        await onUseTemplate(value);
       }
     });
   }

@@ -62,4 +62,8 @@ abstract class BaseLanguage {
   String get deleteAccountContent;
   String get cancel;
   String get delete;
+  String get useThisTemplate;
+  String get changeTemplate;
+  String get editTheme;
+  String get editContent;
 }
