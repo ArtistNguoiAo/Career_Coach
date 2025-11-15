@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitial());
+  RegisterCubit() : super(RegisterState());
 
   final registerUseCase = getIt<RegisterUseCase>();
 
@@ -19,7 +19,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String confirmPassword,
   }) async {
-    emit(RegisterLoading());
+    emit(
+      state.copyWith(
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword,
+        isLoading: true,
+      ),
+    );
     try {
       if (password == confirmPassword) {
         await registerUseCase.call(
@@ -29,16 +38,52 @@ class RegisterCubit extends Cubit<RegisterState> {
           password: password,
           avatar: '',
         );
-        emit(RegisterSuccess());
+        emit(state.copyWith(isLoading: false, isSuccess: true));
       } else {
-        emit(RegisterError(message: '[error] Passwords do not match'));
+        emit(state.copyWith(isLoading: false, error: "Passwords do not match"));
       }
+    } on ApiException catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
     }
-    on ApiException catch (e) {
-      emit(RegisterError(message: e.toString()));
-    }
-    catch (e) {
-      emit(RegisterError(message: e.toString()));
-    }
+  }
+
+  Future<void> updateObscurePassword({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    emit(
+      state.copyWith(
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword,
+        isObscurePassword: !state.isObscurePassword,
+      ),
+    );
+  }
+
+  Future<void> updateObscureConfirmPassword({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    emit(
+      state.copyWith(
+        fullName: fullName,
+        email: email,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword,
+        isObscureConfirmPassword: !state.isObscureConfirmPassword,
+      ),
+    );
   }
 }

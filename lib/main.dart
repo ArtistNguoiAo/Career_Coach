@@ -23,15 +23,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LanguageCubit>(
-          create: (context) =>
-          LanguageCubit()
-            ..init(),
+          create: (context) => LanguageCubit()..init(),
         ),
-        BlocProvider<ThemeCubit>(
-          create: (context) =>
-          ThemeCubit()
-            ..init(),
-        ),
+        BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()..init()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
@@ -42,9 +36,7 @@ class MyApp extends StatelessWidget {
                 return InheritedThemeWidget(
                   themeModeEnum: themeState.themeModeEnum,
                   child: MaterialApp.router(
-                    theme: ThemeData(
-                      useMaterial3: true,
-                    ),
+                    theme: ThemeData(useMaterial3: true),
                     routerConfig: _appRouter.config(),
                     debugShowCheckedModeBanner: false,
                   ),
@@ -57,4 +49,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

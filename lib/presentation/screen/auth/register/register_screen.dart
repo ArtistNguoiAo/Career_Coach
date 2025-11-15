@@ -22,27 +22,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  bool _isObscurePassword = true;
-  bool _isObscureConfirmPassword = true;
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(),
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: MediaQuery
-              .of(context)
-              .padding
-              .top),
-          child: Stack(
-            children: [
-              AuthBackground(),
-              _registerForm(),
-            ],
-          ),
-        ),
+        body: Stack(children: [AuthBackground(), _registerForm()]),
       ),
     );
   }
@@ -50,15 +38,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _registerForm() {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state is RegisterSuccess) {
+        if (state.isLoading) {
+          DialogUtils.showLoadingDialog(context);
+        } else {
+          DialogUtils.hideLoadingDialog(context);
+        }
+        if (state.isSuccess) {
           DialogUtils.hideLoadingDialog(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
                 context.language.registerSuccess,
                 style: TextStyleUtils.normal(
-                    color: context.theme.backgroundColor,
-                    fontSize: 12
+                  color: context.theme.backgroundColor,
+                  fontSize: 12,
                 ),
               ),
               backgroundColor: context.theme.goodColor,
@@ -66,13 +59,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           );
           AutoRouter.of(context).maybePop();
-        }
-        if (state is RegisterLoading) {
-          DialogUtils.showLoadingDialog(context);
-        }
-        if (state is RegisterError) {
-          DialogUtils.hideLoadingDialog(context);
-          DialogUtils.showErrorDialog(context: context, message: state.message);
         }
       },
       builder: (context, state) {
@@ -87,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16),
@@ -129,16 +116,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: BaseTextField(
                       controller: _passwordController,
                       labelText: context.language.password,
-                      obscureText: _isObscurePassword,
+                      obscureText: state.isObscurePassword,
                       prefixIcon: Icon(
                         FontAwesomeIcons.lock,
                         size: 16,
                         color: context.theme.textColor,
                       ),
                       suffixIcon: InkWell(
-                        onTap: () => setState(() => _isObscurePassword = !_isObscurePassword),
+                        onTap: () {
+                          context.read<RegisterCubit>().updateObscurePassword(
+                            fullName: _fullNameController.text,
+                            email: _emailController.text,
+                            phone: _phoneController.text,
+                            password: _passwordController.text,
+                            confirmPassword: _confirmPasswordController.text,
+                          );
+                        },
                         child: Icon(
-                          _isObscurePassword ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                          state.isObscurePassword
+                              ? FontAwesomeIcons.eyeSlash
+                              : FontAwesomeIcons.eye,
                           size: 16,
                           color: context.theme.textColor,
                         ),
@@ -150,16 +147,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: BaseTextField(
                       controller: _confirmPasswordController,
                       labelText: context.language.confirmPassword,
-                      obscureText: _isObscureConfirmPassword,
+                      obscureText: state.isObscureConfirmPassword,
                       prefixIcon: Icon(
                         FontAwesomeIcons.lock,
                         size: 16,
                         color: context.theme.textColor,
                       ),
                       suffixIcon: InkWell(
-                        onTap: () => setState(() => _isObscureConfirmPassword = !_isObscureConfirmPassword),
+                        onTap: () {
+                          context
+                              .read<RegisterCubit>()
+                              .updateObscureConfirmPassword(
+                                fullName: _fullNameController.text,
+                                email: _emailController.text,
+                                phone: _phoneController.text,
+                                password: _passwordController.text,
+                                confirmPassword:
+                                    _confirmPasswordController.text,
+                              );
+                        },
                         child: Icon(
-                          _isObscureConfirmPassword ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye,
+                          state.isObscureConfirmPassword
+                              ? FontAwesomeIcons.eyeSlash
+                              : FontAwesomeIcons.eye,
                           size: 16,
                           color: context.theme.textColor,
                         ),
@@ -167,6 +177,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  if(state.error.isNotEmpty)...[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        state.error,
+                        style: TextStyleUtils.normal(
+                          fontSize: 14,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                   Row(
                     children: [
                       Expanded(child: Container()),
@@ -199,9 +222,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -224,7 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     FontAwesomeIcons.arrowRight,
                     size: 14,
                     color: context.theme.primaryColor,
-                  )
+                  ),
                 ],
               ),
             ),
