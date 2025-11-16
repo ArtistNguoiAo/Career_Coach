@@ -9,9 +9,9 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:career_coach/domain/entity/resume_entity.dart' as _i13;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:career_coach/domain/entity/resume_entity.dart' as _i14;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i15;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
     as _i4;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
@@ -28,21 +28,23 @@ import 'package:career_coach/presentation/screen/over_view/preview_resume/previe
     as _i6;
 import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
     as _i7;
+import 'package:career_coach/presentation/screen/over_view/structure_resume/structure_resume_screen.dart'
+    as _i11;
 import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
     as _i8;
 import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
     as _i10;
-import 'package:flutter/material.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 
 /// generated route for
 /// [_i1.HomeScreen]
-class HomeRoute extends _i11.PageRouteInfo<void> {
-  const HomeRoute({List<_i11.PageRouteInfo>? children})
+class HomeRoute extends _i12.PageRouteInfo<void> {
+  const HomeRoute({List<_i12.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i1.HomeScreen();
@@ -52,13 +54,13 @@ class HomeRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ListCvAndClScreen]
-class ListCvAndClRoute extends _i11.PageRouteInfo<void> {
-  const ListCvAndClRoute({List<_i11.PageRouteInfo>? children})
+class ListCvAndClRoute extends _i12.PageRouteInfo<void> {
+  const ListCvAndClRoute({List<_i12.PageRouteInfo>? children})
     : super(ListCvAndClRoute.name, initialChildren: children);
 
   static const String name = 'ListCvAndClRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i2.ListCvAndClScreen();
@@ -68,8 +70,8 @@ class ListCvAndClRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ListInterviewScreen]
-class ListInterviewRoute extends _i11.PageRouteInfo<ListInterviewRouteArgs> {
-  ListInterviewRoute({_i12.Key? key, List<_i11.PageRouteInfo>? children})
+class ListInterviewRoute extends _i12.PageRouteInfo<ListInterviewRouteArgs> {
+  ListInterviewRoute({_i13.Key? key, List<_i12.PageRouteInfo>? children})
     : super(
         ListInterviewRoute.name,
         args: ListInterviewRouteArgs(key: key),
@@ -78,7 +80,7 @@ class ListInterviewRoute extends _i11.PageRouteInfo<ListInterviewRouteArgs> {
 
   static const String name = 'ListInterviewRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ListInterviewRouteArgs>(
@@ -92,7 +94,7 @@ class ListInterviewRoute extends _i11.PageRouteInfo<ListInterviewRouteArgs> {
 class ListInterviewRouteArgs {
   const ListInterviewRouteArgs({this.key});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -112,13 +114,13 @@ class ListInterviewRouteArgs {
 
 /// generated route for
 /// [_i4.LoginScreen]
-class LoginRoute extends _i11.PageRouteInfo<void> {
-  const LoginRoute({List<_i11.PageRouteInfo>? children})
+class LoginRoute extends _i12.PageRouteInfo<void> {
+  const LoginRoute({List<_i12.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i4.LoginScreen();
@@ -128,13 +130,13 @@ class LoginRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.OverViewScreen]
-class OverViewRoute extends _i11.PageRouteInfo<void> {
-  const OverViewRoute({List<_i11.PageRouteInfo>? children})
+class OverViewRoute extends _i12.PageRouteInfo<void> {
+  const OverViewRoute({List<_i12.PageRouteInfo>? children})
     : super(OverViewRoute.name, initialChildren: children);
 
   static const String name = 'OverViewRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i5.OverViewScreen();
@@ -144,11 +146,11 @@ class OverViewRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.PreviewResumeScreen]
-class PreviewResumeRoute extends _i11.PageRouteInfo<PreviewResumeRouteArgs> {
+class PreviewResumeRoute extends _i12.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
-    _i12.Key? key,
-    required _i13.ResumeEntity resumeEntity,
-    List<_i11.PageRouteInfo>? children,
+    _i13.Key? key,
+    required _i14.ResumeEntity resumeEntity,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
          args: PreviewResumeRouteArgs(key: key, resumeEntity: resumeEntity),
@@ -157,7 +159,7 @@ class PreviewResumeRoute extends _i11.PageRouteInfo<PreviewResumeRouteArgs> {
 
   static const String name = 'PreviewResumeRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PreviewResumeRouteArgs>();
@@ -172,9 +174,9 @@ class PreviewResumeRoute extends _i11.PageRouteInfo<PreviewResumeRouteArgs> {
 class PreviewResumeRouteArgs {
   const PreviewResumeRouteArgs({this.key, required this.resumeEntity});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
-  final _i13.ResumeEntity resumeEntity;
+  final _i14.ResumeEntity resumeEntity;
 
   @override
   String toString() {
@@ -194,13 +196,13 @@ class PreviewResumeRouteArgs {
 
 /// generated route for
 /// [_i7.ProfileScreen]
-class ProfileRoute extends _i11.PageRouteInfo<void> {
-  const ProfileRoute({List<_i11.PageRouteInfo>? children})
+class ProfileRoute extends _i12.PageRouteInfo<void> {
+  const ProfileRoute({List<_i12.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i7.ProfileScreen();
@@ -210,11 +212,11 @@ class ProfileRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ProfileUpdateScreen]
-class ProfileUpdateRoute extends _i11.PageRouteInfo<ProfileUpdateRouteArgs> {
+class ProfileUpdateRoute extends _i12.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
-    _i12.Key? key,
-    required _i14.UserEntity userEntity,
-    List<_i11.PageRouteInfo>? children,
+    _i13.Key? key,
+    required _i15.UserEntity userEntity,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
          args: ProfileUpdateRouteArgs(key: key, userEntity: userEntity),
@@ -223,7 +225,7 @@ class ProfileUpdateRoute extends _i11.PageRouteInfo<ProfileUpdateRouteArgs> {
 
   static const String name = 'ProfileUpdateRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProfileUpdateRouteArgs>();
@@ -238,9 +240,9 @@ class ProfileUpdateRoute extends _i11.PageRouteInfo<ProfileUpdateRouteArgs> {
 class ProfileUpdateRouteArgs {
   const ProfileUpdateRouteArgs({this.key, required this.userEntity});
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
-  final _i14.UserEntity userEntity;
+  final _i15.UserEntity userEntity;
 
   @override
   String toString() {
@@ -260,13 +262,13 @@ class ProfileUpdateRouteArgs {
 
 /// generated route for
 /// [_i9.RegisterScreen]
-class RegisterRoute extends _i11.PageRouteInfo<void> {
-  const RegisterRoute({List<_i11.PageRouteInfo>? children})
+class RegisterRoute extends _i12.PageRouteInfo<void> {
+  const RegisterRoute({List<_i12.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i9.RegisterScreen();
@@ -276,16 +278,32 @@ class RegisterRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.SplashScreen]
-class SplashRoute extends _i11.PageRouteInfo<void> {
-  const SplashRoute({List<_i11.PageRouteInfo>? children})
+class SplashRoute extends _i12.PageRouteInfo<void> {
+  const SplashRoute({List<_i12.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i11.PageInfo page = _i11.PageInfo(
+  static _i12.PageInfo page = _i12.PageInfo(
     name,
     builder: (data) {
       return const _i10.SplashScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i11.StructureResumeScreen]
+class StructureResumeRoute extends _i12.PageRouteInfo<void> {
+  const StructureResumeRoute({List<_i12.PageRouteInfo>? children})
+    : super(StructureResumeRoute.name, initialChildren: children);
+
+  static const String name = 'StructureResumeRoute';
+
+  static _i12.PageInfo page = _i12.PageInfo(
+    name,
+    builder: (data) {
+      return const _i11.StructureResumeScreen();
     },
   );
 }

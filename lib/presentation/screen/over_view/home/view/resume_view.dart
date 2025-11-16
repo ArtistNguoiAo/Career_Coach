@@ -137,28 +137,28 @@ class _ResumeViewState extends State<ResumeView>
                 Icon(
                   FontAwesomeIcons.eye,
                   size: 14,
-                  color: context.theme.iconFeatureColor,
+                  color: context.theme.darkGreyColor,
                 ),
                 SizedBox(width: 4),
                 Text(
                   resumeEntity.viewCount.toString(),
                   style: TextStyleUtils.normal(
                     fontSize: 14,
-                    color: context.theme.iconFeatureColor,
+                    color: context.theme.darkGreyColor,
                   ),
                 ),
                 SizedBox(width: 8),
                 Icon(
                   FontAwesomeIcons.download,
                   size: 14,
-                  color: context.theme.iconFeatureColor,
+                  color: context.theme.darkGreyColor,
                 ),
                 SizedBox(width: 4),
                 Text(
                   resumeEntity.downloadCount.toString(),
                   style: TextStyleUtils.normal(
                     fontSize: 14,
-                    color: context.theme.iconFeatureColor,
+                    color: context.theme.darkGreyColor,
                   ),
                 ),
                 SizedBox(width: 8),

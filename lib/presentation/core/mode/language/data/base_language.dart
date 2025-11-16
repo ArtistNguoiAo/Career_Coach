@@ -66,4 +66,16 @@ abstract class BaseLanguage {
   String get changeTemplate;
   String get editTheme;
   String get editContent;
+  String get activity;
+  String get avatar;
+  String get award;
+  String get certificate;
+  String get contactInformation;
+  String get education;
+  String get favorite;
+  String get goal;
+  String get otherInformation;
+  String get skill;
+  String get project;
+  String get addSection;
 }

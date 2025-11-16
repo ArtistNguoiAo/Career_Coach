@@ -207,4 +207,40 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get editContent => 'Sửa nội dung';
+
+  @override
+  String get activity => 'Hoạt động';
+
+  @override
+  String get avatar => 'Ảnh đại diện';
+
+  @override
+  String get award => 'Giải thưởng';
+
+  @override
+  String get certificate => 'Chứng chỉ';
+
+  @override
+  String get contactInformation => 'Thông tin liên hệ';
+
+  @override
+  String get education => 'Học vấn';
+
+  @override
+  String get favorite => 'Sở thích';
+
+  @override
+  String get goal => 'Mục tiêu';
+
+  @override
+  String get otherInformation => 'Thông tin khác';
+
+  @override
+  String get skill => 'Kỹ năng';
+
+  @override
+  String get project => 'Dự án';
+
+  @override
+  String get addSection => 'Thêm mục';
 }

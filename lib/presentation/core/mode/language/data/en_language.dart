@@ -207,4 +207,40 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get editContent => 'Edit content';
+
+  @override
+  String get activity => 'Activity';
+
+  @override
+  String get avatar => 'Avatar';
+
+  @override
+  String get award => 'Award';
+
+  @override
+  String get certificate => 'Certificate';
+
+  @override
+  String get contactInformation => 'Contact information';
+
+  @override
+  String get education => 'Education';
+
+  @override
+  String get favorite => 'Favorite';
+
+  @override
+  String get goal => 'Goal';
+
+  @override
+  String get otherInformation => 'Other information';
+
+  @override
+  String get skill => 'Skill';
+
+  @override
+  String get project => 'Project';
+
+  @override
+  String get addSection => 'Add section';
 }

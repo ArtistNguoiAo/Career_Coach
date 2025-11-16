@@ -143,7 +143,7 @@ class DialogUtils {
                 child: Icon(
                   FontAwesomeIcons.circleXmark,
                   size: 24,
-                  color: context.theme.iconFeatureColor,
+                  color: context.theme.darkGreyColor,
                 ),
               ),
             ],
@@ -250,7 +250,7 @@ class DialogUtils {
                     child: Icon(
                       FontAwesomeIcons.circleXmark,
                       size: 24,
-                      color: context.theme.iconFeatureColor,
+                      color: context.theme.darkGreyColor,
                     ),
                   ),
                 ],

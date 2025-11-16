@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,14 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              context.language.cancel,
-              style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop();
+              },
+              child: Text(
+                context.language.cancel,
+                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
+              ),
             ),
             Expanded(
               child: Padding(
@@ -51,9 +57,14 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                 ),
               ),
             ),
-            Text(
-              context.language.save,
-              style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
+            InkWell(
+              onTap: () {
+
+              },
+              child: Text(
+                context.language.save,
+                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
+              ),
             ),
           ],
         ),
@@ -134,29 +145,34 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: context.theme.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  FontAwesomeIcons.pencil,
-                  size: 20,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  context.language.editContent,
-                  style: TextStyleUtils.bold(
+          child: InkWell(
+            onTap: () {
+              AutoRouter.of(context).push(StructureResumeRoute());
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.pencil,
+                    size: 20,
                     color: Colors.white,
-                    fontSize: 16,
                   ),
-                )
-              ],
+                  const SizedBox(width: 8),
+                  Text(
+                    context.language.editContent,
+                    style: TextStyleUtils.bold(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

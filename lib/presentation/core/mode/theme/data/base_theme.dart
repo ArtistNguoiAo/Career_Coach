@@ -10,7 +10,7 @@ abstract class BaseTheme {
   Color get badColor;
   Color get typeAccountColor;
   Color get primaryDarkColor;
-  Color get iconFeatureColor;
+  Color get darkGreyColor;
   Color get premiumColor;
   Color get lightGreyColor;
 }
