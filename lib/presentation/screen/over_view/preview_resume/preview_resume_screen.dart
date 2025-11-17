@@ -70,8 +70,9 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         ),
         backgroundColor: context.theme.primaryColor,
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.all(16),
+        color: context.theme.backgroundColor,
         child: Column(
           children: [
             _headerRow(),

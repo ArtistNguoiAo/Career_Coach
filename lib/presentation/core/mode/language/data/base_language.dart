@@ -78,4 +78,12 @@ abstract class BaseLanguage {
   String get skill;
   String get project;
   String get addSection;
+  String get position;
+  String get address;
+  String get personalWebsite;
+  String get linkedIn;
+  String get github;
+  String get facebook;
+  String get portfolio;
+  String get dateOfBirth;
 }

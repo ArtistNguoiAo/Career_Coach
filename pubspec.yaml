@@ -27,6 +27,7 @@ dependencies:
   image_picker: ^1.1.2
   http_parser: ^4.1.2
   retrofit: ^4.5.0
+  intl: ^0.20.2
 
   # ui
   flutter_svg: ^2.2.0

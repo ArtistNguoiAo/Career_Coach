@@ -243,4 +243,28 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get addSection => 'Add section';
+
+  @override
+  String get position => 'Position';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get personalWebsite => 'Personal website';
+
+  @override
+  String get linkedIn => 'LinkedIn';
+
+  @override
+  String get github => 'GitHub';
+
+  @override
+  String get facebook => 'Facebook';
+
+  @override
+  String get portfolio => 'Portfolio';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
 }

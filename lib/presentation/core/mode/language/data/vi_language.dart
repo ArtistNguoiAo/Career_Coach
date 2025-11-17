@@ -243,4 +243,28 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get addSection => 'Thêm mục';
+
+  @override
+  String get position => 'Vị trí';
+
+  @override
+  String get address => 'Địa chỉ';
+
+  @override
+  String get personalWebsite => 'Website cá nhân';
+
+  @override
+  String get linkedIn => 'LinkedIn';
+
+  @override
+  String get github => 'GitHub';
+
+  @override
+  String get facebook => 'Facebook';
+
+  @override
+  String get portfolio => 'Portfolio';
+
+  @override
+  String get dateOfBirth => 'Ngày sinh';
 }
