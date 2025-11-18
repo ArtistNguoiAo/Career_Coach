@@ -8,11 +8,13 @@ class BaseRadio extends StatefulWidget {
     required this.controller,
     required this.isRequired,
     required this.title,
+    required this.value,
   });
 
   final TextEditingController controller;
   final bool isRequired;
   final String title;
+  final List<String> value;
 
   @override
   State<BaseRadio> createState() => _BaseRadioState();
@@ -42,7 +44,32 @@ class _BaseRadioState extends State<BaseRadio> {
           ),
         ),
         const SizedBox(height: 4),
-       
+        Wrap(
+          children: widget.value.map((option) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Radio<String>(
+                  value: option,
+                  groupValue: widget.controller.text.isEmpty ? null : widget.controller.text,
+                  onChanged: (String? value) {
+                    setState(() {
+                      widget.controller.text = value ?? '';
+                    });
+                  },
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  activeColor: context.theme.primaryColor,
+                ),
+                Text(
+                  option,
+                  style: TextStyleUtils.normal(
+                    color: context.theme.textColor,
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
+        )
       ],
     );
   }

@@ -86,4 +86,7 @@ abstract class BaseLanguage {
   String get facebook;
   String get portfolio;
   String get dateOfBirth;
+  String get gender;
+  String get male;
+  String get female;
 }

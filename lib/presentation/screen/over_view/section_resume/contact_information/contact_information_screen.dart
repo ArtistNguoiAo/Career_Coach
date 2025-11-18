@@ -3,6 +3,7 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_content.dart';
 import 'package:career_coach/presentation/core/widgets/base_content_date.dart';
+import 'package:career_coach/presentation/core/widgets/base_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,6 +22,7 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
   final TextEditingController _portfolioController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
@@ -58,6 +60,7 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
         color: context.theme.backgroundColor,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseContent(
                 controller: _fullNameController,
@@ -89,6 +92,15 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                 title: context.language.address,
               ),
               SizedBox(height: 8.0),
+              BaseRadio(
+                controller: _genderController,
+                isRequired: false,
+                title: context.language.gender,
+                value: [
+                  context.language.male,
+                  context.language.female,
+                ],
+              ),
               BaseContentDate(
                 controller: _dateOfBirthController,
                 isRequired: false,

@@ -267,4 +267,13 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get dateOfBirth => 'Ngày sinh';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
 }
