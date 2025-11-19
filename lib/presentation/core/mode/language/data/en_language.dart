@@ -288,4 +288,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get description => 'Description';
+
+  @override
+  String get nameProject => 'Project name';
+
+  @override
+  String get add => 'Add';
 }

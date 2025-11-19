@@ -97,7 +97,9 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
         else if(title == context.language.workExperience) {
           AutoRouter.of(context).push(WorkExperienceRoute());
         }
-
+        else if(title == context.language.project) {
+          AutoRouter.of(context).push(ProjectRoute());
+        }
       },
       child: Container(
         padding: EdgeInsets.all(16),

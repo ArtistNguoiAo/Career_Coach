@@ -93,4 +93,6 @@ abstract class BaseLanguage {
   String get startDate;
   String get endDate;
   String get description;
+  String get nameProject;
+  String get add;
 }

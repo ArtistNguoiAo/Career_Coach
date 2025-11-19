@@ -8,16 +8,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 @RoutePage()
-class WorkExperienceDetailScreen extends StatefulWidget {
-  const WorkExperienceDetailScreen({super.key});
+class ProjectDetailScreen extends StatefulWidget {
+  const ProjectDetailScreen({super.key});
 
   @override
-  State<WorkExperienceDetailScreen> createState() => _WorkExperienceDetailScreenState();
+  State<ProjectDetailScreen> createState() => _ProjectDetailScreenState();
 }
 
-class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen> {
+class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _positionController = TextEditingController();
-  final TextEditingController _companyController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -38,7 +38,7 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
         ),
         centerTitle: true,
         title: Text(
-          context.language.workExperience,
+          context.language.project,
           style: TextStyleUtils.bold(
             color: context.theme.backgroundColor,
             fontSize: 18,
@@ -65,15 +65,15 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BaseContent(
-                  controller: _positionController,
+                  controller: _nameController,
                   isRequired: true,
-                  title: context.language.position,
+                  title: context.language.nameProject,
                 ),
                 SizedBox(height: 8.0),
                 BaseContent(
-                  controller: _companyController,
+                  controller: _positionController,
                   isRequired: true,
-                  title: context.language.company,
+                  title: context.language.position,
                 ),
                 SizedBox(height: 8.0),
                 BaseContentDate(
@@ -184,4 +184,3 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
     );
   }
 }
-

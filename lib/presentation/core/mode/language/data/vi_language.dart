@@ -288,4 +288,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get description => 'Mô tả';
+
+  @override
+  String get nameProject => 'Tên dự án';
+
+  @override
+  String get add => 'Thêm';
 }

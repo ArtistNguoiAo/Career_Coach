@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 @RoutePage()
-class WorkExperienceScreen extends StatefulWidget {
-  const WorkExperienceScreen({super.key});
+class ProjectScreen extends StatefulWidget {
+  const ProjectScreen({super.key});
 
   @override
-  State<WorkExperienceScreen> createState() => _WorkExperienceScreenState();
+  State<ProjectScreen> createState() => _ProjectScreenState();
 }
 
-class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
+class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
         ),
         centerTitle: true,
         title: Text(
-          context.language.workExperience,
+          context.language.project,
           style: TextStyleUtils.bold(
             color: context.theme.backgroundColor,
             fontSize: 18,
@@ -107,7 +107,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            AutoRouter.of(context).push(WorkExperienceDetailRoute());
+            AutoRouter.of(context).push(ProjectDetailRoute());
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -128,7 +128,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Flutter Developer",
+                        "Career Coach App",
                         style: TextStyleUtils.bold(
                           color: context.theme.textColor,
                           fontSize: 16,
@@ -136,7 +136,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        "GPS Company",
+                        "Flutter Developer - Member",
                         style: TextStyleUtils.normal(
                           color: context.theme.textColor,
                           fontSize: 16,
@@ -166,4 +166,5 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
       },
     );
   }
+
 }
