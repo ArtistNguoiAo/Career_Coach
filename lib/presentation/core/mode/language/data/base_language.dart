@@ -100,4 +100,7 @@ abstract class BaseLanguage {
   String get nameCertificate;
   String get link;
   String get time;
+  String get nameSchool;
+  String get major;
+  String get degree;
 }

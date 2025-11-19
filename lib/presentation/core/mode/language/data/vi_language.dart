@@ -309,4 +309,13 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get time => 'Thời gian';
+
+  @override
+  String get nameSchool => 'Tên trường';
+
+  @override
+  String get major => 'Chuyên ngành';
+
+  @override
+  String get degree => 'Bằng cấp';
 }

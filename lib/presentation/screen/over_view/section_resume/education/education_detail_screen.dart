@@ -8,16 +8,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 @RoutePage()
-class ActivityDetailScreen extends StatefulWidget {
-  const ActivityDetailScreen({super.key});
+class EducationDetailScreen extends StatefulWidget {
+  const EducationDetailScreen({super.key});
 
   @override
-  State<ActivityDetailScreen> createState() => _ActivityDetailScreenState();
+  State<EducationDetailScreen> createState() => _EducationDetailScreenState();
 }
 
-class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
-  final TextEditingController _organizationController = TextEditingController();
-  final TextEditingController _positionController = TextEditingController();
+class _EducationDetailScreenState extends State<EducationDetailScreen> {
+  final TextEditingController _schoolController = TextEditingController();
+  final TextEditingController _majorController = TextEditingController();
+  final TextEditingController _degreeController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -38,7 +39,7 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
         ),
         centerTitle: true,
         title: Text(
-          context.language.activity,
+          context.language.education,
           style: TextStyleUtils.bold(
             color: context.theme.backgroundColor,
             fontSize: 18,
@@ -65,15 +66,21 @@ class _ActivityDetailScreenState extends State<ActivityDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BaseContent(
-                  controller: _organizationController,
+                  controller: _schoolController,
                   isRequired: true,
-                  title: context.language.organization,
+                  title: context.language.nameSchool,
                 ),
                 SizedBox(height: 8.0),
                 BaseContent(
-                  controller: _positionController,
+                  controller: _majorController,
                   isRequired: true,
-                  title: context.language.position,
+                  title: context.language.major,
+                ),
+                SizedBox(height: 8.0),
+                BaseContent(
+                  controller: _degreeController,
+                  isRequired: false,
+                  title: context.language.degree,
                 ),
                 SizedBox(height: 8.0),
                 BaseContentDate(

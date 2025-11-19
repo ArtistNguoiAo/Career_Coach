@@ -309,4 +309,13 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get time => 'Time';
+
+  @override
+  String get nameSchool => 'School name';
+
+  @override
+  String get major => 'Major';
+
+  @override
+  String get degree => 'Degree';
 }
