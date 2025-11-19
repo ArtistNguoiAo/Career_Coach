@@ -318,4 +318,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get degree => 'Degree';
+
+  @override
+  String get nameSkill => 'Skill name';
 }
