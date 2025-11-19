@@ -9,113 +9,149 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:career_coach/domain/entity/resume_entity.dart' as _i20;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i21;
+import 'package:auto_route/auto_route.dart' as _i20;
+import 'package:career_coach/domain/entity/resume_entity.dart' as _i22;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i23;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
-    as _i6;
-import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
-    as _i13;
-import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
-    as _i3;
-import 'package:career_coach/presentation/screen/over_view/list_cv_and_cl/list_cv_and_cl_screen.dart'
-    as _i4;
-import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
-    as _i5;
-import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
-    as _i7;
-import 'package:career_coach/presentation/screen/over_view/preview_resume/preview_resume_screen.dart'
     as _i8;
-import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
-    as _i9;
-import 'package:career_coach/presentation/screen/over_view/section_resume/avatar/avatar_screen.dart'
-    as _i1;
-import 'package:career_coach/presentation/screen/over_view/section_resume/contact_information/contact_information_screen.dart'
-    as _i2;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_detail_screen.dart'
-    as _i11;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_screen.dart'
-    as _i12;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_detail_screen.dart'
-    as _i16;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_screen.dart'
-    as _i17;
-import 'package:career_coach/presentation/screen/over_view/structure_resume/structure_resume_screen.dart'
+import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
     as _i15;
-import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
+import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
+    as _i5;
+import 'package:career_coach/presentation/screen/over_view/list_cv_and_cl/list_cv_and_cl_screen.dart'
+    as _i6;
+import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
+    as _i7;
+import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
+    as _i9;
+import 'package:career_coach/presentation/screen/over_view/preview_resume/preview_resume_screen.dart'
     as _i10;
-import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
+import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
+    as _i11;
+import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_detail_screen.dart'
+    as _i1;
+import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_screen.dart'
+    as _i2;
+import 'package:career_coach/presentation/screen/over_view/section_resume/avatar/avatar_screen.dart'
+    as _i3;
+import 'package:career_coach/presentation/screen/over_view/section_resume/contact_information/contact_information_screen.dart'
+    as _i4;
+import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_detail_screen.dart'
+    as _i13;
+import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_screen.dart'
     as _i14;
-import 'package:flutter/material.dart' as _i19;
+import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_detail_screen.dart'
+    as _i18;
+import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_screen.dart'
+    as _i19;
+import 'package:career_coach/presentation/screen/over_view/structure_resume/structure_resume_screen.dart'
+    as _i17;
+import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
+    as _i12;
+import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
+    as _i16;
+import 'package:flutter/material.dart' as _i21;
 
 /// generated route for
-/// [_i1.AvatarScreen]
-class AvatarRoute extends _i18.PageRouteInfo<void> {
-  const AvatarRoute({List<_i18.PageRouteInfo>? children})
+/// [_i1.ActivityDetailScreen]
+class ActivityDetailRoute extends _i20.PageRouteInfo<void> {
+  const ActivityDetailRoute({List<_i20.PageRouteInfo>? children})
+    : super(ActivityDetailRoute.name, initialChildren: children);
+
+  static const String name = 'ActivityDetailRoute';
+
+  static _i20.PageInfo page = _i20.PageInfo(
+    name,
+    builder: (data) {
+      return const _i1.ActivityDetailScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i2.ActivityScreen]
+class ActivityRoute extends _i20.PageRouteInfo<void> {
+  const ActivityRoute({List<_i20.PageRouteInfo>? children})
+    : super(ActivityRoute.name, initialChildren: children);
+
+  static const String name = 'ActivityRoute';
+
+  static _i20.PageInfo page = _i20.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.ActivityScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.AvatarScreen]
+class AvatarRoute extends _i20.PageRouteInfo<void> {
+  const AvatarRoute({List<_i20.PageRouteInfo>? children})
     : super(AvatarRoute.name, initialChildren: children);
 
   static const String name = 'AvatarRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i1.AvatarScreen();
+      return const _i3.AvatarScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i2.ContactInformationScreen]
-class ContactInformationRoute extends _i18.PageRouteInfo<void> {
-  const ContactInformationRoute({List<_i18.PageRouteInfo>? children})
+/// [_i4.ContactInformationScreen]
+class ContactInformationRoute extends _i20.PageRouteInfo<void> {
+  const ContactInformationRoute({List<_i20.PageRouteInfo>? children})
     : super(ContactInformationRoute.name, initialChildren: children);
 
   static const String name = 'ContactInformationRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i2.ContactInformationScreen();
+      return const _i4.ContactInformationScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i3.HomeScreen]
-class HomeRoute extends _i18.PageRouteInfo<void> {
-  const HomeRoute({List<_i18.PageRouteInfo>? children})
+/// [_i5.HomeScreen]
+class HomeRoute extends _i20.PageRouteInfo<void> {
+  const HomeRoute({List<_i20.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i3.HomeScreen();
+      return const _i5.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i4.ListCvAndClScreen]
-class ListCvAndClRoute extends _i18.PageRouteInfo<void> {
-  const ListCvAndClRoute({List<_i18.PageRouteInfo>? children})
+/// [_i6.ListCvAndClScreen]
+class ListCvAndClRoute extends _i20.PageRouteInfo<void> {
+  const ListCvAndClRoute({List<_i20.PageRouteInfo>? children})
     : super(ListCvAndClRoute.name, initialChildren: children);
 
   static const String name = 'ListCvAndClRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i4.ListCvAndClScreen();
+      return const _i6.ListCvAndClScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i5.ListInterviewScreen]
-class ListInterviewRoute extends _i18.PageRouteInfo<ListInterviewRouteArgs> {
-  ListInterviewRoute({_i19.Key? key, List<_i18.PageRouteInfo>? children})
+/// [_i7.ListInterviewScreen]
+class ListInterviewRoute extends _i20.PageRouteInfo<ListInterviewRouteArgs> {
+  ListInterviewRoute({_i21.Key? key, List<_i20.PageRouteInfo>? children})
     : super(
         ListInterviewRoute.name,
         args: ListInterviewRouteArgs(key: key),
@@ -124,13 +160,13 @@ class ListInterviewRoute extends _i18.PageRouteInfo<ListInterviewRouteArgs> {
 
   static const String name = 'ListInterviewRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ListInterviewRouteArgs>(
         orElse: () => const ListInterviewRouteArgs(),
       );
-      return _i5.ListInterviewScreen(key: args.key);
+      return _i7.ListInterviewScreen(key: args.key);
     },
   );
 }
@@ -138,7 +174,7 @@ class ListInterviewRoute extends _i18.PageRouteInfo<ListInterviewRouteArgs> {
 class ListInterviewRouteArgs {
   const ListInterviewRouteArgs({this.key});
 
-  final _i19.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -157,44 +193,44 @@ class ListInterviewRouteArgs {
 }
 
 /// generated route for
-/// [_i6.LoginScreen]
-class LoginRoute extends _i18.PageRouteInfo<void> {
-  const LoginRoute({List<_i18.PageRouteInfo>? children})
+/// [_i8.LoginScreen]
+class LoginRoute extends _i20.PageRouteInfo<void> {
+  const LoginRoute({List<_i20.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i6.LoginScreen();
+      return const _i8.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.OverViewScreen]
-class OverViewRoute extends _i18.PageRouteInfo<void> {
-  const OverViewRoute({List<_i18.PageRouteInfo>? children})
+/// [_i9.OverViewScreen]
+class OverViewRoute extends _i20.PageRouteInfo<void> {
+  const OverViewRoute({List<_i20.PageRouteInfo>? children})
     : super(OverViewRoute.name, initialChildren: children);
 
   static const String name = 'OverViewRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i7.OverViewScreen();
+      return const _i9.OverViewScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.PreviewResumeScreen]
-class PreviewResumeRoute extends _i18.PageRouteInfo<PreviewResumeRouteArgs> {
+/// [_i10.PreviewResumeScreen]
+class PreviewResumeRoute extends _i20.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
-    _i19.Key? key,
-    required _i20.ResumeEntity resumeEntity,
-    List<_i18.PageRouteInfo>? children,
+    _i21.Key? key,
+    required _i22.ResumeEntity resumeEntity,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
          args: PreviewResumeRouteArgs(key: key, resumeEntity: resumeEntity),
@@ -203,11 +239,11 @@ class PreviewResumeRoute extends _i18.PageRouteInfo<PreviewResumeRouteArgs> {
 
   static const String name = 'PreviewResumeRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PreviewResumeRouteArgs>();
-      return _i8.PreviewResumeScreen(
+      return _i10.PreviewResumeScreen(
         key: args.key,
         resumeEntity: args.resumeEntity,
       );
@@ -218,9 +254,9 @@ class PreviewResumeRoute extends _i18.PageRouteInfo<PreviewResumeRouteArgs> {
 class PreviewResumeRouteArgs {
   const PreviewResumeRouteArgs({this.key, required this.resumeEntity});
 
-  final _i19.Key? key;
+  final _i21.Key? key;
 
-  final _i20.ResumeEntity resumeEntity;
+  final _i22.ResumeEntity resumeEntity;
 
   @override
   String toString() {
@@ -239,28 +275,28 @@ class PreviewResumeRouteArgs {
 }
 
 /// generated route for
-/// [_i9.ProfileScreen]
-class ProfileRoute extends _i18.PageRouteInfo<void> {
-  const ProfileRoute({List<_i18.PageRouteInfo>? children})
+/// [_i11.ProfileScreen]
+class ProfileRoute extends _i20.PageRouteInfo<void> {
+  const ProfileRoute({List<_i20.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i9.ProfileScreen();
+      return const _i11.ProfileScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i10.ProfileUpdateScreen]
-class ProfileUpdateRoute extends _i18.PageRouteInfo<ProfileUpdateRouteArgs> {
+/// [_i12.ProfileUpdateScreen]
+class ProfileUpdateRoute extends _i20.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
-    _i19.Key? key,
-    required _i21.UserEntity userEntity,
-    List<_i18.PageRouteInfo>? children,
+    _i21.Key? key,
+    required _i23.UserEntity userEntity,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
          args: ProfileUpdateRouteArgs(key: key, userEntity: userEntity),
@@ -269,11 +305,11 @@ class ProfileUpdateRoute extends _i18.PageRouteInfo<ProfileUpdateRouteArgs> {
 
   static const String name = 'ProfileUpdateRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProfileUpdateRouteArgs>();
-      return _i10.ProfileUpdateScreen(
+      return _i12.ProfileUpdateScreen(
         key: args.key,
         userEntity: args.userEntity,
       );
@@ -284,9 +320,9 @@ class ProfileUpdateRoute extends _i18.PageRouteInfo<ProfileUpdateRouteArgs> {
 class ProfileUpdateRouteArgs {
   const ProfileUpdateRouteArgs({this.key, required this.userEntity});
 
-  final _i19.Key? key;
+  final _i21.Key? key;
 
-  final _i21.UserEntity userEntity;
+  final _i23.UserEntity userEntity;
 
   @override
   String toString() {
@@ -305,113 +341,113 @@ class ProfileUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i11.ProjectDetailScreen]
-class ProjectDetailRoute extends _i18.PageRouteInfo<void> {
-  const ProjectDetailRoute({List<_i18.PageRouteInfo>? children})
+/// [_i13.ProjectDetailScreen]
+class ProjectDetailRoute extends _i20.PageRouteInfo<void> {
+  const ProjectDetailRoute({List<_i20.PageRouteInfo>? children})
     : super(ProjectDetailRoute.name, initialChildren: children);
 
   static const String name = 'ProjectDetailRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i11.ProjectDetailScreen();
+      return const _i13.ProjectDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i12.ProjectScreen]
-class ProjectRoute extends _i18.PageRouteInfo<void> {
-  const ProjectRoute({List<_i18.PageRouteInfo>? children})
+/// [_i14.ProjectScreen]
+class ProjectRoute extends _i20.PageRouteInfo<void> {
+  const ProjectRoute({List<_i20.PageRouteInfo>? children})
     : super(ProjectRoute.name, initialChildren: children);
 
   static const String name = 'ProjectRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i12.ProjectScreen();
+      return const _i14.ProjectScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i13.RegisterScreen]
-class RegisterRoute extends _i18.PageRouteInfo<void> {
-  const RegisterRoute({List<_i18.PageRouteInfo>? children})
+/// [_i15.RegisterScreen]
+class RegisterRoute extends _i20.PageRouteInfo<void> {
+  const RegisterRoute({List<_i20.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i13.RegisterScreen();
+      return const _i15.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i14.SplashScreen]
-class SplashRoute extends _i18.PageRouteInfo<void> {
-  const SplashRoute({List<_i18.PageRouteInfo>? children})
+/// [_i16.SplashScreen]
+class SplashRoute extends _i20.PageRouteInfo<void> {
+  const SplashRoute({List<_i20.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i14.SplashScreen();
+      return const _i16.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i15.StructureResumeScreen]
-class StructureResumeRoute extends _i18.PageRouteInfo<void> {
-  const StructureResumeRoute({List<_i18.PageRouteInfo>? children})
+/// [_i17.StructureResumeScreen]
+class StructureResumeRoute extends _i20.PageRouteInfo<void> {
+  const StructureResumeRoute({List<_i20.PageRouteInfo>? children})
     : super(StructureResumeRoute.name, initialChildren: children);
 
   static const String name = 'StructureResumeRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i15.StructureResumeScreen();
+      return const _i17.StructureResumeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i16.WorkExperienceDetailScreen]
-class WorkExperienceDetailRoute extends _i18.PageRouteInfo<void> {
-  const WorkExperienceDetailRoute({List<_i18.PageRouteInfo>? children})
+/// [_i18.WorkExperienceDetailScreen]
+class WorkExperienceDetailRoute extends _i20.PageRouteInfo<void> {
+  const WorkExperienceDetailRoute({List<_i20.PageRouteInfo>? children})
     : super(WorkExperienceDetailRoute.name, initialChildren: children);
 
   static const String name = 'WorkExperienceDetailRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i16.WorkExperienceDetailScreen();
+      return const _i18.WorkExperienceDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.WorkExperienceScreen]
-class WorkExperienceRoute extends _i18.PageRouteInfo<void> {
-  const WorkExperienceRoute({List<_i18.PageRouteInfo>? children})
+/// [_i19.WorkExperienceScreen]
+class WorkExperienceRoute extends _i20.PageRouteInfo<void> {
+  const WorkExperienceRoute({List<_i20.PageRouteInfo>? children})
     : super(WorkExperienceRoute.name, initialChildren: children);
 
   static const String name = 'WorkExperienceRoute';
 
-  static _i18.PageInfo page = _i18.PageInfo(
+  static _i20.PageInfo page = _i20.PageInfo(
     name,
     builder: (data) {
-      return const _i17.WorkExperienceScreen();
+      return const _i19.WorkExperienceScreen();
     },
   );
 }

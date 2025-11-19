@@ -294,4 +294,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get add => 'Add';
+
+  @override
+  String get organization => 'Organization';
 }
