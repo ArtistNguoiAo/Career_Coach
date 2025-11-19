@@ -303,4 +303,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get nameCertificate => 'Tên chứng chỉ';
+
+  @override
+  String get link => 'Liên kết';
+
+  @override
+  String get time => 'Thời gian';
 }

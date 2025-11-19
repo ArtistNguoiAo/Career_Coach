@@ -8,16 +8,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 @RoutePage()
-class AwardDetailScreen extends StatefulWidget {
-  const AwardDetailScreen({super.key});
+class CertificateDetailScreen extends StatefulWidget {
+  const CertificateDetailScreen({super.key});
 
   @override
-  State<AwardDetailScreen> createState() => _AwardDetailScreenState();
+  State<CertificateDetailScreen> createState() => _CertificateDetailScreenState();
 }
 
-class _AwardDetailScreenState extends State<AwardDetailScreen> {
+class _CertificateDetailScreenState extends State<CertificateDetailScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class _AwardDetailScreenState extends State<AwardDetailScreen> {
         ),
         centerTitle: true,
         title: Text(
-          context.language.award,
+          context.language.certificate,
           style: TextStyleUtils.bold(
             color: context.theme.backgroundColor,
             fontSize: 18,
@@ -64,7 +65,7 @@ class _AwardDetailScreenState extends State<AwardDetailScreen> {
                 BaseContent(
                   controller: _nameController,
                   isRequired: true,
-                  title: context.language.nameAward,
+                  title: context.language.nameCertificate,
                 ),
                 SizedBox(height: 8.0),
                 BaseContentDate(
@@ -102,6 +103,12 @@ class _AwardDetailScreenState extends State<AwardDetailScreen> {
                       _dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
                     }
                   },
+                ),
+                SizedBox(height: 8.0),
+                BaseContent(
+                  controller: _linkController,
+                  isRequired: false,
+                  title: context.language.link,
                 ),
               ],
             ),

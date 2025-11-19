@@ -98,4 +98,6 @@ abstract class BaseLanguage {
   String get organization;
   String get nameAward;
   String get nameCertificate;
+  String get link;
+  String get time;
 }

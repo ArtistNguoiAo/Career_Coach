@@ -303,4 +303,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get nameCertificate => 'Certificate name';
+
+  @override
+  String get link => 'Link';
+
+  @override
+  String get time => 'Time';
 }
