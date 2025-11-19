@@ -88,7 +88,16 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
   Widget _sectionItem({required String title, required bool isChange}) {
     return InkWell(
       onTap: () {
-        AutoRouter.of(context).push(ContactInformationRoute());
+        if(title == context.language.contactInformation) {
+          AutoRouter.of(context).push(ContactInformationRoute());
+        }
+        else if(title == context.language.avatar) {
+          AutoRouter.of(context).push(AvatarRoute());
+        }
+        else if(title == context.language.workExperience) {
+          AutoRouter.of(context).push(WorkExperienceRoute());
+        }
+
       },
       child: Container(
         padding: EdgeInsets.all(16),
@@ -193,7 +202,7 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
                     child: Text(
-                      context.language.addSection,
+                      context.language.save,
                       style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
                       textAlign: TextAlign.center,
                     ),

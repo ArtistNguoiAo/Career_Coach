@@ -89,4 +89,8 @@ abstract class BaseLanguage {
   String get gender;
   String get male;
   String get female;
+  String get company;
+  String get startDate;
+  String get endDate;
+  String get description;
 }

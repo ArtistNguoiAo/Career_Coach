@@ -276,4 +276,16 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get female => 'Female';
+
+  @override
+  String get company => 'Company';
+
+  @override
+  String get startDate => 'Start date';
+
+  @override
+  String get endDate => 'End date';
+
+  @override
+  String get description => 'Description';
 }

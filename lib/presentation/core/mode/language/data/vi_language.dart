@@ -276,4 +276,16 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get female => 'Nữ';
+
+  @override
+  String get company => 'Công ty';
+
+  @override
+  String get startDate => 'Ngày bắt đầu';
+
+  @override
+  String get endDate => 'Ngày kết thúc';
+
+  @override
+  String get description => 'Mô tả';
 }

@@ -23,5 +23,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: StructureResumeRoute.page),
     AutoRoute(page: ContactInformationRoute.page),
     AutoRoute(page: AvatarRoute.page),
+    AutoRoute(page: WorkExperienceRoute.page),
+    AutoRoute(page: WorkExperienceDetailRoute.page),
   ];
 }

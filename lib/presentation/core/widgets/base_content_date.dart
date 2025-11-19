@@ -2,7 +2,6 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 class BaseContentDate extends StatefulWidget {
   const BaseContentDate({
@@ -11,12 +10,14 @@ class BaseContentDate extends StatefulWidget {
     required this.isRequired,
     required this.title,
     this.maxLines,
+    this.onTap,
   });
 
   final TextEditingController controller;
   final bool isRequired;
   final String title;
   final int? maxLines;
+  final Future<void>? Function()? onTap;
 
   @override
   State<BaseContentDate> createState() => _BaseContentDateState();
@@ -77,32 +78,7 @@ class _BaseContentDateState extends State<BaseContentDate> {
             ),
             const SizedBox(width: 8),
             InkWell(
-              onTap: () async {
-                final now = DateTime.now();
-
-                final pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: now,
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(now.year, now.month, now.day),
-                  builder: (context, child) {
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.light(
-                          primary: context.theme.primaryColor,
-                          onPrimary: Colors.white,
-                          onSurface: Colors.black,
-                        ),
-                      ),
-                      child: child!,
-                    );
-                  },
-                );
-
-                if (pickedDate != null) {
-                  widget.controller.text = DateFormat('dd/MM/yyyy').format(pickedDate);
-                }
-              },
+              onTap: widget.onTap,
               child: Container(
                 height: 32,
                 width: 32,

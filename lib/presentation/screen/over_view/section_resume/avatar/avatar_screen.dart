@@ -31,7 +31,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
         ),
         centerTitle: true,
         title: Text(
-          context.language.contactInformation,
+          context.language.avatar,
           style: TextStyleUtils.bold(
             color: context.theme.backgroundColor,
             fontSize: 18,
@@ -44,18 +44,36 @@ class _AvatarScreenState extends State<AvatarScreen> {
         width: double.infinity,
         padding: const EdgeInsets.all(16.0),
         color: context.theme.backgroundColor,
-        child: BaseAvatar(
-          url: "",
-          size: 120,
-          padding: 16,
-          onTap: () {
-            DialogUtils.showChooseImageDialog(
-              context: context,
-              onClose: (avatar) {
+        child: Column(
+          children: [
+            BaseAvatar(
+              url: "",
+              size: 150,
+              padding: 16,
+              onTap: () {
+                DialogUtils.showChooseImageDialog(
+                  context: context,
+                  onClose: (avatar) {
 
+                  },
+                );
               },
-            );
-          },
+            ),
+            Expanded(child: Container()),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              child: Text(
+                context.language.save,
+                style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
         ),
       ),
     );
