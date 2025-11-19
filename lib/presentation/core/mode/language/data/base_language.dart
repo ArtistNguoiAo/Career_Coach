@@ -96,4 +96,6 @@ abstract class BaseLanguage {
   String get nameProject;
   String get add;
   String get organization;
+  String get nameAward;
+  String get nameCertificate;
 }

@@ -297,4 +297,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get organization => 'Organization';
+
+  @override
+  String get nameAward => 'Award name';
+
+  @override
+  String get nameCertificate => 'Certificate name';
 }

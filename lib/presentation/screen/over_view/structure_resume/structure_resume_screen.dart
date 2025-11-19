@@ -100,9 +100,30 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
         else if(title == context.language.project) {
           AutoRouter.of(context).push(ProjectRoute());
         }
-        else if(title == context.language.organization) {
+        else if(title == context.language.activity) {
           AutoRouter.of(context).push(ActivityRoute());
         }
+        else if(title == context.language.award) {
+          AutoRouter.of(context).push(AwardRoute());
+        }
+        // else if(title == context.language.certificate) {
+        //   AutoRouter.of(context).push(CertificateRoute());
+        // }
+        // else if(title == context.language.education) {
+        //   AutoRouter.of(context).push(EducationRoute());
+        // }
+        // else if(title == context.language.hobby) {
+        //   AutoRouter.of(context).push(FavoriteRoute());
+        // }
+        // else if(title == context.language.careerObjective) {
+        //   AutoRouter.of(context).push(GoalRoute());
+        // }
+        // else if(title == context.language.skill) {
+        //   AutoRouter.of(context).push(SkillRoute());
+        // }
+        // else if(title == context.language.otherInformation) {
+        //   AutoRouter.of(context).push(OtherInformationRoute());
+        // }
       },
       child: Container(
         padding: EdgeInsets.all(16),

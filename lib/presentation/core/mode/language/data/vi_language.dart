@@ -297,4 +297,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get organization => 'Tổ chức';
+
+  @override
+  String get nameAward => 'Tên giải thưởng';
+
+  @override
+  String get nameCertificate => 'Tên chứng chỉ';
 }
