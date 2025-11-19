@@ -112,9 +112,9 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
         else if(title == context.language.education) {
           AutoRouter.of(context).push(EducationRoute());
         }
-        // else if(title == context.language.hobby) {
-        //   AutoRouter.of(context).push(FavoriteRoute());
-        // }
+        else if(title == context.language.favorite) {
+          AutoRouter.of(context).push(FavoriteRoute());
+        }
         // else if(title == context.language.careerObjective) {
         //   AutoRouter.of(context).push(GoalRoute());
         // }

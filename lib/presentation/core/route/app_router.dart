@@ -35,5 +35,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CertificateDetailRoute.page),
     AutoRoute(page: EducationRoute.page),
     AutoRoute(page: EducationDetailRoute.page),
+    AutoRoute(page: FavoriteRoute.page),
+    AutoRoute(page: FavoriteDetailRoute.page),
   ];
 }
