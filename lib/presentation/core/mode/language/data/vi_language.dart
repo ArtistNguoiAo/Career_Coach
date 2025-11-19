@@ -321,4 +321,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get nameSkill => 'Tên kỹ năng';
+
+  @override
+  String get careerGoal => 'Mục tiêu nghề nghiệp';
+
+  @override
+  String get information => 'Thông tin';
 }

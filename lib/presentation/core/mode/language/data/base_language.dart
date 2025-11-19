@@ -104,4 +104,6 @@ abstract class BaseLanguage {
   String get major;
   String get degree;
   String get nameSkill;
+  String get careerGoal;
+  String get information;
 }

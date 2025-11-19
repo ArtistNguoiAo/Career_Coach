@@ -115,15 +115,15 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
         else if(title == context.language.favorite) {
           AutoRouter.of(context).push(FavoriteRoute());
         }
-        // else if(title == context.language.careerObjective) {
-        //   AutoRouter.of(context).push(GoalRoute());
-        // }
+        else if(title == context.language.goal) {
+          AutoRouter.of(context).push(GoalRoute());
+        }
         else if(title == context.language.skill) {
           AutoRouter.of(context).push(SkillRoute());
         }
-        // else if(title == context.language.otherInformation) {
-        //   AutoRouter.of(context).push(OtherInformationRoute());
-        // }
+        else if(title == context.language.otherInformation) {
+          AutoRouter.of(context).push(OtherInformationRoute());
+        }
       },
       child: Container(
         padding: EdgeInsets.all(16),
