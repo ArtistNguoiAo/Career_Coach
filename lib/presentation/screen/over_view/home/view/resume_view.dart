@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/resume_entity.dart';
+import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
@@ -9,9 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResumeView extends StatefulWidget {
-  const ResumeView({super.key, required this.listResume});
+  const ResumeView({
+    super.key,
+    required this.listResume,
+    required this.listUserResumeRecent,
+  });
 
   final List<ResumeEntity> listResume;
+  final List<UserResumeRecentEntity> listUserResumeRecent;
 
   @override
   State<ResumeView> createState() => _ResumeViewState();
@@ -87,7 +93,7 @@ class _ResumeViewState extends State<ResumeView>
         DialogUtils.showPreviewResumeDialog(
           context: context,
           resumeImageUrl: resumeEntity.thumbnailUrl,
-          onUseTemplate: (value) {
+          onUseTemplate: () {
             AutoRouter.of(
               context,
             ).push(PreviewResumeRoute(resumeEntity: resumeEntity));

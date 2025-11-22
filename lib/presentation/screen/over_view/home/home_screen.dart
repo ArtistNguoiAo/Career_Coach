@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -31,16 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocProvider(
         create: (context) => HomeCubit()..init(),
         child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {
-
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(
                 children: [
                   HeaderView(),
                   const SizedBox(height: 16),
-                  ResumeView(listResume: state.listResume),
+                  ResumeView(
+                    listResume: state.listResume,
+                    listUserResumeRecent: state.listUserResumeRecent,
+                  ),
                   const SizedBox(height: 16),
                   _outstanding(),
                   const SizedBox(height: 16),

@@ -34,24 +34,32 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
   'isOk': instance.isOk,
 };
 
-Page<T> _$PageFromJson<T>(
+PagedData<T> _$PagedDataFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
-) => Page<T>(
-  totalPages: (json['totalPages'] as num).toInt(),
-  totalElements: (json['totalElements'] as num).toInt(),
-  size: (json['size'] as num).toInt(),
-  number: (json['number'] as num).toInt(),
+) => PagedData<T>(
   content: (json['content'] as List<dynamic>).map(fromJsonT).toList(),
+  page: Page.fromJson(json['page'] as Map<String, dynamic>),
 );
 
-Map<String, dynamic> _$PageToJson<T>(
-  Page<T> instance,
+Map<String, dynamic> _$PagedDataToJson<T>(
+  PagedData<T> instance,
   Object? Function(T value) toJsonT,
 ) => <String, dynamic>{
-  'totalPages': instance.totalPages,
-  'totalElements': instance.totalElements,
+  'content': instance.content.map(toJsonT).toList(),
+  'page': instance.page,
+};
+
+Page _$PageFromJson(Map<String, dynamic> json) => Page(
+  size: (json['size'] as num).toInt(),
+  number: (json['number'] as num).toInt(),
+  totalElements: (json['totalElements'] as num).toInt(),
+  totalPages: (json['totalPages'] as num).toInt(),
+);
+
+Map<String, dynamic> _$PageToJson(Page instance) => <String, dynamic>{
   'size': instance.size,
   'number': instance.number,
-  'content': instance.content.map(toJsonT).toList(),
+  'totalElements': instance.totalElements,
+  'totalPages': instance.totalPages,
 };

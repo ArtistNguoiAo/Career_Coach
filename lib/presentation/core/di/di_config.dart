@@ -3,14 +3,18 @@ import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/remote/auth_remote.dart';
 import 'package:career_coach/data/remote/resume_remote.dart';
 import 'package:career_coach/data/remote/user_remote.dart';
+import 'package:career_coach/data/remote/user_resume_remote.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/resume_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/user_resume_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 import 'package:career_coach/domain/repository/resume_repository.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
+import 'package:career_coach/domain/repository/user_resume_repository.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
@@ -33,11 +37,13 @@ class DiConfig {
     getIt.registerLazySingleton<AuthRemote>(() => AuthRemote(getIt.get()));
     getIt.registerLazySingleton<UserRemote>(() => UserRemote(getIt.get()));
     getIt.registerLazySingleton<ResumeRemote>(() => ResumeRemote(getIt.get()));
+    getIt.registerLazySingleton<UserResumeRemote>(() => UserResumeRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<ResumeRepository>(() => ResumeRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<UserResumeRepository>(() => UserResumeRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
@@ -50,6 +56,7 @@ class DiConfig {
     getIt.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(getIt.get()));
     getIt.registerLazySingleton<DeleteAccountUseCase>(() => DeleteAccountUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListResumeUseCase>(() => GetListResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListUserResumeRecentUseCase>(() => GetListUserResumeRecentUseCase(getIt.get()));
 
     await getIt.allReady();
   }

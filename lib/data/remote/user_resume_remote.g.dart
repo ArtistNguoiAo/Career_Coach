@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'resume_remote.dart';
+part of 'user_resume_remote.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,9 +8,9 @@ part of 'resume_remote.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _ResumeRemote implements ResumeRemote {
-  _ResumeRemote(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= '/api/v1/resumes';
+class _UserResumeRemote implements UserResumeRemote {
+  _UserResumeRemote(this._dio, {this.baseUrl, this.errorLogger}) {
+    baseUrl ??= '/api/v1/user-resumes';
   }
 
   final Dio _dio;
@@ -20,38 +20,37 @@ class _ResumeRemote implements ResumeRemote {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiResponse<PagedData<ResumeModel>>> getListResume({
-    required int page,
-    required int size,
-    required String type,
+  Future<ApiResponse<List<UserResumeRecentModel>>> getListUserResumeRecent({
+    required int limit,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'page': page,
-      r'size': size,
-      r'type': type,
-    };
+    final queryParameters = <String, dynamic>{r'limit': limit};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<PagedData<ResumeModel>>>(
+    final _options = _setStreamType<ApiResponse<List<UserResumeRecentModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '',
+            '/recent',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<PagedData<ResumeModel>> _value;
+    late ApiResponse<List<UserResumeRecentModel>> _value;
     try {
-      _value = ApiResponse<PagedData<ResumeModel>>.fromJson(
+      _value = ApiResponse<List<UserResumeRecentModel>>.fromJson(
         _result.data!,
-        (json) => PagedData<ResumeModel>.fromJson(
-          json as Map<String, dynamic>,
-          (json) => ResumeModel.fromJson(json as Map<String, dynamic>),
-        ),
+        (json) => json is List<dynamic>
+            ? json
+                  .map<UserResumeRecentModel>(
+                    (i) => UserResumeRecentModel.fromJson(
+                      i as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
+            : List.empty(),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
