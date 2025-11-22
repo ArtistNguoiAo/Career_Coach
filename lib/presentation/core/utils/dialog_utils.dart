@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
 
 class DialogUtils {
@@ -29,7 +29,11 @@ class DialogUtils {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Lottie.asset(MediaUtils.ltLoading, width: 80, fit: BoxFit.cover),
+                Lottie.asset(
+                  MediaUtils.ltLoading,
+                  width: 80,
+                  fit: BoxFit.cover,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   '${context.language.loading}...',
@@ -140,7 +144,7 @@ class DialogUtils {
                 child: Icon(
                   FontAwesomeIcons.circleXmark,
                   size: 24,
-                  color: context.theme.iconFeatureColor,
+                  color: context.theme.darkGreyColor,
                 ),
               ),
             ],
@@ -247,7 +251,7 @@ class DialogUtils {
                     child: Icon(
                       FontAwesomeIcons.circleXmark,
                       size: 24,
-                      color: context.theme.iconFeatureColor,
+                      color: context.theme.darkGreyColor,
                     ),
                   ),
                 ],
@@ -396,8 +400,113 @@ class DialogUtils {
         );
       },
     ).then((value) async {
-      if(value != null && value is bool && value) {
+      if (value != null && value is bool && value) {
         await onDelete(value);
+      }
+    });
+  }
+
+  static void showPreviewResumeDialog({
+    required BuildContext context,
+    required String resumeImageUrl,
+    required Function onUseTemplate,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Stack(
+            children: [
+              Center(
+                child: Image.network(
+                  resumeImageUrl,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Center(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      AutoRouter.of(context).maybePop(true);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: context.theme.primaryColor,
+                      ),
+                      child: Text(
+                        context.language.useThisTemplate,
+                        style: TextStyleUtils.normal(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((value) async {
+      if (value != null && value is bool && value) {
+        await onUseTemplate();
+      }
+    });
+  }
+
+  static void showChoiceCreateResumeDialog({
+    required BuildContext context,
+    required List<UserResumeRecentEntity> listUserResumeRecent,
+    required Function onChoice,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.7,
+          width: MediaQuery.of(context).size.width * 0.9,
+          color: context.theme.backgroundColor,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  AutoRouter.of(context).maybePop(true);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: context.theme.primaryColor,
+                  ),
+                  child: Text(
+                    context.language.useThisTemplate,
+                    style: TextStyleUtils.normal(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ).then((value) async {
+      if (value != null && value is bool && value) {
+        await onChoice();
       }
     });
   }

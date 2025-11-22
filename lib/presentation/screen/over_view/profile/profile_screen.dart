@@ -490,7 +490,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Icon(
               icon,
-              color: iconColor ?? context.theme.iconFeatureColor,
+              color: iconColor ?? context.theme.darkGreyColor,
               size: 20,
             ),
             const SizedBox(width: 16),
@@ -506,7 +506,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(width: 8),
             Icon(
               FontAwesomeIcons.chevronRight,
-              color: context.theme.iconFeatureColor,
+              color: context.theme.darkGreyColor,
               size: 20,
             ),
           ],

@@ -195,4 +195,136 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get useThisTemplate => 'Use this template';
+
+  @override
+  String get changeTemplate => 'Change template';
+
+  @override
+  String get editTheme => 'Edit theme';
+
+  @override
+  String get editContent => 'Edit content';
+
+  @override
+  String get activity => 'Activity';
+
+  @override
+  String get avatar => 'Avatar';
+
+  @override
+  String get award => 'Award';
+
+  @override
+  String get certificate => 'Certificate';
+
+  @override
+  String get contactInformation => 'Contact information';
+
+  @override
+  String get education => 'Education';
+
+  @override
+  String get favorite => 'Favorite';
+
+  @override
+  String get goal => 'Goal';
+
+  @override
+  String get otherInformation => 'Other information';
+
+  @override
+  String get skill => 'Skill';
+
+  @override
+  String get project => 'Project';
+
+  @override
+  String get addSection => 'Add section';
+
+  @override
+  String get position => 'Position';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get personalWebsite => 'Personal website';
+
+  @override
+  String get linkedIn => 'LinkedIn';
+
+  @override
+  String get github => 'GitHub';
+
+  @override
+  String get facebook => 'Facebook';
+
+  @override
+  String get portfolio => 'Portfolio';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get company => 'Company';
+
+  @override
+  String get startDate => 'Start date';
+
+  @override
+  String get endDate => 'End date';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get nameProject => 'Project name';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get organization => 'Organization';
+
+  @override
+  String get nameAward => 'Award name';
+
+  @override
+  String get nameCertificate => 'Certificate name';
+
+  @override
+  String get link => 'Link';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get nameSchool => 'School name';
+
+  @override
+  String get major => 'Major';
+
+  @override
+  String get degree => 'Degree';
+
+  @override
+  String get nameSkill => 'Skill name';
+
+  @override
+  String get careerGoal => 'Career goal';
+
+  @override
+  String get information => 'Information';
 }

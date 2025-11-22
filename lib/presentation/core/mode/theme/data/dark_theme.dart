@@ -37,7 +37,7 @@ class DarkTheme extends BaseTheme {
   Color get primaryDarkColor => const Color(0xFF006846);
 
   @override
-  Color get iconFeatureColor => const Color(0xFF9E9E9E);
+  Color get darkGreyColor => const Color(0xFF9E9E9E);
 
   @override
   Color get premiumColor => const Color(0xFFFFDD00);

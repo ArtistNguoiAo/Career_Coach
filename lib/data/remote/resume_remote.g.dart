@@ -20,7 +20,7 @@ class _ResumeRemote implements ResumeRemote {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiResponse<Page<ResumeModel>>> getListResume({
+  Future<ApiResponse<PagedData<ResumeModel>>> getListResume({
     required int page,
     required int size,
     required String type,
@@ -33,7 +33,7 @@ class _ResumeRemote implements ResumeRemote {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<Page<ResumeModel>>>(
+    final _options = _setStreamType<ApiResponse<PagedData<ResumeModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -44,11 +44,11 @@ class _ResumeRemote implements ResumeRemote {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<Page<ResumeModel>> _value;
+    late ApiResponse<PagedData<ResumeModel>> _value;
     try {
-      _value = ApiResponse<Page<ResumeModel>>.fromJson(
+      _value = ApiResponse<PagedData<ResumeModel>>.fromJson(
         _result.data!,
-        (json) => Page<ResumeModel>.fromJson(
+        (json) => PagedData<ResumeModel>.fromJson(
           json as Map<String, dynamic>,
           (json) => ResumeModel.fromJson(json as Map<String, dynamic>),
         ),
