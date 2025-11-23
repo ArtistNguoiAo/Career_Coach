@@ -67,7 +67,10 @@ class _ResumeViewState extends State<ResumeView>
               ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return _itemResume(widget.listResume[index]);
+                  return _itemResume(
+                    resumeEntity: widget.listResume[index],
+                    listUserResumeRecent: widget.listUserResumeRecent,
+                  );
                 },
                 separatorBuilder: (_, __) => SizedBox(width: 16),
                 itemCount: widget.listResume.length,
@@ -75,7 +78,10 @@ class _ResumeViewState extends State<ResumeView>
               ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return _itemResume(widget.listResume[index]);
+                  return _itemResume(
+                    resumeEntity: widget.listResume[index],
+                    listUserResumeRecent: widget.listUserResumeRecent,
+                  );
                 },
                 separatorBuilder: (_, __) => SizedBox(width: 16),
                 itemCount: widget.listResume.length,
@@ -87,17 +93,35 @@ class _ResumeViewState extends State<ResumeView>
     );
   }
 
-  Widget _itemResume(ResumeEntity resumeEntity) {
+  Widget _itemResume({
+    required ResumeEntity resumeEntity,
+    required List<UserResumeRecentEntity> listUserResumeRecent,
+  }) {
     return InkWell(
       onTap: () {
         DialogUtils.showPreviewResumeDialog(
           context: context,
-          resumeImageUrl: resumeEntity.thumbnailUrl,
-          onUseTemplate: () {
-            AutoRouter.of(
-              context,
-            ).push(PreviewResumeRoute(resumeEntity: resumeEntity));
+          resumeEntity: resumeEntity,
+          onCreateNew: () {
+            context.router.push(
+              PreviewResumeRoute(
+                resumeEntity: resumeEntity,
+              ),
+            );
           },
+          onSaved: () {
+            DialogUtils.showResumeRecentDialog(
+              context: context,
+              listUserResumeRecent: listUserResumeRecent,
+              onSaved: () {
+                context.router.push(
+                  PreviewResumeRoute(
+                    resumeEntity: resumeEntity,
+                  ),
+                );
+              }
+            );
+          }
         );
       },
       child: Container(

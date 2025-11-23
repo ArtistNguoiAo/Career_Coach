@@ -1,6 +1,7 @@
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class StringUtils {
   static String getInitialsName(String fullName) {
@@ -44,5 +45,8 @@ class StringUtils {
     }).toList();
   }
 
-
+  static String convertDateString(String input) {
+    DateTime date = DateTime.parse(input);
+    return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
+  }
 }

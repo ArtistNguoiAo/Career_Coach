@@ -16,7 +16,6 @@ class ApiService extends DioMixin{
       baseUrl: ApiUrl.baseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
-      validateStatus: (status) => status! < 600,
       headers: {'accept': '*/*'},
     );
 
@@ -46,9 +45,24 @@ class ApiService extends DioMixin{
           options.headers['Content-Type'] = 'application/json';
           return handler.next(options);
         },
-        onResponse: (response, handler) {
+        onResponse: (response, handler) async {
+          if(response.data == null) {
+            return handler.reject(
+              DioException(
+                requestOptions: response.requestOptions,
+                response: response,
+                type: DioExceptionType.badResponse,
+                message: 'Có lỗi xảy ra',
+                error: ApiException(
+                  errorCode: 'NO_DATA',
+                  message: 'Có lỗi xảy ra',
+                  isOk: false,
+                  isUnauthorized: false,
+                ),
+              ),
+            );
+          }
           final data = response.data;
-
           final result = data['result'];
 
           if (result['isOk'] == false) {
@@ -71,7 +85,6 @@ class ApiService extends DioMixin{
             return handler.next(response);
           }
         },
-
         onError: (DioException error, handler) async {
           if (error.response?.statusCode == 401 &&
               !error.requestOptions.path.contains('/auth/refresh')) {

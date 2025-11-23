@@ -106,4 +106,7 @@ abstract class BaseLanguage {
   String get nameSkill;
   String get careerGoal;
   String get information;
+  String get createNew;
+  String get saved;
+  String get create;
 }

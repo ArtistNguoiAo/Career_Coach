@@ -327,4 +327,13 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get information => 'Thông tin';
+
+  @override
+  String get createNew => 'Tạo mới';
+
+  @override
+  String get saved => 'Đã lưu';
+
+  @override
+  String get create => 'Tạo';
 }

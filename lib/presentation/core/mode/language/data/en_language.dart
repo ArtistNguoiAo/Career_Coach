@@ -327,4 +327,13 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get information => 'Information';
+
+  @override
+  String get createNew => 'Create new';
+
+  @override
+  String get saved => 'Saved';
+
+  @override
+  String get create => 'Create';
 }
