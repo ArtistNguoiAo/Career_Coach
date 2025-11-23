@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -9,9 +8,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 @RoutePage()
 class PreviewResumeScreen extends StatefulWidget {
-  const PreviewResumeScreen({super.key, required this.resumeEntity});
+  const PreviewResumeScreen({
+    super.key,
+    required this.resumeId,
+    this.userResumeId,
+  });
 
-  final ResumeEntity resumeEntity;
+  final int resumeId;
+  final int? userResumeId;
 
   @override
   State<PreviewResumeScreen> createState() => _PreviewResumeScreenState();
@@ -44,23 +48,24 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                   controller: controller,
                   isCollapsed: true,
                   fillColor: context.theme.backgroundColor,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 2,
+                  ),
                   textAlign: TextAlign.center,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(color: context.theme.borderColor)
+                    borderSide: BorderSide(color: context.theme.borderColor),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(color: context.theme.borderColor)
+                    borderSide: BorderSide(color: context.theme.borderColor),
                   ),
                 ),
               ),
             ),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Text(
                 context.language.save,
                 style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
@@ -89,7 +94,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.resumeEntity.title,
+          widget.resumeId.toString() + " " + widget.userResumeId.toString(),
           style: TextStyleUtils.bold(
             color: context.theme.textColor,
             fontSize: 18,
@@ -108,7 +113,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
 
   Widget _body() {
     return Image.network(
-      widget.resumeEntity.thumbnailUrl,
+      "",
       fit: BoxFit.contain,
       width: double.infinity,
     );
@@ -135,11 +140,8 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                 const SizedBox(width: 8),
                 Text(
                   context.language.editTheme,
-                  style: TextStyleUtils.bold(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                )
+                  style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -159,11 +161,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    FontAwesomeIcons.pencil,
-                    size: 20,
-                    color: Colors.white,
-                  ),
+                  Icon(FontAwesomeIcons.pencil, size: 20, color: Colors.white),
                   const SizedBox(width: 8),
                   Text(
                     context.language.editContent,
@@ -171,7 +169,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                       color: Colors.white,
                       fontSize: 16,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

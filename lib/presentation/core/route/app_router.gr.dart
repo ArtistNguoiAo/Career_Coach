@@ -10,8 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i32;
-import 'package:career_coach/domain/entity/resume_entity.dart' as _i34;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i35;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i34;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
     as _i17;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
@@ -413,11 +412,16 @@ class OverViewRoute extends _i32.PageRouteInfo<void> {
 class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
     _i33.Key? key,
-    required _i34.ResumeEntity resumeEntity,
+    required int resumeId,
+    int? userResumeId,
     List<_i32.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
-         args: PreviewResumeRouteArgs(key: key, resumeEntity: resumeEntity),
+         args: PreviewResumeRouteArgs(
+           key: key,
+           resumeId: resumeId,
+           userResumeId: userResumeId,
+         ),
          initialChildren: children,
        );
 
@@ -429,33 +433,42 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
       final args = data.argsAs<PreviewResumeRouteArgs>();
       return _i20.PreviewResumeScreen(
         key: args.key,
-        resumeEntity: args.resumeEntity,
+        resumeId: args.resumeId,
+        userResumeId: args.userResumeId,
       );
     },
   );
 }
 
 class PreviewResumeRouteArgs {
-  const PreviewResumeRouteArgs({this.key, required this.resumeEntity});
+  const PreviewResumeRouteArgs({
+    this.key,
+    required this.resumeId,
+    this.userResumeId,
+  });
 
   final _i33.Key? key;
 
-  final _i34.ResumeEntity resumeEntity;
+  final int resumeId;
+
+  final int? userResumeId;
 
   @override
   String toString() {
-    return 'PreviewResumeRouteArgs{key: $key, resumeEntity: $resumeEntity}';
+    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! PreviewResumeRouteArgs) return false;
-    return key == other.key && resumeEntity == other.resumeEntity;
+    return key == other.key &&
+        resumeId == other.resumeId &&
+        userResumeId == other.userResumeId;
   }
 
   @override
-  int get hashCode => key.hashCode ^ resumeEntity.hashCode;
+  int get hashCode => key.hashCode ^ resumeId.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
@@ -479,7 +492,7 @@ class ProfileRoute extends _i32.PageRouteInfo<void> {
 class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
     _i33.Key? key,
-    required _i35.UserEntity userEntity,
+    required _i34.UserEntity userEntity,
     List<_i32.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
@@ -506,7 +519,7 @@ class ProfileUpdateRouteArgs {
 
   final _i33.Key? key;
 
-  final _i35.UserEntity userEntity;
+  final _i34.UserEntity userEntity;
 
   @override
   String toString() {

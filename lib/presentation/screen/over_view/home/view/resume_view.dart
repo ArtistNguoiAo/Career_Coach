@@ -105,7 +105,7 @@ class _ResumeViewState extends State<ResumeView>
           onCreateNew: () {
             context.router.push(
               PreviewResumeRoute(
-                resumeEntity: resumeEntity,
+                resumeId: resumeEntity.id,
               ),
             );
           },
@@ -113,10 +113,11 @@ class _ResumeViewState extends State<ResumeView>
             DialogUtils.showResumeRecentDialog(
               context: context,
               listUserResumeRecent: listUserResumeRecent,
-              onSaved: () {
+              onSaved: (userResumeId) {
                 context.router.push(
                   PreviewResumeRoute(
-                    resumeEntity: resumeEntity,
+                    resumeId: resumeEntity.id,
+                    userResumeId: userResumeId,
                   ),
                 );
               }

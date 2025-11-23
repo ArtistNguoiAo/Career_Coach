@@ -508,7 +508,7 @@ class DialogUtils {
   static void showResumeRecentDialog({
     required BuildContext context,
     required List<UserResumeRecentEntity> listUserResumeRecent,
-    required Function onSaved,
+    required Function(int) onSaved,
   }) {
     showModalBottomSheet(
       context: context,
@@ -597,7 +597,9 @@ class DialogUtils {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        onSaved();
+                        if(selectedId != null) {
+                          onSaved(selectedId!);
+                        }
                       },
                       splashColor: Colors.transparent,
                       child: Container(
@@ -605,7 +607,9 @@ class DialogUtils {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: context.theme.primaryColor,
+                          color: selectedId != null
+                              ? context.theme.primaryColor
+                              : context.theme.darkGreyColor
                         ),
                         child: Center(
                           child: Text(
