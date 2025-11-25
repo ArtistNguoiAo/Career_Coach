@@ -3,7 +3,9 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
+import 'package:career_coach/presentation/screen/over_view/preview_resume/cubit/preview_resume_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 @RoutePage()
@@ -12,10 +14,12 @@ class PreviewResumeScreen extends StatefulWidget {
     super.key,
     required this.resumeId,
     this.userResumeId,
+    required this.title,
   });
 
   final int resumeId;
   final int? userResumeId;
+  final String title;
 
   @override
   State<PreviewResumeScreen> createState() => _PreviewResumeScreenState();
@@ -26,64 +30,75 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                AutoRouter.of(context).maybePop();
-              },
-              child: Text(
-                context.language.cancel,
-                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: BaseTextField(
-                  controller: controller,
-                  isCollapsed: true,
-                  fillColor: context.theme.backgroundColor,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 2,
-                  ),
-                  textAlign: TextAlign.center,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(color: context.theme.borderColor),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(color: context.theme.borderColor),
+    return BlocProvider(
+      create: (context) =>
+      PreviewResumeCubit()
+        ..init(resumeId: widget.resumeId, userResumeId: widget.userResumeId),
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  AutoRouter.of(context).maybePop();
+                },
+                child: Text(
+                  context.language.cancel,
+                  style: TextStyleUtils.normal(
+                    color: Colors.white,
+                    fontSize: 14,
                   ),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Text(
-                context.language.save,
-                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: BaseTextField(
+                    controller: controller,
+                    isCollapsed: true,
+                    fillColor: context.theme.backgroundColor,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    textAlign: TextAlign.center,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: context.theme.borderColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: context.theme.borderColor),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  context.language.save,
+                  style: TextStyleUtils.normal(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: context.theme.primaryColor,
         ),
-        backgroundColor: context.theme.primaryColor,
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        color: context.theme.backgroundColor,
-        child: Column(
-          children: [
-            _headerRow(),
-            Expanded(child: _body()),
-            _footerRow(),
-          ],
+        body: Container(
+          padding: const EdgeInsets.all(16),
+          color: context.theme.backgroundColor,
+          child: Column(
+            children: [
+              _headerRow(),
+              Expanded(child: _body()),
+              _footerRow(),
+            ],
+          ),
         ),
       ),
     );
@@ -94,7 +109,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.resumeId.toString() + " " + widget.userResumeId.toString(),
+          widget.title,
           style: TextStyleUtils.bold(
             color: context.theme.textColor,
             fontSize: 18,
@@ -112,10 +127,13 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
   }
 
   Widget _body() {
-    return Image.network(
-      "",
-      fit: BoxFit.contain,
-      width: double.infinity,
+    return BlocConsumer<PreviewResumeCubit, PreviewResumeState>(
+      listener: (context, state) {
+
+      },
+      builder: (context, state) {
+        return Container();
+      },
     );
   }
 

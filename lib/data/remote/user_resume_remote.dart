@@ -1,5 +1,6 @@
 import 'package:career_coach/data/data_source/api_response.dart';
 import 'package:career_coach/data/data_source/api_service.dart';
+import 'package:career_coach/data/model/user_resume_model.dart';
 import 'package:career_coach/data/model/user_resume_recent_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -13,5 +14,16 @@ abstract class UserResumeRemote {
   @GET('/recent')
   Future<ApiResponse<List<UserResumeRecentModel>>> getListUserResumeRecent({
     @Query('limit') required int limit,
+  });
+
+  @POST('/by-resume/{resumeId}')
+  Future<ApiResponse<UserResumeModel>> createNewUserResume({
+    @Path('resumeId') required int resumeId,
+  });
+
+  @POST('/by-resume/{resumeId}/copy/{userResumeId}')
+  Future<ApiResponse<UserResumeModel>> createNewUserResumeCopy({
+    @Path('resumeId') required int resumeId,
+    @Path('userResumeId') required int userResumeId,
   });
 }

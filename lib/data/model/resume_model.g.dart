@@ -14,6 +14,9 @@ _ResumeModel _$ResumeModelFromJson(Map<String, dynamic> json) => _ResumeModel(
   type: json['type'] as String? ?? '',
   viewCount: (json['viewCount'] as num?)?.toInt() ?? 0,
   downloadCount: (json['downloadCount'] as num?)?.toInt() ?? 0,
+  sections:
+      (json['sections'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$ResumeModelToJson(_ResumeModel instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$ResumeModelToJson(_ResumeModel instance) =>
       'type': instance.type,
       'viewCount': instance.viewCount,
       'downloadCount': instance.downloadCount,
+      'sections': instance.sections,
     };

@@ -414,6 +414,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
     _i33.Key? key,
     required int resumeId,
     int? userResumeId,
+    required String title,
     List<_i32.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
@@ -421,6 +422,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
            key: key,
            resumeId: resumeId,
            userResumeId: userResumeId,
+           title: title,
          ),
          initialChildren: children,
        );
@@ -435,6 +437,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
         key: args.key,
         resumeId: args.resumeId,
         userResumeId: args.userResumeId,
+        title: args.title,
       );
     },
   );
@@ -445,6 +448,7 @@ class PreviewResumeRouteArgs {
     this.key,
     required this.resumeId,
     this.userResumeId,
+    required this.title,
   });
 
   final _i33.Key? key;
@@ -453,9 +457,11 @@ class PreviewResumeRouteArgs {
 
   final int? userResumeId;
 
+  final String title;
+
   @override
   String toString() {
-    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId}';
+    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, title: $title}';
   }
 
   @override
@@ -464,11 +470,13 @@ class PreviewResumeRouteArgs {
     if (other is! PreviewResumeRouteArgs) return false;
     return key == other.key &&
         resumeId == other.resumeId &&
-        userResumeId == other.userResumeId;
+        userResumeId == other.userResumeId &&
+        title == other.title;
   }
 
   @override
-  int get hashCode => key.hashCode ^ resumeId.hashCode ^ userResumeId.hashCode;
+  int get hashCode =>
+      key.hashCode ^ resumeId.hashCode ^ userResumeId.hashCode ^ title.hashCode;
 }
 
 /// generated route for

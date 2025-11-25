@@ -17,29 +17,29 @@ class StringUtils {
   static List<String> getListResumeSections(BuildContext context) {
     return TypeResumeSectionEnumExtension.list().map((e) {
       switch (e) {
-        case TypeResumeSectionEnum.contactInformation:
+        case TypeResumeSectionEnum.CONTACT_INFORMATION:
           return context.language.contactInformation;
-        case TypeResumeSectionEnum.avatar:
+        case TypeResumeSectionEnum.AVATAR:
           return context.language.avatar;
-        case TypeResumeSectionEnum.workExperience:
+        case TypeResumeSectionEnum.WORK_EXPERIENCE:
           return context.language.workExperience;
-        case TypeResumeSectionEnum.project:
+        case TypeResumeSectionEnum.PROJECT:
           return context.language.project;
-        case TypeResumeSectionEnum.activity:
+        case TypeResumeSectionEnum.ACTIVITY:
           return context.language.activity;
-        case TypeResumeSectionEnum.award:
+        case TypeResumeSectionEnum.AWARD:
           return context.language.award;
-        case TypeResumeSectionEnum.certificate:
+        case TypeResumeSectionEnum.CERTIFICATE:
           return context.language.certificate;
-        case TypeResumeSectionEnum.education:
+        case TypeResumeSectionEnum.EDUCATION:
           return context.language.education;
-        case TypeResumeSectionEnum.favorite:
+        case TypeResumeSectionEnum.FAVORITE:
           return context.language.favorite;
-        case TypeResumeSectionEnum.goal:
+        case TypeResumeSectionEnum.GOAL:
           return context.language.goal;
-        case TypeResumeSectionEnum.skill:
+        case TypeResumeSectionEnum.SKILL:
           return context.language.skill;
-        case TypeResumeSectionEnum.otherInformation:
+        case TypeResumeSectionEnum.OTHER_INFORMATION:
           return context.language.otherInformation;
       }
     }).toList();

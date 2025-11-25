@@ -12,6 +12,8 @@ import 'package:career_coach/domain/repository/auth_repository.dart';
 import 'package:career_coach/domain/repository/resume_repository.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
 import 'package:career_coach/domain/repository/user_resume_repository.dart';
+import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
+import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
@@ -57,6 +59,8 @@ class DiConfig {
     getIt.registerLazySingleton<DeleteAccountUseCase>(() => DeleteAccountUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListResumeUseCase>(() => GetListResumeUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListUserResumeRecentUseCase>(() => GetListUserResumeRecentUseCase(getIt.get()));
+    getIt.registerLazySingleton<CreateNewUserResumeUseCase>(() => CreateNewUserResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<CreateNewUserResumeCopyUseCase>(() => CreateNewUserResumeCopyUseCase(getIt.get()));
 
     await getIt.allReady();
   }

@@ -99,12 +99,14 @@ class ApiService extends DioMixin{
                 final response = await fetch(clonedRequest);
                 return handler.resolve(response);
               } else {
-                await LocalCache.clear();
+                await LocalCache.setString(StringCache.accessToken, "");
+                await LocalCache.setString(StringCache.refreshToken, "");
                 return handler.reject(error);
               }
             } catch (e) {
               if (e is DioException) {
-                await LocalCache.clear();
+                await LocalCache.setString(StringCache.accessToken, "");
+                await LocalCache.setString(StringCache.refreshToken, "");
                 return handler.reject(
                   DioException(
                     requestOptions: error.requestOptions,

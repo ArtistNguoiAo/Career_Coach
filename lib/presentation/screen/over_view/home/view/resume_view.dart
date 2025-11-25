@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
+import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
+import 'package:career_coach/presentation/core/di/di_config.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
@@ -26,6 +28,7 @@ class ResumeView extends StatefulWidget {
 class _ResumeViewState extends State<ResumeView>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  final getListUserResumeRecentUseCae = getIt<GetListUserResumeRecentUseCase>();
 
   @override
   void initState() {
@@ -69,7 +72,6 @@ class _ResumeViewState extends State<ResumeView>
                 itemBuilder: (context, index) {
                   return _itemResume(
                     resumeEntity: widget.listResume[index],
-                    listUserResumeRecent: widget.listUserResumeRecent,
                   );
                 },
                 separatorBuilder: (_, __) => SizedBox(width: 16),
@@ -80,7 +82,6 @@ class _ResumeViewState extends State<ResumeView>
                 itemBuilder: (context, index) {
                   return _itemResume(
                     resumeEntity: widget.listResume[index],
-                    listUserResumeRecent: widget.listUserResumeRecent,
                   );
                 },
                 separatorBuilder: (_, __) => SizedBox(width: 16),
@@ -95,7 +96,6 @@ class _ResumeViewState extends State<ResumeView>
 
   Widget _itemResume({
     required ResumeEntity resumeEntity,
-    required List<UserResumeRecentEntity> listUserResumeRecent,
   }) {
     return InkWell(
       onTap: () {
@@ -106,10 +106,13 @@ class _ResumeViewState extends State<ResumeView>
             context.router.push(
               PreviewResumeRoute(
                 resumeId: resumeEntity.id,
+                title: resumeEntity.title
               ),
             );
           },
-          onSaved: () {
+          onSaved: () async {
+            final listUserResumeRecent = await getListUserResumeRecentUseCae.call(limit: 3);
+            if (!mounted) return;
             DialogUtils.showResumeRecentDialog(
               context: context,
               listUserResumeRecent: listUserResumeRecent,
@@ -118,9 +121,10 @@ class _ResumeViewState extends State<ResumeView>
                   PreviewResumeRoute(
                     resumeId: resumeEntity.id,
                     userResumeId: userResumeId,
+                    title: resumeEntity.title
                   ),
                 );
-              }
+              },
             );
           }
         );
