@@ -1,257 +1,174 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/user_resume_entity.dart';
+import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
-import 'package:career_coach/presentation/core/route/app_router.gr.dart';
-import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 @RoutePage()
 class StructureResumeScreen extends StatefulWidget {
-  const StructureResumeScreen({super.key});
+  const StructureResumeScreen({super.key, required this.userResumeEntity});
+
+  final UserResumeEntity userResumeEntity;
 
   @override
   State<StructureResumeScreen> createState() => _StructureResumeScreenState();
 }
 
 class _StructureResumeScreenState extends State<StructureResumeScreen> {
+  List<TypeResumeSectionEnum> usedSections = [];
+  List<TypeResumeSectionEnum> leftUsedSections = [];
+  List<TypeResumeSectionEnum> rightUsedSections = [];
+  List<TypeResumeSectionEnum> unusedSections = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.userResumeEntity.numberOfColumns == 1) {
+      usedSections = [...widget.userResumeEntity.layouts.first.sections];
+    } else if (widget.userResumeEntity.numberOfColumns == 2) {
+      leftUsedSections = [...widget.userResumeEntity.layouts[0].sections];
+      rightUsedSections = [...widget.userResumeEntity.layouts[1].sections];
+      usedSections = [...leftUsedSections, ...rightUsedSections];
+    }
+
+    unusedSections = TypeResumeSectionEnum.values.where((e) => !usedSections.contains(e)).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                AutoRouter.of(context).maybePop();
-              },
-              child: Text(
-                context.language.cancel,
-                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  context.language.editContent,
-                  textAlign: TextAlign.center,
-                  style: TextStyleUtils.bold(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Text(
-                context.language.save,
-                style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
-              ),
-            ),
-          ],
+        leading: InkWell(
+          onTap: () => AutoRouter.of(context).maybePop(),
+          child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
+        ),
+        centerTitle: true,
+        title: Text(
+          context.language.editContent,
+          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
         ),
         backgroundColor: context.theme.primaryColor,
       ),
       body: Container(
         color: context.theme.backgroundColor,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            Expanded(child: _listSectionItem()),
-            SizedBox(height: 16),
-            _buttonAddSection(),
+            Expanded(child: _body()),
+            const SizedBox(height: 8),
+            _buttonSave(),
           ],
         ),
       ),
     );
   }
 
-  Widget _listSectionItem() {
-    return ListView.separated(
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        return _sectionItem(
-          title: StringUtils.getListResumeSections(context)[index],
-          isChange: StringUtils.getListResumeSections(context)[index] ==
-              context.language.contactInformation,
-        );
-      },
-      separatorBuilder: (_, __) => SizedBox(height: 12),
-      itemCount: StringUtils.getListResumeSections(context).length,
+  Widget _body() {
+    if (widget.userResumeEntity.numberOfColumns == 1) {
+      return _oneColumnBody();
+    } else {
+      return _twoColumnBody();
+    }
+  }
+
+  Widget _oneColumnBody() {
+    return Column(
+      children: [
+        Expanded(
+          child: DragAndDropLists(
+            children: [
+              DragAndDropList(
+                children: usedSections
+                    .map((e) => DragAndDropItem(child: _sectionItem(title: e.name)))
+                    .toList(),
+              ),
+            ],
+            onItemReorder: (oldItemIndex, oldListIndex, newItemIndex, newListIndex) {
+              setState(() {
+                if (oldListIndex == newListIndex) {
+                  final item = usedSections.removeAt(oldItemIndex);
+                  usedSections.insert(newItemIndex, item);
+                }
+              });
+            },
+            onListReorder: (oldListIndex, newListIndex) {},
+          ),
+        ),
+
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: unusedSections
+              .map((e) => _sectionItem(title: e.name))
+              .toList(),
+        )
+      ],
     );
   }
 
-  Widget _sectionItem({required String title, required bool isChange}) {
-    return InkWell(
-      onTap: () {
-        if(title == context.language.contactInformation) {
-          AutoRouter.of(context).push(ContactInformationRoute());
-        }
-        else if(title == context.language.avatar) {
-          AutoRouter.of(context).push(AvatarRoute());
-        }
-        else if(title == context.language.workExperience) {
-          AutoRouter.of(context).push(WorkExperienceRoute());
-        }
-        else if(title == context.language.project) {
-          AutoRouter.of(context).push(ProjectRoute());
-        }
-        else if(title == context.language.activity) {
-          AutoRouter.of(context).push(ActivityRoute());
-        }
-        else if(title == context.language.award) {
-          AutoRouter.of(context).push(AwardRoute());
-        }
-        else if(title == context.language.certificate) {
-          AutoRouter.of(context).push(CertificateRoute());
-        }
-        else if(title == context.language.education) {
-          AutoRouter.of(context).push(EducationRoute());
-        }
-        else if(title == context.language.favorite) {
-          AutoRouter.of(context).push(FavoriteRoute());
-        }
-        else if(title == context.language.goal) {
-          AutoRouter.of(context).push(GoalRoute());
-        }
-        else if(title == context.language.skill) {
-          AutoRouter.of(context).push(SkillRoute());
-        }
-        else if(title == context.language.otherInformation) {
-          AutoRouter.of(context).push(OtherInformationRoute());
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: context.theme.lightGreyColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              size: 20,
-              isChange ? FontAwesomeIcons.diceD6 : FontAwesomeIcons.thumbtack,
-              color: context.theme.darkGreyColor,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyleUtils.bold(
-                  color: context.theme.textColor,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Icon(
-              size: 20,
-              FontAwesomeIcons.pen,
-              color: context.theme.darkGreyColor,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
-  Widget _buttonAddSection() {
-    return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          builder: (context) {
-            return Container(
-              decoration: BoxDecoration(
-                color: context.theme.lightGreyColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: context.theme.backgroundColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                StringUtils.getListResumeSections(context)[index],
-                                style: TextStyleUtils.normal(
-                                  color: context.theme.textColor,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: context.theme.primaryColor,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              padding: const EdgeInsets.all(2),
-                              child: Icon(
-                                size: 14,
-                                FontAwesomeIcons.check,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (_, __) => SizedBox(height: 8),
-                    itemCount: StringUtils.getListResumeSections(context).length,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                    margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                    child: Text(
-                      context.language.save,
-                      style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ).then((value) async {
-          if (value != null) {}
+  Widget _twoColumnBody() {
+    return DragAndDropLists(
+      axis: Axis.horizontal,
+      children: [
+        DragAndDropList(
+          children: leftUsedSections
+              .map((e) => DragAndDropItem(child: _sectionItem(title: e.name)))
+              .toList(),
+        ),
+        DragAndDropList(
+          children: rightUsedSections
+              .map((e) => DragAndDropItem(child: _sectionItem(title: e.name)))
+              .toList(),
+        ),
+      ],
+      onItemReorder: (oldItemIndex, oldListIndex, newItemIndex, newListIndex) {
+        setState(() {
+          final item = leftUsedSections.removeAt(oldItemIndex);
+          leftUsedSections.insert(newItemIndex, item);
         });
       },
+      onListReorder: (oldListIndex, newListIndex) {},
+    );
+  }
+
+  Widget _sectionItem({required String title}) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(color: context.theme.lightGreyColor, borderRadius: BorderRadius.circular(4)),
+      child: Row(
+        children: [
+          Icon(FontAwesomeIcons.mapPin, size: 16, color: context.theme.darkGreyColor),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              title,
+              style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 14),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buttonSave() {
+    return InkWell(
+      onTap: () {},
       child: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: context.theme.primaryColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
         child: Text(
-          context.language.addSection,
-          style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+          context.language.save,
           textAlign: TextAlign.center,
+          style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
         ),
       ),
     );

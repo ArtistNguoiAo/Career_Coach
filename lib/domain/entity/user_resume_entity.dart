@@ -4,14 +4,14 @@ import 'package:career_coach/domain/enum/type_language_enum.dart';
 
 class UserResumeEntity {
   final int id;
-  final String title;
-  final int numberOfColumns;
-  final TypeLanguageEnum language;
-  final TypeFontFamilyEnum fontFamily;
-  final int fontSize;
-  final double lineHeight;
-  final String color;
-  final List<UserResumeLayoutEntity> layouts;
+  String title;
+  int numberOfColumns;
+  TypeLanguageEnum language;
+  TypeFontFamilyEnum fontFamily;
+  int fontSize;
+  double lineHeight;
+  String color;
+  List<UserResumeLayoutEntity> layouts;
 
   UserResumeEntity({
     required this.id,

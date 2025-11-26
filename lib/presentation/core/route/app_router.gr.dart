@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i32;
 import 'package:career_coach/domain/entity/user_entity.dart' as _i34;
+import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i35;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
     as _i17;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
@@ -643,18 +644,56 @@ class SplashRoute extends _i32.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i29.StructureResumeScreen]
-class StructureResumeRoute extends _i32.PageRouteInfo<void> {
-  const StructureResumeRoute({List<_i32.PageRouteInfo>? children})
-    : super(StructureResumeRoute.name, initialChildren: children);
+class StructureResumeRoute
+    extends _i32.PageRouteInfo<StructureResumeRouteArgs> {
+  StructureResumeRoute({
+    _i33.Key? key,
+    required _i35.UserResumeEntity userResumeEntity,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+         StructureResumeRoute.name,
+         args: StructureResumeRouteArgs(
+           key: key,
+           userResumeEntity: userResumeEntity,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'StructureResumeRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i29.StructureResumeScreen();
+      final args = data.argsAs<StructureResumeRouteArgs>();
+      return _i29.StructureResumeScreen(
+        key: args.key,
+        userResumeEntity: args.userResumeEntity,
+      );
     },
   );
+}
+
+class StructureResumeRouteArgs {
+  const StructureResumeRouteArgs({this.key, required this.userResumeEntity});
+
+  final _i33.Key? key;
+
+  final _i35.UserResumeEntity userResumeEntity;
+
+  @override
+  String toString() {
+    return 'StructureResumeRouteArgs{key: $key, userResumeEntity: $userResumeEntity}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! StructureResumeRouteArgs) return false;
+    return key == other.key && userResumeEntity == other.userResumeEntity;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeEntity.hashCode;
 }
 
 /// generated route for

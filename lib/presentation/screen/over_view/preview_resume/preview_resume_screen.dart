@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -31,75 +32,85 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      PreviewResumeCubit()
+      create: (context) => PreviewResumeCubit()
         ..init(resumeId: widget.resumeId, userResumeId: widget.userResumeId),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  AutoRouter.of(context).maybePop();
-                },
-                child: Text(
-                  context.language.cancel,
-                  style: TextStyleUtils.normal(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: BaseTextField(
-                    controller: controller,
-                    isCollapsed: true,
-                    fillColor: context.theme.backgroundColor,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 4,
-                      vertical: 2,
-                    ),
-                    textAlign: TextAlign.center,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: BorderSide(color: context.theme.borderColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: BorderSide(color: context.theme.borderColor),
+      child: BlocConsumer<PreviewResumeCubit, PreviewResumeState>(
+        listener: (context, state) {
+
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      AutoRouter.of(context).maybePop();
+                    },
+                    child: Text(
+                      context.language.cancel,
+                      style: TextStyleUtils.normal(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  context.language.save,
-                  style: TextStyleUtils.normal(
-                    color: Colors.white,
-                    fontSize: 14,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: BaseTextField(
+                        controller: controller,
+                        isCollapsed: true,
+                        fillColor: context.theme.backgroundColor,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
+                        textAlign: TextAlign.center,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(
+                            color: context.theme.borderColor,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide(
+                            color: context.theme.borderColor,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      context.language.save,
+                      style: TextStyleUtils.normal(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          backgroundColor: context.theme.primaryColor,
-        ),
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          color: context.theme.backgroundColor,
-          child: Column(
-            children: [
-              _headerRow(),
-              Expanded(child: _body()),
-              _footerRow(),
-            ],
-          ),
-        ),
+              backgroundColor: context.theme.primaryColor,
+            ),
+            body: Container(
+              padding: const EdgeInsets.all(16),
+              color: context.theme.backgroundColor,
+              child: Column(
+                children: [
+                  _headerRow(),
+                  Expanded(child: _body()),
+                  _footerRow(state.userResumeEntity),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -127,40 +138,40 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
   }
 
   Widget _body() {
-    return BlocConsumer<PreviewResumeCubit, PreviewResumeState>(
-      listener: (context, state) {
-
-      },
-      builder: (context, state) {
-        return Container();
-      },
-    );
+    return Container();
   }
 
-  Widget _footerRow() {
+  Widget _footerRow(UserResumeEntity? userResumeEntity) {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: context.theme.primaryColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  FontAwesomeIcons.paintbrush,
-                  size: 20,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  context.language.editTheme,
-                  style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
-                ),
-              ],
+          child: InkWell(
+            onTap: () {
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.paintbrush,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    context.language.editTheme,
+                    style: TextStyleUtils.bold(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -168,18 +179,20 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         Expanded(
           child: InkWell(
             onTap: () {
-              AutoRouter.of(context).push(StructureResumeRoute());
+              if(userResumeEntity == null) return;
+              AutoRouter.of(context).push(StructureResumeRoute(userResumeEntity: userResumeEntity));
+
             },
             child: Container(
               decoration: BoxDecoration(
                 color: context.theme.primaryColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(4),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(FontAwesomeIcons.pencil, size: 20, color: Colors.white),
+                  Icon(FontAwesomeIcons.pencil, size: 16, color: Colors.white),
                   const SizedBox(width: 8),
                   Text(
                     context.language.editContent,
