@@ -35,7 +35,9 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
       usedSections = [...leftUsedSections, ...rightUsedSections];
     }
 
-    unusedSections = TypeResumeSectionEnum.values.where((e) => !usedSections.contains(e)).toList();
+    unusedSections = TypeResumeSectionEnum.values
+        .where((e) => !usedSections.contains(e))
+        .toList();
   }
 
   @override
@@ -44,12 +46,19 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () => AutoRouter.of(context).maybePop(),
-          child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
+          child: Icon(
+            FontAwesomeIcons.chevronLeft,
+            color: context.theme.backgroundColor,
+            size: 20,
+          ),
         ),
         centerTitle: true,
         title: Text(
           context.language.editContent,
-          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
+          style: TextStyleUtils.bold(
+            color: context.theme.backgroundColor,
+            fontSize: 18,
+          ),
         ),
         backgroundColor: context.theme.primaryColor,
       ),
@@ -76,40 +85,48 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
   }
 
   Widget _oneColumnBody() {
-    return Column(
+    return DragAndDropLists(
       children: [
-        Expanded(
-          child: DragAndDropLists(
-            children: [
-              DragAndDropList(
-                children: usedSections
-                    .map((e) => DragAndDropItem(child: _sectionItem(title: e.name)))
-                    .toList(),
-              ),
-            ],
-            onItemReorder: (oldItemIndex, oldListIndex, newItemIndex, newListIndex) {
-              setState(() {
-                if (oldListIndex == newListIndex) {
-                  final item = usedSections.removeAt(oldItemIndex);
-                  usedSections.insert(newItemIndex, item);
-                }
-              });
-            },
-            onListReorder: (oldListIndex, newListIndex) {},
+        DragAndDropList(
+          header: Padding(
+            padding: const EdgeInsets.only(left: 8, bottom: 4),
+            child: Text(
+              context.language.dragAndDropSectionHere,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
           ),
-        ),
-
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: unusedSections
-              .map((e) => _sectionItem(title: e.name))
+          decoration: BoxDecoration(
+            color: context.theme.darkGreyColor.withAlpha((255 * 0.5).round()),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          children: usedSections
+              .map(
+                (e) =>
+                    DragAndDropItem(child: _sectionItem(title: e.name)),
+              )
               .toList(),
-        )
+        ),
+        DragAndDropList(
+          children: unusedSections
+              .map(
+                (e) =>
+                    DragAndDropItem(child: _sectionItem(title: e.name)),
+              )
+              .toList(),
+        ),
       ],
+      onItemReorder:
+          (oldItemIndex, oldListIndex, newItemIndex, newListIndex) {
+            setState(() {
+              if (oldListIndex == newListIndex) {
+                final item = usedSections.removeAt(oldItemIndex);
+                usedSections.insert(newItemIndex, item);
+              }
+            });
+          },
+      onListReorder: (oldListIndex, newListIndex) {},
     );
   }
-
 
   Widget _twoColumnBody() {
     return DragAndDropLists(
@@ -140,15 +157,25 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(color: context.theme.lightGreyColor, borderRadius: BorderRadius.circular(4)),
+      decoration: BoxDecoration(
+        color: context.theme.lightGreyColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
       child: Row(
         children: [
-          Icon(FontAwesomeIcons.mapPin, size: 16, color: context.theme.darkGreyColor),
+          Icon(
+            FontAwesomeIcons.mapPin,
+            size: 16,
+            color: context.theme.darkGreyColor,
+          ),
           const SizedBox(width: 8),
           Flexible(
             child: Text(
               title,
-              style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 14),
+              style: TextStyleUtils.normal(
+                color: context.theme.textColor,
+                fontSize: 14,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -164,7 +191,10 @@ class _StructureResumeScreenState extends State<StructureResumeScreen> {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+        decoration: BoxDecoration(
+          color: context.theme.primaryColor,
+          borderRadius: BorderRadius.circular(4),
+        ),
         child: Text(
           context.language.save,
           textAlign: TextAlign.center,

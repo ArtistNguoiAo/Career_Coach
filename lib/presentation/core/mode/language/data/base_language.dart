@@ -109,6 +109,6 @@ abstract class BaseLanguage {
   String get createNew;
   String get saved;
   String get create;
-  String get draftAndDropSectionHere;
+  String get dragAndDropSectionHere;
   String get unUsedSections;
 }

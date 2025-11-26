@@ -338,7 +338,7 @@ class ViLanguage extends BaseLanguage {
   String get create => 'Tạo';
 
   @override
-  String get draftAndDropSectionHere => 'Kéo và thả mục vào đây';
+  String get dragAndDropSectionHere => 'Kéo và thả mục vào đây';
 
   @override
   String get unUsedSections => 'Các mục chưa sử dụng';

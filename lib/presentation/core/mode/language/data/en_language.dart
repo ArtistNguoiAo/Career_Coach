@@ -338,7 +338,7 @@ class EnLanguage extends BaseLanguage {
   String get create => 'Create';
 
   @override
-  String get draftAndDropSectionHere => 'Drag and drop sections here';
+  String get dragAndDropSectionHere => 'Drag and drop sections here';
 
   @override
   String get unUsedSections => 'Unused sections';
