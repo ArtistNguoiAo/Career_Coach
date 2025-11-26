@@ -147,6 +147,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         Expanded(
           child: InkWell(
             onTap: () {
+
             },
             child: Container(
               decoration: BoxDecoration(

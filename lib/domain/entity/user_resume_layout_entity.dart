@@ -3,9 +3,9 @@ import 'package:career_coach/domain/enum/type_side_enum.dart';
 
 class UserResumeLayoutEntity {
   final String id;
-  final TypeSideEnum side;
-  final List<TypeResumeSectionEnum> sections;
-  final double widthPercentage;
+  TypeSideEnum side;
+  List<TypeResumeSectionEnum> sections;
+  double widthPercentage;
 
   UserResumeLayoutEntity({
     required this.id,
