@@ -106,7 +106,7 @@ class _ResumeViewState extends State<ResumeView>
             context.router.push(
               PreviewResumeRoute(
                 resumeId: resumeEntity.id,
-                title: resumeEntity.title
+                isCreateNew: true,
               ),
             );
           },
@@ -121,7 +121,7 @@ class _ResumeViewState extends State<ResumeView>
                   PreviewResumeRoute(
                     resumeId: resumeEntity.id,
                     userResumeId: userResumeId,
-                    title: resumeEntity.title
+                    isCreateNew: true,
                   ),
                 );
               },

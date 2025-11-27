@@ -13,12 +13,12 @@ class AppRouter extends RootStackRouter {
       page: OverViewRoute.page,
       children: [
         AutoRoute(page: HomeRoute.page, initial: true),
-        AutoRoute(page: ListCvAndClRoute.page),
         AutoRoute(page: ListInterviewRoute.page),
         AutoRoute(page: ProfileRoute.page),
       ],
     ),
     AutoRoute(page: ProfileUpdateRoute.page),
+    AutoRoute(page: ManageUserResumeRoute.page),
     AutoRoute(page: PreviewResumeRoute.page),
     AutoRoute(page: StructureResumeRoute.page),
     AutoRoute(page: ContactInformationRoute.page),

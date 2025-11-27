@@ -14,4 +14,19 @@ abstract class UserResumeRepository {
     required int resumeId,
     required int userResumeId,
   });
+
+  Future<List<UserResumeEntity>> getListUserResume({
+    required int page,
+    required int size,
+    required String status,
+  });
+
+  Future<UserResumeEntity> getDetailUserResume({
+    required int id,
+  });
+
+  Future<UserResumeEntity> saveUserResume({
+    required int id,
+    required UserResumeEntity userResumeEntity,
+  });
 }

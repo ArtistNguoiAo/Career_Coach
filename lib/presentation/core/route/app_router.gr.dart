@@ -13,67 +13,67 @@ import 'package:auto_route/auto_route.dart' as _i32;
 import 'package:career_coach/domain/entity/user_entity.dart' as _i34;
 import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i35;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
-    as _i17;
+    as _i16;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
     as _i25;
+import 'package:career_coach/presentation/screen/manage_user_resume/manage_user_resume_screen.dart'
+    as _i17;
 import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
     as _i14;
-import 'package:career_coach/presentation/screen/over_view/list_cv_and_cl/list_cv_and_cl_screen.dart'
-    as _i15;
 import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
-    as _i16;
+    as _i15;
 import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
     as _i19;
-import 'package:career_coach/presentation/screen/over_view/preview_resume/preview_resume_screen.dart'
-    as _i20;
 import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
     as _i21;
-import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_detail_screen.dart'
-    as _i1;
-import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_screen.dart'
-    as _i2;
-import 'package:career_coach/presentation/screen/over_view/section_resume/avatar/avatar_screen.dart'
-    as _i3;
-import 'package:career_coach/presentation/screen/over_view/section_resume/award/award_detail_screen.dart'
-    as _i4;
-import 'package:career_coach/presentation/screen/over_view/section_resume/award/award_screen.dart'
-    as _i5;
-import 'package:career_coach/presentation/screen/over_view/section_resume/certificate/certificate_detail_screen.dart'
-    as _i6;
-import 'package:career_coach/presentation/screen/over_view/section_resume/certificate/certificate_screen.dart'
-    as _i7;
-import 'package:career_coach/presentation/screen/over_view/section_resume/contact_information/contact_information_screen.dart'
-    as _i8;
-import 'package:career_coach/presentation/screen/over_view/section_resume/education/education_detail_screen.dart'
-    as _i9;
-import 'package:career_coach/presentation/screen/over_view/section_resume/education/education_screen.dart'
-    as _i10;
-import 'package:career_coach/presentation/screen/over_view/section_resume/favorite/favorite_detail_screen.dart'
-    as _i11;
-import 'package:career_coach/presentation/screen/over_view/section_resume/favorite/favorite_screen.dart'
-    as _i12;
-import 'package:career_coach/presentation/screen/over_view/section_resume/goal/goal_screen.dart'
-    as _i13;
-import 'package:career_coach/presentation/screen/over_view/section_resume/other_information/other_information_screen.dart'
-    as _i18;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_detail_screen.dart'
-    as _i23;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_screen.dart'
-    as _i24;
-import 'package:career_coach/presentation/screen/over_view/section_resume/skill/skill_detail_screen.dart'
-    as _i26;
-import 'package:career_coach/presentation/screen/over_view/section_resume/skill/skill_screen.dart'
-    as _i27;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_detail_screen.dart'
-    as _i30;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_screen.dart'
-    as _i31;
-import 'package:career_coach/presentation/screen/over_view/structure_resume/structure_resume_screen.dart'
-    as _i29;
+import 'package:career_coach/presentation/screen/preview_resume/preview_resume_screen.dart'
+    as _i20;
 import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
     as _i22;
+import 'package:career_coach/presentation/screen/section_resume/activity/activity_detail_screen.dart'
+    as _i1;
+import 'package:career_coach/presentation/screen/section_resume/activity/activity_screen.dart'
+    as _i2;
+import 'package:career_coach/presentation/screen/section_resume/avatar/avatar_screen.dart'
+    as _i3;
+import 'package:career_coach/presentation/screen/section_resume/award/award_detail_screen.dart'
+    as _i4;
+import 'package:career_coach/presentation/screen/section_resume/award/award_screen.dart'
+    as _i5;
+import 'package:career_coach/presentation/screen/section_resume/certificate/certificate_detail_screen.dart'
+    as _i6;
+import 'package:career_coach/presentation/screen/section_resume/certificate/certificate_screen.dart'
+    as _i7;
+import 'package:career_coach/presentation/screen/section_resume/contact_information/contact_information_screen.dart'
+    as _i8;
+import 'package:career_coach/presentation/screen/section_resume/education/education_detail_screen.dart'
+    as _i9;
+import 'package:career_coach/presentation/screen/section_resume/education/education_screen.dart'
+    as _i10;
+import 'package:career_coach/presentation/screen/section_resume/favorite/favorite_detail_screen.dart'
+    as _i11;
+import 'package:career_coach/presentation/screen/section_resume/favorite/favorite_screen.dart'
+    as _i12;
+import 'package:career_coach/presentation/screen/section_resume/goal/goal_screen.dart'
+    as _i13;
+import 'package:career_coach/presentation/screen/section_resume/other_information/other_information_screen.dart'
+    as _i18;
+import 'package:career_coach/presentation/screen/section_resume/project/project_detail_screen.dart'
+    as _i23;
+import 'package:career_coach/presentation/screen/section_resume/project/project_screen.dart'
+    as _i24;
+import 'package:career_coach/presentation/screen/section_resume/skill/skill_detail_screen.dart'
+    as _i26;
+import 'package:career_coach/presentation/screen/section_resume/skill/skill_screen.dart'
+    as _i27;
+import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_detail_screen.dart'
+    as _i30;
+import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_screen.dart'
+    as _i31;
 import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
     as _i28;
+import 'package:career_coach/presentation/screen/structure_resume/structure_resume_screen.dart'
+    as _i29;
 import 'package:flutter/material.dart' as _i33;
 
 /// generated route for
@@ -301,23 +301,7 @@ class HomeRoute extends _i32.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.ListCvAndClScreen]
-class ListCvAndClRoute extends _i32.PageRouteInfo<void> {
-  const ListCvAndClRoute({List<_i32.PageRouteInfo>? children})
-    : super(ListCvAndClRoute.name, initialChildren: children);
-
-  static const String name = 'ListCvAndClRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i15.ListCvAndClScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i16.ListInterviewScreen]
+/// [_i15.ListInterviewScreen]
 class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
   ListInterviewRoute({_i33.Key? key, List<_i32.PageRouteInfo>? children})
     : super(
@@ -334,7 +318,7 @@ class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
       final args = data.argsAs<ListInterviewRouteArgs>(
         orElse: () => const ListInterviewRouteArgs(),
       );
-      return _i16.ListInterviewScreen(key: args.key);
+      return _i15.ListInterviewScreen(key: args.key);
     },
   );
 }
@@ -361,7 +345,7 @@ class ListInterviewRouteArgs {
 }
 
 /// generated route for
-/// [_i17.LoginScreen]
+/// [_i16.LoginScreen]
 class LoginRoute extends _i32.PageRouteInfo<void> {
   const LoginRoute({List<_i32.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
@@ -371,7 +355,23 @@ class LoginRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i17.LoginScreen();
+      return const _i16.LoginScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i17.ManageUserResumeScreen]
+class ManageUserResumeRoute extends _i32.PageRouteInfo<void> {
+  const ManageUserResumeRoute({List<_i32.PageRouteInfo>? children})
+    : super(ManageUserResumeRoute.name, initialChildren: children);
+
+  static const String name = 'ManageUserResumeRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      return const _i17.ManageUserResumeScreen();
     },
   );
 }
@@ -413,9 +413,9 @@ class OverViewRoute extends _i32.PageRouteInfo<void> {
 class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
     _i33.Key? key,
-    required int resumeId,
+    int? resumeId,
     int? userResumeId,
-    required String title,
+    required bool isCreateNew,
     List<_i32.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
@@ -423,7 +423,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
            key: key,
            resumeId: resumeId,
            userResumeId: userResumeId,
-           title: title,
+           isCreateNew: isCreateNew,
          ),
          initialChildren: children,
        );
@@ -438,7 +438,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
         key: args.key,
         resumeId: args.resumeId,
         userResumeId: args.userResumeId,
-        title: args.title,
+        isCreateNew: args.isCreateNew,
       );
     },
   );
@@ -447,22 +447,22 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
 class PreviewResumeRouteArgs {
   const PreviewResumeRouteArgs({
     this.key,
-    required this.resumeId,
+    this.resumeId,
     this.userResumeId,
-    required this.title,
+    required this.isCreateNew,
   });
 
   final _i33.Key? key;
 
-  final int resumeId;
+  final int? resumeId;
 
   final int? userResumeId;
 
-  final String title;
+  final bool isCreateNew;
 
   @override
   String toString() {
-    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, title: $title}';
+    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, isCreateNew: $isCreateNew}';
   }
 
   @override
@@ -472,12 +472,15 @@ class PreviewResumeRouteArgs {
     return key == other.key &&
         resumeId == other.resumeId &&
         userResumeId == other.userResumeId &&
-        title == other.title;
+        isCreateNew == other.isCreateNew;
   }
 
   @override
   int get hashCode =>
-      key.hashCode ^ resumeId.hashCode ^ userResumeId.hashCode ^ title.hashCode;
+      key.hashCode ^
+      resumeId.hashCode ^
+      userResumeId.hashCode ^
+      isCreateNew.hashCode;
 }
 
 /// generated route for

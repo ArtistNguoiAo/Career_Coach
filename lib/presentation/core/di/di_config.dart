@@ -15,14 +15,17 @@ import 'package:career_coach/domain/repository/user_resume_repository.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
+import 'package:career_coach/domain/use_case/get_detail_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
+import 'package:career_coach/domain/use_case/save_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
 import 'package:career_coach/domain/use_case/update_profile_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -61,6 +64,9 @@ class DiConfig {
     getIt.registerLazySingleton<GetListUserResumeRecentUseCase>(() => GetListUserResumeRecentUseCase(getIt.get()));
     getIt.registerLazySingleton<CreateNewUserResumeUseCase>(() => CreateNewUserResumeUseCase(getIt.get()));
     getIt.registerLazySingleton<CreateNewUserResumeCopyUseCase>(() => CreateNewUserResumeCopyUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListUserResumeUseCase>(() => GetListUserResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetDetailUserResumeUseCase>(() => GetDetailUserResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveUserResumeUseCase>(() => SaveUserResumeUseCase(getIt.get()));
 
     await getIt.allReady();
   }

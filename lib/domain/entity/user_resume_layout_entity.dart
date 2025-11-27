@@ -2,7 +2,7 @@ import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/domain/enum/type_side_enum.dart';
 
 class UserResumeLayoutEntity {
-  final String id;
+  final int id;
   TypeSideEnum side;
   List<TypeResumeSectionEnum> sections;
   double widthPercentage;

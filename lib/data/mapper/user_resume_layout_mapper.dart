@@ -6,7 +6,7 @@ import 'package:career_coach/domain/enum/type_side_enum.dart';
 class UserResumeLayoutMapper {
   static UserResumeLayoutEntity toEntity(UserResumeLayoutModel userResumeLayoutModel) {
     return UserResumeLayoutEntity(
-      id: userResumeLayoutModel.id.toString(),
+      id: userResumeLayoutModel.id,
       side: TypeSideEnumExtension.fromString(userResumeLayoutModel.side),
       sections: userResumeLayoutModel.sections
           .map((section) => TypeResumeSectionEnumExtension.fromString(section))

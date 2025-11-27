@@ -2,6 +2,7 @@ import 'package:career_coach/data/data_source/api_response.dart';
 import 'package:career_coach/data/data_source/api_service.dart';
 import 'package:career_coach/data/model/user_resume_model.dart';
 import 'package:career_coach/data/model/user_resume_recent_model.dart';
+import 'package:career_coach/data/request_body/user_resume_request_body.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -25,5 +26,23 @@ abstract class UserResumeRemote {
   Future<ApiResponse<UserResumeModel>> createNewUserResumeCopy({
     @Path('resumeId') required int resumeId,
     @Path('userResumeId') required int userResumeId,
+  });
+
+  @GET('')
+  Future<ApiResponse<PagedData<UserResumeModel>>> getListUserResume({
+    @Query('page') required int page,
+    @Query('size') required int size,
+    @Query('status') required String status,
+  });
+
+  @GET('/{id}')
+  Future<ApiResponse<UserResumeModel>> getDetailUserResume({
+    @Path('id') required int id,
+  });
+
+  @PUT('/save/{id}')
+  Future<ApiResponse<UserResumeModel>> saveUserResume({
+    @Path('id') required int id,
+    @Body() required UserResumeRequestBody userResumeRequestBody,
   });
 }
