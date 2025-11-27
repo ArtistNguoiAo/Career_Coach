@@ -64,8 +64,9 @@ abstract class BaseLanguage {
   String get delete;
   String get useThisTemplate;
   String get changeTemplate;
-  String get editTheme;
-  String get editContent;
+  String get theme;
+  String get content;
+  String get layout;
   String get activity;
   String get avatar;
   String get award;

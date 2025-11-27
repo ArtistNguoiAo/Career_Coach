@@ -203,10 +203,13 @@ class EnLanguage extends BaseLanguage {
   String get changeTemplate => 'Change template';
 
   @override
-  String get editTheme => 'Edit theme';
+  String get theme => 'Theme';
 
   @override
-  String get editContent => 'Edit content';
+  String get content => 'Content';
+
+  @override
+  String get layout => 'Layout';
 
   @override
   String get activity => 'Activity';

@@ -15,7 +15,7 @@ class ManageUserResumeCubit extends Cubit<ManageUserResumeState> {
     final listUserResume = await getListUserResumeUseCase(
       page: 0,
       size: 10,
-      status: TypeResumeCreatedEnum.DRAFT.name,
+      status: TypeResumeCreatedEnum.SAVED.name,
     );
     emit(state.copyWith(listUserResume: listUserResume));
   }

@@ -203,10 +203,13 @@ class ViLanguage extends BaseLanguage {
   String get changeTemplate => 'Thay đổi mẫu';
 
   @override
-  String get editTheme => 'Sửa giao diện';
+  String get theme => 'Giao diện';
 
   @override
-  String get editContent => 'Sửa nội dung';
+  String get content => 'Nội dung';
+
+  @override
+  String get layout => 'Bố cục';
 
   @override
   String get activity => 'Hoạt động';

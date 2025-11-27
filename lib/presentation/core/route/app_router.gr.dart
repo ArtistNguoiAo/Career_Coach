@@ -10,26 +10,28 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i32;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i34;
-import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i35;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i35;
+import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i34;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
-    as _i16;
-import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
-    as _i25;
-import 'package:career_coach/presentation/screen/manage_user_resume/manage_user_resume_screen.dart'
     as _i17;
+import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
+    as _i26;
+import 'package:career_coach/presentation/screen/layout_resume/layout_resume_screen.dart'
+    as _i15;
+import 'package:career_coach/presentation/screen/manage_user_resume/manage_user_resume_screen.dart'
+    as _i18;
 import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
     as _i14;
 import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
-    as _i15;
+    as _i16;
 import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
-    as _i19;
-import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
-    as _i21;
-import 'package:career_coach/presentation/screen/preview_resume/preview_resume_screen.dart'
     as _i20;
-import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
+import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
     as _i22;
+import 'package:career_coach/presentation/screen/preview_resume/preview_resume_screen.dart'
+    as _i21;
+import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
+    as _i23;
 import 'package:career_coach/presentation/screen/section_resume/activity/activity_detail_screen.dart'
     as _i1;
 import 'package:career_coach/presentation/screen/section_resume/activity/activity_screen.dart'
@@ -57,22 +59,20 @@ import 'package:career_coach/presentation/screen/section_resume/favorite/favorit
 import 'package:career_coach/presentation/screen/section_resume/goal/goal_screen.dart'
     as _i13;
 import 'package:career_coach/presentation/screen/section_resume/other_information/other_information_screen.dart'
-    as _i18;
+    as _i19;
 import 'package:career_coach/presentation/screen/section_resume/project/project_detail_screen.dart'
-    as _i23;
-import 'package:career_coach/presentation/screen/section_resume/project/project_screen.dart'
     as _i24;
+import 'package:career_coach/presentation/screen/section_resume/project/project_screen.dart'
+    as _i25;
 import 'package:career_coach/presentation/screen/section_resume/skill/skill_detail_screen.dart'
-    as _i26;
-import 'package:career_coach/presentation/screen/section_resume/skill/skill_screen.dart'
     as _i27;
+import 'package:career_coach/presentation/screen/section_resume/skill/skill_screen.dart'
+    as _i28;
 import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_detail_screen.dart'
     as _i30;
 import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_screen.dart'
     as _i31;
 import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
-    as _i28;
-import 'package:career_coach/presentation/screen/structure_resume/structure_resume_screen.dart'
     as _i29;
 import 'package:flutter/material.dart' as _i33;
 
@@ -301,7 +301,60 @@ class HomeRoute extends _i32.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.ListInterviewScreen]
+/// [_i15.LayoutResumeScreen]
+class LayoutResumeRoute extends _i32.PageRouteInfo<LayoutResumeRouteArgs> {
+  LayoutResumeRoute({
+    _i33.Key? key,
+    required _i34.UserResumeEntity userResumeEntity,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+         LayoutResumeRoute.name,
+         args: LayoutResumeRouteArgs(
+           key: key,
+           userResumeEntity: userResumeEntity,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'LayoutResumeRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<LayoutResumeRouteArgs>();
+      return _i15.LayoutResumeScreen(
+        key: args.key,
+        userResumeEntity: args.userResumeEntity,
+      );
+    },
+  );
+}
+
+class LayoutResumeRouteArgs {
+  const LayoutResumeRouteArgs({this.key, required this.userResumeEntity});
+
+  final _i33.Key? key;
+
+  final _i34.UserResumeEntity userResumeEntity;
+
+  @override
+  String toString() {
+    return 'LayoutResumeRouteArgs{key: $key, userResumeEntity: $userResumeEntity}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! LayoutResumeRouteArgs) return false;
+    return key == other.key && userResumeEntity == other.userResumeEntity;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeEntity.hashCode;
+}
+
+/// generated route for
+/// [_i16.ListInterviewScreen]
 class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
   ListInterviewRoute({_i33.Key? key, List<_i32.PageRouteInfo>? children})
     : super(
@@ -318,7 +371,7 @@ class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
       final args = data.argsAs<ListInterviewRouteArgs>(
         orElse: () => const ListInterviewRouteArgs(),
       );
-      return _i15.ListInterviewScreen(key: args.key);
+      return _i16.ListInterviewScreen(key: args.key);
     },
   );
 }
@@ -345,7 +398,7 @@ class ListInterviewRouteArgs {
 }
 
 /// generated route for
-/// [_i16.LoginScreen]
+/// [_i17.LoginScreen]
 class LoginRoute extends _i32.PageRouteInfo<void> {
   const LoginRoute({List<_i32.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
@@ -355,13 +408,13 @@ class LoginRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i16.LoginScreen();
+      return const _i17.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.ManageUserResumeScreen]
+/// [_i18.ManageUserResumeScreen]
 class ManageUserResumeRoute extends _i32.PageRouteInfo<void> {
   const ManageUserResumeRoute({List<_i32.PageRouteInfo>? children})
     : super(ManageUserResumeRoute.name, initialChildren: children);
@@ -371,13 +424,13 @@ class ManageUserResumeRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i17.ManageUserResumeScreen();
+      return const _i18.ManageUserResumeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i18.OtherInformationScreen]
+/// [_i19.OtherInformationScreen]
 class OtherInformationRoute extends _i32.PageRouteInfo<void> {
   const OtherInformationRoute({List<_i32.PageRouteInfo>? children})
     : super(OtherInformationRoute.name, initialChildren: children);
@@ -387,13 +440,13 @@ class OtherInformationRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i18.OtherInformationScreen();
+      return const _i19.OtherInformationScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i19.OverViewScreen]
+/// [_i20.OverViewScreen]
 class OverViewRoute extends _i32.PageRouteInfo<void> {
   const OverViewRoute({List<_i32.PageRouteInfo>? children})
     : super(OverViewRoute.name, initialChildren: children);
@@ -403,13 +456,13 @@ class OverViewRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i19.OverViewScreen();
+      return const _i20.OverViewScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i20.PreviewResumeScreen]
+/// [_i21.PreviewResumeScreen]
 class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
     _i33.Key? key,
@@ -434,7 +487,7 @@ class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<PreviewResumeRouteArgs>();
-      return _i20.PreviewResumeScreen(
+      return _i21.PreviewResumeScreen(
         key: args.key,
         resumeId: args.resumeId,
         userResumeId: args.userResumeId,
@@ -484,7 +537,7 @@ class PreviewResumeRouteArgs {
 }
 
 /// generated route for
-/// [_i21.ProfileScreen]
+/// [_i22.ProfileScreen]
 class ProfileRoute extends _i32.PageRouteInfo<void> {
   const ProfileRoute({List<_i32.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
@@ -494,17 +547,17 @@ class ProfileRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i21.ProfileScreen();
+      return const _i22.ProfileScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i22.ProfileUpdateScreen]
+/// [_i23.ProfileUpdateScreen]
 class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
     _i33.Key? key,
-    required _i34.UserEntity userEntity,
+    required _i35.UserEntity userEntity,
     List<_i32.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
@@ -518,7 +571,7 @@ class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<ProfileUpdateRouteArgs>();
-      return _i22.ProfileUpdateScreen(
+      return _i23.ProfileUpdateScreen(
         key: args.key,
         userEntity: args.userEntity,
       );
@@ -531,7 +584,7 @@ class ProfileUpdateRouteArgs {
 
   final _i33.Key? key;
 
-  final _i34.UserEntity userEntity;
+  final _i35.UserEntity userEntity;
 
   @override
   String toString() {
@@ -550,7 +603,7 @@ class ProfileUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i23.ProjectDetailScreen]
+/// [_i24.ProjectDetailScreen]
 class ProjectDetailRoute extends _i32.PageRouteInfo<void> {
   const ProjectDetailRoute({List<_i32.PageRouteInfo>? children})
     : super(ProjectDetailRoute.name, initialChildren: children);
@@ -560,13 +613,13 @@ class ProjectDetailRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i23.ProjectDetailScreen();
+      return const _i24.ProjectDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i24.ProjectScreen]
+/// [_i25.ProjectScreen]
 class ProjectRoute extends _i32.PageRouteInfo<void> {
   const ProjectRoute({List<_i32.PageRouteInfo>? children})
     : super(ProjectRoute.name, initialChildren: children);
@@ -576,13 +629,13 @@ class ProjectRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i24.ProjectScreen();
+      return const _i25.ProjectScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i25.RegisterScreen]
+/// [_i26.RegisterScreen]
 class RegisterRoute extends _i32.PageRouteInfo<void> {
   const RegisterRoute({List<_i32.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
@@ -592,13 +645,13 @@ class RegisterRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i25.RegisterScreen();
+      return const _i26.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i26.SkillDetailScreen]
+/// [_i27.SkillDetailScreen]
 class SkillDetailRoute extends _i32.PageRouteInfo<void> {
   const SkillDetailRoute({List<_i32.PageRouteInfo>? children})
     : super(SkillDetailRoute.name, initialChildren: children);
@@ -608,13 +661,13 @@ class SkillDetailRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i26.SkillDetailScreen();
+      return const _i27.SkillDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i27.SkillScreen]
+/// [_i28.SkillScreen]
 class SkillRoute extends _i32.PageRouteInfo<void> {
   const SkillRoute({List<_i32.PageRouteInfo>? children})
     : super(SkillRoute.name, initialChildren: children);
@@ -624,13 +677,13 @@ class SkillRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i27.SkillScreen();
+      return const _i28.SkillScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i28.SplashScreen]
+/// [_i29.SplashScreen]
 class SplashRoute extends _i32.PageRouteInfo<void> {
   const SplashRoute({List<_i32.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
@@ -640,63 +693,9 @@ class SplashRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i28.SplashScreen();
+      return const _i29.SplashScreen();
     },
   );
-}
-
-/// generated route for
-/// [_i29.StructureResumeScreen]
-class StructureResumeRoute
-    extends _i32.PageRouteInfo<StructureResumeRouteArgs> {
-  StructureResumeRoute({
-    _i33.Key? key,
-    required _i35.UserResumeEntity userResumeEntity,
-    List<_i32.PageRouteInfo>? children,
-  }) : super(
-         StructureResumeRoute.name,
-         args: StructureResumeRouteArgs(
-           key: key,
-           userResumeEntity: userResumeEntity,
-         ),
-         initialChildren: children,
-       );
-
-  static const String name = 'StructureResumeRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<StructureResumeRouteArgs>();
-      return _i29.StructureResumeScreen(
-        key: args.key,
-        userResumeEntity: args.userResumeEntity,
-      );
-    },
-  );
-}
-
-class StructureResumeRouteArgs {
-  const StructureResumeRouteArgs({this.key, required this.userResumeEntity});
-
-  final _i33.Key? key;
-
-  final _i35.UserResumeEntity userResumeEntity;
-
-  @override
-  String toString() {
-    return 'StructureResumeRouteArgs{key: $key, userResumeEntity: $userResumeEntity}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! StructureResumeRouteArgs) return false;
-    return key == other.key && userResumeEntity == other.userResumeEntity;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ userResumeEntity.hashCode;
 }
 
 /// generated route for

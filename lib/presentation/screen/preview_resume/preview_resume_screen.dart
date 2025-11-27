@@ -73,7 +73,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                   InkWell(
                     onTap: () {
                       context.read<PreviewResumeCubit>().saveUserResume(
-                        userResumeEntity: state.userResumeEntity!,
+                        userResumeEntity: state.userResumeEntity!.copyWith(title: _nameController.text),
                       );
                     },
                     child: Text(context.language.save, style: TextStyleUtils.normal(color: Colors.white, fontSize: 14)),
@@ -117,47 +117,57 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
   }
 
   Widget _footerRow(UserResumeEntity? userResumeEntity) {
-    return Row(
-      children: [
-        Expanded(
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(FontAwesomeIcons.paintbrush, size: 16, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Text(context.language.editTheme, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
-                ],
+    return Builder(
+      builder: (context) {
+        return Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.paintbrush, size: 16, color: Colors.white),
+                      const SizedBox(width: 8),
+                      Text(context.language.theme, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              if (userResumeEntity == null) return;
-              AutoRouter.of(context).push(StructureResumeRoute(userResumeEntity: userResumeEntity));
-            },
-            child: Container(
-              decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(FontAwesomeIcons.pencil, size: 16, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Text(context.language.editContent, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
-                ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: InkWell(
+                onTap: () async {
+                  if (userResumeEntity == null) return;
+                  final result = await AutoRouter.of(context).push(LayoutResumeRoute(userResumeEntity: userResumeEntity));
+
+                  if (!context.mounted) return;
+
+                  if (result is UserResumeEntity) {
+                    context.read<PreviewResumeCubit>().saveUserResume(userResumeEntity: result);
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.pencil, size: 16, color: Colors.white),
+                      const SizedBox(width: 8),
+                      Text(context.language.content, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
