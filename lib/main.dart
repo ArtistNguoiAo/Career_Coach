@@ -4,12 +4,14 @@ import 'package:career_coach/presentation/core/mode/language/inherited_language_
 import 'package:career_coach/presentation/core/mode/theme/cubit/theme_cubit.dart';
 import 'package:career_coach/presentation/core/mode/theme/inherited_theme_widget.dart';
 import 'package:career_coach/presentation/core/route/app_router.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DiConfig.init();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(MyApp());
 }
 
@@ -22,9 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageCubit>(
-          create: (context) => LanguageCubit()..init(),
-        ),
+        BlocProvider<LanguageCubit>(create: (context) => LanguageCubit()..init()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()..init()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(

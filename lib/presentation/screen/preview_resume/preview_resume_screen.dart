@@ -42,14 +42,10 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {
-                      AutoRouter.of(context).maybePop();
-                    },
-                    child: Text(
-                      context.language.cancel,
-                      style: TextStyleUtils.normal(color: Colors.white, fontSize: 14),
-                    ),
+                    onTap: () => AutoRouter.of(context).maybePop(),
+                    child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
                   ),
+                  SizedBox(width: 8),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -70,13 +66,14 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 8),
                   InkWell(
                     onTap: () {
                       context.read<PreviewResumeCubit>().saveUserResume(
                         userResumeEntity: state.userResumeEntity!.copyWith(title: _nameController.text),
                       );
                     },
-                    child: Text(context.language.save, style: TextStyleUtils.normal(color: Colors.white, fontSize: 14)),
+                    child: Icon(FontAwesomeIcons.floppyDisk, color: context.theme.backgroundColor, size: 20),
                   ),
                 ],
               ),
@@ -103,7 +100,6 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("", style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 18)),
         Text(
           context.language.changeTemplate,
           style: TextStyleUtils.bold(color: context.theme.primaryColor, fontSize: 16),
@@ -123,27 +119,33 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
           children: [
             Expanded(
               child: InkWell(
-                onTap: () {},
+                onTap: () async {
+                },
                 child: Container(
-                  decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: context.theme.primaryColor),
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.paintbrush, size: 16, color: Colors.white),
-                      const SizedBox(width: 8),
-                      Text(context.language.theme, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
+                      Icon(FontAwesomeIcons.pencil, size: 12, color: context.theme.textColor),
+                      const SizedBox(height: 4),
+                      Text(context.language.content, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 4),
             Expanded(
               child: InkWell(
                 onTap: () async {
                   if (userResumeEntity == null) return;
-                  final result = await AutoRouter.of(context).push(LayoutResumeRoute(userResumeEntity: userResumeEntity));
+                  final result = await AutoRouter.of(
+                    context,
+                  ).push(LayoutResumeRoute(userResumeEntity: userResumeEntity));
 
                   if (!context.mounted) return;
 
@@ -152,14 +154,38 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                   }
                 },
                 child: Container(
-                  decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: context.theme.primaryColor),
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.pencil, size: 16, color: Colors.white),
-                      const SizedBox(width: 8),
-                      Text(context.language.content, style: TextStyleUtils.bold(color: Colors.white, fontSize: 16)),
+                      Icon(FontAwesomeIcons.puzzlePiece, size: 12, color: context.theme.textColor),
+                      const SizedBox(height: 4),
+                      Text(context.language.layout, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: context.theme.primaryColor),
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.paintbrush, size: 12, color: Colors.black),
+                      const SizedBox(height: 4),
+                      Text(context.language.theme, style: TextStyleUtils.bold(color: Colors.black, fontSize: 12)),
                     ],
                   ),
                 ),

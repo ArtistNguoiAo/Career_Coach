@@ -4,6 +4,7 @@ import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:career_coach/presentation/screen/layout_resume/widgets/width_percentage_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -104,6 +105,15 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          if (widget.userResumeEntity.numberOfColumns == 2) ...[
+            WidthPercentageSlider(
+              initialValue: userResumeEntity.layouts[0].widthPercentage,
+              onFinished: (value) {
+                widget.userResumeEntity.layouts[0].widthPercentage = value;
+                widget.userResumeEntity.layouts[1].widthPercentage = 100.0 - value;
+              },
+            )
+          ],
           if (widget.userResumeEntity.numberOfColumns == 1) ...[
             buildEnumZone(context.language.dragAndDropSectionHere, usedSections),
           ],
