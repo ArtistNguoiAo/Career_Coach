@@ -112,4 +112,9 @@ abstract class BaseLanguage {
   String get create;
   String get dragAndDropSectionHere;
   String get unUsedSections;
+  String get chooseLanguage;
+  String get chooseFont;
+  String get chooseFontSize;
+  String get chooseLineHeight;
+  String get chooseColor;
 }

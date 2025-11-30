@@ -345,4 +345,19 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get unUsedSections => 'Unused sections';
+
+  @override
+  String get chooseLanguage => 'Choose language';
+
+  @override
+  String get chooseFont => 'Choose font';
+
+  @override
+  String get chooseFontSize => 'Choose font size';
+
+  @override
+  String get chooseLineHeight => 'Choose line height';
+
+  @override
+  String get chooseColor => 'Choose color';
 }

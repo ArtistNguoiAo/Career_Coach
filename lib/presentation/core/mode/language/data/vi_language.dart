@@ -345,4 +345,19 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get unUsedSections => 'Các mục chưa sử dụng';
+
+  @override
+  String get chooseLanguage => 'Chọn ngôn ngữ';
+
+  @override
+  String get chooseFont => 'Chọn phông chữ';
+
+  @override
+  String get chooseFontSize => 'Chọn cỡ chữ';
+
+  @override
+  String get chooseLineHeight => 'Chọn khoảng cách dòng';
+
+  @override
+  String get chooseColor => 'Chọn màu';
 }

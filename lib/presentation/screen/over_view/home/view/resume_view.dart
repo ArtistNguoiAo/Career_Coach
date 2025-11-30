@@ -25,20 +25,19 @@ class ResumeView extends StatefulWidget {
   State<ResumeView> createState() => _ResumeViewState();
 }
 
-class _ResumeViewState extends State<ResumeView>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
+class _ResumeViewState extends State<ResumeView> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   final getListUserResumeRecentUseCae = getIt<GetListUserResumeRecentUseCase>();
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
-    tabController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -48,7 +47,7 @@ class _ResumeViewState extends State<ResumeView>
       children: [
         TitleView(title: context.language.cvAndCl),
         TabBar(
-          controller: tabController,
+          controller: _tabController,
           dividerColor: Colors.transparent,
           indicatorColor: context.theme.primaryColor,
           labelColor: context.theme.primaryColor,
@@ -64,7 +63,7 @@ class _ResumeViewState extends State<ResumeView>
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: TabBarView(
-            controller: tabController,
+            controller: _tabController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
               ListView.separated(

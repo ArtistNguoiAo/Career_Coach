@@ -5,6 +5,8 @@ import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
 import 'package:career_coach/presentation/screen/preview_resume/cubit/preview_resume_cubit.dart';
+import 'package:career_coach/presentation/screen/preview_resume/widgets/drawer_preview_resume.dart';
+import 'package:career_coach/presentation/screen/preview_resume/widgets/end_drawer_preview_resume.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,6 +24,7 @@ class PreviewResumeScreen extends StatefulWidget {
 }
 
 class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final TextEditingController _nameController = TextEditingController();
 
   @override
@@ -36,8 +39,10 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         },
         builder: (context, state) {
           return Scaffold(
+            key: _scaffoldKey,
             appBar: AppBar(
               automaticallyImplyLeading: false,
+              actions: [SizedBox.shrink()],
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -90,6 +95,15 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                 ],
               ),
             ),
+            drawer: DrawerPreviewResume(),
+            endDrawer: EndDrawerPreviewResume(
+              userResumeEntity: state.userResumeEntity,
+              onChanged: (userResumeEntity) {
+                context.read<PreviewResumeCubit>().saveUserResume(userResumeEntity: userResumeEntity);
+              },
+            ),
+            drawerEnableOpenDragGesture: false,
+            endDrawerEnableOpenDragGesture: false,
           );
         },
       ),
@@ -119,7 +133,8 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
           children: [
             Expanded(
               child: InkWell(
-                onTap: () async {
+                onTap: () {
+                  _scaffoldKey.currentState?.openDrawer();
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -173,7 +188,9 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
             const SizedBox(width: 4),
             Expanded(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  _scaffoldKey.currentState?.openEndDrawer();
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
@@ -183,9 +200,9 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.paintbrush, size: 12, color: Colors.black),
+                      Icon(FontAwesomeIcons.palette, size: 12, color: context.theme.textColor),
                       const SizedBox(height: 4),
-                      Text(context.language.theme, style: TextStyleUtils.bold(color: Colors.black, fontSize: 12)),
+                      Text(context.language.theme, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
                     ],
                   ),
                 ),

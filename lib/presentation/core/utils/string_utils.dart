@@ -1,3 +1,5 @@
+import 'package:career_coach/domain/enum/type_font_family_enum.dart';
+import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,5 +48,29 @@ class StringUtils {
       case TypeResumeSectionEnum.OTHER_INFORMATION:
         return context.language.otherInformation;
       }
+  }
+
+  static String convertTypeLanguageEnum(BuildContext context, TypeLanguageEnum type) {
+    switch (type) {
+      case TypeLanguageEnum.VIETNAMESE:
+        return "Tiếng Việt";
+      case TypeLanguageEnum.ENGLISH:
+        return "English";
+    }
+  }
+
+  static String convertTypeFontFamilyEnum(BuildContext context, TypeFontFamilyEnum type) {
+    switch (type) {
+      case TypeFontFamilyEnum.ARIAL:
+        return "Arial";
+      case TypeFontFamilyEnum.TIMES_NEW_ROMAN:
+        return "Times New Roman";
+      case TypeFontFamilyEnum.COURIER_NEW:
+        return "Courier New";
+      case TypeFontFamilyEnum.ROBOTO:
+        return "Roboto";
+      case TypeFontFamilyEnum.OPEN_SANS:
+        return "Open Sans";
+    }
   }
 }

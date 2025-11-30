@@ -19,7 +19,6 @@ class LayoutResumeScreen extends StatefulWidget {
 }
 
 class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
-  late UserResumeEntity userResumeEntity;
   List<TypeResumeSectionEnum> usedSections = [];
   List<TypeResumeSectionEnum> leftUsedSections = [];
   List<TypeResumeSectionEnum> rightUsedSections = [];
@@ -29,8 +28,6 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
   @override
   void initState() {
     super.initState();
-    userResumeEntity = widget.userResumeEntity;
-
     if (widget.userResumeEntity.numberOfColumns == 1) {
       usedSections = [...widget.userResumeEntity.layouts.first.sections];
     } else if (widget.userResumeEntity.numberOfColumns == 2) {
@@ -107,7 +104,7 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
         children: [
           if (widget.userResumeEntity.numberOfColumns == 2) ...[
             WidthPercentageSlider(
-              initialValue: userResumeEntity.layouts[0].widthPercentage,
+              initialValue: widget.userResumeEntity.layouts[0].widthPercentage,
               onFinished: (value) {
                 widget.userResumeEntity.layouts[0].widthPercentage = value;
                 widget.userResumeEntity.layouts[1].widthPercentage = 100.0 - value;
@@ -386,14 +383,14 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
   Widget _buttonSave() {
     return InkWell(
       onTap: () {
-        if(userResumeEntity.numberOfColumns == 1) {
-          userResumeEntity.layouts.first.sections = usedSections;
+        if(widget.userResumeEntity.numberOfColumns == 1) {
+          widget.userResumeEntity.layouts.first.sections = usedSections;
         }
         else {
-          userResumeEntity.layouts[0].sections = leftUsedSections;
-          userResumeEntity.layouts[1].sections = rightUsedSections;
+          widget.userResumeEntity.layouts[0].sections = leftUsedSections;
+          widget.userResumeEntity.layouts[1].sections = rightUsedSections;
         }
-        AutoRouter.of(context).pop(userResumeEntity);
+        AutoRouter.of(context).pop(widget.userResumeEntity);
       },
       child: Container(
         width: double.infinity,

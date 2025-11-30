@@ -13,4 +13,18 @@ class UserResumeLayoutEntity {
     required this.sections,
     required this.widthPercentage,
   });
+
+  UserResumeLayoutEntity copyWith({
+    int? id,
+    TypeSideEnum? side,
+    List<TypeResumeSectionEnum>? sections,
+    double? widthPercentage,
+  }) {
+    return UserResumeLayoutEntity(
+      id: id ?? this.id,
+      side: side ?? this.side,
+      sections: sections ?? this.sections,
+      widthPercentage: widthPercentage ?? this.widthPercentage,
+    );
+  }
 }
