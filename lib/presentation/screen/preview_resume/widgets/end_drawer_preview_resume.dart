@@ -5,8 +5,8 @@ import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EndDrawerPreviewResume extends StatefulWidget {
@@ -256,25 +256,33 @@ class _EndDrawerPreviewResumeState extends State<EndDrawerPreviewResume> with Si
           quarterTurns: 3,
           child: Text(context.language.chooseColor, style: TextStyleUtils.bold(fontSize: 16)),
         ),
+        const SizedBox(width: 8),
         RotatedBox(
           quarterTurns: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: ColorPicker(
-              colorPickerWidth: 250,
-              pickerColor: _currentColor,
-              onColorChanged: (color) {
-                setState(() {
-                  _currentColor = color;
-                  _color = '#${color.toARGB32().toRadixString(16).substring(2)}';
-                });
-              },
-              enableAlpha: false,
-              displayThumbColor: true,
-              hexInputBar: true,
-              hexInputController: TextEditingController(text: _color),
-              labelTypes: const [],
-            ),
+          child: ColorPicker(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            color: _currentColor,
+            onColorChanged: (color) {
+              setState(() {
+                _currentColor = color;
+                _color = '#${color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
+              });
+            },
+            borderRadius: 10,
+            spacing: 5,
+            runSpacing: 5,
+            wheelDiameter: 200,
+            pickersEnabled: <ColorPickerType, bool>{
+              ColorPickerType.wheel: true,
+              ColorPickerType.both: false,
+              ColorPickerType.primary: false,
+              ColorPickerType.accent: false,
+              ColorPickerType.custom: false,
+              ColorPickerType.bw: false,
+            },
+            enableShadesSelection: false,
+            showColorCode: true,
+            colorCodeHasColor: true,
           ),
         ),
       ],
