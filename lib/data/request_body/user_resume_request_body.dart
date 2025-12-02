@@ -2,14 +2,14 @@ import 'package:career_coach/data/request_body/user_resume_layout_request_body.d
 
 class UserResumeRequestBody {
   final int id;
-  String title;
-  int numberOfColumns;
-  String language;
-  String fontFamily;
-  int fontSize;
-  double lineHeight;
-  String color;
-  List<UserResumeLayoutRequestBody> layouts;
+  final String title;
+  final int numberOfColumns;
+  final String language;
+  final String fontFamily;
+  final int fontSize;
+  final double lineHeight;
+  final String color;
+  final List<UserResumeLayoutRequestBody> layouts;
 
   UserResumeRequestBody({
     required this.id,

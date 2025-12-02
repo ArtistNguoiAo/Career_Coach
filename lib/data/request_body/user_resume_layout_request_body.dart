@@ -1,11 +1,10 @@
 import 'package:career_coach/domain/entity/user_resume_layout_entity.dart';
-import 'package:career_coach/domain/enum/type_side_enum.dart';
 
 class UserResumeLayoutRequestBody {
   final int id;
-  TypeSideEnum side;
-  List<String> sections;
-  double widthPercentage;
+  final String side;
+  final List<String> sections;
+  final double widthPercentage;
 
   UserResumeLayoutRequestBody({
     required this.id,
@@ -15,13 +14,13 @@ class UserResumeLayoutRequestBody {
   });
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'side': side.name, 'sections': sections, 'widthPercentage': widthPercentage};
+    return {'id': id, 'side': side, 'sections': sections, 'widthPercentage': widthPercentage};
   }
 
   factory UserResumeLayoutRequestBody.fromEntity(UserResumeLayoutEntity entity) {
     return UserResumeLayoutRequestBody(
       id: entity.id,
-      side: entity.side,
+      side: entity.side.name,
       sections: entity.sections.map( (e) => e.name).toList(),
       widthPercentage: entity.widthPercentage,
     );

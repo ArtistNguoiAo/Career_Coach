@@ -95,7 +95,9 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                 ],
               ),
             ),
-            drawer: DrawerPreviewResume(),
+            drawer: DrawerPreviewResume(
+              userResumeEntity: state.userResumeEntity,
+            ),
             endDrawer: EndDrawerPreviewResume(
               userResumeEntity: state.userResumeEntity,
               onChanged: (userResumeEntity) {

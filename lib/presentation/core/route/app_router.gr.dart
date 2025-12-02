@@ -190,18 +190,56 @@ class CertificateRoute extends _i32.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ContactInformationScreen]
-class ContactInformationRoute extends _i32.PageRouteInfo<void> {
-  const ContactInformationRoute({List<_i32.PageRouteInfo>? children})
-    : super(ContactInformationRoute.name, initialChildren: children);
+class ContactInformationRoute
+    extends _i32.PageRouteInfo<ContactInformationRouteArgs> {
+  ContactInformationRoute({
+    _i33.Key? key,
+    required int userResumeId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+         ContactInformationRoute.name,
+         args: ContactInformationRouteArgs(
+           key: key,
+           userResumeId: userResumeId,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'ContactInformationRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i8.ContactInformationScreen();
+      final args = data.argsAs<ContactInformationRouteArgs>();
+      return _i8.ContactInformationScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
+}
+
+class ContactInformationRouteArgs {
+  const ContactInformationRouteArgs({this.key, required this.userResumeId});
+
+  final _i33.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ContactInformationRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ContactInformationRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for

@@ -29,6 +29,7 @@ import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
+import 'package:career_coach/domain/use_case/save_contact_information_use_case.dart';
 import 'package:career_coach/domain/use_case/save_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
 import 'package:career_coach/domain/use_case/update_profile_use_case.dart';
@@ -74,6 +75,7 @@ class DiConfig {
     getIt.registerLazySingleton<GetDetailUserResumeUseCase>(() => GetDetailUserResumeUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveUserResumeUseCase>(() => SaveUserResumeUseCase(getIt.get()));
     getIt.registerLazySingleton<GetContactInformationUseCase>(() => GetContactInformationUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveContactInformationUseCase>(() => SaveContactInformationUseCase(getIt.get()));
 
     await getIt.allReady();
   }

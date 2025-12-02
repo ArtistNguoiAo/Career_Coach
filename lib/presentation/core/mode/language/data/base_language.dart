@@ -117,4 +117,7 @@ abstract class BaseLanguage {
   String get chooseFontSize;
   String get chooseLineHeight;
   String get chooseColor;
+  String get chooseSection;
+  String get other;
+  String get saveInformationSuccess;
 }

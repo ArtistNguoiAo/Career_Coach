@@ -1,4 +1,5 @@
 import 'package:career_coach/domain/enum/type_font_family_enum.dart';
+import 'package:career_coach/domain/enum/type_gender_enum.dart';
 import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
@@ -19,6 +20,17 @@ class StringUtils {
   static String convertDateString(String input) {
     DateTime date = DateTime.parse(input);
     return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
+  }
+
+  static String convertTypeGenderEnum(BuildContext context, TypeGenderEnum type) {
+    switch (type) {
+      case TypeGenderEnum.MALE:
+        return context.language.male;
+      case TypeGenderEnum.FEMALE:
+        return context.language.female;
+      case TypeGenderEnum.OTHER:
+        return context.language.other;
+    }
   }
 
   static String convertTypeResumeSectionEnum(BuildContext context, TypeResumeSectionEnum type) {

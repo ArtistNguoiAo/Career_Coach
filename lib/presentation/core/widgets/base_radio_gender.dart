@@ -1,26 +1,26 @@
+import 'package:career_coach/domain/enum/type_gender_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
 
-class BaseRadio extends StatefulWidget {
-  const BaseRadio({
+class BaseRadioGender extends StatefulWidget {
+  const BaseRadioGender({
     super.key,
     required this.controller,
     required this.isRequired,
     required this.title,
-    required this.value,
   });
 
   final TextEditingController controller;
   final bool isRequired;
   final String title;
-  final List<String> value;
 
   @override
-  State<BaseRadio> createState() => _BaseRadioState();
+  State<BaseRadioGender> createState() => _BaseRadioGenderState();
 }
 
-class _BaseRadioState extends State<BaseRadio> {
+class _BaseRadioGenderState extends State<BaseRadioGender> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,23 +45,26 @@ class _BaseRadioState extends State<BaseRadio> {
         ),
         const SizedBox(height: 4),
         Wrap(
-          children: widget.value.map((option) {
+          children: TypeGenderEnum.values.map((option) {
             return Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Radio<String>(
+                Radio<TypeGenderEnum>(
                   value: option,
-                  groupValue: widget.controller.text.isEmpty ? null : widget.controller.text,
-                  onChanged: (String? value) {
+                  groupValue: TypeGenderEnum.values.firstWhere(
+                    (e) => e.name == widget.controller.text,
+                    orElse: () => TypeGenderEnum.OTHER,
+                  ),
+                  onChanged: (TypeGenderEnum? value) {
                     setState(() {
-                      widget.controller.text = value ?? '';
+                      widget.controller.text = value?.name ?? '';
                     });
                   },
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   activeColor: context.theme.primaryColor,
                 ),
                 Text(
-                  option,
+                  StringUtils.convertTypeGenderEnum(context, option),
                   style: TextStyleUtils.normal(
                     color: context.theme.textColor,
                   ),

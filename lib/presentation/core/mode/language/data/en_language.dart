@@ -360,4 +360,13 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get chooseColor => 'Choose color';
+
+  @override
+  String get chooseSection => 'Choose section';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get saveInformationSuccess => 'Information saved successfully';
 }

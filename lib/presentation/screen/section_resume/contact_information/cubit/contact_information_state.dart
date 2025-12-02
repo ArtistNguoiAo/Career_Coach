@@ -1,15 +1,29 @@
 part of 'contact_information_cubit.dart';
 
 class ContactInformationState {
-  final ContactInformationEntity? contactInformation;
+  final ContactInformationEntity? contactInformationEntity;
+  final String error;
+  final bool isLoading;
+  final bool isSavedSuccess;
 
-  ContactInformationState({this.contactInformation});
+  ContactInformationState({
+    this.contactInformationEntity,
+    this.error = '',
+    this.isLoading = false,
+    this.isSavedSuccess = false,
+  });
 
   ContactInformationState copyWith({
-    ContactInformationEntity? contactInformation,
+    ContactInformationEntity? contactInformationEntity,
+    String? error,
+    bool? isLoading,
+    bool? isSavedSuccess,
   }) {
     return ContactInformationState(
-      contactInformation: contactInformation ?? this.contactInformation,
+      contactInformationEntity: contactInformationEntity ?? this.contactInformationEntity,
+      error: error ?? this.error,
+      isLoading: isLoading ?? this.isLoading,
+      isSavedSuccess: isSavedSuccess ?? this.isSavedSuccess,
     );
   }
 }

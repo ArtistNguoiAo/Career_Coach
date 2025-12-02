@@ -360,4 +360,13 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get chooseColor => 'Chọn màu';
+
+  @override
+  String get chooseSection => 'Chọn mục';
+
+  @override
+  String get other => 'Khác';
+
+  @override
+  String get saveInformationSuccess => 'Lưu thông tin thành công';
 }

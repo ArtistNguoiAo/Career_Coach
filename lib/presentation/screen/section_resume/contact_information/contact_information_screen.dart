@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/enum/type_gender_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_content.dart';
 import 'package:career_coach/presentation/core/widgets/base_content_date.dart';
-import 'package:career_coach/presentation/core/widgets/base_radio.dart';
+import 'package:career_coach/presentation/core/widgets/base_radio_gender.dart';
 import 'package:career_coach/presentation/screen/section_resume/contact_information/cubit/contact_information_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +14,12 @@ import 'package:intl/intl.dart';
 
 @RoutePage()
 class ContactInformationScreen extends StatefulWidget {
-  const ContactInformationScreen({super.key});
+  const ContactInformationScreen({super.key, required this.userResumeId});
+
+  final int userResumeId;
 
   @override
-  State<ContactInformationScreen> createState() =>
-      _ContactInformationScreenState();
+  State<ContactInformationScreen> createState() => _ContactInformationScreenState();
 }
 
 class _ContactInformationScreenState extends State<ContactInformationScreen> {
@@ -35,28 +38,19 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      ContactInformationCubit()
-        ..init(userResumeId: 88),
+      create: (context) => ContactInformationCubit()..init(userResumeId: widget.userResumeId),
       child: Scaffold(
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
               AutoRouter.of(context).maybePop();
             },
-            child: Icon(
-              FontAwesomeIcons.chevronLeft,
-              color: context.theme.backgroundColor,
-              size: 20,
-            ),
+            child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
           ),
           centerTitle: true,
           title: Text(
             context.language.contactInformation,
-            style: TextStyleUtils.bold(
-              color: context.theme.backgroundColor,
-              fontSize: 18,
-            ),
+            style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
           ),
           backgroundColor: context.theme.primaryColor,
         ),
@@ -67,7 +61,41 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
           color: context.theme.backgroundColor,
           child: BlocConsumer<ContactInformationCubit, ContactInformationState>(
             listener: (context, state) {
-              // TODO: implement listener
+              if (state.isLoading) {
+                DialogUtils.showLoadingDialog(context);
+              } else {
+                DialogUtils.hideLoadingDialog(context);
+              }
+              if (state.isSavedSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      context.language.saveInformationSuccess,
+                      style: TextStyleUtils.normal(
+                        color: context.theme.backgroundColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                    backgroundColor: context.theme.goodColor,
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              }
+              if(state.error.isNotEmpty) {
+                DialogUtils.showErrorDialog(context: context, message: state.error);
+              }
+
+              _fullNameController.text = state.contactInformationEntity?.fullName ?? '';
+              _positionController.text = state.contactInformationEntity?.position ?? '';
+              _emailController.text = state.contactInformationEntity?.email ?? '';
+              _phoneController.text = state.contactInformationEntity?.phoneNumber ?? '';
+              _addressController.text = state.contactInformationEntity?.address ?? '';
+              _genderController.text = state.contactInformationEntity?.gender.name ?? '';
+              _dateOfBirthController.text = state.contactInformationEntity?.dateOfBirth ?? '';
+              _portfolioController.text = state.contactInformationEntity?.portfolio ?? '';
+              _facebookController.text = state.contactInformationEntity?.facebook ?? '';
+              _linkedinController.text = state.contactInformationEntity?.linkedIn ?? '';
+              _githubController.text = state.contactInformationEntity?.github ?? '';
             },
             builder: (context, state) {
               return Column(
@@ -89,32 +117,20 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                             title: context.language.position,
                           ),
                           SizedBox(height: 8.0),
-                          BaseContent(
-                            controller: _emailController,
-                            isRequired: true,
-                            title: context.language.email,
-                          ),
+                          BaseContent(controller: _emailController, isRequired: false, title: context.language.email),
                           SizedBox(height: 8.0),
-                          BaseContent(
-                            controller: _phoneController,
-                            isRequired: true,
-                            title: context.language.phone,
-                          ),
+                          BaseContent(controller: _phoneController, isRequired: false, title: context.language.phone),
                           SizedBox(height: 8.0),
                           BaseContent(
                             controller: _addressController,
-                            isRequired: true,
+                            isRequired: false,
                             title: context.language.address,
                           ),
                           SizedBox(height: 8.0),
-                          BaseRadio(
+                          BaseRadioGender(
                             controller: _genderController,
                             isRequired: false,
                             title: context.language.gender,
-                            value: [
-                              context.language.male,
-                              context.language.female,
-                            ],
                           ),
                           BaseContentDate(
                             controller: _dateOfBirthController,
@@ -123,7 +139,7 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                             onTap: () async {
                               DateTime? currentDate;
                               if (_dateOfBirthController.text.isNotEmpty) {
-                                currentDate = DateFormat('dd/MM/yyyy').parse(_dateOfBirthController.text);
+                                currentDate = DateFormat('yyyy-MM-dd').parse(_dateOfBirthController.text);
                               }
 
                               final now = DateTime.now();
@@ -148,7 +164,7 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                               );
 
                               if (pickedDate != null) {
-                                _dateOfBirthController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                                _dateOfBirthController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                               }
                             },
                           ),
@@ -171,29 +187,41 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                             title: context.language.linkedIn,
                           ),
                           SizedBox(height: 8.0),
-                          BaseContent(
-                            controller: _githubController,
-                            isRequired: false,
-                            title: context.language.github,
-                          ),
+                          BaseContent(controller: _githubController, isRequired: false, title: context.language.github),
                         ],
                       ),
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColor,
-                      borderRadius: BorderRadius.circular(10),
+                  InkWell(
+                    onTap: () {
+                      state.contactInformationEntity?.fullName = _fullNameController.text;
+                      state.contactInformationEntity?.position = _positionController.text;
+                      state.contactInformationEntity?.email = _emailController.text;
+                      state.contactInformationEntity?.phoneNumber = _phoneController.text;
+                      state.contactInformationEntity?.address = _addressController.text;
+                      state.contactInformationEntity?.gender = TypeGenderEnumExtension.fromString(_genderController.text);
+                      state.contactInformationEntity?.dateOfBirth = _dateOfBirthController.text;
+                      state.contactInformationEntity?.portfolio = _portfolioController.text;
+                      state.contactInformationEntity?.facebook = _facebookController.text;
+                      state.contactInformationEntity?.linkedIn = _linkedinController.text;
+                      state.contactInformationEntity?.github = _githubController.text;
+                      context.read<ContactInformationCubit>().save();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: context.theme.primaryColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        context.language.save,
+                        textAlign: TextAlign.center,
+                        style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                    child: Text(
-                      context.language.save,
-                      style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
+                  ),
                 ],
               );
             },
