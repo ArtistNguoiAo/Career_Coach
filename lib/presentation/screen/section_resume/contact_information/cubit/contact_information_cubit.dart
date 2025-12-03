@@ -13,6 +13,8 @@ class ContactInformationCubit extends Cubit<ContactInformationState> {
   final saveContactInformationUseCase = getIt<SaveContactInformationUseCase>();
 
   Future<void> init({required int userResumeId}) async {
+    await Future.delayed(Duration(milliseconds: 300));
+    emit(state.copyWith(isLoading: true, error: ''));
     try {
       final contactInformationEntity = await getContactInformationUseCase(userResumeId: userResumeId);
       emit(state.copyWith(contactInformationEntity: contactInformationEntity, isLoading: false, error: ''));

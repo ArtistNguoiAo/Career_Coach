@@ -308,18 +308,49 @@ class FavoriteRoute extends _i32.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.GoalScreen]
-class GoalRoute extends _i32.PageRouteInfo<void> {
-  const GoalRoute({List<_i32.PageRouteInfo>? children})
-    : super(GoalRoute.name, initialChildren: children);
+class GoalRoute extends _i32.PageRouteInfo<GoalRouteArgs> {
+  GoalRoute({
+    _i33.Key? key,
+    required int userResumeId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+         GoalRoute.name,
+         args: GoalRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'GoalRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i13.GoalScreen();
+      final args = data.argsAs<GoalRouteArgs>();
+      return _i13.GoalScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
+}
+
+class GoalRouteArgs {
+  const GoalRouteArgs({this.key, required this.userResumeId});
+
+  final _i33.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'GoalRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! GoalRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
