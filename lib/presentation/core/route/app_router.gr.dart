@@ -92,18 +92,49 @@ class ActivityDetailRoute extends _i31.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ActivityScreen]
-class ActivityRoute extends _i31.PageRouteInfo<void> {
-  const ActivityRoute({List<_i31.PageRouteInfo>? children})
-    : super(ActivityRoute.name, initialChildren: children);
+class ActivityRoute extends _i31.PageRouteInfo<ActivityRouteArgs> {
+  ActivityRoute({
+    _i32.Key? key,
+    required int userResumeId,
+    List<_i31.PageRouteInfo>? children,
+  }) : super(
+         ActivityRoute.name,
+         args: ActivityRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'ActivityRoute';
 
   static _i31.PageInfo page = _i31.PageInfo(
     name,
     builder: (data) {
-      return const _i2.ActivityScreen();
+      final args = data.argsAs<ActivityRouteArgs>();
+      return _i2.ActivityScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
+}
+
+class ActivityRouteArgs {
+  const ActivityRouteArgs({this.key, required this.userResumeId});
+
+  final _i32.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ActivityRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ActivityRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
