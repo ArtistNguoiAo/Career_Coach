@@ -60,6 +60,11 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(GoalRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
+                        else if(sections[index] == TypeResumeSectionEnum.SKILL) {
+                          AutoRouter.of(
+                            context,
+                          ).push(SkillRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

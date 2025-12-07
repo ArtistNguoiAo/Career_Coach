@@ -24,28 +24,19 @@ class _GoalScreenState extends State<GoalScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      GoalCubit()
-        ..init(userResumeId: widget.userResumeId),
+      create: (context) => GoalCubit()..init(userResumeId: widget.userResumeId),
       child: Scaffold(
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
               AutoRouter.of(context).maybePop();
             },
-            child: Icon(
-              FontAwesomeIcons.chevronLeft,
-              color: context.theme.backgroundColor,
-              size: 20,
-            ),
+            child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
           ),
           centerTitle: true,
           title: Text(
             context.language.goal,
-            style: TextStyleUtils.bold(
-              color: context.theme.backgroundColor,
-              fontSize: 18,
-            ),
+            style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
           ),
           backgroundColor: context.theme.primaryColor,
         ),
@@ -73,17 +64,14 @@ class _GoalScreenState extends State<GoalScreen> {
             SnackBar(
               content: Text(
                 context.language.saveInformationSuccess,
-                style: TextStyleUtils.normal(
-                  color: context.theme.backgroundColor,
-                  fontSize: 12,
-                ),
+                style: TextStyleUtils.normal(color: context.theme.backgroundColor, fontSize: 12),
               ),
               backgroundColor: context.theme.goodColor,
               duration: const Duration(seconds: 1),
             ),
           );
         }
-        if(state.error.isNotEmpty) {
+        if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
         }
 
@@ -116,10 +104,7 @@ class _GoalScreenState extends State<GoalScreen> {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: context.theme.primaryColor,
-                  borderRadius: BorderRadius.circular(4),
-                ),
+                decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
                 child: Text(
                   context.language.save,
                   textAlign: TextAlign.center,

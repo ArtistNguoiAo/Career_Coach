@@ -4,18 +4,21 @@ import 'package:career_coach/data/remote/auth_remote.dart';
 import 'package:career_coach/data/remote/contact_information_remote.dart';
 import 'package:career_coach/data/remote/goal_remote.dart';
 import 'package:career_coach/data/remote/resume_remote.dart';
+import 'package:career_coach/data/remote/skill_remote.dart';
 import 'package:career_coach/data/remote/user_remote.dart';
 import 'package:career_coach/data/remote/user_resume_remote.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/contact_information_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/goal_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/resume_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/skill_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_resume_repository_impl.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
 import 'package:career_coach/domain/repository/contact_information_repository.dart';
 import 'package:career_coach/domain/repository/goal_repository.dart';
 import 'package:career_coach/domain/repository/resume_repository.dart';
+import 'package:career_coach/domain/repository/skill_repository.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
 import 'package:career_coach/domain/repository/user_resume_repository.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
@@ -28,6 +31,7 @@ import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
+import 'package:career_coach/domain/use_case/get_skills_use_case.dart';
 import 'package:career_coach/domain/use_case/login_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/register_use_case.dart';
@@ -35,6 +39,7 @@ import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:career_coach/domain/use_case/save_contact_information_use_case.dart';
 import 'package:career_coach/domain/use_case/save_goal_use_case.dart';
+import 'package:career_coach/domain/use_case/save_skills_use_case.dart';
 import 'package:career_coach/domain/use_case/save_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
 import 'package:career_coach/domain/use_case/update_profile_use_case.dart';
@@ -55,6 +60,7 @@ class DiConfig {
     getIt.registerLazySingleton<UserResumeRemote>(() => UserResumeRemote(getIt.get()));
     getIt.registerLazySingleton<ContactInformationRemote>(() => ContactInformationRemote(getIt.get()));
     getIt.registerLazySingleton<GoalRemote>(() => GoalRemote(getIt.get()));
+    getIt.registerLazySingleton<SkillRemote>(() => SkillRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
@@ -63,6 +69,7 @@ class DiConfig {
     getIt.registerLazySingleton<UserResumeRepository>(() => UserResumeRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<ContactInformationRepository>(() => ContactInformationRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<GoalRepository>(() => GoalRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<SkillRepository>(() => SkillRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
@@ -85,6 +92,8 @@ class DiConfig {
     getIt.registerLazySingleton<SaveContactInformationUseCase>(() => SaveContactInformationUseCase(getIt.get()));
     getIt.registerLazySingleton<GetGoalUseCase>(() => GetGoalUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveGoalUseCase>(() => SaveGoalUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetSkillsUseCase>(() => GetSkillsUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveSkillsUseCase>(() => SaveSkillsUseCase(getIt.get()));
 
     await getIt.allReady();
   }
