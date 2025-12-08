@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ActivityModel {
 
- int get id; int get userResumeId; int get displayOrder; String get organization; String get position; String get startDate; String get endDate; String get description;
+ int get id; int get userResumeId; int get displayOrder; String get organization; String get position; String get startTime; String get endTime; String get description;
 /// Create a copy of ActivityModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ActivityModelCopyWith<ActivityModel> get copyWith => _$ActivityModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.organization, organization) || other.organization == organization)&&(identical(other.position, position) || other.position == position)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.organization, organization) || other.organization == organization)&&(identical(other.position, position) || other.position == position)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userResumeId,displayOrder,organization,position,startDate,endDate,description);
+int get hashCode => Object.hash(runtimeType,id,userResumeId,displayOrder,organization,position,startTime,endTime,description);
 
 @override
 String toString() {
-  return 'ActivityModel(id: $id, userResumeId: $userResumeId, displayOrder: $displayOrder, organization: $organization, position: $position, startDate: $startDate, endDate: $endDate, description: $description)';
+  return 'ActivityModel(id: $id, userResumeId: $userResumeId, displayOrder: $displayOrder, organization: $organization, position: $position, startTime: $startTime, endTime: $endTime, description: $description)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ActivityModelCopyWith<$Res>  {
   factory $ActivityModelCopyWith(ActivityModel value, $Res Function(ActivityModel) _then) = _$ActivityModelCopyWithImpl;
 @useResult
 $Res call({
- int id, int userResumeId, int displayOrder, String organization, String position, String startDate, String endDate, String description
+ int id, int userResumeId, int displayOrder, String organization, String position, String startTime, String endTime, String description
 });
 
 
@@ -65,15 +65,15 @@ class _$ActivityModelCopyWithImpl<$Res>
 
 /// Create a copy of ActivityModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userResumeId = null,Object? displayOrder = null,Object? organization = null,Object? position = null,Object? startDate = null,Object? endDate = null,Object? description = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userResumeId = null,Object? displayOrder = null,Object? organization = null,Object? position = null,Object? startTime = null,Object? endTime = null,Object? description = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userResumeId: null == userResumeId ? _self.userResumeId : userResumeId // ignore: cast_nullable_to_non_nullable
 as int,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as int,organization: null == organization ? _self.organization : organization // ignore: cast_nullable_to_non_nullable
 as String,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
-as String,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
+as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
+as String,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -160,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startDate,  String endDate,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startTime,  String endTime,  String description)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ActivityModel() when $default != null:
-return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startDate,_that.endDate,_that.description);case _:
+return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startTime,_that.endTime,_that.description);case _:
   return orElse();
 
 }
@@ -181,10 +181,10 @@ return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organizatio
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startDate,  String endDate,  String description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startTime,  String endTime,  String description)  $default,) {final _that = this;
 switch (_that) {
 case _ActivityModel():
-return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startDate,_that.endDate,_that.description);case _:
+return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startTime,_that.endTime,_that.description);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +201,10 @@ return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organizatio
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startDate,  String endDate,  String description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int userResumeId,  int displayOrder,  String organization,  String position,  String startTime,  String endTime,  String description)?  $default,) {final _that = this;
 switch (_that) {
 case _ActivityModel() when $default != null:
-return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startDate,_that.endDate,_that.description);case _:
+return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organization,_that.position,_that.startTime,_that.endTime,_that.description);case _:
   return null;
 
 }
@@ -216,7 +216,7 @@ return $default(_that.id,_that.userResumeId,_that.displayOrder,_that.organizatio
 @JsonSerializable()
 
 class _ActivityModel implements ActivityModel {
-  const _ActivityModel({this.id = 0, this.userResumeId = 0, this.displayOrder = 0, this.organization = '', this.position = '', this.startDate = '', this.endDate = '', this.description = ''});
+  const _ActivityModel({this.id = 0, this.userResumeId = 0, this.displayOrder = 0, this.organization = '', this.position = '', this.startTime = '', this.endTime = '', this.description = ''});
   factory _ActivityModel.fromJson(Map<String, dynamic> json) => _$ActivityModelFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -224,8 +224,8 @@ class _ActivityModel implements ActivityModel {
 @override@JsonKey() final  int displayOrder;
 @override@JsonKey() final  String organization;
 @override@JsonKey() final  String position;
-@override@JsonKey() final  String startDate;
-@override@JsonKey() final  String endDate;
+@override@JsonKey() final  String startTime;
+@override@JsonKey() final  String endTime;
 @override@JsonKey() final  String description;
 
 /// Create a copy of ActivityModel
@@ -241,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.organization, organization) || other.organization == organization)&&(identical(other.position, position) || other.position == position)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.description, description) || other.description == description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.displayOrder, displayOrder) || other.displayOrder == displayOrder)&&(identical(other.organization, organization) || other.organization == organization)&&(identical(other.position, position) || other.position == position)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.description, description) || other.description == description));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userResumeId,displayOrder,organization,position,startDate,endDate,description);
+int get hashCode => Object.hash(runtimeType,id,userResumeId,displayOrder,organization,position,startTime,endTime,description);
 
 @override
 String toString() {
-  return 'ActivityModel(id: $id, userResumeId: $userResumeId, displayOrder: $displayOrder, organization: $organization, position: $position, startDate: $startDate, endDate: $endDate, description: $description)';
+  return 'ActivityModel(id: $id, userResumeId: $userResumeId, displayOrder: $displayOrder, organization: $organization, position: $position, startTime: $startTime, endTime: $endTime, description: $description)';
 }
 
 
@@ -261,7 +261,7 @@ abstract mixin class _$ActivityModelCopyWith<$Res> implements $ActivityModelCopy
   factory _$ActivityModelCopyWith(_ActivityModel value, $Res Function(_ActivityModel) _then) = __$ActivityModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int userResumeId, int displayOrder, String organization, String position, String startDate, String endDate, String description
+ int id, int userResumeId, int displayOrder, String organization, String position, String startTime, String endTime, String description
 });
 
 
@@ -278,15 +278,15 @@ class __$ActivityModelCopyWithImpl<$Res>
 
 /// Create a copy of ActivityModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userResumeId = null,Object? displayOrder = null,Object? organization = null,Object? position = null,Object? startDate = null,Object? endDate = null,Object? description = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userResumeId = null,Object? displayOrder = null,Object? organization = null,Object? position = null,Object? startTime = null,Object? endTime = null,Object? description = null,}) {
   return _then(_ActivityModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userResumeId: null == userResumeId ? _self.userResumeId : userResumeId // ignore: cast_nullable_to_non_nullable
 as int,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as int,organization: null == organization ? _self.organization : organization // ignore: cast_nullable_to_non_nullable
 as String,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
-as String,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
-as String,endDate: null == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
+as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
+as String,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,
   ));

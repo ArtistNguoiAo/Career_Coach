@@ -19,7 +19,7 @@ class StringUtils {
 
   static String convertDateString(String input) {
     DateTime date = DateTime.parse(input);
-    return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
+    return DateFormat('HH:mm:ss yyyy-MM-dd').format(date);
   }
 
   static String convertTypeGenderEnum(BuildContext context, TypeGenderEnum type) {

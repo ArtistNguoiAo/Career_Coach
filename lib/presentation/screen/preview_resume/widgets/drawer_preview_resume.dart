@@ -70,7 +70,11 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(ActivityRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
-
+                        else if(sections[index] == TypeResumeSectionEnum.CERTIFICATE) {
+                          AutoRouter.of(
+                            context,
+                          ).push(CertificateRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

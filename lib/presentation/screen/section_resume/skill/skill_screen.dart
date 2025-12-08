@@ -127,7 +127,7 @@ class _SkillScreenState extends State<SkillScreen> {
                   BaseContent(
                     controller: _listNameController[index],
                     isRequired: true,
-                    title: context.language.favorite,
+                    title: context.language.nameSkill,
                   ),
                   SizedBox(height: 8.0),
                   BaseContent(

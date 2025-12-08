@@ -11,8 +11,8 @@ abstract class ActivityModel with _$ActivityModel {
     @Default(0) int displayOrder,
     @Default('') String organization,
     @Default('') String position,
-    @Default('') String startDate,
-    @Default('') String endDate,
+    @Default('') String startTime,
+    @Default('') String endTime,
     @Default('') String description,
   }) = _ActivityModel;
 

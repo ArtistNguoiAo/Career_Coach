@@ -149,7 +149,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                   SizedBox(height: 8.0),
                   BaseContent(
                     controller: _listPositionController[index],
-                    isRequired: true,
+                    isRequired: false,
                     title: context.language.position,
                   ),
                   SizedBox(height: 8.0),
@@ -162,10 +162,10 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       DateTime? currentEndDate;
 
                       if (_listStartTimeController[index].text.isNotEmpty) {
-                        currentStartDate = DateFormat('dd/MM/yyyy').parse(_listStartTimeController[index].text);
+                        currentStartDate = DateFormat('yyyy-MM-dd').parse(_listStartTimeController[index].text);
                       }
                       if (_listEndTimeController[index].text.isNotEmpty) {
-                        currentEndDate = DateFormat('dd/MM/yyyy').parse(_listEndTimeController[index].text);
+                        currentEndDate = DateFormat('yyyy-MM-dd').parse(_listEndTimeController[index].text);
                       }
 
                       final pickedDate = await showDatePicker(
@@ -188,7 +188,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       );
 
                       if (pickedDate != null) {
-                        _listStartTimeController[index].text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                        _listStartTimeController[index].text = DateFormat('yyyy-MM-dd').format(pickedDate);
                       }
                     },
                   ),
@@ -202,10 +202,10 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       DateTime? currentEndDate;
 
                       if (_listStartTimeController[index].text.isNotEmpty) {
-                        currentStartDate = DateFormat('dd/MM/yyyy').parse(_listStartTimeController[index].text);
+                        currentStartDate = DateFormat('yyyy-MM-dd').parse(_listStartTimeController[index].text);
                       }
                       if (_listEndTimeController[index].text.isNotEmpty) {
-                        currentEndDate = DateFormat('dd/MM/yyyy').parse(_listEndTimeController[index].text);
+                        currentEndDate = DateFormat('yyyy-MM-dd').parse(_listEndTimeController[index].text);
                       }
 
                       final pickedDate = await showDatePicker(
@@ -228,7 +228,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       );
 
                       if (pickedDate != null) {
-                        _listEndTimeController[index].text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                        _listEndTimeController[index].text = DateFormat('yyyy-MM-dd').format(pickedDate);
                       }
                     },
                   ),
@@ -303,6 +303,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     for (var it in state.listActivity) {
                       final index = state.listActivity.indexOf(it);
                       it.organization = _listOrganizationController[index].text;
+                      it.position = _listPositionController[index].text;
+                      it.startTime = _listStartTimeController[index].text;
+                      it.endTime = _listEndTimeController[index].text;
                       it.description = _listDescriptionController[index].text;
                     }
                     context.read<ActivityCubit>().save(userResumeId: widget.userResumeId);

@@ -9,8 +9,8 @@ class ActivityMapper {
       displayOrder: activityModel.displayOrder,
       organization: activityModel.organization,
       position: activityModel.position,
-      startTime: activityModel.startDate,
-      endTime: activityModel.endDate,
+      startTime: activityModel.startTime,
+      endTime: activityModel.endTime,
       description: activityModel.description,
     );
   }

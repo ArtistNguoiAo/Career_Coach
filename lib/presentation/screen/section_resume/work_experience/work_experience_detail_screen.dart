@@ -85,10 +85,10 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
                     DateTime? currentEndDate;
 
                     if (_startDateController.text.isNotEmpty) {
-                      currentStartDate = DateFormat('dd/MM/yyyy').parse(_startDateController.text);
+                      currentStartDate = DateFormat('yyyy-MM-dd').parse(_startDateController.text);
                     }
                     if (_endDateController.text.isNotEmpty) {
-                      currentEndDate = DateFormat('dd/MM/yyyy').parse(_endDateController.text);
+                      currentEndDate = DateFormat('yyyy-MM-dd').parse(_endDateController.text);
                     }
 
                     final pickedDate = await showDatePicker(
@@ -111,7 +111,7 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
                     );
 
                     if (pickedDate != null) {
-                      _startDateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                      _startDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                     }
                   },
                 ),
@@ -125,10 +125,10 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
                     DateTime? currentEndDate;
 
                     if (_startDateController.text.isNotEmpty) {
-                      currentStartDate = DateFormat('dd/MM/yyyy').parse(_startDateController.text);
+                      currentStartDate = DateFormat('yyyy-MM-dd').parse(_startDateController.text);
                     }
                     if (_endDateController.text.isNotEmpty) {
-                      currentEndDate = DateFormat('dd/MM/yyyy').parse(_endDateController.text);
+                      currentEndDate = DateFormat('yyyy-MM-dd').parse(_endDateController.text);
                     }
 
                     final pickedDate = await showDatePicker(
@@ -151,7 +151,7 @@ class _WorkExperienceDetailScreenState extends State<WorkExperienceDetailScreen>
                     );
 
                     if (pickedDate != null) {
-                      _endDateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                      _endDateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                     }
                   },
                 ),

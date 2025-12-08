@@ -13,8 +13,8 @@ _ActivityModel _$ActivityModelFromJson(Map<String, dynamic> json) =>
       displayOrder: (json['displayOrder'] as num?)?.toInt() ?? 0,
       organization: json['organization'] as String? ?? '',
       position: json['position'] as String? ?? '',
-      startDate: json['startDate'] as String? ?? '',
-      endDate: json['endDate'] as String? ?? '',
+      startTime: json['startTime'] as String? ?? '',
+      endTime: json['endTime'] as String? ?? '',
       description: json['description'] as String? ?? '',
     );
 
@@ -25,7 +25,7 @@ Map<String, dynamic> _$ActivityModelToJson(_ActivityModel instance) =>
       'displayOrder': instance.displayOrder,
       'organization': instance.organization,
       'position': instance.position,
-      'startDate': instance.startDate,
-      'endDate': instance.endDate,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
       'description': instance.description,
     };

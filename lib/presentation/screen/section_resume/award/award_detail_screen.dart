@@ -74,7 +74,7 @@ class _AwardDetailScreenState extends State<AwardDetailScreen> {
                   onTap: () async {
                     DateTime? currentDate;
                     if( _dateController.text.isNotEmpty) {
-                      currentDate = DateFormat('dd/MM/yyyy').parse(_dateController.text);
+                      currentDate = DateFormat('yyyy-MM-dd').parse(_dateController.text);
                     }
 
                     final now = DateTime.now();
@@ -99,7 +99,7 @@ class _AwardDetailScreenState extends State<AwardDetailScreen> {
                     );
 
                     if (pickedDate != null) {
-                      _dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+                      _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                     }
                   },
                 ),
