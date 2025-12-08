@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 
 part 'activity_remote.g.dart';
 
-@RestApi(baseUrl: '/api/v1/activitys')
+@RestApi(baseUrl: '/api/v1/activities')
 abstract class ActivityRemote {
   factory ActivityRemote(ApiService apiService) = _ActivityRemote;
 

@@ -145,7 +145,6 @@ class _SkillScreenState extends State<SkillScreen> {
     );
   }
 
-
   Widget _buttonChange({required int type, Function()? onChange}) {
     return InkWell(
       onTap: onChange,

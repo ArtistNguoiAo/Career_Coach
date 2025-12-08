@@ -10,7 +10,7 @@ part of 'activity_remote.dart';
 
 class _ActivityRemote implements ActivityRemote {
   _ActivityRemote(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= '/api/v1/activitys';
+    baseUrl ??= '/api/v1/activities';
   }
 
   final Dio _dio;
