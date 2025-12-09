@@ -85,11 +85,11 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(ProjectRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
-                        // else if(sections[index] == TypeResumeSectionEnum.EXPERIENCE) {
-                        //   AutoRouter.of(
-                        //     context,
-                        //   ).push(ExperienceRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
-                        // }
+                        else if(sections[index] == TypeResumeSectionEnum.WORK_EXPERIENCE) {
+                          AutoRouter.of(
+                            context,
+                          ).push(WorkExperienceRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
                         // else if(sections[index] == TypeResumeSectionEnum.EDUCATION) {
                         //   AutoRouter.of(
                         //     context,
