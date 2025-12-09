@@ -9,13 +9,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i28;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i31;
-import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i30;
+import 'package:auto_route/auto_route.dart' as _i27;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i30;
+import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i29;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
     as _i14;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
-    as _i23;
+    as _i22;
 import 'package:career_coach/presentation/screen/layout_resume/layout_resume_screen.dart'
     as _i12;
 import 'package:career_coach/presentation/screen/manage_user_resume/manage_user_resume_screen.dart'
@@ -54,27 +54,25 @@ import 'package:career_coach/presentation/screen/section_resume/goal/goal_screen
     as _i10;
 import 'package:career_coach/presentation/screen/section_resume/other_information/other_information_screen.dart'
     as _i16;
-import 'package:career_coach/presentation/screen/section_resume/project/project_detail_screen.dart'
-    as _i21;
 import 'package:career_coach/presentation/screen/section_resume/project/project_screen.dart'
-    as _i22;
+    as _i21;
 import 'package:career_coach/presentation/screen/section_resume/skill/skill_screen.dart'
-    as _i24;
+    as _i23;
 import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_detail_screen.dart'
-    as _i26;
-import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_screen.dart'
-    as _i27;
-import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
     as _i25;
-import 'package:flutter/material.dart' as _i29;
+import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_screen.dart'
+    as _i26;
+import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
+    as _i24;
+import 'package:flutter/material.dart' as _i28;
 
 /// generated route for
 /// [_i1.ActivityScreen]
-class ActivityRoute extends _i28.PageRouteInfo<ActivityRouteArgs> {
+class ActivityRoute extends _i27.PageRouteInfo<ActivityRouteArgs> {
   ActivityRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          ActivityRoute.name,
          args: ActivityRouteArgs(key: key, userResumeId: userResumeId),
@@ -83,7 +81,7 @@ class ActivityRoute extends _i28.PageRouteInfo<ActivityRouteArgs> {
 
   static const String name = 'ActivityRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ActivityRouteArgs>();
@@ -95,7 +93,7 @@ class ActivityRoute extends _i28.PageRouteInfo<ActivityRouteArgs> {
 class ActivityRouteArgs {
   const ActivityRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -117,13 +115,13 @@ class ActivityRouteArgs {
 
 /// generated route for
 /// [_i2.AvatarScreen]
-class AvatarRoute extends _i28.PageRouteInfo<void> {
-  const AvatarRoute({List<_i28.PageRouteInfo>? children})
+class AvatarRoute extends _i27.PageRouteInfo<void> {
+  const AvatarRoute({List<_i27.PageRouteInfo>? children})
     : super(AvatarRoute.name, initialChildren: children);
 
   static const String name = 'AvatarRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i2.AvatarScreen();
@@ -133,11 +131,11 @@ class AvatarRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.AwardScreen]
-class AwardRoute extends _i28.PageRouteInfo<AwardRouteArgs> {
+class AwardRoute extends _i27.PageRouteInfo<AwardRouteArgs> {
   AwardRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          AwardRoute.name,
          args: AwardRouteArgs(key: key, userResumeId: userResumeId),
@@ -146,7 +144,7 @@ class AwardRoute extends _i28.PageRouteInfo<AwardRouteArgs> {
 
   static const String name = 'AwardRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<AwardRouteArgs>();
@@ -158,7 +156,7 @@ class AwardRoute extends _i28.PageRouteInfo<AwardRouteArgs> {
 class AwardRouteArgs {
   const AwardRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -180,11 +178,11 @@ class AwardRouteArgs {
 
 /// generated route for
 /// [_i4.CertificateScreen]
-class CertificateRoute extends _i28.PageRouteInfo<CertificateRouteArgs> {
+class CertificateRoute extends _i27.PageRouteInfo<CertificateRouteArgs> {
   CertificateRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          CertificateRoute.name,
          args: CertificateRouteArgs(key: key, userResumeId: userResumeId),
@@ -193,7 +191,7 @@ class CertificateRoute extends _i28.PageRouteInfo<CertificateRouteArgs> {
 
   static const String name = 'CertificateRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<CertificateRouteArgs>();
@@ -208,7 +206,7 @@ class CertificateRoute extends _i28.PageRouteInfo<CertificateRouteArgs> {
 class CertificateRouteArgs {
   const CertificateRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -231,11 +229,11 @@ class CertificateRouteArgs {
 /// generated route for
 /// [_i5.ContactInformationScreen]
 class ContactInformationRoute
-    extends _i28.PageRouteInfo<ContactInformationRouteArgs> {
+    extends _i27.PageRouteInfo<ContactInformationRouteArgs> {
   ContactInformationRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          ContactInformationRoute.name,
          args: ContactInformationRouteArgs(
@@ -247,7 +245,7 @@ class ContactInformationRoute
 
   static const String name = 'ContactInformationRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ContactInformationRouteArgs>();
@@ -262,7 +260,7 @@ class ContactInformationRoute
 class ContactInformationRouteArgs {
   const ContactInformationRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -284,13 +282,13 @@ class ContactInformationRouteArgs {
 
 /// generated route for
 /// [_i6.EducationDetailScreen]
-class EducationDetailRoute extends _i28.PageRouteInfo<void> {
-  const EducationDetailRoute({List<_i28.PageRouteInfo>? children})
+class EducationDetailRoute extends _i27.PageRouteInfo<void> {
+  const EducationDetailRoute({List<_i27.PageRouteInfo>? children})
     : super(EducationDetailRoute.name, initialChildren: children);
 
   static const String name = 'EducationDetailRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i6.EducationDetailScreen();
@@ -300,13 +298,13 @@ class EducationDetailRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.EducationScreen]
-class EducationRoute extends _i28.PageRouteInfo<void> {
-  const EducationRoute({List<_i28.PageRouteInfo>? children})
+class EducationRoute extends _i27.PageRouteInfo<void> {
+  const EducationRoute({List<_i27.PageRouteInfo>? children})
     : super(EducationRoute.name, initialChildren: children);
 
   static const String name = 'EducationRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i7.EducationScreen();
@@ -316,13 +314,13 @@ class EducationRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.FavoriteDetailScreen]
-class FavoriteDetailRoute extends _i28.PageRouteInfo<void> {
-  const FavoriteDetailRoute({List<_i28.PageRouteInfo>? children})
+class FavoriteDetailRoute extends _i27.PageRouteInfo<void> {
+  const FavoriteDetailRoute({List<_i27.PageRouteInfo>? children})
     : super(FavoriteDetailRoute.name, initialChildren: children);
 
   static const String name = 'FavoriteDetailRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i8.FavoriteDetailScreen();
@@ -332,13 +330,13 @@ class FavoriteDetailRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.FavoriteScreen]
-class FavoriteRoute extends _i28.PageRouteInfo<void> {
-  const FavoriteRoute({List<_i28.PageRouteInfo>? children})
+class FavoriteRoute extends _i27.PageRouteInfo<void> {
+  const FavoriteRoute({List<_i27.PageRouteInfo>? children})
     : super(FavoriteRoute.name, initialChildren: children);
 
   static const String name = 'FavoriteRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i9.FavoriteScreen();
@@ -348,11 +346,11 @@ class FavoriteRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.GoalScreen]
-class GoalRoute extends _i28.PageRouteInfo<GoalRouteArgs> {
+class GoalRoute extends _i27.PageRouteInfo<GoalRouteArgs> {
   GoalRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          GoalRoute.name,
          args: GoalRouteArgs(key: key, userResumeId: userResumeId),
@@ -361,7 +359,7 @@ class GoalRoute extends _i28.PageRouteInfo<GoalRouteArgs> {
 
   static const String name = 'GoalRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<GoalRouteArgs>();
@@ -373,7 +371,7 @@ class GoalRoute extends _i28.PageRouteInfo<GoalRouteArgs> {
 class GoalRouteArgs {
   const GoalRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -395,13 +393,13 @@ class GoalRouteArgs {
 
 /// generated route for
 /// [_i11.HomeScreen]
-class HomeRoute extends _i28.PageRouteInfo<void> {
-  const HomeRoute({List<_i28.PageRouteInfo>? children})
+class HomeRoute extends _i27.PageRouteInfo<void> {
+  const HomeRoute({List<_i27.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i11.HomeScreen();
@@ -411,11 +409,11 @@ class HomeRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.LayoutResumeScreen]
-class LayoutResumeRoute extends _i28.PageRouteInfo<LayoutResumeRouteArgs> {
+class LayoutResumeRoute extends _i27.PageRouteInfo<LayoutResumeRouteArgs> {
   LayoutResumeRoute({
-    _i29.Key? key,
-    required _i30.UserResumeEntity userResumeEntity,
-    List<_i28.PageRouteInfo>? children,
+    _i28.Key? key,
+    required _i29.UserResumeEntity userResumeEntity,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          LayoutResumeRoute.name,
          args: LayoutResumeRouteArgs(
@@ -427,7 +425,7 @@ class LayoutResumeRoute extends _i28.PageRouteInfo<LayoutResumeRouteArgs> {
 
   static const String name = 'LayoutResumeRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<LayoutResumeRouteArgs>();
@@ -442,9 +440,9 @@ class LayoutResumeRoute extends _i28.PageRouteInfo<LayoutResumeRouteArgs> {
 class LayoutResumeRouteArgs {
   const LayoutResumeRouteArgs({this.key, required this.userResumeEntity});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
-  final _i30.UserResumeEntity userResumeEntity;
+  final _i29.UserResumeEntity userResumeEntity;
 
   @override
   String toString() {
@@ -464,8 +462,8 @@ class LayoutResumeRouteArgs {
 
 /// generated route for
 /// [_i13.ListInterviewScreen]
-class ListInterviewRoute extends _i28.PageRouteInfo<ListInterviewRouteArgs> {
-  ListInterviewRoute({_i29.Key? key, List<_i28.PageRouteInfo>? children})
+class ListInterviewRoute extends _i27.PageRouteInfo<ListInterviewRouteArgs> {
+  ListInterviewRoute({_i28.Key? key, List<_i27.PageRouteInfo>? children})
     : super(
         ListInterviewRoute.name,
         args: ListInterviewRouteArgs(key: key),
@@ -474,7 +472,7 @@ class ListInterviewRoute extends _i28.PageRouteInfo<ListInterviewRouteArgs> {
 
   static const String name = 'ListInterviewRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ListInterviewRouteArgs>(
@@ -488,7 +486,7 @@ class ListInterviewRoute extends _i28.PageRouteInfo<ListInterviewRouteArgs> {
 class ListInterviewRouteArgs {
   const ListInterviewRouteArgs({this.key});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   @override
   String toString() {
@@ -508,13 +506,13 @@ class ListInterviewRouteArgs {
 
 /// generated route for
 /// [_i14.LoginScreen]
-class LoginRoute extends _i28.PageRouteInfo<void> {
-  const LoginRoute({List<_i28.PageRouteInfo>? children})
+class LoginRoute extends _i27.PageRouteInfo<void> {
+  const LoginRoute({List<_i27.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i14.LoginScreen();
@@ -524,13 +522,13 @@ class LoginRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.ManageUserResumeScreen]
-class ManageUserResumeRoute extends _i28.PageRouteInfo<void> {
-  const ManageUserResumeRoute({List<_i28.PageRouteInfo>? children})
+class ManageUserResumeRoute extends _i27.PageRouteInfo<void> {
+  const ManageUserResumeRoute({List<_i27.PageRouteInfo>? children})
     : super(ManageUserResumeRoute.name, initialChildren: children);
 
   static const String name = 'ManageUserResumeRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i15.ManageUserResumeScreen();
@@ -540,13 +538,13 @@ class ManageUserResumeRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.OtherInformationScreen]
-class OtherInformationRoute extends _i28.PageRouteInfo<void> {
-  const OtherInformationRoute({List<_i28.PageRouteInfo>? children})
+class OtherInformationRoute extends _i27.PageRouteInfo<void> {
+  const OtherInformationRoute({List<_i27.PageRouteInfo>? children})
     : super(OtherInformationRoute.name, initialChildren: children);
 
   static const String name = 'OtherInformationRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i16.OtherInformationScreen();
@@ -556,13 +554,13 @@ class OtherInformationRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.OverViewScreen]
-class OverViewRoute extends _i28.PageRouteInfo<void> {
-  const OverViewRoute({List<_i28.PageRouteInfo>? children})
+class OverViewRoute extends _i27.PageRouteInfo<void> {
+  const OverViewRoute({List<_i27.PageRouteInfo>? children})
     : super(OverViewRoute.name, initialChildren: children);
 
   static const String name = 'OverViewRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i17.OverViewScreen();
@@ -572,13 +570,13 @@ class OverViewRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i18.PreviewResumeScreen]
-class PreviewResumeRoute extends _i28.PageRouteInfo<PreviewResumeRouteArgs> {
+class PreviewResumeRoute extends _i27.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     int? resumeId,
     int? userResumeId,
     required bool isCreateNew,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
          args: PreviewResumeRouteArgs(
@@ -592,7 +590,7 @@ class PreviewResumeRoute extends _i28.PageRouteInfo<PreviewResumeRouteArgs> {
 
   static const String name = 'PreviewResumeRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PreviewResumeRouteArgs>();
@@ -614,7 +612,7 @@ class PreviewResumeRouteArgs {
     required this.isCreateNew,
   });
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int? resumeId;
 
@@ -647,13 +645,13 @@ class PreviewResumeRouteArgs {
 
 /// generated route for
 /// [_i19.ProfileScreen]
-class ProfileRoute extends _i28.PageRouteInfo<void> {
-  const ProfileRoute({List<_i28.PageRouteInfo>? children})
+class ProfileRoute extends _i27.PageRouteInfo<void> {
+  const ProfileRoute({List<_i27.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       return const _i19.ProfileScreen();
@@ -663,11 +661,11 @@ class ProfileRoute extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i20.ProfileUpdateScreen]
-class ProfileUpdateRoute extends _i28.PageRouteInfo<ProfileUpdateRouteArgs> {
+class ProfileUpdateRoute extends _i27.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
-    _i29.Key? key,
-    required _i31.UserEntity userEntity,
-    List<_i28.PageRouteInfo>? children,
+    _i28.Key? key,
+    required _i30.UserEntity userEntity,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
          args: ProfileUpdateRouteArgs(key: key, userEntity: userEntity),
@@ -676,7 +674,7 @@ class ProfileUpdateRoute extends _i28.PageRouteInfo<ProfileUpdateRouteArgs> {
 
   static const String name = 'ProfileUpdateRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProfileUpdateRouteArgs>();
@@ -691,9 +689,9 @@ class ProfileUpdateRoute extends _i28.PageRouteInfo<ProfileUpdateRouteArgs> {
 class ProfileUpdateRouteArgs {
   const ProfileUpdateRouteArgs({this.key, required this.userEntity});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
-  final _i31.UserEntity userEntity;
+  final _i30.UserEntity userEntity;
 
   @override
   String toString() {
@@ -712,60 +710,75 @@ class ProfileUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i21.ProjectDetailScreen]
-class ProjectDetailRoute extends _i28.PageRouteInfo<void> {
-  const ProjectDetailRoute({List<_i28.PageRouteInfo>? children})
-    : super(ProjectDetailRoute.name, initialChildren: children);
-
-  static const String name = 'ProjectDetailRoute';
-
-  static _i28.PageInfo page = _i28.PageInfo(
-    name,
-    builder: (data) {
-      return const _i21.ProjectDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i22.ProjectScreen]
-class ProjectRoute extends _i28.PageRouteInfo<void> {
-  const ProjectRoute({List<_i28.PageRouteInfo>? children})
-    : super(ProjectRoute.name, initialChildren: children);
+/// [_i21.ProjectScreen]
+class ProjectRoute extends _i27.PageRouteInfo<ProjectRouteArgs> {
+  ProjectRoute({
+    _i28.Key? key,
+    required int userResumeId,
+    List<_i27.PageRouteInfo>? children,
+  }) : super(
+         ProjectRoute.name,
+         args: ProjectRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'ProjectRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
-      return const _i22.ProjectScreen();
+      final args = data.argsAs<ProjectRouteArgs>();
+      return _i21.ProjectScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class ProjectRouteArgs {
+  const ProjectRouteArgs({this.key, required this.userResumeId});
+
+  final _i28.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ProjectRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ProjectRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i23.RegisterScreen]
-class RegisterRoute extends _i28.PageRouteInfo<void> {
-  const RegisterRoute({List<_i28.PageRouteInfo>? children})
+/// [_i22.RegisterScreen]
+class RegisterRoute extends _i27.PageRouteInfo<void> {
+  const RegisterRoute({List<_i27.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
-      return const _i23.RegisterScreen();
+      return const _i22.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i24.SkillScreen]
-class SkillRoute extends _i28.PageRouteInfo<SkillRouteArgs> {
+/// [_i23.SkillScreen]
+class SkillRoute extends _i27.PageRouteInfo<SkillRouteArgs> {
   SkillRoute({
-    _i29.Key? key,
+    _i28.Key? key,
     required int userResumeId,
-    List<_i28.PageRouteInfo>? children,
+    List<_i27.PageRouteInfo>? children,
   }) : super(
          SkillRoute.name,
          args: SkillRouteArgs(key: key, userResumeId: userResumeId),
@@ -774,11 +787,11 @@ class SkillRoute extends _i28.PageRouteInfo<SkillRouteArgs> {
 
   static const String name = 'SkillRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<SkillRouteArgs>();
-      return _i24.SkillScreen(key: args.key, userResumeId: args.userResumeId);
+      return _i23.SkillScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
@@ -786,7 +799,7 @@ class SkillRoute extends _i28.PageRouteInfo<SkillRouteArgs> {
 class SkillRouteArgs {
   const SkillRouteArgs({this.key, required this.userResumeId});
 
-  final _i29.Key? key;
+  final _i28.Key? key;
 
   final int userResumeId;
 
@@ -807,49 +820,49 @@ class SkillRouteArgs {
 }
 
 /// generated route for
-/// [_i25.SplashScreen]
-class SplashRoute extends _i28.PageRouteInfo<void> {
-  const SplashRoute({List<_i28.PageRouteInfo>? children})
+/// [_i24.SplashScreen]
+class SplashRoute extends _i27.PageRouteInfo<void> {
+  const SplashRoute({List<_i27.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
-      return const _i25.SplashScreen();
+      return const _i24.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i26.WorkExperienceDetailScreen]
-class WorkExperienceDetailRoute extends _i28.PageRouteInfo<void> {
-  const WorkExperienceDetailRoute({List<_i28.PageRouteInfo>? children})
+/// [_i25.WorkExperienceDetailScreen]
+class WorkExperienceDetailRoute extends _i27.PageRouteInfo<void> {
+  const WorkExperienceDetailRoute({List<_i27.PageRouteInfo>? children})
     : super(WorkExperienceDetailRoute.name, initialChildren: children);
 
   static const String name = 'WorkExperienceDetailRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
-      return const _i26.WorkExperienceDetailScreen();
+      return const _i25.WorkExperienceDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i27.WorkExperienceScreen]
-class WorkExperienceRoute extends _i28.PageRouteInfo<void> {
-  const WorkExperienceRoute({List<_i28.PageRouteInfo>? children})
+/// [_i26.WorkExperienceScreen]
+class WorkExperienceRoute extends _i27.PageRouteInfo<void> {
+  const WorkExperienceRoute({List<_i27.PageRouteInfo>? children})
     : super(WorkExperienceRoute.name, initialChildren: children);
 
   static const String name = 'WorkExperienceRoute';
 
-  static _i28.PageInfo page = _i28.PageInfo(
+  static _i27.PageInfo page = _i27.PageInfo(
     name,
     builder: (data) {
-      return const _i27.WorkExperienceScreen();
+      return const _i26.WorkExperienceScreen();
     },
   );
 }

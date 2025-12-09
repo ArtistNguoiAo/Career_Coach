@@ -80,6 +80,21 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(AwardRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
+                        else if(sections[index] == TypeResumeSectionEnum.PROJECT) {
+                          AutoRouter.of(
+                            context,
+                          ).push(ProjectRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
+                        // else if(sections[index] == TypeResumeSectionEnum.EXPERIENCE) {
+                        //   AutoRouter.of(
+                        //     context,
+                        //   ).push(ExperienceRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        // }
+                        // else if(sections[index] == TypeResumeSectionEnum.EDUCATION) {
+                        //   AutoRouter.of(
+                        //     context,
+                        //   ).push(EducationRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        // }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
