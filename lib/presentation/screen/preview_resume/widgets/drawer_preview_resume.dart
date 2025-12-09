@@ -75,6 +75,11 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(CertificateRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
+                        else if(sections[index] == TypeResumeSectionEnum.AWARD) {
+                          AutoRouter.of(
+                            context,
+                          ).push(AwardRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
@@ -111,4 +116,5 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
       ),
     );
   }
+
 }

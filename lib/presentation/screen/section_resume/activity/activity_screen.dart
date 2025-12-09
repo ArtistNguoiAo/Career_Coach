@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/activity_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -116,27 +117,20 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       Expanded(child: Container()),
                       if (state.listActivity[index].displayOrder != state.listActivity.length - 1) ...[
                         _buttonChange(type: 1, onChange: () {
-                          state.listActivity[index].organization = _listOrganizationController[index].text;
-                          state.listActivity[index].position = _listPositionController[index].text;
-                          state.listActivity[index].startTime = _listStartTimeController[index].text;
-                          state.listActivity[index].endTime = _listEndTimeController[index].text;
-                          state.listActivity[index].description = _listDescriptionController[index].text;
+                          saveTemp(state.listActivity);
                           context.read<ActivityCubit>().changeActivity(index, index + 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       if (state.listActivity[index].displayOrder != 0) ...[
                         _buttonChange(type: 2, onChange: () {
-                          state.listActivity[index].organization = _listOrganizationController[index].text;
-                          state.listActivity[index].position = _listPositionController[index].text;
-                          state.listActivity[index].startTime = _listStartTimeController[index].text;
-                          state.listActivity[index].endTime = _listEndTimeController[index].text;
-                          state.listActivity[index].description = _listDescriptionController[index].text;
+                          saveTemp(state.listActivity);
                           context.read<ActivityCubit>().changeActivity(index, index - 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       _buttonChange(type: 0, onChange: () {
+                        saveTemp(state.listActivity);
                         context.read<ActivityCubit>().deleteActivity(index);
                       }),
                     ],
@@ -279,6 +273,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
+                    saveTemp(state.listActivity);
                     context.read<ActivityCubit>().addActivity();
                   },
                   child: Container(
@@ -300,14 +295,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    for (var it in state.listActivity) {
-                      final index = state.listActivity.indexOf(it);
-                      it.organization = _listOrganizationController[index].text;
-                      it.position = _listPositionController[index].text;
-                      it.startTime = _listStartTimeController[index].text;
-                      it.endTime = _listEndTimeController[index].text;
-                      it.description = _listDescriptionController[index].text;
-                    }
+                    saveTemp(state.listActivity);
                     context.read<ActivityCubit>().save(userResumeId: widget.userResumeId);
                   },
                   child: Container(
@@ -326,5 +314,16 @@ class _ActivityScreenState extends State<ActivityScreen> {
           );
         }
     );
+  }
+
+  void saveTemp(List<ActivityEntity> listActivity) {
+    for (var it in listActivity) {
+      final index = listActivity.indexOf(it);
+      it.organization = _listOrganizationController[index].text;
+      it.position = _listPositionController[index].text;
+      it.startTime = _listStartTimeController[index].text;
+      it.endTime = _listEndTimeController[index].text;
+      it.description = _listDescriptionController[index].text;
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'package:career_coach/data/data_source/api_service.dart';
 import 'package:career_coach/data/local/local_cache.dart';
 import 'package:career_coach/data/remote/activity_remote.dart';
 import 'package:career_coach/data/remote/auth_remote.dart';
+import 'package:career_coach/data/remote/award_remote.dart';
 import 'package:career_coach/data/remote/certificate_remote.dart';
 import 'package:career_coach/data/remote/contact_information_remote.dart';
 import 'package:career_coach/data/remote/goal_remote.dart';
@@ -11,6 +12,7 @@ import 'package:career_coach/data/remote/user_remote.dart';
 import 'package:career_coach/data/remote/user_resume_remote.dart';
 import 'package:career_coach/data/repository_impl/activity_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/auth_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/award_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/certificate_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/contact_information_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/goal_repository_impl.dart';
@@ -20,6 +22,7 @@ import 'package:career_coach/data/repository_impl/user_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/user_resume_repository_impl.dart';
 import 'package:career_coach/domain/repository/activity_repository.dart';
 import 'package:career_coach/domain/repository/auth_repository.dart';
+import 'package:career_coach/domain/repository/award_repository.dart';
 import 'package:career_coach/domain/repository/certificate_repository.dart';
 import 'package:career_coach/domain/repository/contact_information_repository.dart';
 import 'package:career_coach/domain/repository/goal_repository.dart';
@@ -31,6 +34,7 @@ import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_cas
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/get_activities_use_case.dart';
+import 'package:career_coach/domain/use_case/get_awards_use_case.dart';
 import 'package:career_coach/domain/use_case/get_certificates_use_case.dart';
 import 'package:career_coach/domain/use_case/get_contact_information_use_case.dart';
 import 'package:career_coach/domain/use_case/get_detail_user_resume_use_case.dart';
@@ -46,6 +50,7 @@ import 'package:career_coach/domain/use_case/register_use_case.dart';
 import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:career_coach/domain/use_case/save_activities_use_case.dart';
+import 'package:career_coach/domain/use_case/save_awards_use_case.dart';
 import 'package:career_coach/domain/use_case/save_certificates_use_case.dart';
 import 'package:career_coach/domain/use_case/save_contact_information_use_case.dart';
 import 'package:career_coach/domain/use_case/save_goal_use_case.dart';
@@ -73,6 +78,7 @@ class DiConfig {
     getIt.registerLazySingleton<SkillRemote>(() => SkillRemote(getIt.get()));
     getIt.registerLazySingleton<ActivityRemote>(() => ActivityRemote(getIt.get()));
     getIt.registerLazySingleton<CertificateRemote>(() => CertificateRemote(getIt.get()));
+    getIt.registerLazySingleton<AwardRemote>(() => AwardRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
@@ -84,6 +90,7 @@ class DiConfig {
     getIt.registerLazySingleton<SkillRepository>(() => SkillRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<ActivityRepository>(() => ActivityRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<CertificateRepository>(() => CertificateRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<AwardRepository>(() => AwardRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
@@ -112,6 +119,8 @@ class DiConfig {
     getIt.registerLazySingleton<SaveActivitiesUseCase>(() => SaveActivitiesUseCase(getIt.get()));
     getIt.registerLazySingleton<GetCertificatesUseCase>(() => GetCertificatesUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveCertificatesUseCase>(() => SaveCertificatesUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetAwardsUseCase>(() => GetAwardsUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveAwardsUseCase>(() => SaveAwardsUseCase(getIt.get()));
 
     await getIt.allReady();
   }

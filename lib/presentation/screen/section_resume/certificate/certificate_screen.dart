@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/certificate_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -110,23 +111,20 @@ class _CertificateScreenState extends State<CertificateScreen> {
                       Expanded(child: Container()),
                       if (state.listCertificate[index].displayOrder != state.listCertificate.length - 1) ...[
                         _buttonChange(type: 1, onChange: () {
-                          state.listCertificate[index].name = _listNameController[index].text;
-                          state.listCertificate[index].certificatedAt = _listCertificatedAtController[index].text;
-                          state.listCertificate[index].certificateLink = _listCertificateLinkController[index].text;
+                          saveTemp(state.listCertificate);
                           context.read<CertificateCubit>().changeActivity(index, index + 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       if (state.listCertificate[index].displayOrder != 0) ...[
                         _buttonChange(type: 2, onChange: () {
-                          state.listCertificate[index].name = _listNameController[index].text;
-                          state.listCertificate[index].certificatedAt = _listCertificatedAtController[index].text;
-                          state.listCertificate[index].certificateLink = _listCertificateLinkController[index].text;
+                          saveTemp(state.listCertificate);
                           context.read<CertificateCubit>().changeActivity(index, index - 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       _buttonChange(type: 0, onChange: () {
+                        saveTemp(state.listCertificate);
                         context.read<CertificateCubit>().deleteCertificate(index);
                       }),
                     ],
@@ -219,6 +217,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
+                    saveTemp(state.listCertificate);
                     context.read<CertificateCubit>().addCertificate();
                   },
                   child: Container(
@@ -240,12 +239,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    for (var it in state.listCertificate) {
-                      final index = state.listCertificate.indexOf(it);
-                      it.name = _listNameController[index].text;
-                      it.certificatedAt = _listCertificatedAtController[index].text;
-                      it.certificateLink = _listCertificateLinkController[index].text;
-                    }
+                    saveTemp(state.listCertificate);
                     context.read<CertificateCubit>().save(userResumeId: widget.userResumeId);
                   },
                   child: Container(
@@ -264,5 +258,14 @@ class _CertificateScreenState extends State<CertificateScreen> {
           );
         }
     );
+  }
+
+  void saveTemp(List<CertificateEntity> listCertificate) {
+    for (var it in listCertificate) {
+      final index = listCertificate.indexOf(it);
+      it.name = _listNameController[index].text;
+      it.certificatedAt = _listCertificatedAtController[index].text;
+      it.certificateLink = _listCertificateLinkController[index].text;
+    }
   }
 }

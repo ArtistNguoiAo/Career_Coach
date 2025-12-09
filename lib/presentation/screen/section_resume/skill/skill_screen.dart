@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/skill_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -105,21 +106,20 @@ class _SkillScreenState extends State<SkillScreen> {
                       Expanded(child: Container()),
                       if (state.listSkill[index].displayOrder != state.listSkill.length - 1) ...[
                         _buttonChange(type: 1, onChange: () {
-                          state.listSkill[index].name = _listNameController[index].text;
-                          state.listSkill[index].description = _listDescriptionController[index].text;
+                          saveTemp(state.listSkill);
                           context.read<SkillCubit>().changeSkill(index, index + 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       if (state.listSkill[index].displayOrder != 0) ...[
                         _buttonChange(type: 2, onChange: () {
-                          state.listSkill[index].name = _listNameController[index].text;
-                          state.listSkill[index].description = _listDescriptionController[index].text;
+                          saveTemp(state.listSkill);
                           context.read<SkillCubit>().changeSkill(index, index - 1);
                         }),
                         SizedBox(width: 16),
                       ],
                       _buttonChange(type: 0, onChange: () {
+                        saveTemp(state.listSkill);
                         context.read<SkillCubit>().deleteSkill(index);
                       }),
                     ],
@@ -176,6 +176,7 @@ class _SkillScreenState extends State<SkillScreen> {
             Expanded(
               child: InkWell(
                 onTap: () {
+                  saveTemp(state.listSkill);
                   context.read<SkillCubit>().addSkill();
                 },
                 child: Container(
@@ -197,11 +198,7 @@ class _SkillScreenState extends State<SkillScreen> {
             Expanded(
               child: InkWell(
                 onTap: () {
-                  for (var it in state.listSkill) {
-                    final index = state.listSkill.indexOf(it);
-                    it.name = _listNameController[index].text;
-                    it.description = _listDescriptionController[index].text;
-                  }
+                  saveTemp(state.listSkill);
                   context.read<SkillCubit>().save(userResumeId: widget.userResumeId);
                 },
                 child: Container(
@@ -220,5 +217,13 @@ class _SkillScreenState extends State<SkillScreen> {
         );
       }
     );
+  }
+
+  void saveTemp(List<SkillEntity> listSkill) {
+    for (var it in listSkill) {
+      final index = listSkill.indexOf(it);
+      it.name = _listNameController[index].text;
+      it.description = _listDescriptionController[index].text;
+    }
   }
 }
