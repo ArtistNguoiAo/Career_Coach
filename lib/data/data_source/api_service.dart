@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class ApiService extends DioMixin{
+class ApiService extends DioMixin {
   static final ApiService _instance = ApiService._internal();
 
   factory ApiService() => _instance;
@@ -46,16 +46,16 @@ class ApiService extends DioMixin{
           return handler.next(options);
         },
         onResponse: (response, handler) async {
-          if(response.data == null) {
+          if (response.data == null) {
             return handler.reject(
               DioException(
                 requestOptions: response.requestOptions,
                 response: response,
                 type: DioExceptionType.badResponse,
-                message: 'Có lỗi xảy ra',
+                message: 'No data received from server',
                 error: ApiException(
                   errorCode: 'NO_DATA',
-                  message: 'Có lỗi xảy ra',
+                  message: 'No data received from server',
                   isOk: false,
                   isUnauthorized: false,
                 ),
@@ -71,69 +71,60 @@ class ApiService extends DioMixin{
                 requestOptions: response.requestOptions,
                 response: response,
                 type: DioExceptionType.badResponse,
-                message: result['message'] ?? 'Có lỗi xảy ra',
+                message: result['message'] ?? "Error occurred",
                 error: ApiException(
                   errorCode: result['errorCode'] ?? 'UNKNOWN_ERROR',
-                  message: result['message'] ?? 'Có lỗi xảy ra',
+                  message: result['message'] ?? 'An unknown error occurred',
                   isOk: result?['isOk'] ?? false,
                   isUnauthorized: result['errorCode'] == '401',
                 ),
               ),
             );
-          }
-          else {
+          } else {
             return handler.next(response);
           }
         },
         onError: (DioException error, handler) async {
-          if (error.response?.statusCode == 401 &&
-              !error.requestOptions.path.contains('/auth/refresh')) {
+          if (error.response?.statusCode == 401 && !error.requestOptions.path.contains('/auth/refresh')) {
             try {
               final newToken = await _refreshToken();
-              if (newToken != null) {
-                await LocalCache.setString(StringCache.accessToken, newToken);
-
-                final clonedRequest = error.requestOptions;
-                clonedRequest.headers['Authorization'] = 'Bearer $newToken';
-
-                final response = await fetch(clonedRequest);
-                return handler.resolve(response);
-              } else {
-                await LocalCache.setString(StringCache.accessToken, "");
-                await LocalCache.setString(StringCache.refreshToken, "");
+              if (newToken == null) {
                 return handler.reject(error);
               }
+              await LocalCache.setString(StringCache.accessToken, newToken);
+              final newRequest =
+                  Options(
+                        method: error.requestOptions.method,
+                        headers: {...error.requestOptions.headers, 'Authorization': 'Bearer $newToken'},
+                      )
+                      .compose(
+                        options,
+                        error.requestOptions.path,
+                        data: error.requestOptions.data,
+                        queryParameters: error.requestOptions.queryParameters,
+                      )
+                      .copyWith(extra: error.requestOptions.extra);
+              final response = await fetch(newRequest);
+              return handler.resolve(response);
             } catch (e) {
-              if (e is DioException) {
-                await LocalCache.setString(StringCache.accessToken, "");
-                await LocalCache.setString(StringCache.refreshToken, "");
-                return handler.reject(
-                  DioException(
-                    requestOptions: error.requestOptions,
-                    error: ApiException(
-                      errorCode:
-                      e.response?.data['result']['errorCode'] ??
-                          'UNKNOWN_ERROR',
-                      message:
-                      e.response?.data['result']['message'] ??
-                          'An unknown error occurred',
-                      isOk: false,
-                      isUnauthorized: true,
-                    ),
+              return handler.reject(
+                DioException(
+                  requestOptions: error.requestOptions,
+                  error: ApiException(
+                    errorCode: 'REFRESH_FAILED',
+                    message: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+                    isOk: false,
+                    isUnauthorized: true,
                   ),
-                );
-              }
+                ),
+              );
             }
           }
           return handler.next(error);
         },
       ),
-      CurlLoggerDioInterceptor(
-        printOnSuccess: true,
-        convertFormData: true,
-      ),
+      CurlLoggerDioInterceptor(printOnSuccess: true, convertFormData: true),
     ]);
-
   }
 
   static Future<String?> _refreshToken() async {
@@ -142,11 +133,10 @@ class ApiService extends DioMixin{
     if (refreshToken.isEmpty) return null;
 
     try {
-      final dio = Dio(BaseOptions(baseUrl: ApiUrl.baseUrl));
-      final response = await dio.post(
-        '/auth/refresh',
-        data: {'refreshToken': refreshToken},
+      final dio = Dio(
+        BaseOptions(baseUrl: ApiUrl.baseUrl, headers: {'Content-Type': 'application/json', 'Accept': '*/*'}),
       );
+      final response = await dio.post('/auth/refresh', data: {'refreshToken': refreshToken});
       return response.data['data']['accessToken'];
     } on DioException {
       rethrow;

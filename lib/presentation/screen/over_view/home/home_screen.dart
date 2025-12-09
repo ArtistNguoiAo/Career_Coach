@@ -27,7 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocProvider(
         create: (context) => HomeCubit()..init(),
         child: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state.error.isNotEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             return SingleChildScrollView(
               child: Column(
