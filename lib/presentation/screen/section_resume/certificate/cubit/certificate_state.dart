@@ -2,7 +2,7 @@ part of 'certificate_cubit.dart';
 
 class CertificateState {
   final List<CertificateEntity> listCertificate;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

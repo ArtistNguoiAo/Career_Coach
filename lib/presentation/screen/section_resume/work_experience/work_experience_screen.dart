@@ -86,6 +86,7 @@ class _WorkExperienceScreenState extends State<WorkExperienceScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _listCompanyController.clear();

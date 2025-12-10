@@ -2,7 +2,7 @@ part of 'project_cubit.dart';
 
 class ProjectState {
   final List<ProjectEntity> listProject;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

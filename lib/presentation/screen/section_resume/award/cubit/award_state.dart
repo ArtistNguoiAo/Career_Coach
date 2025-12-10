@@ -2,7 +2,7 @@ part of 'award_cubit.dart';
 
 class AwardState {
   final List<AwardEntity> listAward;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

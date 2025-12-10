@@ -86,6 +86,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _listNameController.clear();

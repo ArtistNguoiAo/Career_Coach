@@ -2,7 +2,7 @@ part of 'work_experience_cubit.dart';
 
 class WorkExperienceState {
   final List<WorkExperienceEntity> listWorkExperience;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

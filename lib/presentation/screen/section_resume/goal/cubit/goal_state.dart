@@ -2,7 +2,7 @@ part of 'goal_cubit.dart';
 
 class GoalState {
   final GoalEntity? goalEntity;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

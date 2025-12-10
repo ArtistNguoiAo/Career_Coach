@@ -90,6 +90,7 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
         }
         if(state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _fullNameController.text = state.contactInformationEntity?.fullName ?? '';

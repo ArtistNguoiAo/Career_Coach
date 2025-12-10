@@ -84,6 +84,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _listNameController.clear();

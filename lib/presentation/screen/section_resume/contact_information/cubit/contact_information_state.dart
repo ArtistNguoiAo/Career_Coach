@@ -2,7 +2,7 @@ part of 'contact_information_cubit.dart';
 
 class ContactInformationState {
   final ContactInformationEntity? contactInformationEntity;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

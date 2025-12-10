@@ -73,6 +73,7 @@ class _GoalScreenState extends State<GoalScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _goalController.text = state.goalEntity?.content ?? '';

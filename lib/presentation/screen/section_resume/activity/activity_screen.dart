@@ -86,6 +86,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _listOrganizationController.clear();

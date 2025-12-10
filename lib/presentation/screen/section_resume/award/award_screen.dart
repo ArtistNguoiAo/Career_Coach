@@ -83,6 +83,7 @@ class _AwardScreenState extends State<AwardScreen> {
         }
         if (state.error.isNotEmpty) {
           DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
         }
 
         _listNameController.clear();

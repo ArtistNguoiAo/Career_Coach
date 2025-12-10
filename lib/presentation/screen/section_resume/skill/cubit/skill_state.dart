@@ -2,7 +2,7 @@ part of 'skill_cubit.dart';
 
 class SkillState {
   final List<SkillEntity> listSkill;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 

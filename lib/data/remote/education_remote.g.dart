@@ -10,7 +10,7 @@ part of 'education_remote.dart';
 
 class _EducationRemote implements EducationRemote {
   _EducationRemote(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= '/api/v1/activities';
+    baseUrl ??= '/api/v1/educations';
   }
 
   final Dio _dio;

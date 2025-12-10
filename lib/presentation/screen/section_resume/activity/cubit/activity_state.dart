@@ -2,7 +2,7 @@ part of 'activity_cubit.dart';
 
 class ActivityState {
   final List<ActivityEntity> listActivity;
-  final String error;
+  String error;
   final bool isLoading;
   final bool isSavedSuccess;
 
