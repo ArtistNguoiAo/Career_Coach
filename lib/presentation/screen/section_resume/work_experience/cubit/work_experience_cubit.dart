@@ -58,9 +58,6 @@ class WorkExperienceCubit extends Cubit<WorkExperienceState> {
 
   Future<void> deleteWorkExperience(int index) async {
     final updatedList = List<WorkExperienceEntity>.from(state.listWorkExperience)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listWorkExperience: updatedList));
   }
 

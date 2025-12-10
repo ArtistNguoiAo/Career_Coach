@@ -68,9 +68,6 @@ class ActivityCubit extends Cubit<ActivityState> {
 
   Future<void> deleteActivity(int index) async {
     final updatedList = List<ActivityEntity>.from(state.listActivity)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listActivity: updatedList));
   }
 

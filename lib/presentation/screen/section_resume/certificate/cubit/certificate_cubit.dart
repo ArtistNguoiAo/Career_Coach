@@ -66,9 +66,6 @@ class CertificateCubit extends Cubit<CertificateState> {
 
   Future<void> deleteCertificate(int index) async {
     final updatedList = List<CertificateEntity>.from(state.listCertificate)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listCertificate: updatedList));
   }
 

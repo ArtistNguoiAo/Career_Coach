@@ -65,9 +65,6 @@ class AwardCubit extends Cubit<AwardState> {
 
   Future<void> deleteAward(int index) async {
     final updatedList = List<AwardEntity>.from(state.listAward)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listAward: updatedList));
   }
 

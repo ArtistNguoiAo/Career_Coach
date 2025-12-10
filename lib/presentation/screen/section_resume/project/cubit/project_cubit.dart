@@ -68,9 +68,6 @@ class ProjectCubit extends Cubit<ProjectState> {
 
   Future<void> deleteProject(int index) async {
     final updatedList = List<ProjectEntity>.from(state.listProject)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listProject: updatedList));
   }
 

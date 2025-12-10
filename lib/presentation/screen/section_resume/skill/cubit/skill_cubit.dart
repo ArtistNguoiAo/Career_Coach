@@ -65,9 +65,6 @@ class SkillCubit extends Cubit<SkillState> {
 
   Future<void> deleteSkill(int index) async {
     final updatedList = List<SkillEntity>.from(state.listSkill)..removeAt(index);
-    for (int i = 0; i < updatedList.length; i++) {
-      updatedList[i].displayOrder = i;
-    }
     emit(state.copyWith(listSkill: updatedList));
   }
 
