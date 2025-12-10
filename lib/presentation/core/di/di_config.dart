@@ -8,6 +8,7 @@ import 'package:career_coach/data/remote/contact_information_remote.dart';
 import 'package:career_coach/data/remote/education_remote.dart';
 import 'package:career_coach/data/remote/favorite_remote.dart';
 import 'package:career_coach/data/remote/goal_remote.dart';
+import 'package:career_coach/data/remote/other_information_remote.dart';
 import 'package:career_coach/data/remote/project_remote.dart';
 import 'package:career_coach/data/remote/resume_remote.dart';
 import 'package:career_coach/data/remote/skill_remote.dart';
@@ -22,6 +23,7 @@ import 'package:career_coach/data/repository_impl/contact_information_repository
 import 'package:career_coach/data/repository_impl/education_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/favorite_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/goal_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/other_information_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/project_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/resume_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/skill_repository_impl.dart';
@@ -36,6 +38,7 @@ import 'package:career_coach/domain/repository/contact_information_repository.da
 import 'package:career_coach/domain/repository/education_repository.dart';
 import 'package:career_coach/domain/repository/favorite_repository.dart';
 import 'package:career_coach/domain/repository/goal_repository.dart';
+import 'package:career_coach/domain/repository/other_information_repository.dart';
 import 'package:career_coach/domain/repository/project_repository.dart';
 import 'package:career_coach/domain/repository/resume_repository.dart';
 import 'package:career_coach/domain/repository/skill_repository.dart';
@@ -103,6 +106,7 @@ class DiConfig {
     getIt.registerLazySingleton<WorkExperienceRemote>(() => WorkExperienceRemote(getIt.get()));
     getIt.registerLazySingleton<FavoriteRemote>(() => FavoriteRemote(getIt.get()));
     getIt.registerLazySingleton<EducationRemote>(() => EducationRemote(getIt.get()));
+    getIt.registerLazySingleton<OtherInformationRemote>(() => OtherInformationRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
@@ -119,6 +123,7 @@ class DiConfig {
     getIt.registerLazySingleton<WorkExperienceRepository>(() => WorkExperienceRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<FavoriteRepository>(() => FavoriteRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<EducationRepository>(() => EducationRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<OtherInformationRepository>(() => OtherInformationRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
@@ -157,6 +162,8 @@ class DiConfig {
     getIt.registerLazySingleton<SaveFavoritesUseCase>(() => SaveFavoritesUseCase(getIt.get()));
     getIt.registerLazySingleton<GetEducationsUseCase>(() => GetEducationsUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveEducationsUseCase>(() => SaveEducationsUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetContactInformationUseCase>(() => GetContactInformationUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveContactInformationUseCase>(() => SaveContactInformationUseCase(getIt.get()));
 
     await getIt.allReady();
   }
