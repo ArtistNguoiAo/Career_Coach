@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
+import 'package:career_coach/domain/enum/type_side_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -31,8 +32,13 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
     if (widget.userResumeEntity.numberOfColumns == 1) {
       usedSections = [...widget.userResumeEntity.layouts.first.sections];
     } else if (widget.userResumeEntity.numberOfColumns == 2) {
-      leftUsedSections = [...widget.userResumeEntity.layouts[0].sections];
-      rightUsedSections = [...widget.userResumeEntity.layouts[1].sections];
+      if(widget.userResumeEntity.layouts[0].side == TypeSideEnum.LEFT) {
+        leftUsedSections = [...widget.userResumeEntity.layouts[0].sections];
+        rightUsedSections = [...widget.userResumeEntity.layouts[1].sections];
+      } else {
+        rightUsedSections = [...widget.userResumeEntity.layouts[0].sections];
+        leftUsedSections = [...widget.userResumeEntity.layouts[1].sections];
+      }
       usedSections = [...leftUsedSections, ...rightUsedSections];
     }
 
@@ -104,10 +110,17 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
         children: [
           if (widget.userResumeEntity.numberOfColumns == 2) ...[
             WidthPercentageSlider(
-              initialValue: widget.userResumeEntity.layouts[0].widthPercentage,
+              initialValue: widget.userResumeEntity.layouts[0].side == TypeSideEnum.LEFT
+              ? widget.userResumeEntity.layouts[0].widthPercentage
+              : widget.userResumeEntity.layouts[1].widthPercentage,
               onFinished: (value) {
-                widget.userResumeEntity.layouts[0].widthPercentage = value;
-                widget.userResumeEntity.layouts[1].widthPercentage = 100.0 - value;
+                if(widget.userResumeEntity.layouts[0].side == TypeSideEnum.LEFT) {
+                  widget.userResumeEntity.layouts[0].widthPercentage = value;
+                  widget.userResumeEntity.layouts[1].widthPercentage = 100.0 - value;
+                } else {
+                  widget.userResumeEntity.layouts[1].widthPercentage = value;
+                  widget.userResumeEntity.layouts[0].widthPercentage = 100.0 - value;
+                }
               },
             )
           ],
@@ -387,8 +400,13 @@ class _LayoutResumeScreenState extends State<LayoutResumeScreen> {
           widget.userResumeEntity.layouts.first.sections = usedSections;
         }
         else {
-          widget.userResumeEntity.layouts[0].sections = leftUsedSections;
-          widget.userResumeEntity.layouts[1].sections = rightUsedSections;
+          if(widget.userResumeEntity.layouts[0].side == TypeSideEnum.LEFT) {
+            widget.userResumeEntity.layouts[0].sections = leftUsedSections;
+            widget.userResumeEntity.layouts[1].sections = rightUsedSections;
+          } else {
+            widget.userResumeEntity.layouts[0].sections = rightUsedSections;
+            widget.userResumeEntity.layouts[1].sections = leftUsedSections;
+          }
         }
         AutoRouter.of(context).pop(widget.userResumeEntity);
       },

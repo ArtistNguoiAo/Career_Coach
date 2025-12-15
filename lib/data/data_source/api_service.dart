@@ -56,7 +56,7 @@ class ApiService extends DioMixin {
                 error: ApiException(
                   errorCode: 'NO_DATA',
                   message: 'No data received from server',
-                  isOk: false,
+                  ok: false,
                   isUnauthorized: false,
                 ),
               ),
@@ -65,7 +65,7 @@ class ApiService extends DioMixin {
           final data = response.data;
           final result = data['result'];
 
-          if (result['isOk'] == false) {
+          if (result['ok'] == false) {
             return handler.reject(
               DioException(
                 requestOptions: response.requestOptions,
@@ -75,7 +75,7 @@ class ApiService extends DioMixin {
                 error: ApiException(
                   errorCode: result['errorCode'] ?? 'UNKNOWN_ERROR',
                   message: result['message'] ?? 'An unknown error occurred',
-                  isOk: result?['isOk'] ?? false,
+                  ok: result?['ok'] ?? false,
                   isUnauthorized: result['errorCode'] == '401',
                 ),
               ),
@@ -113,7 +113,7 @@ class ApiService extends DioMixin {
                   error: ApiException(
                     errorCode: 'REFRESH_FAILED',
                     message: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
-                    isOk: false,
+                    ok: false,
                     isUnauthorized: true,
                   ),
                 ),

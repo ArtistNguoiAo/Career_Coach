@@ -59,6 +59,7 @@ import 'package:career_coach/domain/use_case/get_goal_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
+import 'package:career_coach/domain/use_case/get_other_information_use_case.dart';
 import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/get_projects_use_case.dart';
 import 'package:career_coach/domain/use_case/get_skills_use_case.dart';
@@ -75,6 +76,7 @@ import 'package:career_coach/domain/use_case/save_contact_information_use_case.d
 import 'package:career_coach/domain/use_case/save_educations_use_case.dart';
 import 'package:career_coach/domain/use_case/save_favorites_use_case.dart';
 import 'package:career_coach/domain/use_case/save_goal_use_case.dart';
+import 'package:career_coach/domain/use_case/save_other_information_use_case.dart';
 import 'package:career_coach/domain/use_case/save_projects_use_case.dart';
 import 'package:career_coach/domain/use_case/save_skills_use_case.dart';
 import 'package:career_coach/domain/use_case/save_user_resume_use_case.dart';
@@ -162,8 +164,8 @@ class DiConfig {
     getIt.registerLazySingleton<SaveFavoritesUseCase>(() => SaveFavoritesUseCase(getIt.get()));
     getIt.registerLazySingleton<GetEducationsUseCase>(() => GetEducationsUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveEducationsUseCase>(() => SaveEducationsUseCase(getIt.get()));
-    getIt.registerLazySingleton<GetContactInformationUseCase>(() => GetContactInformationUseCase(getIt.get()));
-    getIt.registerLazySingleton<SaveContactInformationUseCase>(() => SaveContactInformationUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetOtherInformationUseCase>(() => GetOtherInformationUseCase(getIt.get()));
+    getIt.registerLazySingleton<SaveOtherInformationUseCase>(() => SaveOtherInformationUseCase(getIt.get()));
 
     await getIt.allReady();
   }

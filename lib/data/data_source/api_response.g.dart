@@ -25,13 +25,13 @@ Map<String, dynamic> _$ApiResponseToJson<T>(
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
   errorCode: json['errorCode'] as String,
   message: json['message'] as String,
-  isOk: json['isOk'] as bool,
+  ok: json['ok'] as bool,
 );
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
   'errorCode': instance.errorCode,
   'message': instance.message,
-  'isOk': instance.isOk,
+  'ok': instance.ok,
 };
 
 PagedData<T> _$PagedDataFromJson<T>(
