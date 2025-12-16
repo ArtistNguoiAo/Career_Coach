@@ -8,6 +8,7 @@ import 'package:career_coach/data/remote/contact_information_remote.dart';
 import 'package:career_coach/data/remote/education_remote.dart';
 import 'package:career_coach/data/remote/favorite_remote.dart';
 import 'package:career_coach/data/remote/goal_remote.dart';
+import 'package:career_coach/data/remote/interview_remote.dart';
 import 'package:career_coach/data/remote/other_information_remote.dart';
 import 'package:career_coach/data/remote/project_remote.dart';
 import 'package:career_coach/data/remote/resume_remote.dart';
@@ -23,6 +24,7 @@ import 'package:career_coach/data/repository_impl/contact_information_repository
 import 'package:career_coach/data/repository_impl/education_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/favorite_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/goal_repository_impl.dart';
+import 'package:career_coach/data/repository_impl/interview_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/other_information_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/project_repository_impl.dart';
 import 'package:career_coach/data/repository_impl/resume_repository_impl.dart';
@@ -38,6 +40,7 @@ import 'package:career_coach/domain/repository/contact_information_repository.da
 import 'package:career_coach/domain/repository/education_repository.dart';
 import 'package:career_coach/domain/repository/favorite_repository.dart';
 import 'package:career_coach/domain/repository/goal_repository.dart';
+import 'package:career_coach/domain/repository/interview_repository.dart';
 import 'package:career_coach/domain/repository/other_information_repository.dart';
 import 'package:career_coach/domain/repository/project_repository.dart';
 import 'package:career_coach/domain/repository/resume_repository.dart';
@@ -56,6 +59,8 @@ import 'package:career_coach/domain/use_case/get_detail_user_resume_use_case.dar
 import 'package:career_coach/domain/use_case/get_educations_use_case.dart';
 import 'package:career_coach/domain/use_case/get_favorites_use_case.dart';
 import 'package:career_coach/domain/use_case/get_goal_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_interview_active_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_interview_history_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
@@ -109,6 +114,7 @@ class DiConfig {
     getIt.registerLazySingleton<FavoriteRemote>(() => FavoriteRemote(getIt.get()));
     getIt.registerLazySingleton<EducationRemote>(() => EducationRemote(getIt.get()));
     getIt.registerLazySingleton<OtherInformationRemote>(() => OtherInformationRemote(getIt.get()));
+    getIt.registerLazySingleton<InterviewRemote>(() => InterviewRemote(getIt.get()));
 
     // repository
     getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt.get()));
@@ -126,6 +132,7 @@ class DiConfig {
     getIt.registerLazySingleton<FavoriteRepository>(() => FavoriteRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<EducationRepository>(() => EducationRepositoryImpl(getIt.get()));
     getIt.registerLazySingleton<OtherInformationRepository>(() => OtherInformationRepositoryImpl(getIt.get()));
+    getIt.registerLazySingleton<InterviewRepository>(() => InterviewRepositoryImpl(getIt.get()));
 
     // use_case
     getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt.get()));
@@ -166,6 +173,8 @@ class DiConfig {
     getIt.registerLazySingleton<SaveEducationsUseCase>(() => SaveEducationsUseCase(getIt.get()));
     getIt.registerLazySingleton<GetOtherInformationUseCase>(() => GetOtherInformationUseCase(getIt.get()));
     getIt.registerLazySingleton<SaveOtherInformationUseCase>(() => SaveOtherInformationUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListInterviewActiveUseCase>(() => GetListInterviewActiveUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListInterviewHistoryUseCase>(() => GetListInterviewHistoryUseCase(getIt.get()));
 
     await getIt.allReady();
   }

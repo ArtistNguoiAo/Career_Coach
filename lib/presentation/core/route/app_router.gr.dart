@@ -489,46 +489,18 @@ class LayoutResumeRouteArgs {
 
 /// generated route for
 /// [_i11.ListInterviewScreen]
-class ListInterviewRoute extends _i24.PageRouteInfo<ListInterviewRouteArgs> {
-  ListInterviewRoute({_i25.Key? key, List<_i24.PageRouteInfo>? children})
-    : super(
-        ListInterviewRoute.name,
-        args: ListInterviewRouteArgs(key: key),
-        initialChildren: children,
-      );
+class ListInterviewRoute extends _i24.PageRouteInfo<void> {
+  const ListInterviewRoute({List<_i24.PageRouteInfo>? children})
+    : super(ListInterviewRoute.name, initialChildren: children);
 
   static const String name = 'ListInterviewRoute';
 
   static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ListInterviewRouteArgs>(
-        orElse: () => const ListInterviewRouteArgs(),
-      );
-      return _i11.ListInterviewScreen(key: args.key);
+      return const _i11.ListInterviewScreen();
     },
   );
-}
-
-class ListInterviewRouteArgs {
-  const ListInterviewRouteArgs({this.key});
-
-  final _i25.Key? key;
-
-  @override
-  String toString() {
-    return 'ListInterviewRouteArgs{key: $key}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! ListInterviewRouteArgs) return false;
-    return key == other.key;
-  }
-
-  @override
-  int get hashCode => key.hashCode;
 }
 
 /// generated route for
