@@ -1,0 +1,51 @@
+import 'package:career_coach/domain/entity/user_resume_layout_entity.dart';
+import 'package:career_coach/domain/enum/type_font_family_enum.dart';
+import 'package:career_coach/domain/enum/type_language_enum.dart';
+
+class UserResumeEntity {
+  final int id;
+  String title;
+  int numberOfColumns;
+  TypeLanguageEnum language;
+  TypeFontFamilyEnum fontFamily;
+  int fontSize;
+  double lineHeight;
+  String color;
+  List<UserResumeLayoutEntity> layouts;
+
+  UserResumeEntity({
+    required this.id,
+    required this.title,
+    required this.numberOfColumns,
+    required this.language,
+    required this.fontFamily,
+    required this.fontSize,
+    required this.lineHeight,
+    required this.color,
+    required this.layouts,
+  });
+
+  UserResumeEntity copyWith({
+    int? id,
+    String? title,
+    int? numberOfColumns,
+    TypeLanguageEnum? language,
+    TypeFontFamilyEnum? fontFamily,
+    int? fontSize,
+    double? lineHeight,
+    String? color,
+    List<UserResumeLayoutEntity>? layouts,
+  }) {
+    return UserResumeEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      numberOfColumns: numberOfColumns ?? this.numberOfColumns,
+      language: language ?? this.language,
+      fontFamily: fontFamily ?? this.fontFamily,
+      fontSize: fontSize ?? this.fontSize,
+      lineHeight: lineHeight ?? this.lineHeight,
+      color: color ?? this.color,
+      layouts: layouts ?? this.layouts,
+    );
+  }
+}

@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
+import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -408,44 +410,88 @@ class DialogUtils {
 
   static void showPreviewResumeDialog({
     required BuildContext context,
-    required String resumeImageUrl,
-    required Function onUseTemplate,
+    required ResumeEntity resumeEntity,
+    required Function onCreateNew,
+    required Function onSaved,
   }) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) {
-        return SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Stack(
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.9,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.greenAccent.shade100, Colors.white],
+              stops: const [0.0, 1.0],
+            ),
+          ),
+          child: Column(
             children: [
-              Center(
+              Container(height: 30),
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
                 child: Image.network(
-                  resumeImageUrl,
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width: MediaQuery.of(context).size.width - 100,
+                  resumeEntity.thumbnailUrl,
                   fit: BoxFit.contain,
                 ),
               ),
-              Center(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () {
-                      AutoRouter.of(context).maybePop(true);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: context.theme.primaryColor,
-                      ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    onCreateNew();
+                  },
+                  splashColor: Colors.transparent,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    margin: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: context.theme.primaryColor),
+                    ),
+                    child: Center(
                       child: Text(
-                        context.language.useThisTemplate,
-                        style: TextStyleUtils.normal(
+                        context.language.createNew,
+                        style: TextStyleUtils.bold(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: context.theme.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    onSaved();
+                  },
+                  splashColor: Colors.transparent,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: context.theme.primaryColor),
+                    ),
+                    child: Center(
+                      child: Text(
+                        context.language.saved,
+                        style: TextStyleUtils.bold(
+                          fontSize: 16,
+                          color: context.theme.primaryColor,
                         ),
                       ),
                     ),
@@ -456,58 +502,133 @@ class DialogUtils {
           ),
         );
       },
-    ).then((value) async {
-      if (value != null && value is bool && value) {
-        await onUseTemplate();
-      }
-    });
+    );
   }
 
-  static void showChoiceCreateResumeDialog({
+  static void showResumeRecentDialog({
     required BuildContext context,
     required List<UserResumeRecentEntity> listUserResumeRecent,
-    required Function onChoice,
+    required Function(int) onSaved,
   }) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.7,
-          width: MediaQuery.of(context).size.width * 0.9,
-          color: context.theme.backgroundColor,
-          child: Center(
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  AutoRouter.of(context).maybePop(true);
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 16,
+        int? selectedId;
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+                color: context.theme.lightGreyColor,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedId = listUserResumeRecent[index].id;
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: selectedId == listUserResumeRecent[index].id
+                                  ? context.theme.primaryColor
+                                  : context.theme.backgroundColor,
+                            ),
+                            color: context.theme.backgroundColor,
+                          ),
+                          child: Row(
+                            children: [
+                              Radio<int>(
+                                value: listUserResumeRecent[index].id,
+                                groupValue: selectedId,
+                                activeColor: context.theme.primaryColor,
+                                onChanged: (value) {
+                                  setState(() => selectedId = value);
+                                },
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      listUserResumeRecent[index].title,
+                                      style: TextStyleUtils.bold(
+                                        fontSize: 16,
+                                        color: context.theme.textColor,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      StringUtils.convertDateString(listUserResumeRecent[index].createdAt),
+                                      style: TextStyleUtils.normal(
+                                        fontSize: 14,
+                                        color: context.theme.textColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (_, __) => const SizedBox(height: 16),
+                    itemCount: listUserResumeRecent.length,
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: context.theme.primaryColor,
-                  ),
-                  child: Text(
-                    context.language.useThisTemplate,
-                    style: TextStyleUtils.normal(
-                      fontSize: 16,
-                      color: Colors.white,
+                  const SizedBox(height: 16),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        if(selectedId != null) {
+                          onSaved(selectedId!);
+                        }
+                      },
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: selectedId != null
+                              ? context.theme.primaryColor
+                              : context.theme.darkGreyColor
+                        ),
+                        child: Center(
+                          child: Text(
+                            context.language.create,
+                            style: TextStyleUtils.bold(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ),
-          ),
+            );
+          }
         );
       },
-    ).then((value) async {
-      if (value != null && value is bool && value) {
-        await onChoice();
-      }
-    });
+    );
   }
 }

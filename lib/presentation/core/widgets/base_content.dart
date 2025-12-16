@@ -9,12 +9,14 @@ class BaseContent extends StatefulWidget {
     required this.isRequired,
     required this.title,
     this.maxLines,
+    this.onChanged,
   });
 
   final TextEditingController controller;
   final bool isRequired;
   final String title;
   final int? maxLines;
+  final Function(String)? onChanged;
 
   @override
   State<BaseContent> createState() => _BaseContentState();
@@ -67,6 +69,7 @@ class _BaseContentState extends State<BaseContent> {
               borderSide: BorderSide(color: context.theme.borderColor),
             ),
           ),
+          onChanged: widget.onChanged,
         )
       ],
     );

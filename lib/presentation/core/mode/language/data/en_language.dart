@@ -203,10 +203,13 @@ class EnLanguage extends BaseLanguage {
   String get changeTemplate => 'Change template';
 
   @override
-  String get editTheme => 'Edit theme';
+  String get theme => 'Theme';
 
   @override
-  String get editContent => 'Edit content';
+  String get content => 'Content';
+
+  @override
+  String get layout => 'Layout';
 
   @override
   String get activity => 'Activity';
@@ -327,4 +330,43 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get information => 'Information';
+
+  @override
+  String get createNew => 'Create new';
+
+  @override
+  String get saved => 'Saved';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get dragAndDropSectionHere => 'Drag and drop sections here';
+
+  @override
+  String get unUsedSections => 'Unused sections';
+
+  @override
+  String get chooseLanguage => 'Choose language';
+
+  @override
+  String get chooseFont => 'Choose font';
+
+  @override
+  String get chooseFontSize => 'Choose font size';
+
+  @override
+  String get chooseLineHeight => 'Choose line height';
+
+  @override
+  String get chooseColor => 'Choose color';
+
+  @override
+  String get chooseSection => 'Choose section';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get saveInformationSuccess => 'Information saved successfully';
 }

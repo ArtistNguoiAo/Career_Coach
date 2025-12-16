@@ -19,7 +19,6 @@ class _OverViewScreenState extends State<OverViewScreen> {
     return AutoTabsRouter(
       routes: [
         HomeRoute(),
-        ListCvAndClRoute(),
         ListInterviewRoute(),
         ProfileRoute(),
       ],
@@ -37,12 +36,6 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 activeIcon: Icon(IconlyBold.home),
                 selectedColor: context.theme.primaryColor,
                 title: Text(context.language.home),
-              ),
-              SalomonBottomBarItem(
-                icon: Icon(IconlyLight.document),
-                activeIcon: Icon(IconlyBold.document),
-                selectedColor: context.theme.primaryColor,
-                title: Text(context.language.cvAndCl_2),
               ),
               SalomonBottomBarItem(
                 icon: Icon(IconlyLight.chat),

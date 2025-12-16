@@ -26,6 +26,9 @@ class BaseTextField extends StatefulWidget {
     this.isCollapsed,
     this.contentPadding,
     this.textAlign,
+    this.onFieldSubmitted,
+    this.maxLength,
+    this.prefix,
   });
 
   final TextEditingController controller;
@@ -49,6 +52,9 @@ class BaseTextField extends StatefulWidget {
   final bool? isCollapsed;
   final EdgeInsetsGeometry? contentPadding;
   final TextAlign? textAlign;
+  final Function(String)? onFieldSubmitted;
+  final int? maxLength;
+  final Widget? prefix;
 
   @override
   State<BaseTextField> createState() => _BaseTextFieldState();
@@ -63,6 +69,7 @@ class _BaseTextFieldState extends State<BaseTextField> {
       validator: widget.validator,
       readOnly: widget.readOnly ?? false,
       textAlign: widget.textAlign ?? TextAlign.start,
+      maxLength: widget.maxLength,
       decoration: InputDecoration(
         isDense: true,
         isCollapsed: widget.isCollapsed,
@@ -88,10 +95,12 @@ class _BaseTextFieldState extends State<BaseTextField> {
         ),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,
+        prefix: widget.prefix,
       ),
       style: widget.style ?? TextStyleUtils.normal(),
       obscureText: widget.obscureText ?? false,
       onChanged: widget.onChanged,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 }

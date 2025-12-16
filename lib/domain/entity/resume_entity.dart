@@ -1,4 +1,5 @@
 import 'package:career_coach/domain/enum/type_resume_enum.dart';
+import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 
 class ResumeEntity {
   final int id;
@@ -8,6 +9,7 @@ class ResumeEntity {
   final TypeResumeEnum type;
   final int viewCount;
   final int downloadCount;
+  final List<TypeResumeSectionEnum> sections;
 
   ResumeEntity({
     required this.id,
@@ -17,5 +19,6 @@ class ResumeEntity {
     required this.type,
     required this.viewCount,
     required this.downloadCount,
+    required this.sections,
   });
 }

@@ -1,0 +1,4 @@
+enum TypeResumeCreatedEnum {
+  SAVED,
+  DRAFT,
+}

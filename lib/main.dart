@@ -22,9 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageCubit>(
-          create: (context) => LanguageCubit()..init(),
-        ),
+        BlocProvider<LanguageCubit>(create: (context) => LanguageCubit()..init()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()..init()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(

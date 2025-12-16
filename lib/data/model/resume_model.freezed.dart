@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ResumeModel {
 
- int get id; String get title; String get description; String get thumbnailUrl; String get type; int get viewCount; int get downloadCount;
+ int get id; String get title; String get description; String get thumbnailUrl; String get type; int get viewCount; int get downloadCount; List<String> get sections;
 /// Create a copy of ResumeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ResumeModelCopyWith<ResumeModel> get copyWith => _$ResumeModelCopyWithImpl<Resu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResumeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.type, type) || other.type == type)&&(identical(other.viewCount, viewCount) || other.viewCount == viewCount)&&(identical(other.downloadCount, downloadCount) || other.downloadCount == downloadCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResumeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.type, type) || other.type == type)&&(identical(other.viewCount, viewCount) || other.viewCount == viewCount)&&(identical(other.downloadCount, downloadCount) || other.downloadCount == downloadCount)&&const DeepCollectionEquality().equals(other.sections, sections));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,thumbnailUrl,type,viewCount,downloadCount);
+int get hashCode => Object.hash(runtimeType,id,title,description,thumbnailUrl,type,viewCount,downloadCount,const DeepCollectionEquality().hash(sections));
 
 @override
 String toString() {
-  return 'ResumeModel(id: $id, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, type: $type, viewCount: $viewCount, downloadCount: $downloadCount)';
+  return 'ResumeModel(id: $id, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, type: $type, viewCount: $viewCount, downloadCount: $downloadCount, sections: $sections)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ResumeModelCopyWith<$Res>  {
   factory $ResumeModelCopyWith(ResumeModel value, $Res Function(ResumeModel) _then) = _$ResumeModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String description, String thumbnailUrl, String type, int viewCount, int downloadCount
+ int id, String title, String description, String thumbnailUrl, String type, int viewCount, int downloadCount, List<String> sections
 });
 
 
@@ -65,7 +65,7 @@ class _$ResumeModelCopyWithImpl<$Res>
 
 /// Create a copy of ResumeModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? thumbnailUrl = null,Object? type = null,Object? viewCount = null,Object? downloadCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? thumbnailUrl = null,Object? type = null,Object? viewCount = null,Object? downloadCount = null,Object? sections = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,viewCount: null == viewCount ? _self.viewCount : viewCount // ignore: cast_nullable_to_non_nullable
 as int,downloadCount: null == downloadCount ? _self.downloadCount : downloadCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,sections: null == sections ? _self.sections : sections // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount,  List<String> sections)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ResumeModel() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount);case _:
+return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount,_that.sections);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount,  List<String> sections)  $default,) {final _that = this;
 switch (_that) {
 case _ResumeModel():
-return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount);case _:
+return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount,_that.sections);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String description,  String thumbnailUrl,  String type,  int viewCount,  int downloadCount,  List<String> sections)?  $default,) {final _that = this;
 switch (_that) {
 case _ResumeModel() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount);case _:
+return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.type,_that.viewCount,_that.downloadCount,_that.sections);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.title,_that.description,_that.thumbnailUrl,_that.
 @JsonSerializable()
 
 class _ResumeModel implements ResumeModel {
-  const _ResumeModel({this.id = 0, this.title = '', this.description = '', this.thumbnailUrl = '', this.type = '', this.viewCount = 0, this.downloadCount = 0});
+  const _ResumeModel({this.id = 0, this.title = '', this.description = '', this.thumbnailUrl = '', this.type = '', this.viewCount = 0, this.downloadCount = 0, final  List<String> sections = const []}): _sections = sections;
   factory _ResumeModel.fromJson(Map<String, dynamic> json) => _$ResumeModelFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -225,6 +226,13 @@ class _ResumeModel implements ResumeModel {
 @override@JsonKey() final  String type;
 @override@JsonKey() final  int viewCount;
 @override@JsonKey() final  int downloadCount;
+ final  List<String> _sections;
+@override@JsonKey() List<String> get sections {
+  if (_sections is EqualUnmodifiableListView) return _sections;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sections);
+}
+
 
 /// Create a copy of ResumeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResumeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.type, type) || other.type == type)&&(identical(other.viewCount, viewCount) || other.viewCount == viewCount)&&(identical(other.downloadCount, downloadCount) || other.downloadCount == downloadCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResumeModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.thumbnailUrl, thumbnailUrl) || other.thumbnailUrl == thumbnailUrl)&&(identical(other.type, type) || other.type == type)&&(identical(other.viewCount, viewCount) || other.viewCount == viewCount)&&(identical(other.downloadCount, downloadCount) || other.downloadCount == downloadCount)&&const DeepCollectionEquality().equals(other._sections, _sections));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,thumbnailUrl,type,viewCount,downloadCount);
+int get hashCode => Object.hash(runtimeType,id,title,description,thumbnailUrl,type,viewCount,downloadCount,const DeepCollectionEquality().hash(_sections));
 
 @override
 String toString() {
-  return 'ResumeModel(id: $id, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, type: $type, viewCount: $viewCount, downloadCount: $downloadCount)';
+  return 'ResumeModel(id: $id, title: $title, description: $description, thumbnailUrl: $thumbnailUrl, type: $type, viewCount: $viewCount, downloadCount: $downloadCount, sections: $sections)';
 }
 
 
@@ -259,7 +267,7 @@ abstract mixin class _$ResumeModelCopyWith<$Res> implements $ResumeModelCopyWith
   factory _$ResumeModelCopyWith(_ResumeModel value, $Res Function(_ResumeModel) _then) = __$ResumeModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String description, String thumbnailUrl, String type, int viewCount, int downloadCount
+ int id, String title, String description, String thumbnailUrl, String type, int viewCount, int downloadCount, List<String> sections
 });
 
 
@@ -276,7 +284,7 @@ class __$ResumeModelCopyWithImpl<$Res>
 
 /// Create a copy of ResumeModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? thumbnailUrl = null,Object? type = null,Object? viewCount = null,Object? downloadCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? thumbnailUrl = null,Object? type = null,Object? viewCount = null,Object? downloadCount = null,Object? sections = null,}) {
   return _then(_ResumeModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -285,7 +293,8 @@ as String,thumbnailUrl: null == thumbnailUrl ? _self.thumbnailUrl : thumbnailUrl
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,viewCount: null == viewCount ? _self.viewCount : viewCount // ignore: cast_nullable_to_non_nullable
 as int,downloadCount: null == downloadCount ? _self.downloadCount : downloadCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

@@ -9,317 +9,488 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i32;
-import 'package:career_coach/domain/entity/resume_entity.dart' as _i34;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i35;
+import 'package:auto_route/auto_route.dart' as _i24;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i27;
+import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i26;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
-    as _i17;
-import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
-    as _i25;
-import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
-    as _i14;
-import 'package:career_coach/presentation/screen/over_view/list_cv_and_cl/list_cv_and_cl_screen.dart'
-    as _i15;
-import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
-    as _i16;
-import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
-    as _i19;
-import 'package:career_coach/presentation/screen/over_view/preview_resume/preview_resume_screen.dart'
-    as _i20;
-import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
-    as _i21;
-import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_detail_screen.dart'
-    as _i1;
-import 'package:career_coach/presentation/screen/over_view/section_resume/activity/activity_screen.dart'
-    as _i2;
-import 'package:career_coach/presentation/screen/over_view/section_resume/avatar/avatar_screen.dart'
-    as _i3;
-import 'package:career_coach/presentation/screen/over_view/section_resume/award/award_detail_screen.dart'
-    as _i4;
-import 'package:career_coach/presentation/screen/over_view/section_resume/award/award_screen.dart'
-    as _i5;
-import 'package:career_coach/presentation/screen/over_view/section_resume/certificate/certificate_detail_screen.dart'
-    as _i6;
-import 'package:career_coach/presentation/screen/over_view/section_resume/certificate/certificate_screen.dart'
-    as _i7;
-import 'package:career_coach/presentation/screen/over_view/section_resume/contact_information/contact_information_screen.dart'
-    as _i8;
-import 'package:career_coach/presentation/screen/over_view/section_resume/education/education_detail_screen.dart'
-    as _i9;
-import 'package:career_coach/presentation/screen/over_view/section_resume/education/education_screen.dart'
-    as _i10;
-import 'package:career_coach/presentation/screen/over_view/section_resume/favorite/favorite_detail_screen.dart'
-    as _i11;
-import 'package:career_coach/presentation/screen/over_view/section_resume/favorite/favorite_screen.dart'
     as _i12;
-import 'package:career_coach/presentation/screen/over_view/section_resume/goal/goal_screen.dart'
+import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
+    as _i20;
+import 'package:career_coach/presentation/screen/layout_resume/layout_resume_screen.dart'
+    as _i10;
+import 'package:career_coach/presentation/screen/manage_user_resume/manage_user_resume_screen.dart'
     as _i13;
-import 'package:career_coach/presentation/screen/over_view/section_resume/other_information/other_information_screen.dart'
-    as _i18;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_detail_screen.dart'
-    as _i23;
-import 'package:career_coach/presentation/screen/over_view/section_resume/project/project_screen.dart'
-    as _i24;
-import 'package:career_coach/presentation/screen/over_view/section_resume/skill/skill_detail_screen.dart'
-    as _i26;
-import 'package:career_coach/presentation/screen/over_view/section_resume/skill/skill_screen.dart'
-    as _i27;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_detail_screen.dart'
-    as _i30;
-import 'package:career_coach/presentation/screen/over_view/section_resume/work_experience/work_experience_screen.dart'
-    as _i31;
-import 'package:career_coach/presentation/screen/over_view/structure_resume/structure_resume_screen.dart'
-    as _i29;
+import 'package:career_coach/presentation/screen/over_view/home/home_screen.dart'
+    as _i9;
+import 'package:career_coach/presentation/screen/over_view/list_interview/list_interview_screen.dart'
+    as _i11;
+import 'package:career_coach/presentation/screen/over_view/over_view_screen.dart'
+    as _i15;
+import 'package:career_coach/presentation/screen/over_view/profile/profile_screen.dart'
+    as _i17;
+import 'package:career_coach/presentation/screen/preview_resume/preview_resume_screen.dart'
+    as _i16;
 import 'package:career_coach/presentation/screen/profile_update/profile_update_screen.dart'
-    as _i22;
+    as _i18;
+import 'package:career_coach/presentation/screen/section_resume/activity/activity_screen.dart'
+    as _i1;
+import 'package:career_coach/presentation/screen/section_resume/avatar/avatar_screen.dart'
+    as _i2;
+import 'package:career_coach/presentation/screen/section_resume/award/award_screen.dart'
+    as _i3;
+import 'package:career_coach/presentation/screen/section_resume/certificate/certificate_screen.dart'
+    as _i4;
+import 'package:career_coach/presentation/screen/section_resume/contact_information/contact_information_screen.dart'
+    as _i5;
+import 'package:career_coach/presentation/screen/section_resume/education/education_screen.dart'
+    as _i6;
+import 'package:career_coach/presentation/screen/section_resume/favorite/favorite_screen.dart'
+    as _i7;
+import 'package:career_coach/presentation/screen/section_resume/goal/goal_screen.dart'
+    as _i8;
+import 'package:career_coach/presentation/screen/section_resume/other_information/other_information_screen.dart'
+    as _i14;
+import 'package:career_coach/presentation/screen/section_resume/project/project_screen.dart'
+    as _i19;
+import 'package:career_coach/presentation/screen/section_resume/skill/skill_screen.dart'
+    as _i21;
+import 'package:career_coach/presentation/screen/section_resume/work_experience/work_experience_screen.dart'
+    as _i23;
 import 'package:career_coach/presentation/screen/splash/splash_screen.dart'
-    as _i28;
-import 'package:flutter/material.dart' as _i33;
+    as _i22;
+import 'package:flutter/material.dart' as _i25;
 
 /// generated route for
-/// [_i1.ActivityDetailScreen]
-class ActivityDetailRoute extends _i32.PageRouteInfo<void> {
-  const ActivityDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(ActivityDetailRoute.name, initialChildren: children);
-
-  static const String name = 'ActivityDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i1.ActivityDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i2.ActivityScreen]
-class ActivityRoute extends _i32.PageRouteInfo<void> {
-  const ActivityRoute({List<_i32.PageRouteInfo>? children})
-    : super(ActivityRoute.name, initialChildren: children);
+/// [_i1.ActivityScreen]
+class ActivityRoute extends _i24.PageRouteInfo<ActivityRouteArgs> {
+  ActivityRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         ActivityRoute.name,
+         args: ActivityRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'ActivityRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i2.ActivityScreen();
+      final args = data.argsAs<ActivityRouteArgs>();
+      return _i1.ActivityScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class ActivityRouteArgs {
+  const ActivityRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ActivityRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ActivityRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i3.AvatarScreen]
-class AvatarRoute extends _i32.PageRouteInfo<void> {
-  const AvatarRoute({List<_i32.PageRouteInfo>? children})
+/// [_i2.AvatarScreen]
+class AvatarRoute extends _i24.PageRouteInfo<void> {
+  const AvatarRoute({List<_i24.PageRouteInfo>? children})
     : super(AvatarRoute.name, initialChildren: children);
 
   static const String name = 'AvatarRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i3.AvatarScreen();
+      return const _i2.AvatarScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i4.AwardDetailScreen]
-class AwardDetailRoute extends _i32.PageRouteInfo<void> {
-  const AwardDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(AwardDetailRoute.name, initialChildren: children);
-
-  static const String name = 'AwardDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i4.AwardDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i5.AwardScreen]
-class AwardRoute extends _i32.PageRouteInfo<void> {
-  const AwardRoute({List<_i32.PageRouteInfo>? children})
-    : super(AwardRoute.name, initialChildren: children);
+/// [_i3.AwardScreen]
+class AwardRoute extends _i24.PageRouteInfo<AwardRouteArgs> {
+  AwardRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         AwardRoute.name,
+         args: AwardRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'AwardRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i5.AwardScreen();
+      final args = data.argsAs<AwardRouteArgs>();
+      return _i3.AwardScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
-/// generated route for
-/// [_i6.CertificateDetailScreen]
-class CertificateDetailRoute extends _i32.PageRouteInfo<void> {
-  const CertificateDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(CertificateDetailRoute.name, initialChildren: children);
+class AwardRouteArgs {
+  const AwardRouteArgs({this.key, required this.userResumeId});
 
-  static const String name = 'CertificateDetailRoute';
+  final _i25.Key? key;
 
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i6.CertificateDetailScreen();
-    },
-  );
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'AwardRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AwardRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
-/// [_i7.CertificateScreen]
-class CertificateRoute extends _i32.PageRouteInfo<void> {
-  const CertificateRoute({List<_i32.PageRouteInfo>? children})
-    : super(CertificateRoute.name, initialChildren: children);
+/// [_i4.CertificateScreen]
+class CertificateRoute extends _i24.PageRouteInfo<CertificateRouteArgs> {
+  CertificateRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         CertificateRoute.name,
+         args: CertificateRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'CertificateRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i7.CertificateScreen();
+      final args = data.argsAs<CertificateRouteArgs>();
+      return _i4.CertificateScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
 }
 
+class CertificateRouteArgs {
+  const CertificateRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'CertificateRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! CertificateRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i8.ContactInformationScreen]
-class ContactInformationRoute extends _i32.PageRouteInfo<void> {
-  const ContactInformationRoute({List<_i32.PageRouteInfo>? children})
-    : super(ContactInformationRoute.name, initialChildren: children);
+/// [_i5.ContactInformationScreen]
+class ContactInformationRoute
+    extends _i24.PageRouteInfo<ContactInformationRouteArgs> {
+  ContactInformationRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         ContactInformationRoute.name,
+         args: ContactInformationRouteArgs(
+           key: key,
+           userResumeId: userResumeId,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'ContactInformationRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i8.ContactInformationScreen();
+      final args = data.argsAs<ContactInformationRouteArgs>();
+      return _i5.ContactInformationScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
 }
 
-/// generated route for
-/// [_i9.EducationDetailScreen]
-class EducationDetailRoute extends _i32.PageRouteInfo<void> {
-  const EducationDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(EducationDetailRoute.name, initialChildren: children);
+class ContactInformationRouteArgs {
+  const ContactInformationRouteArgs({this.key, required this.userResumeId});
 
-  static const String name = 'EducationDetailRoute';
+  final _i25.Key? key;
 
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i9.EducationDetailScreen();
-    },
-  );
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ContactInformationRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ContactInformationRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
-/// [_i10.EducationScreen]
-class EducationRoute extends _i32.PageRouteInfo<void> {
-  const EducationRoute({List<_i32.PageRouteInfo>? children})
-    : super(EducationRoute.name, initialChildren: children);
+/// [_i6.EducationScreen]
+class EducationRoute extends _i24.PageRouteInfo<EducationRouteArgs> {
+  EducationRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         EducationRoute.name,
+         args: EducationRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'EducationRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i10.EducationScreen();
+      final args = data.argsAs<EducationRouteArgs>();
+      return _i6.EducationScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
 }
 
-/// generated route for
-/// [_i11.FavoriteDetailScreen]
-class FavoriteDetailRoute extends _i32.PageRouteInfo<void> {
-  const FavoriteDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(FavoriteDetailRoute.name, initialChildren: children);
+class EducationRouteArgs {
+  const EducationRouteArgs({this.key, required this.userResumeId});
 
-  static const String name = 'FavoriteDetailRoute';
+  final _i25.Key? key;
 
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i11.FavoriteDetailScreen();
-    },
-  );
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'EducationRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! EducationRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for
-/// [_i12.FavoriteScreen]
-class FavoriteRoute extends _i32.PageRouteInfo<void> {
-  const FavoriteRoute({List<_i32.PageRouteInfo>? children})
-    : super(FavoriteRoute.name, initialChildren: children);
+/// [_i7.FavoriteScreen]
+class FavoriteRoute extends _i24.PageRouteInfo<FavoriteRouteArgs> {
+  FavoriteRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         FavoriteRoute.name,
+         args: FavoriteRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'FavoriteRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i12.FavoriteScreen();
+      final args = data.argsAs<FavoriteRouteArgs>();
+      return _i7.FavoriteScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class FavoriteRouteArgs {
+  const FavoriteRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'FavoriteRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! FavoriteRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i13.GoalScreen]
-class GoalRoute extends _i32.PageRouteInfo<void> {
-  const GoalRoute({List<_i32.PageRouteInfo>? children})
-    : super(GoalRoute.name, initialChildren: children);
+/// [_i8.GoalScreen]
+class GoalRoute extends _i24.PageRouteInfo<GoalRouteArgs> {
+  GoalRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         GoalRoute.name,
+         args: GoalRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'GoalRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i13.GoalScreen();
+      final args = data.argsAs<GoalRouteArgs>();
+      return _i8.GoalScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class GoalRouteArgs {
+  const GoalRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'GoalRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! GoalRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i14.HomeScreen]
-class HomeRoute extends _i32.PageRouteInfo<void> {
-  const HomeRoute({List<_i32.PageRouteInfo>? children})
+/// [_i9.HomeScreen]
+class HomeRoute extends _i24.PageRouteInfo<void> {
+  const HomeRoute({List<_i24.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i14.HomeScreen();
+      return const _i9.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i15.ListCvAndClScreen]
-class ListCvAndClRoute extends _i32.PageRouteInfo<void> {
-  const ListCvAndClRoute({List<_i32.PageRouteInfo>? children})
-    : super(ListCvAndClRoute.name, initialChildren: children);
+/// [_i10.LayoutResumeScreen]
+class LayoutResumeRoute extends _i24.PageRouteInfo<LayoutResumeRouteArgs> {
+  LayoutResumeRoute({
+    _i25.Key? key,
+    required _i26.UserResumeEntity userResumeEntity,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         LayoutResumeRoute.name,
+         args: LayoutResumeRouteArgs(
+           key: key,
+           userResumeEntity: userResumeEntity,
+         ),
+         initialChildren: children,
+       );
 
-  static const String name = 'ListCvAndClRoute';
+  static const String name = 'LayoutResumeRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i15.ListCvAndClScreen();
+      final args = data.argsAs<LayoutResumeRouteArgs>();
+      return _i10.LayoutResumeScreen(
+        key: args.key,
+        userResumeEntity: args.userResumeEntity,
+      );
     },
   );
 }
 
+class LayoutResumeRouteArgs {
+  const LayoutResumeRouteArgs({this.key, required this.userResumeEntity});
+
+  final _i25.Key? key;
+
+  final _i26.UserResumeEntity userResumeEntity;
+
+  @override
+  String toString() {
+    return 'LayoutResumeRouteArgs{key: $key, userResumeEntity: $userResumeEntity}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! LayoutResumeRouteArgs) return false;
+    return key == other.key && userResumeEntity == other.userResumeEntity;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeEntity.hashCode;
+}
+
 /// generated route for
-/// [_i16.ListInterviewScreen]
-class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
-  ListInterviewRoute({_i33.Key? key, List<_i32.PageRouteInfo>? children})
+/// [_i11.ListInterviewScreen]
+class ListInterviewRoute extends _i24.PageRouteInfo<ListInterviewRouteArgs> {
+  ListInterviewRoute({_i25.Key? key, List<_i24.PageRouteInfo>? children})
     : super(
         ListInterviewRoute.name,
         args: ListInterviewRouteArgs(key: key),
@@ -328,13 +499,13 @@ class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
 
   static const String name = 'ListInterviewRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ListInterviewRouteArgs>(
         orElse: () => const ListInterviewRouteArgs(),
       );
-      return _i16.ListInterviewScreen(key: args.key);
+      return _i11.ListInterviewScreen(key: args.key);
     },
   );
 }
@@ -342,7 +513,7 @@ class ListInterviewRoute extends _i32.PageRouteInfo<ListInterviewRouteArgs> {
 class ListInterviewRouteArgs {
   const ListInterviewRouteArgs({this.key});
 
-  final _i33.Key? key;
+  final _i25.Key? key;
 
   @override
   String toString() {
@@ -361,126 +532,202 @@ class ListInterviewRouteArgs {
 }
 
 /// generated route for
-/// [_i17.LoginScreen]
-class LoginRoute extends _i32.PageRouteInfo<void> {
-  const LoginRoute({List<_i32.PageRouteInfo>? children})
+/// [_i12.LoginScreen]
+class LoginRoute extends _i24.PageRouteInfo<void> {
+  const LoginRoute({List<_i24.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i17.LoginScreen();
+      return const _i12.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i18.OtherInformationScreen]
-class OtherInformationRoute extends _i32.PageRouteInfo<void> {
-  const OtherInformationRoute({List<_i32.PageRouteInfo>? children})
-    : super(OtherInformationRoute.name, initialChildren: children);
+/// [_i13.ManageUserResumeScreen]
+class ManageUserResumeRoute extends _i24.PageRouteInfo<void> {
+  const ManageUserResumeRoute({List<_i24.PageRouteInfo>? children})
+    : super(ManageUserResumeRoute.name, initialChildren: children);
+
+  static const String name = 'ManageUserResumeRoute';
+
+  static _i24.PageInfo page = _i24.PageInfo(
+    name,
+    builder: (data) {
+      return const _i13.ManageUserResumeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i14.OtherInformationScreen]
+class OtherInformationRoute
+    extends _i24.PageRouteInfo<OtherInformationRouteArgs> {
+  OtherInformationRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         OtherInformationRoute.name,
+         args: OtherInformationRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'OtherInformationRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i18.OtherInformationScreen();
+      final args = data.argsAs<OtherInformationRouteArgs>();
+      return _i14.OtherInformationScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
 }
 
+class OtherInformationRouteArgs {
+  const OtherInformationRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'OtherInformationRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OtherInformationRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i19.OverViewScreen]
-class OverViewRoute extends _i32.PageRouteInfo<void> {
-  const OverViewRoute({List<_i32.PageRouteInfo>? children})
+/// [_i15.OverViewScreen]
+class OverViewRoute extends _i24.PageRouteInfo<void> {
+  const OverViewRoute({List<_i24.PageRouteInfo>? children})
     : super(OverViewRoute.name, initialChildren: children);
 
   static const String name = 'OverViewRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i19.OverViewScreen();
+      return const _i15.OverViewScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i20.PreviewResumeScreen]
-class PreviewResumeRoute extends _i32.PageRouteInfo<PreviewResumeRouteArgs> {
+/// [_i16.PreviewResumeScreen]
+class PreviewResumeRoute extends _i24.PageRouteInfo<PreviewResumeRouteArgs> {
   PreviewResumeRoute({
-    _i33.Key? key,
-    required _i34.ResumeEntity resumeEntity,
-    List<_i32.PageRouteInfo>? children,
+    _i25.Key? key,
+    int? resumeId,
+    int? userResumeId,
+    required bool isCreateNew,
+    List<_i24.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
-         args: PreviewResumeRouteArgs(key: key, resumeEntity: resumeEntity),
+         args: PreviewResumeRouteArgs(
+           key: key,
+           resumeId: resumeId,
+           userResumeId: userResumeId,
+           isCreateNew: isCreateNew,
+         ),
          initialChildren: children,
        );
 
   static const String name = 'PreviewResumeRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PreviewResumeRouteArgs>();
-      return _i20.PreviewResumeScreen(
+      return _i16.PreviewResumeScreen(
         key: args.key,
-        resumeEntity: args.resumeEntity,
+        resumeId: args.resumeId,
+        userResumeId: args.userResumeId,
+        isCreateNew: args.isCreateNew,
       );
     },
   );
 }
 
 class PreviewResumeRouteArgs {
-  const PreviewResumeRouteArgs({this.key, required this.resumeEntity});
+  const PreviewResumeRouteArgs({
+    this.key,
+    this.resumeId,
+    this.userResumeId,
+    required this.isCreateNew,
+  });
 
-  final _i33.Key? key;
+  final _i25.Key? key;
 
-  final _i34.ResumeEntity resumeEntity;
+  final int? resumeId;
+
+  final int? userResumeId;
+
+  final bool isCreateNew;
 
   @override
   String toString() {
-    return 'PreviewResumeRouteArgs{key: $key, resumeEntity: $resumeEntity}';
+    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, isCreateNew: $isCreateNew}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! PreviewResumeRouteArgs) return false;
-    return key == other.key && resumeEntity == other.resumeEntity;
+    return key == other.key &&
+        resumeId == other.resumeId &&
+        userResumeId == other.userResumeId &&
+        isCreateNew == other.isCreateNew;
   }
 
   @override
-  int get hashCode => key.hashCode ^ resumeEntity.hashCode;
+  int get hashCode =>
+      key.hashCode ^
+      resumeId.hashCode ^
+      userResumeId.hashCode ^
+      isCreateNew.hashCode;
 }
 
 /// generated route for
-/// [_i21.ProfileScreen]
-class ProfileRoute extends _i32.PageRouteInfo<void> {
-  const ProfileRoute({List<_i32.PageRouteInfo>? children})
+/// [_i17.ProfileScreen]
+class ProfileRoute extends _i24.PageRouteInfo<void> {
+  const ProfileRoute({List<_i24.PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
 
   static const String name = 'ProfileRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i21.ProfileScreen();
+      return const _i17.ProfileScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i22.ProfileUpdateScreen]
-class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
+/// [_i18.ProfileUpdateScreen]
+class ProfileUpdateRoute extends _i24.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
-    _i33.Key? key,
-    required _i35.UserEntity userEntity,
-    List<_i32.PageRouteInfo>? children,
+    _i25.Key? key,
+    required _i27.UserEntity userEntity,
+    List<_i24.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
          args: ProfileUpdateRouteArgs(key: key, userEntity: userEntity),
@@ -489,11 +736,11 @@ class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
 
   static const String name = 'ProfileUpdateRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ProfileUpdateRouteArgs>();
-      return _i22.ProfileUpdateScreen(
+      return _i18.ProfileUpdateScreen(
         key: args.key,
         userEntity: args.userEntity,
       );
@@ -504,9 +751,9 @@ class ProfileUpdateRoute extends _i32.PageRouteInfo<ProfileUpdateRouteArgs> {
 class ProfileUpdateRouteArgs {
   const ProfileUpdateRouteArgs({this.key, required this.userEntity});
 
-  final _i33.Key? key;
+  final _i25.Key? key;
 
-  final _i35.UserEntity userEntity;
+  final _i27.UserEntity userEntity;
 
   @override
   String toString() {
@@ -525,145 +772,177 @@ class ProfileUpdateRouteArgs {
 }
 
 /// generated route for
-/// [_i23.ProjectDetailScreen]
-class ProjectDetailRoute extends _i32.PageRouteInfo<void> {
-  const ProjectDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(ProjectDetailRoute.name, initialChildren: children);
-
-  static const String name = 'ProjectDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i23.ProjectDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i24.ProjectScreen]
-class ProjectRoute extends _i32.PageRouteInfo<void> {
-  const ProjectRoute({List<_i32.PageRouteInfo>? children})
-    : super(ProjectRoute.name, initialChildren: children);
+/// [_i19.ProjectScreen]
+class ProjectRoute extends _i24.PageRouteInfo<ProjectRouteArgs> {
+  ProjectRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         ProjectRoute.name,
+         args: ProjectRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'ProjectRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i24.ProjectScreen();
+      final args = data.argsAs<ProjectRouteArgs>();
+      return _i19.ProjectScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class ProjectRouteArgs {
+  const ProjectRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'ProjectRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ProjectRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i25.RegisterScreen]
-class RegisterRoute extends _i32.PageRouteInfo<void> {
-  const RegisterRoute({List<_i32.PageRouteInfo>? children})
+/// [_i20.RegisterScreen]
+class RegisterRoute extends _i24.PageRouteInfo<void> {
+  const RegisterRoute({List<_i24.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i25.RegisterScreen();
+      return const _i20.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i26.SkillDetailScreen]
-class SkillDetailRoute extends _i32.PageRouteInfo<void> {
-  const SkillDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(SkillDetailRoute.name, initialChildren: children);
-
-  static const String name = 'SkillDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i26.SkillDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i27.SkillScreen]
-class SkillRoute extends _i32.PageRouteInfo<void> {
-  const SkillRoute({List<_i32.PageRouteInfo>? children})
-    : super(SkillRoute.name, initialChildren: children);
+/// [_i21.SkillScreen]
+class SkillRoute extends _i24.PageRouteInfo<SkillRouteArgs> {
+  SkillRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         SkillRoute.name,
+         args: SkillRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'SkillRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i27.SkillScreen();
+      final args = data.argsAs<SkillRouteArgs>();
+      return _i21.SkillScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
 }
 
+class SkillRouteArgs {
+  const SkillRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'SkillRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SkillRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
+}
+
 /// generated route for
-/// [_i28.SplashScreen]
-class SplashRoute extends _i32.PageRouteInfo<void> {
-  const SplashRoute({List<_i32.PageRouteInfo>? children})
+/// [_i22.SplashScreen]
+class SplashRoute extends _i24.PageRouteInfo<void> {
+  const SplashRoute({List<_i24.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i28.SplashScreen();
+      return const _i22.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i29.StructureResumeScreen]
-class StructureResumeRoute extends _i32.PageRouteInfo<void> {
-  const StructureResumeRoute({List<_i32.PageRouteInfo>? children})
-    : super(StructureResumeRoute.name, initialChildren: children);
-
-  static const String name = 'StructureResumeRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i29.StructureResumeScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i30.WorkExperienceDetailScreen]
-class WorkExperienceDetailRoute extends _i32.PageRouteInfo<void> {
-  const WorkExperienceDetailRoute({List<_i32.PageRouteInfo>? children})
-    : super(WorkExperienceDetailRoute.name, initialChildren: children);
-
-  static const String name = 'WorkExperienceDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i30.WorkExperienceDetailScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i31.WorkExperienceScreen]
-class WorkExperienceRoute extends _i32.PageRouteInfo<void> {
-  const WorkExperienceRoute({List<_i32.PageRouteInfo>? children})
-    : super(WorkExperienceRoute.name, initialChildren: children);
+/// [_i23.WorkExperienceScreen]
+class WorkExperienceRoute extends _i24.PageRouteInfo<WorkExperienceRouteArgs> {
+  WorkExperienceRoute({
+    _i25.Key? key,
+    required int userResumeId,
+    List<_i24.PageRouteInfo>? children,
+  }) : super(
+         WorkExperienceRoute.name,
+         args: WorkExperienceRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'WorkExperienceRoute';
 
-  static _i32.PageInfo page = _i32.PageInfo(
+  static _i24.PageInfo page = _i24.PageInfo(
     name,
     builder: (data) {
-      return const _i31.WorkExperienceScreen();
+      final args = data.argsAs<WorkExperienceRouteArgs>();
+      return _i23.WorkExperienceScreen(
+        key: args.key,
+        userResumeId: args.userResumeId,
+      );
     },
   );
+}
+
+class WorkExperienceRouteArgs {
+  const WorkExperienceRouteArgs({this.key, required this.userResumeId});
+
+  final _i25.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'WorkExperienceRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! WorkExperienceRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }

@@ -203,10 +203,13 @@ class ViLanguage extends BaseLanguage {
   String get changeTemplate => 'Thay đổi mẫu';
 
   @override
-  String get editTheme => 'Sửa giao diện';
+  String get theme => 'Giao diện';
 
   @override
-  String get editContent => 'Sửa nội dung';
+  String get content => 'Nội dung';
+
+  @override
+  String get layout => 'Bố cục';
 
   @override
   String get activity => 'Hoạt động';
@@ -305,7 +308,7 @@ class ViLanguage extends BaseLanguage {
   String get nameCertificate => 'Tên chứng chỉ';
 
   @override
-  String get link => 'Liên kết';
+  String get link => 'Link';
 
   @override
   String get time => 'Thời gian';
@@ -327,4 +330,43 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get information => 'Thông tin';
+
+  @override
+  String get createNew => 'Tạo mới';
+
+  @override
+  String get saved => 'Đã lưu';
+
+  @override
+  String get create => 'Tạo';
+
+  @override
+  String get dragAndDropSectionHere => 'Kéo và thả mục vào đây';
+
+  @override
+  String get unUsedSections => 'Các mục chưa sử dụng';
+
+  @override
+  String get chooseLanguage => 'Chọn ngôn ngữ';
+
+  @override
+  String get chooseFont => 'Chọn phông chữ';
+
+  @override
+  String get chooseFontSize => 'Chọn cỡ chữ';
+
+  @override
+  String get chooseLineHeight => 'Chọn khoảng cách dòng';
+
+  @override
+  String get chooseColor => 'Chọn màu';
+
+  @override
+  String get chooseSection => 'Chọn mục';
+
+  @override
+  String get other => 'Khác';
+
+  @override
+  String get saveInformationSuccess => 'Lưu thông tin thành công';
 }

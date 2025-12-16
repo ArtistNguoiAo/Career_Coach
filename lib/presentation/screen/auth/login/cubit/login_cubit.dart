@@ -6,7 +6,6 @@ import 'package:career_coach/domain/use_case/google_login_use_case.dart';
 import 'package:career_coach/domain/use_case/github_login_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 

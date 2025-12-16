@@ -22,9 +22,9 @@ class ApiResponse<T> {
 class Result {
   final String errorCode;
   final String message;
-  final bool isOk;
+  final bool ok;
 
-  Result({required this.errorCode, required this.message, required this.isOk});
+  Result({required this.errorCode, required this.message, required this.ok});
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 

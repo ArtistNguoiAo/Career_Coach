@@ -1,13 +1,13 @@
 class ApiException implements Exception {
   final String errorCode;
   final String message;
-  final bool isOk;
+  final bool ok;
   bool? isUnauthorized;
 
   ApiException({
     required this.errorCode,
     required this.message,
-    required this.isOk,
+    required this.ok,
     this.isUnauthorized,
   });
 

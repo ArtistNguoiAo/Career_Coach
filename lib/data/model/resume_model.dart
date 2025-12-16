@@ -13,6 +13,7 @@ abstract class ResumeModel with _$ResumeModel {
     @Default('') String type,
     @Default(0) int viewCount,
     @Default(0) int downloadCount,
+    @Default([]) List<String> sections,
   }) = _ResumeModel;
 
   factory ResumeModel.fromJson(Map<String, dynamic> json) => _$ResumeModelFromJson(json);
