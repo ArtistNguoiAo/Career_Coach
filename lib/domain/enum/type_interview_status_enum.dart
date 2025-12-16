@@ -5,6 +5,8 @@ enum TypeInterviewStatusEnum {
 }
 
 extension TypeInterviewStatusEnumExtension on TypeInterviewStatusEnum {
+
+
   static TypeInterviewStatusEnum fromString(String value) {
     switch (value) {
       case 'ACTIVE':

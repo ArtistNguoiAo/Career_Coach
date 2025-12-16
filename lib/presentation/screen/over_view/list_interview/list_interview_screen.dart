@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
-import 'package:career_coach/presentation/core/widgets/base_search_bar.dart';
 import 'package:career_coach/presentation/screen/over_view/list_interview/cubit/list_interview_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iconly/iconly.dart';
 
 @RoutePage()
 class ListInterviewScreen extends StatelessWidget {
@@ -14,105 +14,190 @@ class ListInterviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => ListInterviewCubit()..init(), child: ListInterviewScreenUI());
+    return BlocProvider(create: (context) => ListInterviewCubit()..init(), child: const ListInterviewScreenUI());
   }
 }
 
-class ListInterviewScreenUI extends StatelessWidget {
-  ListInterviewScreenUI({super.key});
+class ListInterviewScreenUI extends StatefulWidget {
+  const ListInterviewScreenUI({super.key});
 
-  final TextEditingController _searchController = TextEditingController();
+  @override
+  State<ListInterviewScreenUI> createState() => _ListInterviewScreenUIState();
+}
+
+class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final ScrollController _activeScrollController = ScrollController();
+  final ScrollController _historyScrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _activeScrollController.addListener(_onActiveScroll);
+    _historyScrollController.addListener(_onHistoryScroll);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _activeScrollController.dispose();
+    _historyScrollController.dispose();
+    super.dispose();
+  }
+
+  void _onActiveScroll() {
+    if (_activeScrollController.position.pixels >= _activeScrollController.position.maxScrollExtent * 0.9) {
+      context.read<ListInterviewCubit>().loadMoreActiveInterviews();
+    }
+  }
+
+  void _onHistoryScroll() {
+    if (_historyScrollController.position.pixels >= _historyScrollController.position.maxScrollExtent * 0.9) {
+      context.read<ListInterviewCubit>().loadMoreHistoryInterviews();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, left: 16, right: 16, bottom: 16),
         color: context.theme.backgroundColor,
         child: Column(
           children: [
-            _searchBar(context),
-            Expanded(child: _listInterview()),
+            TabBar(
+              controller: _tabController,
+              dividerColor: Colors.transparent,
+              indicatorColor: context.theme.primaryColor,
+              labelColor: context.theme.primaryColor,
+              unselectedLabelColor: context.theme.borderColor,
+              tabs: const [
+                Tab(text: 'Đang diễn ra'),
+                Tab(text: 'Lịch sử'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildInterviewList(true, _activeScrollController),
+                  _buildInterviewList(false, _historyScrollController),
+                ],
+              ),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
-        },
+        onPressed: () {},
         backgroundColor: context.theme.primaryColor,
-        child: Icon(FontAwesomeIcons.twitch, color: context.theme.backgroundColor),
+        child: Icon(FontAwesomeIcons.plus, color: context.theme.backgroundColor),
       ),
     );
   }
 
-  Widget _searchBar(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: 8),
-        Expanded(child: BaseSearchBar(controller: _searchController)),
-        PopupMenuButton(
-          icon: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(100)),
-            child: Icon(IconlyLight.filter, color: context.theme.backgroundColor),
-          ),
-          itemBuilder: (BuildContext context) {
-            return [PopupMenuItem(value: 1, child: Text("Gần đây")), PopupMenuItem(value: 2, child: Text("Cũ hơn"))];
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _listInterview() {
-    return BlocConsumer<ListInterviewCubit, ListInterviewState>(
-      listener: (context, state) {
-
-      },
+  Widget _buildInterviewList(bool isActive, ScrollController scrollController) {
+    return BlocBuilder<ListInterviewCubit, ListInterviewState>(
       builder: (context, state) {
-        return ListView.separated(
-          padding: EdgeInsets.all(8),
-          itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("11:30 01/01/2024", style: TextStyleUtils.normal(color: context.theme.textColor)),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: index % 3 == 0
-                        ? context.theme.goodColor.withAlpha((255 * 0.1).round())
-                        : index % 3 == 1
-                        ? context.theme.mediumColor.withAlpha((255 * 0.1).round())
-                        : context.theme.badColor.withAlpha((255 * 0.1).round()),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    index % 3 == 0
-                        ? context.language.good
-                        : index % 3 == 1
-                        ? context.language.medium
-                        : context.language.bad,
-                    style: TextStyleUtils.bold(
-                      fontSize: 12,
-                      color: index % 3 == 0
-                          ? context.theme.goodColor
-                          : index % 3 == 1
-                          ? context.theme.mediumColor
-                          : context.theme.badColor,
-                    ),
-                  ),
-                ),
-              ],
-            );
+        final interviews = isActive ? state.listInterviewActive : state.listInterviewHistory;
+
+        return RefreshIndicator(
+          onRefresh: () async {
+            await context.read<ListInterviewCubit>().init();
           },
-          separatorBuilder: (context, index) =>
-              Container(height: 1, margin: EdgeInsets.symmetric(vertical: 8), color: context.theme.borderColor),
-          itemCount: 15,
+          child: ListView.separated(
+            controller: scrollController,
+            padding: EdgeInsets.zero,
+            itemCount: interviews.length,
+            separatorBuilder: (context, index) => Container(height: 8),
+            itemBuilder: (context, index) {
+              final interview = interviews[index];
+              return Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: context.theme.lightGreyColor.withAlpha((255 * 0.5).round()),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          StringUtils.convertTypeCvExperienceLevelEnum(interview.experienceLevel),
+                          style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 16),
+                        ),
+                        Text(
+                          StringUtils.convertDateString(interview.createdAt),
+                          style: TextStyleUtils.normal(color: context.theme.darkGreyColor, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: interview.status == TypeInterviewStatusEnum.ACTIVE
+                                ? context.theme.goodColor.withAlpha((255 * 0.1).round())
+                                : interview.status == TypeInterviewStatusEnum.COMPLETED
+                                ? context.theme.mediumColor.withAlpha((255 * 0.1).round())
+                                : context.theme.badColor.withAlpha((255 * 0.1).round()),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeInterviewStatusEnum(interview.status),
+                            style: TextStyleUtils.bold(
+                              fontSize: 12,
+                              color: interview.status == TypeInterviewStatusEnum.ACTIVE
+                                  ? context.theme.goodColor
+                                  : interview.status == TypeInterviewStatusEnum.COMPLETED
+                                  ? context.theme.mediumColor
+                                  : context.theme.badColor,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent.withAlpha((255 * 0.1).round()),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeLanguageEnum(interview.language),
+                            style: TextStyleUtils.bold(
+                              fontSize: 12,
+                              color: Colors.blueAccent,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.teal.withAlpha((255 * 0.1).round()),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeCvSourceEnum(interview.cvSource),
+                            style: TextStyleUtils.bold(
+                              fontSize: 12,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         );
       },
     );

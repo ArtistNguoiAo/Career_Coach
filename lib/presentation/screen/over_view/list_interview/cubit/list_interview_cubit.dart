@@ -13,18 +13,73 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
   final getListInterviewHistoryUseCase = getIt<GetListInterviewHistoryUseCase>();
 
   Future<void> init() async {
-    final activeInterviews = await getListInterviewActiveUseCase.call(
-      page: 0,
-      size: 100,
-    );
-    final historyInterviews = await getListInterviewHistoryUseCase.call(
-      page: 0,
-      size: 100,
-    );
+    emit(state.copyWith(isLoading: true));
 
-    emit(state.copyWith(
-      listInterviewActive: activeInterviews,
-      listInterviewHistory: historyInterviews,
-    ));
+    try {
+      final activeInterviews = await getListInterviewActiveUseCase.call(page: 0, size: state.pageSize);
+
+      final historyInterviews = await getListInterviewHistoryUseCase.call(page: 0, size: state.pageSize);
+
+      emit(
+        state.copyWith(
+          listInterviewActive: activeInterviews,
+          listInterviewHistory: historyInterviews,
+          currentPageActive: 0,
+          currentPageHistory: 0,
+          hasReachedMaxActive: activeInterviews.length < state.pageSize,
+          hasReachedMaxHistory: historyInterviews.length < state.pageSize,
+          isLoading: false,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoading: false));
+      rethrow;
+    }
+  }
+
+  Future<void> loadMoreActiveInterviews() async {
+    if (state.isLoadingMore || state.hasReachedMaxActive) return;
+
+    emit(state.copyWith(isLoadingMore: true));
+
+    try {
+      final nextPage = state.currentPageActive + 1;
+      final newInterviews = await getListInterviewActiveUseCase.call(page: nextPage, size: state.pageSize);
+
+      emit(
+        state.copyWith(
+          listInterviewActive: [...state.listInterviewActive, ...newInterviews],
+          currentPageActive: nextPage,
+          hasReachedMaxActive: newInterviews.length < state.pageSize,
+          isLoadingMore: false,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoadingMore: false));
+      rethrow;
+    }
+  }
+
+  Future<void> loadMoreHistoryInterviews() async {
+    if (state.isLoadingMore || state.hasReachedMaxHistory) return;
+
+    emit(state.copyWith(isLoadingMore: true));
+
+    try {
+      final nextPage = state.currentPageHistory + 1;
+      final newInterviews = await getListInterviewHistoryUseCase.call(page: nextPage, size: state.pageSize);
+
+      emit(
+        state.copyWith(
+          listInterviewHistory: [...state.listInterviewHistory, ...newInterviews],
+          currentPageHistory: nextPage,
+          hasReachedMaxHistory: newInterviews.length < state.pageSize,
+          isLoadingMore: false,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoadingMore: false));
+      rethrow;
+    }
   }
 }

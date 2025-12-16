@@ -121,7 +121,7 @@ class _EndDrawerPreviewResumeState extends State<EndDrawerPreviewResume> with Si
                     ),
                   ),
                   child: Text(
-                    StringUtils.convertTypeLanguageEnum(context, lang),
+                    StringUtils.convertTypeLanguageEnum(lang),
                     style: TextStyleUtils.normal(
                       fontSize: 14,
                       color: isSelected ? context.theme.primaryColor : context.theme.textColor,

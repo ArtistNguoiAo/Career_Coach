@@ -1,5 +1,8 @@
+import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
+import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
 import 'package:career_coach/domain/enum/type_font_family_enum.dart';
 import 'package:career_coach/domain/enum/type_gender_enum.dart';
+import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
@@ -62,7 +65,7 @@ class StringUtils {
       }
   }
 
-  static String convertTypeLanguageEnum(BuildContext context, TypeLanguageEnum type) {
+  static String convertTypeLanguageEnum(TypeLanguageEnum type) {
     switch (type) {
       case TypeLanguageEnum.VIETNAMESE:
         return "Tiếng Việt";
@@ -83,6 +86,43 @@ class StringUtils {
         return "Roboto";
       case TypeFontFamilyEnum.OPEN_SANS:
         return "Open Sans";
+    }
+  }
+
+  static String convertTypeCvExperienceLevelEnum(TypeCvExperienceLevelEnum type) {
+    switch (type) {
+      case TypeCvExperienceLevelEnum.INTERN:
+        return "Intern";
+      case TypeCvExperienceLevelEnum.FRESHER:
+        return "Fresher";
+      case TypeCvExperienceLevelEnum.JUNIOR:
+        return "Junior";
+      case TypeCvExperienceLevelEnum.MIDDLE:
+        return "Middle";
+      case TypeCvExperienceLevelEnum.SENIOR:
+        return "Senior";
+      case TypeCvExperienceLevelEnum.LEAD:
+        return "Lead";
+    }
+  }
+
+  static String convertTypeCvSourceEnum(TypeCvSourceEnum type) {
+    switch (type) {
+      case TypeCvSourceEnum.USER_RESUME:
+        return "User Resume";
+      case TypeCvSourceEnum.PDF_UPLOAD:
+        return "PDF Upload";
+    }
+  }
+
+  static String convertTypeInterviewStatusEnum(TypeInterviewStatusEnum type) {
+    switch (type) {
+      case TypeInterviewStatusEnum.ACTIVE:
+        return "Active";
+      case TypeInterviewStatusEnum.COMPLETED:
+        return "Completed";
+      case TypeInterviewStatusEnum.CANCELLED:
+        return "Cancelled";
     }
   }
 }
