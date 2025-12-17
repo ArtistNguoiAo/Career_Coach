@@ -575,7 +575,7 @@ class DialogUtils {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      StringUtils.convertDateString(listUserResumeRecent[index].createdAt),
+                                      StringUtils.convertDateTimeString(listUserResumeRecent[index].createdAt),
                                       style: TextStyleUtils.normal(
                                         fontSize: 14,
                                         color: context.theme.textColor,

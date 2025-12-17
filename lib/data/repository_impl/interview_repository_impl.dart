@@ -1,6 +1,8 @@
 import 'package:career_coach/data/mapper/interview_mapper.dart';
+import 'package:career_coach/data/mapper/message_mapper.dart';
 import 'package:career_coach/data/remote/interview_remote.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
+import 'package:career_coach/domain/entity/message_entity.dart';
 import 'package:career_coach/domain/repository/interview_repository.dart';
 
 class InterviewRepositoryImpl implements InterviewRepository {
@@ -25,4 +27,13 @@ class InterviewRepositoryImpl implements InterviewRepository {
     return response.data.content.map(InterviewMapper.toEntity).toList();
   }
 
+  @override
+  Future<List<MessageEntity>> getListMessageInterview({required int sessionId, required int page, required int size}) async {
+    final response = await _interviewRemote.getListMessageInterview(
+      sessionId: sessionId,
+      page: page,
+      size: size,
+    );
+    return response.data.content.map(MessageMapper.toEntity).toList();
+  }
 }

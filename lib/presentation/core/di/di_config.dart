@@ -61,6 +61,7 @@ import 'package:career_coach/domain/use_case/get_favorites_use_case.dart';
 import 'package:career_coach/domain/use_case/get_goal_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_active_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_history_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_message_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
@@ -175,6 +176,7 @@ class DiConfig {
     getIt.registerLazySingleton<SaveOtherInformationUseCase>(() => SaveOtherInformationUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListInterviewActiveUseCase>(() => GetListInterviewActiveUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListInterviewHistoryUseCase>(() => GetListInterviewHistoryUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListMessageInterviewUseCase>(() => GetListMessageInterviewUseCase(getIt.get()));
 
     await getIt.allReady();
   }

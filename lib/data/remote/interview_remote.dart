@@ -1,6 +1,7 @@
 import 'package:career_coach/data/data_source/api_response.dart';
 import 'package:career_coach/data/data_source/api_service.dart';
 import 'package:career_coach/data/model/interview_model.dart';
+import 'package:career_coach/data/model/message_model.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -22,4 +23,10 @@ abstract class InterviewRemote {
     @Query('size') required int size,
   });
 
+  @GET('/{sessionId}/messages')
+  Future<ApiResponse<PagedData<MessageModel>>> getListMessageInterview({
+    @Path('sessionId') required int sessionId,
+    @Query('page') required int page,
+    @Query('size') required int size,
+  });
 }

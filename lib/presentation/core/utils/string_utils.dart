@@ -20,9 +20,14 @@ class StringUtils {
     return '$first$last';
   }
 
-  static String convertDateString(String input) {
+  static String convertDateTimeString(String input) {
     DateTime date = DateTime.parse(input);
     return DateFormat('HH:mm:ss yyyy-MM-dd').format(date);
+  }
+
+  static String convertHourMinuteString(String input) {
+    DateTime date = DateTime.parse(input);
+    return DateFormat('HH:mm').format(date);
   }
 
   static String convertTypeGenderEnum(BuildContext context, TypeGenderEnum type) {
