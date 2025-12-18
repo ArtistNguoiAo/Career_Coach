@@ -151,15 +151,28 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: context.theme.primaryDarkColor, width: 1),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(MediaUtils.imgChatbot),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
                   ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                       decoration: BoxDecoration(
-                        color: context.theme.backgroundColor.withAlpha((255 * 0.8).round()),
+                        color: context.theme.primaryDarkColor.withAlpha((255 * 0.1).round()),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: LoadingAnimationWidget.staggeredDotsWave(color: context.theme.primaryColor, size: 32),
+                      child: LoadingAnimationWidget.staggeredDotsWave(color: context.theme.primaryDarkColor, size: 32),
                     ),
                   ),
                 ],
@@ -250,10 +263,13 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
       builder: (context) {
         return BaseTextField(
           controller: _contentController,
-          style: TextStyleUtils.normal(color: context.theme.backgroundColor),
-          hintStyle: TextStyleUtils.normal(color: context.theme.backgroundColor.withAlpha((255 * 0.6).round())),
+          style: TextStyleUtils.normal(color: context.theme.textColor),
+          hintStyle: TextStyleUtils.normal(color: context.theme.textColor.withAlpha((255 * 0.6).round())),
           hintText: "Type a message...",
           onFieldSubmitted: (value) {
+            if (value.trim().isEmpty) return;
+            context.read<MessageCubit>().sendMessage(value.trim());
+            _contentController.clear();
             _scrollToBottom();
           },
         );

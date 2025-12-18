@@ -21,12 +21,12 @@ class StringUtils {
   }
 
   static String convertDateTimeString(String input) {
-    DateTime date = DateTime.parse(input);
+    DateTime date = DateTime.parse(input).toLocal();
     return DateFormat('HH:mm:ss yyyy-MM-dd').format(date);
   }
 
   static String convertHourMinuteString(String input) {
-    DateTime date = DateTime.parse(input);
+    DateTime date = DateTime.parse(input).toLocal();
     return DateFormat('HH:mm').format(date);
   }
 
