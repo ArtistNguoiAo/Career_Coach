@@ -2,11 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
-import 'package:career_coach/presentation/core/widgets/base_content.dart';
+import 'package:career_coach/presentation/core/widgets/base_content_quill.dart';
 import 'package:career_coach/presentation/screen/section_resume/goal/cubit/goal_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_delta_from_html/flutter_quill_delta_from_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 @RoutePage()
 class GoalScreen extends StatefulWidget {
@@ -19,7 +22,12 @@ class GoalScreen extends StatefulWidget {
 }
 
 class _GoalScreenState extends State<GoalScreen> {
-  final TextEditingController _goalController = TextEditingController();
+  final QuillController _goalController = QuillController(
+    document: Document(),
+    selection: const TextSelection.collapsed(offset: 0),
+  );
+  final FocusNode _goalFocusNode = FocusNode();
+  final ScrollController _goalScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,30 +84,33 @@ class _GoalScreenState extends State<GoalScreen> {
           state.error = '';
         }
 
-        _goalController.text = state.goalEntity?.content ?? '';
+        _goalController.document = Document.fromDelta(HtmlToDelta().convert(state.goalEntity!.content));
+        _goalFocusNode.unfocus();
       },
       builder: (context, state) {
         return Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BaseContent(
-                      controller: _goalController,
-                      isRequired: true,
-                      title: context.language.careerGoal,
-                      maxLines: 5,
-                    ),
-                  ],
-                ),
+              child: BaseContentQuill(
+                controller: _goalController,
+                focusNode: _goalFocusNode,
+                scrollController: _goalScrollController,
+                isRequired: true,
+                title: context.language.careerGoal,
               ),
             ),
             SizedBox(height: 16.0),
             InkWell(
               onTap: () {
-                state.goalEntity?.content = _goalController.text;
+                _goalFocusNode.unfocus();
+                FocusManager.instance.primaryFocus?.unfocus();
+
+                final content = QuillDeltaToHtmlConverter(
+                  _goalController.document.toDelta().toJson(),
+                  ConverterOptions(),
+                ).convert();
+
+                state.goalEntity?.content = content;
                 context.read<GoalCubit>().save();
               },
               child: Container(

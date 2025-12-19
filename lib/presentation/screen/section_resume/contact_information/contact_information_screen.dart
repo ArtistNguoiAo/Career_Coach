@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:career_coach/domain/enum/type_gender_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_content.dart';
 import 'package:career_coach/presentation/core/widgets/base_content_date.dart';
-import 'package:career_coach/presentation/core/widgets/base_radio_gender.dart';
 import 'package:career_coach/presentation/screen/section_resume/contact_information/cubit/contact_information_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +26,6 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _genderController = TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
   final TextEditingController _portfolioController = TextEditingController();
   final TextEditingController _facebookController = TextEditingController();
@@ -98,7 +95,6 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
         _emailController.text = state.contactInformationEntity?.email ?? '';
         _phoneController.text = state.contactInformationEntity?.phoneNumber ?? '';
         _addressController.text = state.contactInformationEntity?.address ?? '';
-        _genderController.text = state.contactInformationEntity?.gender.name ?? '';
         _dateOfBirthController.text = state.contactInformationEntity?.dateOfBirth ?? '';
         _portfolioController.text = state.contactInformationEntity?.portfolio ?? '';
         _facebookController.text = state.contactInformationEntity?.facebook ?? '';
@@ -135,11 +131,6 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                       title: context.language.address,
                     ),
                     SizedBox(height: 8.0),
-                    BaseRadioGender(
-                      controller: _genderController,
-                      isRequired: false,
-                      title: context.language.gender,
-                    ),
                     BaseContentDate(
                       controller: _dateOfBirthController,
                       isRequired: false,
@@ -208,7 +199,6 @@ class _ContactInformationScreenState extends State<ContactInformationScreen> {
                 state.contactInformationEntity?.email = _emailController.text;
                 state.contactInformationEntity?.phoneNumber = _phoneController.text;
                 state.contactInformationEntity?.address = _addressController.text;
-                state.contactInformationEntity?.gender = TypeGenderEnumExtension.fromString(_genderController.text);
                 state.contactInformationEntity?.dateOfBirth = _dateOfBirthController.text;
                 state.contactInformationEntity?.portfolio = _portfolioController.text;
                 state.contactInformationEntity?.facebook = _facebookController.text;

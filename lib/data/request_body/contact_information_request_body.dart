@@ -6,7 +6,6 @@ class ContactInformationRequestBody {
   final String email;
   final String phoneNumber;
   final String address;
-  final String gender;
   final String dateOfBirth;
   final String portfolio;
   final String github;
@@ -21,7 +20,6 @@ class ContactInformationRequestBody {
     required this.email,
     required this.phoneNumber,
     required this.address,
-    required this.gender,
     required this.dateOfBirth,
     required this.portfolio,
     required this.github,
@@ -38,7 +36,6 @@ class ContactInformationRequestBody {
       'email': email,
       'phoneNumber': phoneNumber,
       'address': address,
-      'gender': gender,
       'dateOfBirth': dateOfBirth,
       'portfolio': portfolio,
       'github': github,

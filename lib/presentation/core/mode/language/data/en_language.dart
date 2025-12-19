@@ -369,4 +369,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get saveInformationSuccess => 'Information saved successfully';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
 }

@@ -1,7 +1,6 @@
 import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
 import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
 import 'package:career_coach/domain/enum/type_font_family_enum.dart';
-import 'package:career_coach/domain/enum/type_gender_enum.dart';
 import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
@@ -28,17 +27,6 @@ class StringUtils {
   static String convertHourMinuteString(String input) {
     DateTime date = DateTime.parse(input).toLocal();
     return DateFormat('HH:mm').format(date);
-  }
-
-  static String convertTypeGenderEnum(BuildContext context, TypeGenderEnum type) {
-    switch (type) {
-      case TypeGenderEnum.MALE:
-        return context.language.male;
-      case TypeGenderEnum.FEMALE:
-        return context.language.female;
-      case TypeGenderEnum.OTHER:
-        return context.language.other;
-    }
   }
 
   static String convertTypeResumeSectionEnum(BuildContext context, TypeResumeSectionEnum type) {

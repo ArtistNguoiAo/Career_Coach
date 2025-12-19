@@ -369,4 +369,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get saveInformationSuccess => 'Lưu thông tin thành công';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Thư viện';
 }

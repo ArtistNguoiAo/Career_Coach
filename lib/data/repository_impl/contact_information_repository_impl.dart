@@ -26,7 +26,6 @@ class ContactInformationRepositoryImpl implements ContactInformationRepository {
         email: contactInformationEntity.email,
         phoneNumber: contactInformationEntity.phoneNumber,
         address: contactInformationEntity.address,
-        gender: contactInformationEntity.gender.name,
         dateOfBirth: contactInformationEntity.dateOfBirth,
         portfolio: contactInformationEntity.portfolio,
         github: contactInformationEntity.github,

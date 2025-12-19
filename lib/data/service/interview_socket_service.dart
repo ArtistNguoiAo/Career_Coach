@@ -28,13 +28,6 @@ class InterviewSocketService {
               }
             },
           );
-
-          _client!.subscribe(
-            destination: '/topic/interview/$sessionId/typing',
-            callback: (frame) {
-              if (frame.body != null) {}
-            },
-          );
         },
         onWebSocketError: (error) {},
         onStompError: (frame) {},
@@ -47,12 +40,14 @@ class InterviewSocketService {
   void sendMessage({required int sessionId, required String content, String? sender}) async {
     if (!isConnected) return;
 
-    final body = {'type': 'CHAT', 'content': content, 'sender': sender, 'timestamp': DateTime.now().toUtc().toIso8601String()};
+    final body = {
+      'type': 'CHAT',
+      'content': content,
+      'sender': sender,
+      'timestamp': DateTime.now().toUtc().toIso8601String(),
+    };
 
-    _client!.send(
-      destination: '/app/interview/$sessionId/send',
-      body: jsonEncode(body),
-    );
+    _client!.send(destination: '/app/interview/$sessionId/send', body: jsonEncode(body));
   }
 
   void disconnect() {

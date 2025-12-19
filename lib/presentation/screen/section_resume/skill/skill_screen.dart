@@ -4,10 +4,14 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_content.dart';
+import 'package:career_coach/presentation/core/widgets/base_content_quill.dart';
 import 'package:career_coach/presentation/screen/section_resume/skill/cubit/skill_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_delta_from_html/flutter_quill_delta_from_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 @RoutePage()
 class SkillScreen extends StatefulWidget {
@@ -21,13 +25,16 @@ class SkillScreen extends StatefulWidget {
 
 class _SkillScreenState extends State<SkillScreen> {
   final List<TextEditingController> _listNameController = [];
-  final List<TextEditingController> _listDescriptionController = [];
+  final List<QuillController> _listDescriptionController = [];
+  final List<FocusNode> _listDescriptionFocusNode = [];
+  final List<ScrollController> _listDescriptionScrollController = [];
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SkillCubit()..init(userResumeId: widget.userResumeId),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
@@ -88,7 +95,14 @@ class _SkillScreenState extends State<SkillScreen> {
         _listDescriptionController.clear();
         for (var it in state.listSkill) {
           _listNameController.add(TextEditingController(text: it.name));
-          _listDescriptionController.add(TextEditingController(text: it.description));
+          _listDescriptionController.add(
+            QuillController(
+              document: Document.fromDelta(HtmlToDelta().convert(it.description)),
+              selection: const TextSelection.collapsed(offset: 0),
+            ),
+          );
+          _listDescriptionFocusNode.add(FocusNode());
+          _listDescriptionScrollController.add(ScrollController());
         }
       },
       builder: (context, state) {
@@ -106,23 +120,32 @@ class _SkillScreenState extends State<SkillScreen> {
                     children: [
                       Expanded(child: Container()),
                       if (state.listSkill[index].displayOrder != state.listSkill.length - 1) ...[
-                        _buttonChange(type: 1, onChange: () {
-                          saveTemp(state.listSkill);
-                          context.read<SkillCubit>().changeSkill(index, index + 1);
-                        }),
+                        _buttonChange(
+                          type: 1,
+                          onChange: () {
+                            saveTemp(state.listSkill);
+                            context.read<SkillCubit>().changeSkill(index, index + 1);
+                          },
+                        ),
                         SizedBox(width: 16),
                       ],
                       if (state.listSkill[index].displayOrder != 0) ...[
-                        _buttonChange(type: 2, onChange: () {
-                          saveTemp(state.listSkill);
-                          context.read<SkillCubit>().changeSkill(index, index - 1);
-                        }),
+                        _buttonChange(
+                          type: 2,
+                          onChange: () {
+                            saveTemp(state.listSkill);
+                            context.read<SkillCubit>().changeSkill(index, index - 1);
+                          },
+                        ),
                         SizedBox(width: 16),
                       ],
-                      _buttonChange(type: 0, onChange: () {
-                        saveTemp(state.listSkill);
-                        context.read<SkillCubit>().deleteSkill(index);
-                      }),
+                      _buttonChange(
+                        type: 0,
+                        onChange: () {
+                          saveTemp(state.listSkill);
+                          context.read<SkillCubit>().deleteSkill(index);
+                        },
+                      ),
                     ],
                   ),
                   BaseContent(
@@ -131,11 +154,12 @@ class _SkillScreenState extends State<SkillScreen> {
                     title: context.language.nameSkill,
                   ),
                   SizedBox(height: 8.0),
-                  BaseContent(
+                  BaseContentQuill(
                     controller: _listDescriptionController[index],
-                    isRequired: false,
-                    title: context.language.description,
-                    maxLines: 5,
+                    focusNode: _listDescriptionFocusNode[index],
+                    scrollController: _listDescriptionScrollController[index],
+                    isRequired: true,
+                    title: context.language.careerGoal,
                   ),
                 ],
               ),
@@ -216,15 +240,19 @@ class _SkillScreenState extends State<SkillScreen> {
             ),
           ],
         );
-      }
+      },
     );
   }
 
   void saveTemp(List<SkillEntity> listSkill) {
+    FocusManager.instance.primaryFocus?.unfocus();
     for (var it in listSkill) {
       final index = listSkill.indexOf(it);
       it.name = _listNameController[index].text;
-      it.description = _listDescriptionController[index].text;
+      it.description = QuillDeltaToHtmlConverter(
+        _listDescriptionController[index].document.toDelta().toJson(),
+        ConverterOptions(),
+      ).convert();
     }
   }
 }

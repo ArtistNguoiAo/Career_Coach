@@ -6,6 +6,7 @@ import 'package:career_coach/presentation/core/mode/theme/inherited_theme_widget
 import 'package:career_coach/presentation/core/route/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
                     theme: ThemeData(useMaterial3: true),
                     routerConfig: _appRouter.config(),
                     debugShowCheckedModeBanner: false,
+                    localizationsDelegates: [
+                      FlutterQuillLocalizations.delegate,
+                    ],
                   ),
                 );
               },

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ContactInformationModel {
 
- int get id; int get userResumeId; String get fullName; String get position; String get email; String get phoneNumber; String get address; String get gender; String get dateOfBirth; String get portfolio; String get github; String get linkedIn; String get facebook;
+ int get id; int get userResumeId; String get fullName; String get position; String get email; String get phoneNumber; String get address; String get dateOfBirth; String get portfolio; String get github; String get linkedIn; String get facebook;
 /// Create a copy of ContactInformationModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ContactInformationModelCopyWith<ContactInformationModel> get copyWith => _$Cont
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContactInformationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.position, position) || other.position == position)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.portfolio, portfolio) || other.portfolio == portfolio)&&(identical(other.github, github) || other.github == github)&&(identical(other.linkedIn, linkedIn) || other.linkedIn == linkedIn)&&(identical(other.facebook, facebook) || other.facebook == facebook));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContactInformationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.position, position) || other.position == position)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.portfolio, portfolio) || other.portfolio == portfolio)&&(identical(other.github, github) || other.github == github)&&(identical(other.linkedIn, linkedIn) || other.linkedIn == linkedIn)&&(identical(other.facebook, facebook) || other.facebook == facebook));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userResumeId,fullName,position,email,phoneNumber,address,gender,dateOfBirth,portfolio,github,linkedIn,facebook);
+int get hashCode => Object.hash(runtimeType,id,userResumeId,fullName,position,email,phoneNumber,address,dateOfBirth,portfolio,github,linkedIn,facebook);
 
 @override
 String toString() {
-  return 'ContactInformationModel(id: $id, userResumeId: $userResumeId, fullName: $fullName, position: $position, email: $email, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateOfBirth: $dateOfBirth, portfolio: $portfolio, github: $github, linkedIn: $linkedIn, facebook: $facebook)';
+  return 'ContactInformationModel(id: $id, userResumeId: $userResumeId, fullName: $fullName, position: $position, email: $email, phoneNumber: $phoneNumber, address: $address, dateOfBirth: $dateOfBirth, portfolio: $portfolio, github: $github, linkedIn: $linkedIn, facebook: $facebook)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ContactInformationModelCopyWith<$Res>  {
   factory $ContactInformationModelCopyWith(ContactInformationModel value, $Res Function(ContactInformationModel) _then) = _$ContactInformationModelCopyWithImpl;
 @useResult
 $Res call({
- int id, int userResumeId, String fullName, String position, String email, String phoneNumber, String address, String gender, String dateOfBirth, String portfolio, String github, String linkedIn, String facebook
+ int id, int userResumeId, String fullName, String position, String email, String phoneNumber, String address, String dateOfBirth, String portfolio, String github, String linkedIn, String facebook
 });
 
 
@@ -65,7 +65,7 @@ class _$ContactInformationModelCopyWithImpl<$Res>
 
 /// Create a copy of ContactInformationModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userResumeId = null,Object? fullName = null,Object? position = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? gender = null,Object? dateOfBirth = null,Object? portfolio = null,Object? github = null,Object? linkedIn = null,Object? facebook = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userResumeId = null,Object? fullName = null,Object? position = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? dateOfBirth = null,Object? portfolio = null,Object? github = null,Object? linkedIn = null,Object? facebook = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userResumeId: null == userResumeId ? _self.userResumeId : userResumeId // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,6 @@ as String,position: null == position ? _self.position : position // ignore: cast
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String,portfolio: null == portfolio ? _self.portfolio : portfolio // ignore: cast_nullable_to_non_nullable
 as String,github: null == github ? _self.github : github // ignore: cast_nullable_to_non_nullable
@@ -165,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String gender,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ContactInformationModel() when $default != null:
-return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.gender,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
+return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
   return orElse();
 
 }
@@ -186,10 +185,10 @@ return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String gender,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)  $default,) {final _that = this;
 switch (_that) {
 case _ContactInformationModel():
-return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.gender,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
+return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +205,10 @@ return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String gender,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int userResumeId,  String fullName,  String position,  String email,  String phoneNumber,  String address,  String dateOfBirth,  String portfolio,  String github,  String linkedIn,  String facebook)?  $default,) {final _that = this;
 switch (_that) {
 case _ContactInformationModel() when $default != null:
-return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.gender,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
+return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.email,_that.phoneNumber,_that.address,_that.dateOfBirth,_that.portfolio,_that.github,_that.linkedIn,_that.facebook);case _:
   return null;
 
 }
@@ -221,7 +220,7 @@ return $default(_that.id,_that.userResumeId,_that.fullName,_that.position,_that.
 @JsonSerializable()
 
 class _ContactInformationModel implements ContactInformationModel {
-  const _ContactInformationModel({this.id = 0, this.userResumeId = 0, this.fullName = '', this.position = '', this.email = '', this.phoneNumber = '', this.address = '', this.gender = '', this.dateOfBirth = '', this.portfolio = '', this.github = '', this.linkedIn = '', this.facebook = ''});
+  const _ContactInformationModel({this.id = 0, this.userResumeId = 0, this.fullName = '', this.position = '', this.email = '', this.phoneNumber = '', this.address = '', this.dateOfBirth = '', this.portfolio = '', this.github = '', this.linkedIn = '', this.facebook = ''});
   factory _ContactInformationModel.fromJson(Map<String, dynamic> json) => _$ContactInformationModelFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -231,7 +230,6 @@ class _ContactInformationModel implements ContactInformationModel {
 @override@JsonKey() final  String email;
 @override@JsonKey() final  String phoneNumber;
 @override@JsonKey() final  String address;
-@override@JsonKey() final  String gender;
 @override@JsonKey() final  String dateOfBirth;
 @override@JsonKey() final  String portfolio;
 @override@JsonKey() final  String github;
@@ -251,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContactInformationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.position, position) || other.position == position)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.portfolio, portfolio) || other.portfolio == portfolio)&&(identical(other.github, github) || other.github == github)&&(identical(other.linkedIn, linkedIn) || other.linkedIn == linkedIn)&&(identical(other.facebook, facebook) || other.facebook == facebook));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContactInformationModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.position, position) || other.position == position)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.address, address) || other.address == address)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.portfolio, portfolio) || other.portfolio == portfolio)&&(identical(other.github, github) || other.github == github)&&(identical(other.linkedIn, linkedIn) || other.linkedIn == linkedIn)&&(identical(other.facebook, facebook) || other.facebook == facebook));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userResumeId,fullName,position,email,phoneNumber,address,gender,dateOfBirth,portfolio,github,linkedIn,facebook);
+int get hashCode => Object.hash(runtimeType,id,userResumeId,fullName,position,email,phoneNumber,address,dateOfBirth,portfolio,github,linkedIn,facebook);
 
 @override
 String toString() {
-  return 'ContactInformationModel(id: $id, userResumeId: $userResumeId, fullName: $fullName, position: $position, email: $email, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateOfBirth: $dateOfBirth, portfolio: $portfolio, github: $github, linkedIn: $linkedIn, facebook: $facebook)';
+  return 'ContactInformationModel(id: $id, userResumeId: $userResumeId, fullName: $fullName, position: $position, email: $email, phoneNumber: $phoneNumber, address: $address, dateOfBirth: $dateOfBirth, portfolio: $portfolio, github: $github, linkedIn: $linkedIn, facebook: $facebook)';
 }
 
 
@@ -271,7 +269,7 @@ abstract mixin class _$ContactInformationModelCopyWith<$Res> implements $Contact
   factory _$ContactInformationModelCopyWith(_ContactInformationModel value, $Res Function(_ContactInformationModel) _then) = __$ContactInformationModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int userResumeId, String fullName, String position, String email, String phoneNumber, String address, String gender, String dateOfBirth, String portfolio, String github, String linkedIn, String facebook
+ int id, int userResumeId, String fullName, String position, String email, String phoneNumber, String address, String dateOfBirth, String portfolio, String github, String linkedIn, String facebook
 });
 
 
@@ -288,7 +286,7 @@ class __$ContactInformationModelCopyWithImpl<$Res>
 
 /// Create a copy of ContactInformationModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userResumeId = null,Object? fullName = null,Object? position = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? gender = null,Object? dateOfBirth = null,Object? portfolio = null,Object? github = null,Object? linkedIn = null,Object? facebook = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userResumeId = null,Object? fullName = null,Object? position = null,Object? email = null,Object? phoneNumber = null,Object? address = null,Object? dateOfBirth = null,Object? portfolio = null,Object? github = null,Object? linkedIn = null,Object? facebook = null,}) {
   return _then(_ContactInformationModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userResumeId: null == userResumeId ? _self.userResumeId : userResumeId // ignore: cast_nullable_to_non_nullable
@@ -297,7 +295,6 @@ as String,position: null == position ? _self.position : position // ignore: cast
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String,portfolio: null == portfolio ? _self.portfolio : portfolio // ignore: cast_nullable_to_non_nullable
 as String,github: null == github ? _self.github : github // ignore: cast_nullable_to_non_nullable

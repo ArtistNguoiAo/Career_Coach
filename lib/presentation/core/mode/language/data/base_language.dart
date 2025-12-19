@@ -120,4 +120,6 @@ abstract class BaseLanguage {
   String get chooseSection;
   String get other;
   String get saveInformationSuccess;
+  String get camera;
+  String get gallery;
 }

@@ -111,18 +111,49 @@ class ActivityRouteArgs {
 
 /// generated route for
 /// [_i2.AvatarScreen]
-class AvatarRoute extends _i25.PageRouteInfo<void> {
-  const AvatarRoute({List<_i25.PageRouteInfo>? children})
-    : super(AvatarRoute.name, initialChildren: children);
+class AvatarRoute extends _i25.PageRouteInfo<AvatarRouteArgs> {
+  AvatarRoute({
+    _i26.Key? key,
+    required int userResumeId,
+    List<_i25.PageRouteInfo>? children,
+  }) : super(
+         AvatarRoute.name,
+         args: AvatarRouteArgs(key: key, userResumeId: userResumeId),
+         initialChildren: children,
+       );
 
   static const String name = 'AvatarRoute';
 
   static _i25.PageInfo page = _i25.PageInfo(
     name,
     builder: (data) {
-      return const _i2.AvatarScreen();
+      final args = data.argsAs<AvatarRouteArgs>();
+      return _i2.AvatarScreen(key: args.key, userResumeId: args.userResumeId);
     },
   );
+}
+
+class AvatarRouteArgs {
+  const AvatarRouteArgs({this.key, required this.userResumeId});
+
+  final _i26.Key? key;
+
+  final int userResumeId;
+
+  @override
+  String toString() {
+    return 'AvatarRouteArgs{key: $key, userResumeId: $userResumeId}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AvatarRouteArgs) return false;
+    return key == other.key && userResumeId == other.userResumeId;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ userResumeId.hashCode;
 }
 
 /// generated route for

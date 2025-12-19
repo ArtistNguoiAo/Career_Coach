@@ -105,6 +105,11 @@ class _DrawerPreviewResumeState extends State<DrawerPreviewResume> {
                             context,
                           ).push(OtherInformationRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
                         }
+                        else if(sections[index] == TypeResumeSectionEnum.AVATAR) {
+                          AutoRouter.of(
+                            context,
+                          ).push(AvatarRoute(userResumeId: widget.userResumeEntity?.id ?? 0));
+                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

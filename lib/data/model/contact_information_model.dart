@@ -13,7 +13,6 @@ abstract class ContactInformationModel with _$ContactInformationModel {
     @Default('') String email,
     @Default('') String phoneNumber,
     @Default('') String address,
-    @Default('') String gender,
     @Default('') String dateOfBirth,
     @Default('') String portfolio,
     @Default('') String github,

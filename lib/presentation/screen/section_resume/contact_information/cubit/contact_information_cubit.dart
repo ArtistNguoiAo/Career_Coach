@@ -27,7 +27,7 @@ class ContactInformationCubit extends Cubit<ContactInformationState> {
     emit(state.copyWith(isLoading: true, error: ''));
     try {
       if(state.contactInformationEntity?.fullName.isEmpty ?? false) {
-        emit(state.copyWith(isLoading: false, error: 'Please fill in all required fields.'));
+        emit(state.copyWith(isLoading: false, error: 'Full Name cannot be empty.'));
         return;
       }
       final contactInformationEntity = await saveContactInformationUseCase.call(
