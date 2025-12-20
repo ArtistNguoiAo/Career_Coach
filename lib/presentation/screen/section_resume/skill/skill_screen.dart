@@ -95,11 +95,14 @@ class _SkillScreenState extends State<SkillScreen> {
         _listDescriptionController.clear();
         for (var it in state.listSkill) {
           _listNameController.add(TextEditingController(text: it.name));
+          final String description = it.description;
+
+          final Document document = description.trim().isEmpty
+              ? Document()
+              : Document.fromDelta(HtmlToDelta().convert(description));
+
           _listDescriptionController.add(
-            QuillController(
-              document: Document.fromDelta(HtmlToDelta().convert(it.description)),
-              selection: const TextSelection.collapsed(offset: 0),
-            ),
+            QuillController(document: document, selection: const TextSelection.collapsed(offset: 0)),
           );
           _listDescriptionFocusNode.add(FocusNode());
           _listDescriptionScrollController.add(ScrollController());
