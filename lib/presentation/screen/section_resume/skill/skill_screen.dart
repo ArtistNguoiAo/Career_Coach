@@ -93,6 +93,8 @@ class _SkillScreenState extends State<SkillScreen> {
 
         _listNameController.clear();
         _listDescriptionController.clear();
+        _listDescriptionFocusNode.clear();
+        _listDescriptionScrollController.clear();
         for (var it in state.listSkill) {
           _listNameController.add(TextEditingController(text: it.name));
           final String description = it.description;
