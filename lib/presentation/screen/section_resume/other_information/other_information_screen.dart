@@ -2,7 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
-import 'package:career_coach/presentation/core/widgets/base_content.dart';
+import 'package:career_coach/presentation/core/widgets/base_content_quill.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_delta_from_html/flutter_quill_delta_from_html.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 import 'package:career_coach/presentation/screen/section_resume/other_information/cubit/other_information_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +22,20 @@ class OtherInformationScreen extends StatefulWidget {
 }
 
 class _OtherInformationScreenState extends State<OtherInformationScreen> {
-  final TextEditingController _otherInfoController = TextEditingController();
+  final QuillController _otherInfoController = QuillController(
+    document: Document(),
+    selection: const TextSelection.collapsed(offset: 0),
+  );
+  final FocusNode _otherInfoFocusNode = FocusNode();
+  final ScrollController _otherInfoScrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _otherInfoController.dispose();
+    _otherInfoFocusNode.dispose();
+    _otherInfoScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +94,12 @@ class _OtherInformationScreenState extends State<OtherInformationScreen> {
           state.error = '';
         }
 
-        _otherInfoController.text = state.otherInformationEntity?.content ?? '';
+        if (state.otherInformationEntity?.content != null && state.otherInformationEntity!.content.isNotEmpty) {
+          _otherInfoController.document = Document.fromDelta(
+            HtmlToDelta().convert(state.otherInformationEntity!.content),
+          );
+        }
+        _otherInfoFocusNode.unfocus();
       },
       builder: (context, state) {
         return Column(
@@ -88,11 +109,12 @@ class _OtherInformationScreenState extends State<OtherInformationScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BaseContent(
+                    BaseContentQuill(
                       controller: _otherInfoController,
+                      focusNode: _otherInfoFocusNode,
+                      scrollController: _otherInfoScrollController,
                       isRequired: true,
                       title: context.language.information,
-                      maxLines: 5,
                     ),
                   ],
                 ),
@@ -101,7 +123,15 @@ class _OtherInformationScreenState extends State<OtherInformationScreen> {
             SizedBox(height: 16.0),
             InkWell(
               onTap: () {
-                state.otherInformationEntity?.content = _otherInfoController.text;
+                _otherInfoFocusNode.unfocus();
+                FocusManager.instance.primaryFocus?.unfocus();
+
+                final content = QuillDeltaToHtmlConverter(
+                  _otherInfoController.document.toDelta().toJson(),
+                  ConverterOptions(),
+                ).convert();
+
+                state.otherInformationEntity?.content = content;
                 context.read<OtherInformationCubit>().save();
               },
               child: Container(
