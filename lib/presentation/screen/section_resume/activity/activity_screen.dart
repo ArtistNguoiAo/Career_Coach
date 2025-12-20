@@ -5,6 +5,10 @@ import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_content.dart';
 import 'package:career_coach/presentation/core/widgets/base_content_date.dart';
+import 'package:career_coach/presentation/core/widgets/base_content_quill.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_delta_from_html/flutter_quill_delta_from_html.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 import 'package:career_coach/presentation/screen/section_resume/activity/cubit/activity_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +30,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
   final List<TextEditingController> _listPositionController = [];
   final List<TextEditingController> _listStartTimeController = [];
   final List<TextEditingController> _listEndTimeController = [];
-  final List<TextEditingController> _listDescriptionController = [];
+  final List<QuillController> _listDescriptionController = [];
+  final List<FocusNode> _listDescriptionFocusNode = [];
+  final List<ScrollController> _listDescriptionScrollController = [];
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +100,24 @@ class _ActivityScreenState extends State<ActivityScreen> {
         _listStartTimeController.clear();
         _listEndTimeController.clear();
         _listDescriptionController.clear();
+        _listDescriptionFocusNode.clear();
+        _listDescriptionScrollController.clear();
         for (var it in state.listActivity) {
           _listOrganizationController.add(TextEditingController(text: it.organization));
           _listPositionController.add(TextEditingController(text: it.position));
           _listStartTimeController.add(TextEditingController(text: it.startTime));
           _listEndTimeController.add(TextEditingController(text: it.endTime));
-          _listDescriptionController.add(TextEditingController(text: it.description));
+          
+          final String description = it.description;
+          final Document document = description.trim().isEmpty
+              ? Document()
+              : Document.fromDelta(HtmlToDelta().convert(description));
+
+          _listDescriptionController.add(
+            QuillController(document: document, selection: const TextSelection.collapsed(offset: 0)),
+          );
+          _listDescriptionFocusNode.add(FocusNode());
+          _listDescriptionScrollController.add(ScrollController());
         }
       },
       builder: (context, state) {
@@ -228,11 +246,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     },
                   ),
                   SizedBox(height: 8.0),
-                  BaseContent(
+                  BaseContentQuill(
                     controller: _listDescriptionController[index],
+                    focusNode: _listDescriptionFocusNode[index],
+                    scrollController: _listDescriptionScrollController[index],
                     isRequired: false,
                     title: context.language.description,
-                    maxLines: 5,
                   ),
                 ],
               ),
@@ -318,13 +337,17 @@ class _ActivityScreenState extends State<ActivityScreen> {
   }
 
   void saveTemp(List<ActivityEntity> listActivity) {
+    FocusManager.instance.primaryFocus?.unfocus();
     for (var it in listActivity) {
       final index = listActivity.indexOf(it);
       it.organization = _listOrganizationController[index].text;
       it.position = _listPositionController[index].text;
       it.startTime = _listStartTimeController[index].text;
       it.endTime = _listEndTimeController[index].text;
-      it.description = _listDescriptionController[index].text;
+      it.description = QuillDeltaToHtmlConverter(
+        _listDescriptionController[index].document.toDelta().toJson(),
+        ConverterOptions(),
+      ).convert();
     }
   }
 }
