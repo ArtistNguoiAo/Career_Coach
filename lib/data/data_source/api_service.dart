@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:career_coach/data/data_source/api_url.dart';
 import 'package:career_coach/data/exception/api_exception.dart';
 import 'package:career_coach/data/local/local_cache.dart';
@@ -46,7 +48,9 @@ class ApiService extends DioMixin {
           return handler.next(options);
         },
         onResponse: (response, handler) async {
-          if (response.data == null) {
+          final data = response.data;
+
+          if (data == null) {
             return handler.reject(
               DioException(
                 requestOptions: response.requestOptions,
@@ -62,8 +66,20 @@ class ApiService extends DioMixin {
               ),
             );
           }
-          final data = response.data;
+
+          if (data is Uint8List || data is List<int> || data is String) {
+            return handler.next(response);
+          }
+
+          if (data is! Map<String, dynamic>) {
+            return handler.next(response);
+          }
+
           final result = data['result'];
+
+          if (result is! Map<String, dynamic>) {
+            return handler.next(response);
+          }
 
           if (result['ok'] == false) {
             return handler.reject(
@@ -75,14 +91,14 @@ class ApiService extends DioMixin {
                 error: ApiException(
                   errorCode: result['errorCode'] ?? 'UNKNOWN_ERROR',
                   message: result['message'] ?? 'An unknown error occurred',
-                  ok: result?['ok'] ?? false,
+                  ok: false,
                   isUnauthorized: result['errorCode'] == '401',
                 ),
               ),
             );
-          } else {
-            return handler.next(response);
           }
+
+          return handler.next(response);
         },
         onError: (DioException error, handler) async {
           if (error.response?.statusCode == 401 && !error.requestOptions.path.contains('/auth/refresh')) {

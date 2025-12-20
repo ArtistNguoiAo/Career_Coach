@@ -29,4 +29,8 @@ abstract class UserResumeRepository {
     required int id,
     required UserResumeEntity userResumeEntity,
   });
+
+  Future<List<int>> getPdf({
+    required int id,
+  });
 }

@@ -43,6 +43,8 @@ dependencies:
   lottie: ^3.3.1
   interactive_slider: ^0.5.1
   flex_color_picker: ^3.7.0
+  flutter_pdfview: ^1.4.3
+  path_provider: ^2.1.2
 
   cupertino_icons: ^1.0.8
 

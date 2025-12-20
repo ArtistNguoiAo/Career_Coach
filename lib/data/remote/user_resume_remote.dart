@@ -45,4 +45,10 @@ abstract class UserResumeRemote {
     @Path('id') required int id,
     @Body() required UserResumeRequestBody userResumeRequestBody,
   });
+
+  @GET('/generate/{id}')
+  @DioResponseType(ResponseType.bytes)
+  Future<HttpResponse<List<int>>> getPdf({
+    @Path('id') required int id,
+  });
 }

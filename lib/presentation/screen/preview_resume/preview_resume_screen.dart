@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
@@ -9,7 +10,9 @@ import 'package:career_coach/presentation/screen/preview_resume/widgets/drawer_p
 import 'package:career_coach/presentation/screen/preview_resume/widgets/end_drawer_preview_resume.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
 @RoutePage()
 class PreviewResumeScreen extends StatefulWidget {
@@ -90,7 +93,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
               child: Column(
                 children: [
                   _headerRow(),
-                  Expanded(child: _body()),
+                  Expanded(child: _body(state.pdfData)),
                   _footerRow(state.userResumeEntity),
                 ],
               ),
@@ -124,8 +127,43 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
     );
   }
 
-  Widget _body() {
-    return Container();
+  Widget _body(List<int> pdfData) {
+    return FutureBuilder<File>(
+      future: _writePdfToTemp(pdfData),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container();
+        }
+
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text('Không thể tải file PDF'),
+          );
+        }
+
+        final file = snapshot.data!;
+        return PDFView(
+          filePath: file.path,
+          enableSwipe: true,
+          swipeHorizontal: false,
+          autoSpacing: true,
+          pageFling: true,
+          onError: (error) {
+            debugPrint('PDF error: $error');
+          },
+          onPageError: (page, error) {
+            debugPrint('Page error: $page - $error');
+          },
+        );
+      },
+    );
+  }
+
+  Future<File> _writePdfToTemp(List<int> bytes) async {
+    final dir = await getTemporaryDirectory();
+    final file = File('${dir.path}/preview_resume.pdf');
+    await file.writeAsBytes(bytes, flush: true);
+    return file;
   }
 
   Widget _footerRow(UserResumeEntity? userResumeEntity) {

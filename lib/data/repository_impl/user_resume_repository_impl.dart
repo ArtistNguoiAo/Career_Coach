@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:career_coach/data/mapper/user_resume_mapper.dart';
 import 'package:career_coach/data/mapper/user_resume_recent_mapper.dart';
 import 'package:career_coach/data/remote/user_resume_remote.dart';
@@ -84,5 +86,11 @@ class UserResumeRepositoryImpl implements UserResumeRepository {
       ),
     );
     return UserResumeMapper.toEntity(response.data);
+  }
+
+  @override
+  Future<List<int>> getPdf({required int id}) async {
+    final response = await _userResumeRemote.getPdf(id: id);
+    return Uint8List.fromList(response.data);
   }
 }

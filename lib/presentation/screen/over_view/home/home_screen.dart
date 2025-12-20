@@ -20,38 +20,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => HomeCubit()..init(),
-        child: BlocConsumer<HomeCubit, HomeState>(
+    return BlocProvider(
+      create: (context) => HomeCubit()..init(),
+      child: Scaffold(
+        body: BlocConsumer<HomeCubit, HomeState>(
           listener: (context, state) {
             if (state.error.isNotEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.error),
-                ),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  HeaderView(),
-                  const SizedBox(height: 16),
-                  ResumeView(
-                    listResume: state.listResume,
-                    listUserResumeRecent: state.listUserResumeRecent,
-                  ),
-                  const SizedBox(height: 16),
-                  _outstanding(),
-                  const SizedBox(height: 16),
-                  _tool(),
-                  const SizedBox(height: 16),
-                ],
+            return Container(
+              color: context.theme.backgroundColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HeaderView(),
+                    const SizedBox(height: 16),
+                    ResumeView(listResume: state.listResume, listUserResumeRecent: state.listUserResumeRecent),
+                    const SizedBox(height: 16),
+                    _outstanding(),
+                    const SizedBox(height: 16),
+                    _tool(),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             );
           },
@@ -76,18 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onPageChanged: (index, reason) {},
             ),
             items: [
-              Container(
-                width: double.infinity,
-                color: context.theme.primaryColor,
-              ),
-              Container(
-                width: double.infinity,
-                color: context.theme.primaryColor,
-              ),
-              Container(
-                width: double.infinity,
-                color: context.theme.primaryColor,
-              ),
+              Container(width: double.infinity, color: context.theme.primaryColor),
+              Container(width: double.infinity, color: context.theme.primaryColor),
+              Container(width: double.infinity, color: context.theme.primaryColor),
             ],
           ),
         ),
@@ -126,28 +112,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: context.theme.primaryColor,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child: Icon(
-                    FontAwesomeIcons.calculator,
-                    color: context.theme.backgroundColor,
-                    size: 20,
-                  ),
+                  child: Icon(FontAwesomeIcons.calculator, color: context.theme.backgroundColor, size: 20),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     context.language.calculateGrossNetSalary,
-                    style: TextStyleUtils.normal(
-                      color: context.theme.textColor,
-                      fontSize: 16,
-                    ),
+                    style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 16),
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(
-                  FontAwesomeIcons.anglesRight,
-                  color: context.theme.textColor,
-                  size: 20,
-                ),
+                Icon(FontAwesomeIcons.anglesRight, color: context.theme.textColor, size: 20),
               ],
             ),
           ),

@@ -34,19 +34,12 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
           onTap: () {
             AutoRouter.of(context).maybePop(isChange);
           },
-          child: Icon(
-            FontAwesomeIcons.chevronLeft,
-            color: context.theme.backgroundColor,
-            size: 20,
-          ),
+          child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
         ),
         centerTitle: true,
         title: Text(
           context.language.profileUpdate,
-          style: TextStyleUtils.bold(
-            color: context.theme.backgroundColor,
-            fontSize: 18,
-          ),
+          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
         ),
         backgroundColor: context.theme.primaryColor,
       ),
@@ -65,10 +58,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                 SnackBar(
                   content: Text(
                     context.language.updateProfileSuccess,
-                    style: TextStyleUtils.normal(
-                      color: context.theme.backgroundColor,
-                      fontSize: 12,
-                    ),
+                    style: TextStyleUtils.normal(color: context.theme.backgroundColor, fontSize: 12),
                   ),
                   backgroundColor: context.theme.goodColor,
                   duration: const Duration(seconds: 1),
@@ -80,10 +70,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
             }
             if (state is ProfileUpdateError) {
               DialogUtils.hideLoadingDialog(context);
-              DialogUtils.showErrorDialog(
-                context: context,
-                message: state.message,
-              );
+              DialogUtils.showErrorDialog(context: context, message: state.message);
             }
           },
           builder: (context, state) {
@@ -91,23 +78,11 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  BaseContent(
-                    controller: _fullNameController,
-                    isRequired: false,
-                    title: context.language.fullName,
-                  ),
+                  BaseContent(controller: _fullNameController, isRequired: false, title: context.language.fullName),
                   const SizedBox(height: 16),
-                  BaseContent(
-                    controller: _emailController,
-                    isRequired: false,
-                    title: context.language.email,
-                  ),
+                  BaseContent(controller: _emailController, isRequired: false, title: context.language.email),
                   const SizedBox(height: 16),
-                  BaseContent(
-                    controller: _phoneController,
-                    isRequired: false,
-                    title: context.language.phone,
-                  ),
+                  BaseContent(controller: _phoneController, isRequired: false, title: context.language.phone),
                   const SizedBox(height: 32),
                   InkWell(
                     onTap: () {
@@ -128,10 +103,7 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                       child: Center(
                         child: Text(
                           context.language.save,
-                          style: TextStyleUtils.bold(
-                            color: context.theme.backgroundColor,
-                            fontSize: 16,
-                          ),
+                          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 16),
                         ),
                       ),
                     ),
