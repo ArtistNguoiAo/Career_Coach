@@ -12,6 +12,7 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
   final getListInterviewActiveUseCase = getIt<GetListInterviewActiveUseCase>();
   final getListInterviewHistoryUseCase = getIt<GetListInterviewHistoryUseCase>();
 
+
   Future<void> init() async {
     emit(state.copyWith(isLoading: true));
 

@@ -375,4 +375,25 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get gallery => 'Gallery';
+
+  @override
+  String get chooseExperienceLevel => 'Choose experience level';
+
+  @override
+  String get chooseCvSource => 'Choose CV source';
+
+  @override
+  String get setUpInterview => 'Set up Interview';
+
+  @override
+  String get chooseCv => 'Choose CV';
+
+  @override
+  String get uploadCv => 'Upload CV';
+
+  @override
+  String get createCvWithAI => 'Create CV with AI';
+
+  @override
+  String get cvTemplate => 'CV Template';
 }

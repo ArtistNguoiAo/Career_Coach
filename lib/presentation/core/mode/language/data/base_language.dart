@@ -122,4 +122,11 @@ abstract class BaseLanguage {
   String get saveInformationSuccess;
   String get camera;
   String get gallery;
+  String get chooseExperienceLevel;
+  String get chooseCvSource;
+  String get setUpInterview;
+  String get chooseCv;
+  String get uploadCv;
+  String get createCvWithAI;
+  String get cvTemplate;
 }

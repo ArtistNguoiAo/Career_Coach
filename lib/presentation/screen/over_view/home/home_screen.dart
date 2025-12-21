@@ -39,9 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     HeaderView(),
                     const SizedBox(height: 16),
-                    ResumeView(listResume: state.listResume, listUserResumeRecent: state.listUserResumeRecent),
+                    _createCvWithAI(),
                     const SizedBox(height: 16),
-                    _outstanding(),
+                    ResumeView(listResume: state.listResume, listUserResumeRecent: state.listUserResumeRecent),
                     const SizedBox(height: 16),
                     _tool(),
                     const SizedBox(height: 16),
@@ -55,10 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _outstanding() {
+  Widget _createCvWithAI() {
     return Column(
       children: [
-        TitleView(title: context.language.outstanding),
+        TitleView(title: context.language.createCvWithAI),
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

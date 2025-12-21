@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
+import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
+import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
+import 'package:career_coach/domain/enum/type_language_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
@@ -31,18 +34,11 @@ class DialogUtils {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Lottie.asset(
-                  MediaUtils.ltLoading,
-                  width: 80,
-                  fit: BoxFit.cover,
-                ),
+                Lottie.asset(MediaUtils.ltLoading, width: 80, fit: BoxFit.cover),
                 const SizedBox(height: 16),
                 Text(
                   '${context.language.loading}...',
-                  style: TextStyleUtils.bold(
-                    fontSize: 16,
-                    color: context.theme.textColor,
-                  ),
+                  style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
                 ),
               ],
             ),
@@ -59,11 +55,7 @@ class DialogUtils {
     }
   }
 
-  static void showErrorDialog({
-    required BuildContext context,
-    required String message,
-    Function? onClose,
-  }) {
+  static void showErrorDialog({required BuildContext context, required String message, Function? onClose}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -74,13 +66,7 @@ class DialogUtils {
             children: [
               Icon(IconlyBold.danger, size: 22, color: context.theme.badColor),
               const SizedBox(height: 10),
-              Text(
-                message,
-                style: TextStyleUtils.normal(
-                  fontSize: 16,
-                  color: context.theme.textColor,
-                ),
-              ),
+              Text(message, style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor)),
             ],
           ),
           actions: [
@@ -92,22 +78,13 @@ class DialogUtils {
                 }
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: context.theme.primaryColor),
                   color: context.theme.primaryColor,
                 ),
-                child: Text(
-                  'OK',
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.backgroundColor,
-                  ),
-                ),
+                child: Text('OK', style: TextStyleUtils.normal(fontSize: 16, color: context.theme.backgroundColor)),
               ),
             ),
           ],
@@ -116,10 +93,7 @@ class DialogUtils {
     );
   }
 
-  static void showChooseImageDialog({
-    required BuildContext context,
-    required Function(File?) onClose,
-  }) {
+  static void showChooseImageDialog({required BuildContext context, required Function(File?) onClose}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -132,10 +106,7 @@ class DialogUtils {
               Expanded(
                 child: Text(
                   context.language.chooseImage,
-                  style: TextStyleUtils.bold(
-                    fontSize: 18,
-                    color: context.theme.textColor,
-                  ),
+                  style: TextStyleUtils.bold(fontSize: 18, color: context.theme.textColor),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -143,11 +114,7 @@ class DialogUtils {
                 onTap: () {
                   AutoRouter.of(context).maybePop();
                 },
-                child: Icon(
-                  FontAwesomeIcons.circleXmark,
-                  size: 24,
-                  color: context.theme.darkGreyColor,
-                ),
+                child: Icon(FontAwesomeIcons.circleXmark, size: 24, color: context.theme.darkGreyColor),
               ),
             ],
           ),
@@ -157,10 +124,7 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(true);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 16,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: context.theme.primaryColor),
@@ -168,10 +132,7 @@ class DialogUtils {
                 ),
                 child: Text(
                   context.language.fromCamera,
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.backgroundColor,
-                  ),
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.backgroundColor),
                 ),
               ),
             ),
@@ -180,10 +141,7 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(false);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 16,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: context.theme.primaryColor),
@@ -191,10 +149,7 @@ class DialogUtils {
                 ),
                 child: Text(
                   context.language.fromGallery,
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.backgroundColor,
-                  ),
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.backgroundColor),
                 ),
               ),
             ),
@@ -220,10 +175,7 @@ class DialogUtils {
     });
   }
 
-  static void showWarningChangeDialog({
-    required BuildContext context,
-    required Function(bool) onClose,
-  }) {
+  static void showWarningChangeDialog({required BuildContext context, required Function(bool) onClose}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -239,10 +191,7 @@ class DialogUtils {
                   Expanded(
                     child: Text(
                       context.language.cancelChange,
-                      style: TextStyleUtils.bold(
-                        fontSize: 18,
-                        color: context.theme.textColor,
-                      ),
+                      style: TextStyleUtils.bold(fontSize: 18, color: context.theme.textColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -250,20 +199,13 @@ class DialogUtils {
                     onTap: () {
                       AutoRouter.of(context).maybePop();
                     },
-                    child: Icon(
-                      FontAwesomeIcons.circleXmark,
-                      size: 24,
-                      color: context.theme.darkGreyColor,
-                    ),
+                    child: Icon(FontAwesomeIcons.circleXmark, size: 24, color: context.theme.darkGreyColor),
                   ),
                 ],
               ),
               Text(
                 context.language.contentCancelChange,
-                style: TextStyleUtils.normal(
-                  fontSize: 16,
-                  color: context.theme.textColor,
-                ),
+                style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
                 textAlign: TextAlign.center,
               ),
               Row(
@@ -274,20 +216,14 @@ class DialogUtils {
                         AutoRouter.of(context).maybePop(false);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: context.theme.lightGreyColor,
                         ),
                         child: Text(
                           context.language.continueChange,
-                          style: TextStyleUtils.bold(
-                            fontSize: 16,
-                            color: context.theme.textColor,
-                          ),
+                          style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
                         ),
                       ),
                     ),
@@ -298,22 +234,14 @@ class DialogUtils {
                         AutoRouter.of(context).maybePop(true);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: context.theme.badColor.withAlpha(
-                            (255 * 0.1).round(),
-                          ),
+                          color: context.theme.badColor.withAlpha((255 * 0.1).round()),
                         ),
                         child: Text(
                           context.language.cancelChange2,
-                          style: TextStyleUtils.bold(
-                            fontSize: 16,
-                            color: context.theme.badColor,
-                          ),
+                          style: TextStyleUtils.bold(fontSize: 16, color: context.theme.badColor),
                         ),
                       ),
                     ),
@@ -329,10 +257,7 @@ class DialogUtils {
     });
   }
 
-  static void showDeleteAccountDialog({
-    required BuildContext context,
-    required Function onDelete,
-  }) {
+  static void showDeleteAccountDialog({required BuildContext context, required Function onDelete}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -346,10 +271,7 @@ class DialogUtils {
               const SizedBox(height: 10),
               Text(
                 context.language.deleteAccountContent,
-                style: TextStyleUtils.normal(
-                  fontSize: 16,
-                  color: context.theme.textColor,
-                ),
+                style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
               ),
             ],
           ),
@@ -359,20 +281,14 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(true);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 16,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: context.theme.badColor.withAlpha((255 * 0.1).round()),
                 ),
                 child: Text(
                   context.language.delete,
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.badColor,
-                  ),
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.badColor),
                 ),
               ),
             ),
@@ -381,20 +297,11 @@ class DialogUtils {
                 AutoRouter.of(context).maybePop(false);
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 16,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: context.theme.lightGreyColor,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: context.theme.lightGreyColor),
                 child: Text(
                   context.language.cancel,
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.textColor,
-                  ),
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
                 ),
               ),
             ),
@@ -422,10 +329,7 @@ class DialogUtils {
         return Container(
           height: MediaQuery.of(context).size.height * 0.9,
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -462,10 +366,7 @@ class DialogUtils {
                     child: Center(
                       child: Text(
                         context.language.createNew,
-                        style: TextStyleUtils.bold(
-                          fontSize: 16,
-                          color: context.theme.primaryColor,
-                        ),
+                        style: TextStyleUtils.bold(fontSize: 16, color: context.theme.primaryColor),
                       ),
                     ),
                   ),
@@ -489,10 +390,7 @@ class DialogUtils {
                     child: Center(
                       child: Text(
                         context.language.saved,
-                        style: TextStyleUtils.bold(
-                          fontSize: 16,
-                          color: context.theme.primaryColor,
-                        ),
+                        style: TextStyleUtils.bold(fontSize: 16, color: context.theme.primaryColor),
                       ),
                     ),
                   ),
@@ -522,10 +420,7 @@ class DialogUtils {
             return Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
                 color: context.theme.lightGreyColor,
               ),
               child: Column(
@@ -568,18 +463,12 @@ class DialogUtils {
                                   children: [
                                     Text(
                                       listUserResumeRecent[index].title,
-                                      style: TextStyleUtils.bold(
-                                        fontSize: 16,
-                                        color: context.theme.textColor,
-                                      ),
+                                      style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       StringUtils.convertDateTimeString(listUserResumeRecent[index].createdAt),
-                                      style: TextStyleUtils.normal(
-                                        fontSize: 14,
-                                        color: context.theme.textColor,
-                                      ),
+                                      style: TextStyleUtils.normal(fontSize: 14, color: context.theme.textColor),
                                     ),
                                   ],
                                 ),
@@ -597,7 +486,7 @@ class DialogUtils {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        if(selectedId != null) {
+                        if (selectedId != null) {
                           onSaved(selectedId!);
                         }
                       },
@@ -607,17 +496,12 @@ class DialogUtils {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: selectedId != null
-                              ? context.theme.primaryColor
-                              : context.theme.darkGreyColor
+                          color: selectedId != null ? context.theme.primaryColor : context.theme.darkGreyColor,
                         ),
                         child: Center(
                           child: Text(
                             context.language.create,
-                            style: TextStyleUtils.bold(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
+                            style: TextStyleUtils.bold(fontSize: 16, color: Colors.white),
                           ),
                         ),
                       ),
@@ -626,7 +510,215 @@ class DialogUtils {
                 ],
               ),
             );
-          }
+          },
+        );
+      },
+    );
+  }
+
+  static void showCreateInterviewDialog({
+    required BuildContext context,
+    required List<UserResumeRecentEntity> listUserResumeRecent,
+    required Function(TypeCvSourceEnum cvSource, TypeCvExperienceLevelEnum experienceLevel, TypeLanguageEnum language)
+    onCreate,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        TypeLanguageEnum language = TypeLanguageEnum.VIETNAMESE;
+        TypeCvExperienceLevelEnum experienceLevel = TypeCvExperienceLevelEnum.INTERN;
+        TypeCvSourceEnum cvSource = TypeCvSourceEnum.USER_RESUME;
+        UserResumeRecentEntity? selectedResume;
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                color: context.theme.lightGreyColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text(context.language.setUpInterview, style: TextStyleUtils.bold(fontSize: 20))],
+                  ),
+                  Container(
+                    height: 1,
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    color: context.theme.darkGreyColor,
+                  ),
+                  Text(context.language.chooseCvSource, style: TextStyleUtils.bold(fontSize: 16)),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: TypeCvSourceEnum.values.map((cvSrc) {
+                      final isSelected = cvSource == cvSrc;
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            cvSource = cvSrc;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: isSelected ? context.theme.primaryColor.withAlpha((255 * 0.1).round()) : null,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: isSelected ? context.theme.primaryColor : context.theme.darkGreyColor,
+                            ),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeCvSourceEnum(cvSrc),
+                            style: TextStyleUtils.normal(
+                              fontSize: 14,
+                              color: isSelected ? context.theme.primaryColor : context.theme.textColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  if (cvSource == TypeCvSourceEnum.USER_RESUME) ...[
+                    Text(context.language.chooseCv, style: TextStyleUtils.bold(fontSize: 16)),
+                    const SizedBox(height: 8),
+                    DropdownButtonFormField<UserResumeRecentEntity>(
+                      value: selectedResume,
+                      hint: const Text('Vui lòng chọn CV'),
+                      items: listUserResumeRecent.map((resume) {
+                        return DropdownMenuItem<UserResumeRecentEntity>(
+                          value: resume,
+                          child: Text(resume.title),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => selectedResume = value);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ]
+                  else ...[
+                    Text(context.language.uploadCv, style: TextStyleUtils.bold(fontSize: 16)),
+                    const SizedBox(height: 8),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      color: context.theme.darkGreyColor,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                  Text(context.language.chooseExperienceLevel, style: TextStyleUtils.bold(fontSize: 16)),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: TypeCvExperienceLevelEnum.values.map((expLevel) {
+                      final isSelected = experienceLevel == expLevel;
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            experienceLevel = expLevel;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: isSelected ? context.theme.primaryColor.withAlpha((255 * 0.1).round()) : null,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: isSelected ? context.theme.primaryColor : context.theme.darkGreyColor,
+                            ),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeCvExperienceLevelEnum(expLevel),
+                            style: TextStyleUtils.normal(
+                              fontSize: 14,
+                              color: isSelected ? context.theme.primaryColor : context.theme.textColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(context.language.chooseLanguage, style: TextStyleUtils.bold(fontSize: 16)),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: TypeLanguageEnum.values.map((lang) {
+                      final isSelected = language == lang;
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            language = lang;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: isSelected ? context.theme.primaryColor.withAlpha((255 * 0.1).round()) : null,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: isSelected ? context.theme.primaryColor : context.theme.darkGreyColor,
+                            ),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeLanguageEnum(lang),
+                            style: TextStyleUtils.normal(
+                              fontSize: 14,
+                              color: isSelected ? context.theme.primaryColor : context.theme.textColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {},
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: context.theme.primaryColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                            context.language.create,
+                            style: TextStyleUtils.bold(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );

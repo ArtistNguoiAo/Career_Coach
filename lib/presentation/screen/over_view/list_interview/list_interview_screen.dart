@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/screen/over_view/list_interview/cubit/list_interview_cubit.dart';
@@ -91,12 +92,21 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
+      floatingActionButton: BlocListener<ListInterviewCubit, ListInterviewState>(
+        listener: (context, state) {
 
         },
-        backgroundColor: context.theme.primaryColor,
-        child: Icon(FontAwesomeIcons.plus, color: context.theme.backgroundColor),
+        child: FloatingActionButton(
+          onPressed: () {
+            DialogUtils.showCreateInterviewDialog(
+              context: context,
+              listUserResumeRecent: [],
+              onCreate: (cvSource, experienceLevel, language) {},
+            );
+          },
+          backgroundColor: context.theme.primaryColor,
+          child: Icon(FontAwesomeIcons.plus, color: context.theme.backgroundColor),
+        ),
       ),
     );
   }
@@ -178,10 +188,7 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
                             ),
                             child: Text(
                               StringUtils.convertTypeLanguageEnum(interview.language),
-                              style: TextStyleUtils.bold(
-                                fontSize: 12,
-                                color: Colors.blueAccent,
-                              ),
+                              style: TextStyleUtils.bold(fontSize: 12, color: Colors.blueAccent),
                             ),
                           ),
                           Container(
@@ -192,10 +199,7 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
                             ),
                             child: Text(
                               StringUtils.convertTypeCvSourceEnum(interview.cvSource),
-                              style: TextStyleUtils.bold(
-                                fontSize: 12,
-                                color: Colors.teal,
-                              ),
+                              style: TextStyleUtils.bold(fontSize: 12, color: Colors.teal),
                             ),
                           ),
                         ],

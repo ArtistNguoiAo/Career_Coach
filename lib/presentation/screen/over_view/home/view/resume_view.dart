@@ -45,48 +45,21 @@ class _ResumeViewState extends State<ResumeView> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TitleView(title: context.language.cvAndCl),
-        TabBar(
-          controller: _tabController,
-          dividerColor: Colors.transparent,
-          indicatorColor: context.theme.primaryColor,
-          labelColor: context.theme.primaryColor,
-          unselectedLabelColor: context.theme.borderColor,
-          tabs: [
-            Tab(text: context.language.cv),
-            Tab(text: context.language.cl),
-          ],
-        ),
+        TitleView(title: context.language.cvTemplate),
         const SizedBox(height: 8),
         Container(
           height: 300,
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: TabBarView(
-            controller: _tabController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return _itemResume(
-                    resumeEntity: widget.listResume[index],
-                  );
-                },
-                separatorBuilder: (_, __) => SizedBox(width: 16),
-                itemCount: widget.listResume.length,
-              ),
-              ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return _itemResume(
-                    resumeEntity: widget.listResume[index],
-                  );
-                },
-                separatorBuilder: (_, __) => SizedBox(width: 16),
-                itemCount: widget.listResume.length,
-              ),
-            ],
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return _itemResume(
+                resumeEntity: widget.listResume[index],
+              );
+            },
+            separatorBuilder: (_, __) => SizedBox(width: 16),
+            itemCount: widget.listResume.length,
           ),
         ),
       ],

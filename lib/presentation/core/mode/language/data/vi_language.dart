@@ -375,4 +375,25 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get gallery => 'Thư viện';
+
+  @override
+  String get chooseExperienceLevel => 'Chọn cấp độ kinh nghiệm';
+
+  @override
+  String get chooseCvSource => 'Chọn nguồn CV';
+
+  @override
+  String get setUpInterview => 'Thiết lập phỏng vấn';
+
+  @override
+  String get chooseCv => 'Chọn CV';
+
+  @override
+  String get uploadCv => 'Tải lên CV';
+
+  @override
+  String get createCvWithAI => 'Tạo CV với AI';
+
+  @override
+  String get cvTemplate => 'Mẫu CV';
 }
