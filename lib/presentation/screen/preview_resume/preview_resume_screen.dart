@@ -42,6 +42,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         },
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             key: _scaffoldKey,
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -92,7 +93,6 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
               color: context.theme.backgroundColor,
               child: Column(
                 children: [
-                  _headerRow(),
                   Expanded(child: _body(state.pdfData)),
                   _footerRow(state.userResumeEntity),
                 ],
@@ -112,18 +112,6 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget _headerRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          context.language.changeTemplate,
-          style: TextStyleUtils.bold(color: context.theme.primaryColor, fontSize: 16),
-        ),
-      ],
     );
   }
 
