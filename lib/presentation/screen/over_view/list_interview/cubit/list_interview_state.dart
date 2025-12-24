@@ -10,6 +10,9 @@ class ListInterviewState {
   final bool isLoading;
   final bool isLoadingMore;
   final int pageSize;
+  final List<UserResumeRecentEntity> listUserResumeRecent;
+  final bool isSuccess;
+  final int sessionId;
 
   ListInterviewState({
     this.listInterviewActive = const [],
@@ -21,6 +24,9 @@ class ListInterviewState {
     this.isLoading = true,
     this.isLoadingMore = false,
     this.pageSize = 20,
+    this.listUserResumeRecent = const [],
+    this.isSuccess = false,
+    this.sessionId = 0,
   });
 
   ListInterviewState copyWith({
@@ -33,6 +39,9 @@ class ListInterviewState {
     bool? isLoading,
     bool? isLoadingMore,
     int? pageSize,
+    List<UserResumeRecentEntity>? listUserResumeRecent,
+    bool? isSuccess,
+    int? sessionId,
   }) {
     return ListInterviewState(
       listInterviewActive: listInterviewActive ?? this.listInterviewActive,
@@ -44,6 +53,9 @@ class ListInterviewState {
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       pageSize: pageSize ?? this.pageSize,
+      listUserResumeRecent: listUserResumeRecent ?? this.listUserResumeRecent,
+      isSuccess: isSuccess ?? this.isSuccess,
+      sessionId: sessionId ?? this.sessionId,
     );
   }
 }

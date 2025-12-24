@@ -51,6 +51,7 @@ import 'package:career_coach/domain/repository/skill_repository.dart';
 import 'package:career_coach/domain/repository/user_repository.dart';
 import 'package:career_coach/domain/repository/user_resume_repository.dart';
 import 'package:career_coach/domain/repository/work_experience_repository.dart';
+import 'package:career_coach/domain/use_case/create_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
@@ -188,6 +189,7 @@ class DiConfig {
     getIt.registerLazySingleton<GetListInterviewHistoryUseCase>(() => GetListInterviewHistoryUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListMessageInterviewUseCase>(() => GetListMessageInterviewUseCase(getIt.get()));
     getIt.registerLazySingleton<GetPdfUseCase>(() => GetPdfUseCase(getIt.get()));
+    getIt.registerLazySingleton<CreateInterviewUseCase>(() => CreateInterviewUseCase(getIt.get()));
 
     await getIt.allReady();
   }

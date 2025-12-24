@@ -519,7 +519,12 @@ class DialogUtils {
   static void showCreateInterviewDialog({
     required BuildContext context,
     required List<UserResumeRecentEntity> listUserResumeRecent,
-    required Function(TypeCvSourceEnum cvSource, TypeCvExperienceLevelEnum experienceLevel, TypeLanguageEnum language)
+    required Function(
+      TypeCvSourceEnum cvSource,
+      TypeCvExperienceLevelEnum experienceLevel,
+      TypeLanguageEnum languageUser,
+      UserResumeRecentEntity? selectedResume,
+    )
     onCreate,
   }) {
     showModalBottomSheet(
@@ -595,12 +600,11 @@ class DialogUtils {
                     const SizedBox(height: 8),
                     DropdownButtonFormField<UserResumeRecentEntity>(
                       value: selectedResume,
-                      hint: const Text('Vui lòng chọn CV'),
+                      hint: Text(context.language.chooseCv),
+                      errorBuilder: (context, error) =>
+                          Text(error.toString(), style: TextStyleUtils.normal(color: context.theme.badColor)),
                       items: listUserResumeRecent.map((resume) {
-                        return DropdownMenuItem<UserResumeRecentEntity>(
-                          value: resume,
-                          child: Text(resume.title),
-                        );
+                        return DropdownMenuItem<UserResumeRecentEntity>(value: resume, child: Text(resume.title));
                       }).toList(),
                       onChanged: (value) {
                         setState(() => selectedResume = value);
@@ -609,19 +613,19 @@ class DialogUtils {
                         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: context.theme.darkGreyColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: context.theme.primaryColor),
                         ),
                       ),
                     ),
                     const SizedBox(height: 16),
-                  ]
-                  else ...[
+                  ] else ...[
                     Text(context.language.uploadCv, style: TextStyleUtils.bold(fontSize: 16)),
                     const SizedBox(height: 8),
-                    Container(
-                      height: 60,
-                      width: double.infinity,
-                      color: context.theme.darkGreyColor,
-                    ),
+                    Container(height: 60, width: double.infinity, color: context.theme.darkGreyColor),
                     const SizedBox(height: 16),
                   ],
                   Text(context.language.chooseExperienceLevel, style: TextStyleUtils.bold(fontSize: 16)),
@@ -697,7 +701,9 @@ class DialogUtils {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        onCreate(cvSource, experienceLevel, language, selectedResume);
+                      },
                       splashColor: Colors.transparent,
                       child: Container(
                         width: double.infinity,

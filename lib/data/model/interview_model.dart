@@ -15,8 +15,9 @@ abstract class InterviewModel with _$InterviewModel {
     @Default("") String status,
     @Default("") String language,
     @Default("") String conversationContext,
-    @Default("") String createdAt,
-    @Default("") String updatedAt,
+    @Default("") String startTime,
+    @Default("") String endTime,
+    @Default(0) int totalMessages,
   }) = _InterviewModel;
 
   factory InterviewModel.fromJson(Map<String, dynamic> json) => _$InterviewModelFromJson(json);

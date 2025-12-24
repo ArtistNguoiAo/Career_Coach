@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$InterviewModel {
 
- int get id; String get userId; int get userResumeId; String get uploadedCvPath; String get cvSource; String get experienceLevel; String get status; String get language; String get conversationContext; String get createdAt; String get updatedAt;
+ int get id; String get userId; int get userResumeId; String get uploadedCvPath; String get cvSource; String get experienceLevel; String get status; String get language; String get conversationContext; String get startTime; String get endTime; int get totalMessages;
 /// Create a copy of InterviewModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $InterviewModelCopyWith<InterviewModel> get copyWith => _$InterviewModelCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InterviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.uploadedCvPath, uploadedCvPath) || other.uploadedCvPath == uploadedCvPath)&&(identical(other.cvSource, cvSource) || other.cvSource == cvSource)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.status, status) || other.status == status)&&(identical(other.language, language) || other.language == language)&&(identical(other.conversationContext, conversationContext) || other.conversationContext == conversationContext)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InterviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.uploadedCvPath, uploadedCvPath) || other.uploadedCvPath == uploadedCvPath)&&(identical(other.cvSource, cvSource) || other.cvSource == cvSource)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.status, status) || other.status == status)&&(identical(other.language, language) || other.language == language)&&(identical(other.conversationContext, conversationContext) || other.conversationContext == conversationContext)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.totalMessages, totalMessages) || other.totalMessages == totalMessages));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,userResumeId,uploadedCvPath,cvSource,experienceLevel,status,language,conversationContext,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,userResumeId,uploadedCvPath,cvSource,experienceLevel,status,language,conversationContext,startTime,endTime,totalMessages);
 
 @override
 String toString() {
-  return 'InterviewModel(id: $id, userId: $userId, userResumeId: $userResumeId, uploadedCvPath: $uploadedCvPath, cvSource: $cvSource, experienceLevel: $experienceLevel, status: $status, language: $language, conversationContext: $conversationContext, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'InterviewModel(id: $id, userId: $userId, userResumeId: $userResumeId, uploadedCvPath: $uploadedCvPath, cvSource: $cvSource, experienceLevel: $experienceLevel, status: $status, language: $language, conversationContext: $conversationContext, startTime: $startTime, endTime: $endTime, totalMessages: $totalMessages)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $InterviewModelCopyWith<$Res>  {
   factory $InterviewModelCopyWith(InterviewModel value, $Res Function(InterviewModel) _then) = _$InterviewModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String userId, int userResumeId, String uploadedCvPath, String cvSource, String experienceLevel, String status, String language, String conversationContext, String createdAt, String updatedAt
+ int id, String userId, int userResumeId, String uploadedCvPath, String cvSource, String experienceLevel, String status, String language, String conversationContext, String startTime, String endTime, int totalMessages
 });
 
 
@@ -65,7 +65,7 @@ class _$InterviewModelCopyWithImpl<$Res>
 
 /// Create a copy of InterviewModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? userResumeId = null,Object? uploadedCvPath = null,Object? cvSource = null,Object? experienceLevel = null,Object? status = null,Object? language = null,Object? conversationContext = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? userResumeId = null,Object? uploadedCvPath = null,Object? cvSource = null,Object? experienceLevel = null,Object? status = null,Object? language = null,Object? conversationContext = null,Object? startTime = null,Object? endTime = null,Object? totalMessages = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -76,9 +76,10 @@ as String,experienceLevel: null == experienceLevel ? _self.experienceLevel : exp
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as String,conversationContext: null == conversationContext ? _self.conversationContext : conversationContext // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as String,
+as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
+as String,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
+as String,totalMessages: null == totalMessages ? _self.totalMessages : totalMessages // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String createdAt,  String updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String startTime,  String endTime,  int totalMessages)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InterviewModel() when $default != null:
-return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.startTime,_that.endTime,_that.totalMessages);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String createdAt,  String updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String startTime,  String endTime,  int totalMessages)  $default,) {final _that = this;
 switch (_that) {
 case _InterviewModel():
-return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.startTime,_that.endTime,_that.totalMessages);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String createdAt,  String updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId,  int userResumeId,  String uploadedCvPath,  String cvSource,  String experienceLevel,  String status,  String language,  String conversationContext,  String startTime,  String endTime,  int totalMessages)?  $default,) {final _that = this;
 switch (_that) {
 case _InterviewModel() when $default != null:
-return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_that.cvSource,_that.experienceLevel,_that.status,_that.language,_that.conversationContext,_that.startTime,_that.endTime,_that.totalMessages);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.id,_that.userId,_that.userResumeId,_that.uploadedCvPath,_t
 @JsonSerializable()
 
 class _InterviewModel implements InterviewModel {
-  const _InterviewModel({this.id = 0, this.userId = "", this.userResumeId = 0, this.uploadedCvPath = "", this.cvSource = "", this.experienceLevel = "", this.status = "", this.language = "", this.conversationContext = "", this.createdAt = "", this.updatedAt = ""});
+  const _InterviewModel({this.id = 0, this.userId = "", this.userResumeId = 0, this.uploadedCvPath = "", this.cvSource = "", this.experienceLevel = "", this.status = "", this.language = "", this.conversationContext = "", this.startTime = "", this.endTime = "", this.totalMessages = 0});
   factory _InterviewModel.fromJson(Map<String, dynamic> json) => _$InterviewModelFromJson(json);
 
 @override@JsonKey() final  int id;
@@ -231,8 +232,9 @@ class _InterviewModel implements InterviewModel {
 @override@JsonKey() final  String status;
 @override@JsonKey() final  String language;
 @override@JsonKey() final  String conversationContext;
-@override@JsonKey() final  String createdAt;
-@override@JsonKey() final  String updatedAt;
+@override@JsonKey() final  String startTime;
+@override@JsonKey() final  String endTime;
+@override@JsonKey() final  int totalMessages;
 
 /// Create a copy of InterviewModel
 /// with the given fields replaced by the non-null parameter values.
@@ -247,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InterviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.uploadedCvPath, uploadedCvPath) || other.uploadedCvPath == uploadedCvPath)&&(identical(other.cvSource, cvSource) || other.cvSource == cvSource)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.status, status) || other.status == status)&&(identical(other.language, language) || other.language == language)&&(identical(other.conversationContext, conversationContext) || other.conversationContext == conversationContext)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InterviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.userResumeId, userResumeId) || other.userResumeId == userResumeId)&&(identical(other.uploadedCvPath, uploadedCvPath) || other.uploadedCvPath == uploadedCvPath)&&(identical(other.cvSource, cvSource) || other.cvSource == cvSource)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.status, status) || other.status == status)&&(identical(other.language, language) || other.language == language)&&(identical(other.conversationContext, conversationContext) || other.conversationContext == conversationContext)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.totalMessages, totalMessages) || other.totalMessages == totalMessages));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,userResumeId,uploadedCvPath,cvSource,experienceLevel,status,language,conversationContext,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,userResumeId,uploadedCvPath,cvSource,experienceLevel,status,language,conversationContext,startTime,endTime,totalMessages);
 
 @override
 String toString() {
-  return 'InterviewModel(id: $id, userId: $userId, userResumeId: $userResumeId, uploadedCvPath: $uploadedCvPath, cvSource: $cvSource, experienceLevel: $experienceLevel, status: $status, language: $language, conversationContext: $conversationContext, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'InterviewModel(id: $id, userId: $userId, userResumeId: $userResumeId, uploadedCvPath: $uploadedCvPath, cvSource: $cvSource, experienceLevel: $experienceLevel, status: $status, language: $language, conversationContext: $conversationContext, startTime: $startTime, endTime: $endTime, totalMessages: $totalMessages)';
 }
 
 
@@ -267,7 +269,7 @@ abstract mixin class _$InterviewModelCopyWith<$Res> implements $InterviewModelCo
   factory _$InterviewModelCopyWith(_InterviewModel value, $Res Function(_InterviewModel) _then) = __$InterviewModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String userId, int userResumeId, String uploadedCvPath, String cvSource, String experienceLevel, String status, String language, String conversationContext, String createdAt, String updatedAt
+ int id, String userId, int userResumeId, String uploadedCvPath, String cvSource, String experienceLevel, String status, String language, String conversationContext, String startTime, String endTime, int totalMessages
 });
 
 
@@ -284,7 +286,7 @@ class __$InterviewModelCopyWithImpl<$Res>
 
 /// Create a copy of InterviewModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? userResumeId = null,Object? uploadedCvPath = null,Object? cvSource = null,Object? experienceLevel = null,Object? status = null,Object? language = null,Object? conversationContext = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? userResumeId = null,Object? uploadedCvPath = null,Object? cvSource = null,Object? experienceLevel = null,Object? status = null,Object? language = null,Object? conversationContext = null,Object? startTime = null,Object? endTime = null,Object? totalMessages = null,}) {
   return _then(_InterviewModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -295,9 +297,10 @@ as String,experienceLevel: null == experienceLevel ? _self.experienceLevel : exp
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as String,conversationContext: null == conversationContext ? _self.conversationContext : conversationContext // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as String,
+as String,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
+as String,endTime: null == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
+as String,totalMessages: null == totalMessages ? _self.totalMessages : totalMessages // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

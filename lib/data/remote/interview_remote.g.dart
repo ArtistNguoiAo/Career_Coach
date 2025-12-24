@@ -128,6 +128,39 @@ class _InterviewRemote implements InterviewRemote {
     return _value;
   }
 
+  @override
+  Future<ApiResponse<InterviewModel>> startInterview({
+    required InterviewRequestBody interviewRequestBody,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(interviewRequestBody.toJson());
+    final _options = _setStreamType<ApiResponse<InterviewModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/start',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<InterviewModel> _value;
+    try {
+      _value = ApiResponse<InterviewModel>.fromJson(
+        _result.data!,
+        (json) => InterviewModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
