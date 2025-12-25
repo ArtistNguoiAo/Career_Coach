@@ -130,28 +130,12 @@ class _InterviewRemote implements InterviewRemote {
 
   @override
   Future<ApiResponse<InterviewModel>> startInterview({
-    required String request,
-    File? file,
+    required Map<String, MultipartFile> parts,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry('request', request));
-    if (file != null) {
-      if (file != null) {
-        _data.files.add(
-          MapEntry(
-            'file',
-            MultipartFile.fromFileSync(
-              file.path,
-              filename: file.path.split(Platform.pathSeparator).last,
-            ),
-          ),
-        );
-      }
-    }
+    final _data = FormData.fromMap(parts);
     final _options = _setStreamType<ApiResponse<InterviewModel>>(
       Options(
             method: 'POST',
