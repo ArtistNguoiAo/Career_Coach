@@ -93,7 +93,55 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
               color: context.theme.backgroundColor,
               child: Column(
                 children: [
-                  Expanded(child: _body(state.pdfData)),
+                  Expanded(child: Column(
+                    children: [
+                      Expanded(child: _body(state.pdfData)),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                context.read<PreviewResumeCubit>().reloadPdf();
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  context.language.reload,
+                                  style: TextStyleUtils.bold(color: context.theme.primaryColor, fontSize: 16),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+                                child: Text(
+                                  context.language.download,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+                  const SizedBox(height: 16),
                   _footerRow(state.userResumeEntity),
                 ],
               ),

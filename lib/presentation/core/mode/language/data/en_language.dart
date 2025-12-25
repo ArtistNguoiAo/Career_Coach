@@ -396,4 +396,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get cvTemplate => 'CV Template';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get reload => 'Reload';
 }

@@ -129,4 +129,6 @@ abstract class BaseLanguage {
   String get uploadCv;
   String get createCvWithAI;
   String get cvTemplate;
+  String get download;
+  String get reload;
 }

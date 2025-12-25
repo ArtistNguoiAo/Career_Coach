@@ -396,4 +396,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get cvTemplate => 'Mẫu CV';
+
+  @override
+  String get download => 'Tải xuống';
+
+  @override
+  String get reload => 'Tải lại';
 }
