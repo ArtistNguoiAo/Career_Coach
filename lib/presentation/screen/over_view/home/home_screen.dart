@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    HeaderView(),
+                    HeaderView(userEntity: state.userEntity),
                     const SizedBox(height: 16),
                     _createCvWithAI(),
                     const SizedBox(height: 16),

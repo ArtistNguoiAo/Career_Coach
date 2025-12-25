@@ -1,12 +1,12 @@
+import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iconly/iconly.dart';
-
 class HeaderView extends StatelessWidget {
-  const HeaderView({super.key});
+  const HeaderView({super.key, required this.userEntity});
+
+  final UserEntity? userEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -27,31 +27,12 @@ class HeaderView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        context.language.welcomeApp,
-                        style: TextStyleUtils.bold(
-                          fontSize: 20,
-                          color: context.theme.backgroundColor,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    InkWell(
-                      onTap: () {},
-                      child: Stack(
-                        children: [
-                          Icon(
-                            IconlyBold.notification,
-                            color: context.theme.backgroundColor,
-                            size: 28,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text(
+                  context.language.welcomeApp,
+                  style: TextStyleUtils.bold(
+                    fontSize: 20,
+                    color: context.theme.backgroundColor,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -92,7 +73,7 @@ class HeaderView extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BaseAvatar(url: '', size: 80, padding: 16),
+                    BaseAvatar(url: userEntity?.avatar ?? '', size: 80, padding: 16),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(
@@ -108,15 +89,17 @@ class HeaderView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Flexible(
-                            child: Text(
-                              "Le Quoc Trung",
-                              style: TextStyleUtils.bold(
-                                fontSize: 20,
-                                color: context.theme.primaryColor,
+                          if(userEntity != null && userEntity!.fullName.isNotEmpty)...[
+                            Flexible(
+                              child: Text(
+                                userEntity?.fullName ?? '',
+                                style: TextStyleUtils.bold(
+                                  fontSize: 20,
+                                  color: context.theme.primaryColor,
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                           Flexible(
                             child: Text(
                               '${context.language.haveAGoodDay}!',
@@ -128,11 +111,6 @@ class HeaderView extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    FaIcon(
-                      FontAwesomeIcons.feather,
-                      color: context.theme.textColor,
                     ),
                   ],
                 ),
