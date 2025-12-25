@@ -17,8 +17,9 @@ class InterviewMapper {
       status: TypeInterviewStatusEnumExtension.fromString(interviewModel.status),
       language: TypeLanguageEnumExtension.fromString(interviewModel.language),
       conversationContext: interviewModel.conversationContext,
-      createdAt: interviewModel.createdAt,
-      updatedAt: interviewModel.updatedAt,
+      startTime: interviewModel.startTime,
+      endTime: interviewModel.endTime,
+      totalMessages: interviewModel.totalMessages,
     );
   }
 }

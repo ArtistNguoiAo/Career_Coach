@@ -1,7 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
+import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
+import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
+import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
+import 'package:career_coach/domain/enum/type_language_enum.dart';
+import 'package:career_coach/domain/use_case/create_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_active_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_history_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
 
 part 'list_interview_state.dart';
@@ -11,7 +17,8 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
 
   final getListInterviewActiveUseCase = getIt<GetListInterviewActiveUseCase>();
   final getListInterviewHistoryUseCase = getIt<GetListInterviewHistoryUseCase>();
-
+  final getListUserResumeRecentUseCae = getIt<GetListUserResumeRecentUseCase>();
+  final createInterviewUseCase = getIt<CreateInterviewUseCase>();
 
   Future<void> init() async {
     emit(state.copyWith(isLoading: true));
@@ -20,6 +27,10 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
       final activeInterviews = await getListInterviewActiveUseCase.call(page: 0, size: state.pageSize);
 
       final historyInterviews = await getListInterviewHistoryUseCase.call(page: 0, size: state.pageSize);
+
+      final listUserResumeRecent = await getListUserResumeRecentUseCae.call(
+        limit: 3,
+      );
 
       emit(
         state.copyWith(
@@ -30,6 +41,7 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
           hasReachedMaxActive: activeInterviews.length < state.pageSize,
           hasReachedMaxHistory: historyInterviews.length < state.pageSize,
           isLoading: false,
+          listUserResumeRecent: listUserResumeRecent,
         ),
       );
     } catch (e) {
@@ -81,6 +93,27 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
     } catch (e) {
       emit(state.copyWith(isLoadingMore: false));
       rethrow;
+    }
+  }
+
+  Future<void> createInterview({
+    required TypeCvSourceEnum cvSource,
+    int? userResumeId,
+    required TypeCvExperienceLevelEnum experienceLevel,
+    required TypeLanguageEnum language,
+  }) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final interViewEntity = await createInterviewUseCase.call(
+        cvSource: cvSource,
+        userResumeId: userResumeId,
+        experienceLevel: experienceLevel,
+        language: language,
+      );
+      emit(state.copyWith(isLoading: false, isSuccess: true, sessionId: interViewEntity.id));
+    }
+    catch (e) {
+      emit(state.copyWith(isLoading: false));
     }
   }
 }

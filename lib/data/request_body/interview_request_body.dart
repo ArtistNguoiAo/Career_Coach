@@ -1,12 +1,12 @@
 class InterviewRequestBody {
   final String cvSource;
-  final int userResumeId;
+  int? userResumeId;
   final String experienceLevel;
   final String language;
 
   InterviewRequestBody({
     required this.cvSource,
-    required this.userResumeId,
+    this.userResumeId,
     required this.experienceLevel,
     required this.language,
   });

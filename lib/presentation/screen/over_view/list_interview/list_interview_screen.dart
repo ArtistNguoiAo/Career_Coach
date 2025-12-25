@@ -92,21 +92,38 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
           ],
         ),
       ),
-      floatingActionButton: BlocListener<ListInterviewCubit, ListInterviewState>(
+      floatingActionButton: BlocConsumer<ListInterviewCubit, ListInterviewState>(
         listener: (context, state) {
-
+          if (state.isLoading) {
+            DialogUtils.showLoadingDialog(context);
+          } else {
+            DialogUtils.hideLoadingDialog(context);
+          }
+          if (state.isSuccess) {
+            AutoRouter.of(context).push(MessageRoute(sessionId: state.sessionId));
+          }
         },
-        child: FloatingActionButton(
-          onPressed: () {
-            DialogUtils.showCreateInterviewDialog(
-              context: context,
-              listUserResumeRecent: [],
-              onCreate: (cvSource, experienceLevel, language) {},
-            );
-          },
-          backgroundColor: context.theme.primaryColor,
-          child: Icon(FontAwesomeIcons.plus, color: context.theme.backgroundColor),
-        ),
+        builder: (context, state) {
+          return FloatingActionButton(
+            onPressed: () {
+              DialogUtils.showCreateInterviewDialog(
+                context: context,
+                listUserResumeRecent: state.listUserResumeRecent,
+                onCreate: (cvSource, experienceLevel, language, selectedResume) {
+                  AutoRouter.of(context).maybePop();
+                  context.read<ListInterviewCubit>().createInterview(
+                    cvSource: cvSource,
+                    userResumeId: selectedResume?.id,
+                    experienceLevel: experienceLevel,
+                    language: language,
+                  );
+                },
+              );
+            },
+            backgroundColor: context.theme.primaryColor,
+            child: Icon(FontAwesomeIcons.plus, color: context.theme.backgroundColor),
+          );
+        },
       ),
     );
   }
@@ -148,7 +165,7 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
                             style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 16),
                           ),
                           Text(
-                            StringUtils.convertDateTimeString(interview.createdAt),
+                            StringUtils.convertDateTimeString(interview.startTime),
                             style: TextStyleUtils.normal(color: context.theme.darkGreyColor, fontSize: 14),
                           ),
                         ],

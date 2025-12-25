@@ -17,8 +17,9 @@ _InterviewModel _$InterviewModelFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String? ?? "",
       language: json['language'] as String? ?? "",
       conversationContext: json['conversationContext'] as String? ?? "",
-      createdAt: json['createdAt'] as String? ?? "",
-      updatedAt: json['updatedAt'] as String? ?? "",
+      startTime: json['startTime'] as String? ?? "",
+      endTime: json['endTime'] as String? ?? "",
+      totalMessages: (json['totalMessages'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$InterviewModelToJson(_InterviewModel instance) =>
@@ -32,6 +33,7 @@ Map<String, dynamic> _$InterviewModelToJson(_InterviewModel instance) =>
       'status': instance.status,
       'language': instance.language,
       'conversationContext': instance.conversationContext,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
+      'totalMessages': instance.totalMessages,
     };

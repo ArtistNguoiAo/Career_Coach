@@ -13,8 +13,9 @@ class InterviewEntity {
   final TypeInterviewStatusEnum status;
   final TypeLanguageEnum language;
   final String conversationContext;
-  final String createdAt;
-  final String updatedAt;
+  final String startTime;
+  final String endTime;
+  final int totalMessages;
 
   InterviewEntity({
     required this.id,
@@ -26,7 +27,8 @@ class InterviewEntity {
     required this.status,
     required this.language,
     required this.conversationContext,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.startTime,
+    required this.endTime,
+    required this.totalMessages,
   });
 }
