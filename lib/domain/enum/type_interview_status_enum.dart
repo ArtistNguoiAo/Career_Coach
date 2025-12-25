@@ -1,7 +1,6 @@
 enum TypeInterviewStatusEnum {
   ACTIVE,
-  COMPLETED,
-  CANCELLED
+  COMPLETED
 }
 
 extension TypeInterviewStatusEnumExtension on TypeInterviewStatusEnum {
@@ -13,8 +12,6 @@ extension TypeInterviewStatusEnumExtension on TypeInterviewStatusEnum {
         return TypeInterviewStatusEnum.ACTIVE;
       case 'COMPLETED':
         return TypeInterviewStatusEnum.COMPLETED;
-      case 'CANCELLED':
-        return TypeInterviewStatusEnum.CANCELLED;
       default:
         return TypeInterviewStatusEnum.ACTIVE;
     }

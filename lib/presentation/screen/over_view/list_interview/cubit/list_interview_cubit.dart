@@ -104,13 +104,13 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
   }) async {
     emit(state.copyWith(isLoading: true));
     try {
-      final interViewEntity = await createInterviewUseCase.call(
+      final createInterviewEntity = await createInterviewUseCase.call(
         cvSource: cvSource,
         userResumeId: userResumeId,
         experienceLevel: experienceLevel,
         language: language,
       );
-      emit(state.copyWith(isLoading: false, isSuccess: true, sessionId: interViewEntity.id));
+      emit(state.copyWith(isLoading: false, isSuccess: true, sessionId: createInterviewEntity.sessionId));
     }
     catch (e) {
       emit(state.copyWith(isLoading: false));

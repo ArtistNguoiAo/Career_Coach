@@ -116,8 +116,6 @@ class StringUtils {
         return "Active";
       case TypeInterviewStatusEnum.COMPLETED:
         return "Completed";
-      case TypeInterviewStatusEnum.CANCELLED:
-        return "Cancelled";
     }
   }
 }

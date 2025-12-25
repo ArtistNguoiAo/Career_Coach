@@ -402,4 +402,19 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get reload => 'Tải lại';
+
+  @override
+  String get active => 'Hoạt động';
+
+  @override
+  String get history => 'Lịch sử';
+
+  @override
+  String get end => 'Kết thúc';
+
+  @override
+  String get endInterviewContent => 'Bạn có chắc chắn muốn kết thúc buổi phỏng vấn không?';
+
+  @override
+  String get interviewAnalysis => 'Phân tích phỏng vấn';
 }

@@ -1,3 +1,4 @@
+import 'package:career_coach/domain/entity/create_interview_entity.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
 import 'package:career_coach/domain/entity/message_entity.dart';
 import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
@@ -17,14 +18,16 @@ abstract class InterviewRepository {
 
   Future<List<MessageEntity>> getListMessageInterview({
     required int sessionId,
-    required int page,
-    required int size,
   });
 
-  Future<InterviewEntity> startInterview({
+  Future<CreateInterviewEntity> startInterview({
     required TypeCvSourceEnum cvSource,
     int? userResumeId,
     required TypeCvExperienceLevelEnum experienceLevel,
     required TypeLanguageEnum language,
+  });
+
+  Future<InterviewEntity> endInterview({
+    required int sessionId,
   });
 }

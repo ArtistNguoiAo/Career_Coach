@@ -10,7 +10,7 @@ class InterviewEntity {
   final String uploadedCvPath;
   final TypeCvSourceEnum cvSource;
   final TypeCvExperienceLevelEnum experienceLevel;
-  final TypeInterviewStatusEnum status;
+  TypeInterviewStatusEnum status;
   final TypeLanguageEnum language;
   final String conversationContext;
   final String startTime;

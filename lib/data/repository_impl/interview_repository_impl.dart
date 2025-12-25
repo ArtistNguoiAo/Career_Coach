@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:career_coach/data/mapper/create_interview_mapper.dart';
 import 'package:career_coach/data/mapper/interview_mapper.dart';
 import 'package:career_coach/data/mapper/message_mapper.dart';
 import 'package:career_coach/data/remote/interview_remote.dart';
 import 'package:career_coach/data/request_body/interview_request_body.dart';
+import 'package:career_coach/domain/entity/create_interview_entity.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
 import 'package:career_coach/domain/entity/message_entity.dart';
 import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
@@ -34,15 +36,13 @@ class InterviewRepositoryImpl implements InterviewRepository {
   @override
   Future<List<MessageEntity>> getListMessageInterview({
     required int sessionId,
-    required int page,
-    required int size,
   }) async {
-    final response = await _interviewRemote.getListMessageInterview(sessionId: sessionId, page: page, size: size);
-    return response.data.content.map(MessageMapper.toEntity).toList();
+    final response = await _interviewRemote.getListMessageInterview(sessionId: sessionId);
+    return response.data.map(MessageMapper.toEntity).toList();
   }
 
   @override
-  Future<InterviewEntity> startInterview({
+  Future<CreateInterviewEntity> startInterview({
     required TypeCvSourceEnum cvSource,
     int? userResumeId,
     required TypeCvExperienceLevelEnum experienceLevel,
@@ -64,7 +64,6 @@ class InterviewRepositoryImpl implements InterviewRepository {
       contentType: MediaType("application","json"),
     );
 
-    // file part
     if (file != null) {
       final bytes = await file.readAsBytes();
       final fileName = file.path.split('/').last;
@@ -79,6 +78,12 @@ class InterviewRepositoryImpl implements InterviewRepository {
     }
 
     final response = await _interviewRemote.startInterview(parts: parts);
+    return CreateInterviewMapper.toEntity(response.data);
+  }
+
+  @override
+  Future<InterviewEntity> endInterview({required int sessionId}) async {
+    final response = await _interviewRemote.endInterview(sessionId: sessionId);
     return InterviewMapper.toEntity(response.data);
   }
 }

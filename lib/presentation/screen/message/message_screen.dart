@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/domain/enum/type_message_role_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
@@ -9,35 +11,24 @@ import 'package:career_coach/presentation/screen/message/cubit/message_cubit.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconly/iconly.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 @RoutePage()
-class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key, required this.sessionId});
+class MessageScreen extends StatefulWidget {
+  const MessageScreen({super.key, required this.sessionId, required this.status});
 
   final int sessionId;
+  final TypeInterviewStatusEnum status;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MessageCubit()..init(sessionId),
-      child: MessageScreenUI(sessionId: sessionId),
-    );
-  }
+  State<MessageScreen> createState() => _MessageScreenState();
 }
 
-class MessageScreenUI extends StatefulWidget {
-  const MessageScreenUI({super.key, required this.sessionId});
-
-  final int sessionId;
-
-  @override
-  State<MessageScreenUI> createState() => _MessageScreenUIState();
-}
-
-class _MessageScreenUIState extends State<MessageScreenUI> {
+class _MessageScreenState extends State<MessageScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _contentController = TextEditingController();
+  var isChanged = false;
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -53,6 +44,7 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
 
   @override
   void initState() {
+    isChanged = widget.status == TypeInterviewStatusEnum.ACTIVE;
     super.initState();
   }
 
@@ -64,75 +56,137 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16, left: 16, right: 16, bottom: 16),
-        color: context.theme.backgroundColor,
-        child: Column(
-          children: [
-            _header(),
-            const SizedBox(height: 16),
-            Expanded(child: _listMessage()),
-            const SizedBox(height: 8),
-            _sendMessageBar(),
-          ],
+    return BlocProvider(
+      create: (context) => MessageCubit()..init(widget.sessionId, widget.status),
+      child: Scaffold(
+        body: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16, left: 16, right: 16, bottom: 16),
+          color: context.theme.backgroundColor,
+          child: Column(
+            children: [
+              _header(),
+              const SizedBox(height: 16),
+              Expanded(child: _listMessage()),
+              const SizedBox(height: 8),
+              _sendMessageBar(),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _header() {
-    return Column(
-      children: [
-        Row(
+    return BlocConsumer<MessageCubit, MessageState>(
+      listener: (context, state) {
+        if (state.isLoadingTotal) {
+          DialogUtils.showLoadingDialog(context);
+        } else {
+          DialogUtils.hideLoadingDialog(context);
+        }
+        if (state.isEndInterviewSuccess) {
+          isChanged = true;
+        }
+      },
+      builder: (context, state) {
+        return Column(
           children: [
-            InkWell(
-              onTap: () {
-                context.router.maybePop();
-              },
-              child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.textColor, size: 20),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  return InkWell(
-                    onTap: () {
-                      Scaffold.of(context).openEndDrawer();
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: context.theme.primaryDarkColor, width: 1),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage(MediaUtils.imgChatbot),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                   AutoRouter.of(context).maybePop(isChanged);
+                  },
+                  child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.textColor, size: 20),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Builder(
+                    builder: (context) {
+                      return InkWell(
+                        onTap: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        child: Row(
                           children: [
-                            Text(
-                              "Career Coach Bot",
-                              style: TextStyleUtils.bold(color: context.theme.textColor),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(image: AssetImage(MediaUtils.imgChatbot), fit: BoxFit.cover),
+                              ),
                             ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Bot Assistant", style: TextStyleUtils.bold(color: context.theme.textColor)),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: state.status == TypeInterviewStatusEnum.ACTIVE
+                                          ? context.theme.goodColor.withAlpha((255 * 0.1).round())
+                                          : context.theme.mediumColor.withAlpha((255 * 0.1).round()),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      StringUtils.convertTypeInterviewStatusEnum(state.status),
+                                      style: TextStyleUtils.bold(
+                                        fontSize: 12,
+                                        color: state.status == TypeInterviewStatusEnum.ACTIVE
+                                            ? context.theme.goodColor
+                                            : context.theme.mediumColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (state.status == TypeInterviewStatusEnum.ACTIVE) ...[
+                              const SizedBox(width: 8),
+                              InkWell(
+                                onTap: () {
+                                  DialogUtils.showEndPreviewDialog(
+                                    context: context,
+                                    onEnd: (bool isConfirm) {
+                                      if (isConfirm) {
+                                        context.read<MessageCubit>().endInterview();
+                                      }
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: context.theme.badColor.withAlpha((255 * 0.1).round()),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(FontAwesomeIcons.stop, color: context.theme.badColor, size: 12),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        context.language.end,
+                                        style: TextStyleUtils.bold(fontSize: 12, color: context.theme.badColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -155,12 +209,8 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      border: Border.all(color: context.theme.primaryDarkColor, width: 1),
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(MediaUtils.imgChatbot),
-                        fit: BoxFit.cover,
-                      ),
+                      image: DecorationImage(image: AssetImage(MediaUtils.imgChatbot), fit: BoxFit.cover),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -214,12 +264,8 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        border: Border.all(color: context.theme.primaryDarkColor, width: 1),
                         shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(MediaUtils.imgChatbot),
-                          fit: BoxFit.cover,
-                        ),
+                        image: DecorationImage(image: AssetImage(MediaUtils.imgChatbot), fit: BoxFit.cover),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -252,27 +298,60 @@ class _MessageScreenUIState extends State<MessageScreenUI> {
               }
             }
           },
-          separatorBuilder: (context, index) => const SizedBox(height: 8)
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
         );
       },
     );
   }
 
   Widget _sendMessageBar() {
-    return Builder(
-      builder: (context) {
-        return BaseTextField(
-          controller: _contentController,
-          style: TextStyleUtils.normal(color: context.theme.textColor),
-          hintStyle: TextStyleUtils.normal(color: context.theme.textColor.withAlpha((255 * 0.6).round())),
-          hintText: "Type a message...",
-          onFieldSubmitted: (value) {
-            if (value.trim().isEmpty) return;
-            context.read<MessageCubit>().sendMessage(value.trim());
-            _contentController.clear();
-            _scrollToBottom();
-          },
-        );
+    return BlocBuilder<MessageCubit, MessageState>(
+      builder: (context, state) {
+        if(state.status == TypeInterviewStatusEnum.ACTIVE) {
+          return Row(
+            children: [
+              Expanded(
+                child: BaseTextField(
+                  controller: _contentController,
+                  style: TextStyleUtils.normal(color: context.theme.textColor),
+                  hintStyle: TextStyleUtils.normal(color: context.theme.textColor.withAlpha((255 * 0.6).round())),
+                  hintText: "Type a message...",
+                  textInputAction: TextInputAction.newline,
+                ),
+              ),
+              const SizedBox(width: 8),
+              InkWell(
+                onTap: () {
+                  if (_contentController.text.trim().isEmpty) return;
+                  context.read<MessageCubit>().sendMessage(_contentController.text.trim());
+                  _contentController.clear();
+                  _scrollToBottom();
+                },
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(color: context.theme.primaryColor, shape: BoxShape.circle),
+                  child: Center(child: Icon(IconlyBold.send, color: Colors.white, size: 24)),
+                ),
+              ),
+            ],
+          );
+        }
+        else {
+          return Container(
+            padding: EdgeInsets.all(12),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: context.theme.primaryColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              context.language.interviewAnalysis,
+              style: TextStyleUtils.normal(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
       },
     );
   }

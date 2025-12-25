@@ -92,16 +92,14 @@ class _InterviewRemote implements InterviewRemote {
   }
 
   @override
-  Future<ApiResponse<PagedData<MessageModel>>> getListMessageInterview({
+  Future<ApiResponse<List<MessageModel>>> getListMessageInterview({
     required int sessionId,
-    required int page,
-    required int size,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page, r'size': size};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<PagedData<MessageModel>>>(
+    final _options = _setStreamType<ApiResponse<List<MessageModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -112,14 +110,17 @@ class _InterviewRemote implements InterviewRemote {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<PagedData<MessageModel>> _value;
+    late ApiResponse<List<MessageModel>> _value;
     try {
-      _value = ApiResponse<PagedData<MessageModel>>.fromJson(
+      _value = ApiResponse<List<MessageModel>>.fromJson(
         _result.data!,
-        (json) => PagedData<MessageModel>.fromJson(
-          json as Map<String, dynamic>,
-          (json) => MessageModel.fromJson(json as Map<String, dynamic>),
-        ),
+        (json) => json is List<dynamic>
+            ? json
+                  .map<MessageModel>(
+                    (i) => MessageModel.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
+            : List.empty(),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -129,14 +130,14 @@ class _InterviewRemote implements InterviewRemote {
   }
 
   @override
-  Future<ApiResponse<InterviewModel>> startInterview({
+  Future<ApiResponse<CreateInterviewModel>> startInterview({
     required Map<String, MultipartFile> parts,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = FormData.fromMap(parts);
-    final _options = _setStreamType<ApiResponse<InterviewModel>>(
+    final _options = _setStreamType<ApiResponse<CreateInterviewModel>>(
       Options(
             method: 'POST',
             headers: _headers,
@@ -146,6 +147,38 @@ class _InterviewRemote implements InterviewRemote {
           .compose(
             _dio.options,
             '/start',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<CreateInterviewModel> _value;
+    try {
+      _value = ApiResponse<CreateInterviewModel>.fromJson(
+        _result.data!,
+        (json) => CreateInterviewModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResponse<InterviewModel>> endInterview({
+    required int sessionId,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponse<InterviewModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/${sessionId}/end',
             queryParameters: queryParameters,
             data: _data,
           )

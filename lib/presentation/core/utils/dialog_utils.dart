@@ -315,6 +315,64 @@ class DialogUtils {
     });
   }
 
+  static void showEndPreviewDialog({required BuildContext context, required Function onEnd}) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: context.theme.backgroundColor,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(IconlyBold.danger, size: 22, color: context.theme.badColor),
+              const SizedBox(height: 10),
+              Text(
+                context.language.endInterviewContent,
+                style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
+              ),
+            ],
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(true);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: context.theme.badColor.withAlpha((255 * 0.1).round()),
+                ),
+                child: Text(
+                  context.language.end,
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.badColor),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                AutoRouter.of(context).maybePop(false);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: context.theme.lightGreyColor),
+                child: Text(
+                  context.language.cancel,
+                  style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((value) async {
+      if (value != null && value is bool && value) {
+        await onEnd(value);
+      }
+    });
+  }
+
   static void showPreviewResumeDialog({
     required BuildContext context,
     required ResumeEntity resumeEntity,

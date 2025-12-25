@@ -11,7 +11,7 @@ class ListInterviewState {
   final bool isLoadingMore;
   final int pageSize;
   final List<UserResumeRecentEntity> listUserResumeRecent;
-  final bool isSuccess;
+  bool isSuccess;
   final int sessionId;
 
   ListInterviewState({

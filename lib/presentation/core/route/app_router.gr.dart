@@ -10,8 +10,10 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i25;
-import 'package:career_coach/domain/entity/user_entity.dart' as _i28;
+import 'package:career_coach/domain/entity/user_entity.dart' as _i29;
 import 'package:career_coach/domain/entity/user_resume_entity.dart' as _i27;
+import 'package:career_coach/domain/enum/type_interview_status_enum.dart'
+    as _i28;
 import 'package:career_coach/presentation/screen/auth/login/login_screen.dart'
     as _i12;
 import 'package:career_coach/presentation/screen/auth/register/register_screen.dart'
@@ -574,10 +576,11 @@ class MessageRoute extends _i25.PageRouteInfo<MessageRouteArgs> {
   MessageRoute({
     _i26.Key? key,
     required int sessionId,
+    required _i28.TypeInterviewStatusEnum status,
     List<_i25.PageRouteInfo>? children,
   }) : super(
          MessageRoute.name,
-         args: MessageRouteArgs(key: key, sessionId: sessionId),
+         args: MessageRouteArgs(key: key, sessionId: sessionId, status: status),
          initialChildren: children,
        );
 
@@ -587,32 +590,44 @@ class MessageRoute extends _i25.PageRouteInfo<MessageRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<MessageRouteArgs>();
-      return _i14.MessageScreen(key: args.key, sessionId: args.sessionId);
+      return _i14.MessageScreen(
+        key: args.key,
+        sessionId: args.sessionId,
+        status: args.status,
+      );
     },
   );
 }
 
 class MessageRouteArgs {
-  const MessageRouteArgs({this.key, required this.sessionId});
+  const MessageRouteArgs({
+    this.key,
+    required this.sessionId,
+    required this.status,
+  });
 
   final _i26.Key? key;
 
   final int sessionId;
 
+  final _i28.TypeInterviewStatusEnum status;
+
   @override
   String toString() {
-    return 'MessageRouteArgs{key: $key, sessionId: $sessionId}';
+    return 'MessageRouteArgs{key: $key, sessionId: $sessionId, status: $status}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! MessageRouteArgs) return false;
-    return key == other.key && sessionId == other.sessionId;
+    return key == other.key &&
+        sessionId == other.sessionId &&
+        status == other.status;
   }
 
   @override
-  int get hashCode => key.hashCode ^ sessionId.hashCode;
+  int get hashCode => key.hashCode ^ sessionId.hashCode ^ status.hashCode;
 }
 
 /// generated route for
@@ -778,7 +793,7 @@ class ProfileRoute extends _i25.PageRouteInfo<void> {
 class ProfileUpdateRoute extends _i25.PageRouteInfo<ProfileUpdateRouteArgs> {
   ProfileUpdateRoute({
     _i26.Key? key,
-    required _i28.UserEntity userEntity,
+    required _i29.UserEntity userEntity,
     List<_i25.PageRouteInfo>? children,
   }) : super(
          ProfileUpdateRoute.name,
@@ -805,7 +820,7 @@ class ProfileUpdateRouteArgs {
 
   final _i26.Key? key;
 
-  final _i28.UserEntity userEntity;
+  final _i29.UserEntity userEntity;
 
   @override
   String toString() {

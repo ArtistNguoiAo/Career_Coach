@@ -74,9 +74,9 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
               indicatorColor: context.theme.primaryColor,
               labelColor: context.theme.primaryColor,
               unselectedLabelColor: context.theme.borderColor,
-              tabs: const [
-                Tab(text: 'Đang diễn ra'),
-                Tab(text: 'Lịch sử'),
+              tabs: [
+                Tab(text: context.language.active),
+                Tab(text: context.language.history),
               ],
             ),
             const SizedBox(height: 8),
@@ -100,7 +100,14 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
             DialogUtils.hideLoadingDialog(context);
           }
           if (state.isSuccess) {
-            AutoRouter.of(context).push(MessageRoute(sessionId: state.sessionId));
+            state.isSuccess = false;
+            AutoRouter.of(
+              context,
+            ).push(MessageRoute(sessionId: state.sessionId, status: TypeInterviewStatusEnum.ACTIVE)).then((value) {
+              if (value != null && value == true) {
+                context.read<ListInterviewCubit>().init();
+              }
+            });
           }
         },
         builder: (context, state) {
@@ -146,7 +153,13 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
               final interview = interviews[index];
               return InkWell(
                 onTap: () {
-                  AutoRouter.of(context).push(MessageRoute(sessionId: interview.id));
+                  AutoRouter.of(context).push(MessageRoute(sessionId: interview.id, status: interview.status)).then((
+                    value,
+                  ) {
+                    if (value != null && value == true) {
+                      context.read<ListInterviewCubit>().init();
+                    }
+                  });
                 },
                 child: Container(
                   padding: EdgeInsets.all(16),

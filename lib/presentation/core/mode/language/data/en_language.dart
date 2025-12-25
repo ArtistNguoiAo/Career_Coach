@@ -402,4 +402,19 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get reload => 'Reload';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get end => 'End';
+
+  @override
+  String get endInterviewContent => 'Are you sure you want to end the interview?';
+
+  @override
+  String get interviewAnalysis => 'Interview analysis';
 }

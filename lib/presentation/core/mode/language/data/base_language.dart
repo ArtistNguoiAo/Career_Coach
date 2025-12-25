@@ -131,4 +131,9 @@ abstract class BaseLanguage {
   String get cvTemplate;
   String get download;
   String get reload;
+  String get active;
+  String get history;
+  String get end;
+  String get endInterviewContent;
+  String get interviewAnalysis;
 }

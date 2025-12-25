@@ -29,6 +29,7 @@ class BaseTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.maxLength,
     this.prefix,
+    this.textInputAction,
   });
 
   final TextEditingController controller;
@@ -55,6 +56,7 @@ class BaseTextField extends StatefulWidget {
   final Function(String)? onFieldSubmitted;
   final int? maxLength;
   final Widget? prefix;
+  final TextInputAction? textInputAction;
 
   @override
   State<BaseTextField> createState() => _BaseTextFieldState();
@@ -70,6 +72,8 @@ class _BaseTextFieldState extends State<BaseTextField> {
       readOnly: widget.readOnly ?? false,
       textAlign: widget.textAlign ?? TextAlign.start,
       maxLength: widget.maxLength,
+      maxLines: null,
+      textInputAction: widget.textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         isDense: true,
         isCollapsed: widget.isCollapsed,
@@ -101,6 +105,7 @@ class _BaseTextFieldState extends State<BaseTextField> {
       obscureText: widget.obscureText ?? false,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
     );
   }
 }

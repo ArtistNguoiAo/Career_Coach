@@ -6,7 +6,7 @@ class GetListMessageInterviewUseCase {
 
   GetListMessageInterviewUseCase(this._interviewRepository);
 
-  Future<List<MessageEntity>> call({required int sessionId, required int page, required int size}) async {
-    return await _interviewRepository.getListMessageInterview(sessionId: sessionId, page: page, size: size);
+  Future<List<MessageEntity>> call({required int sessionId}) async {
+    return await _interviewRepository.getListMessageInterview(sessionId: sessionId);
   }
 }
