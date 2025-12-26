@@ -136,4 +136,6 @@ abstract class BaseLanguage {
   String get end;
   String get endInterviewContent;
   String get interviewAnalysis;
+  String get yourResume;
+  String get draft;
 }

@@ -417,4 +417,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get interviewAnalysis => 'Phân tích phỏng vấn';
+
+  @override
+  String get yourResume => 'CV của bạn';
+
+  @override
+  String get draft => 'Bản nháp';
 }

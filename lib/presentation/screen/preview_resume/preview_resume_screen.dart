@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
 import 'package:career_coach/presentation/screen/preview_resume/cubit/preview_resume_cubit.dart';
@@ -39,6 +40,11 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
       child: BlocConsumer<PreviewResumeCubit, PreviewResumeState>(
         listener: (context, state) {
           _nameController.text = state.userResumeEntity?.title ?? '';
+          if (state.isLoading) {
+            DialogUtils.showLoadingDialog(context);
+          } else {
+            DialogUtils.hideLoadingDialog(context);
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -79,7 +85,8 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                   InkWell(
                     onTap: () {
                       context.read<PreviewResumeCubit>().saveUserResume(
-                        userResumeEntity: state.userResumeEntity!.copyWith(title: _nameController.text),
+                        userResumeEntity: state.userResumeEntity!,
+                        title: _nameController.text
                       );
                     },
                     child: Icon(FontAwesomeIcons.floppyDisk, color: context.theme.backgroundColor, size: 20),

@@ -417,4 +417,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get interviewAnalysis => 'Interview analysis';
+
+  @override
+  String get yourResume => 'Your resume';
+
+  @override
+  String get draft => 'Draft';
 }

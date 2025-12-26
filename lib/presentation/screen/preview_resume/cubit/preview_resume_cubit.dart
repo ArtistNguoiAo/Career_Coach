@@ -19,6 +19,7 @@ class PreviewResumeCubit extends Cubit<PreviewResumeState> {
   final getPdfUseCase = getIt<GetPdfUseCase>();
 
   Future<void> init({int? resumeId, int? userResumeId, required bool isCreateNew}) async {
+    await Future.delayed(Duration(milliseconds: 300));
     emit(state.copyWith(isLoading: true));
     if (isCreateNew) {
       if (userResumeId == null) {
@@ -42,15 +43,18 @@ class PreviewResumeCubit extends Cubit<PreviewResumeState> {
     }
   }
 
-  Future<void> saveUserResume({required UserResumeEntity userResumeEntity}) async {
+  Future<void> saveUserResume({required UserResumeEntity? userResumeEntity, String? title}) async {
     emit(state.copyWith(isLoading: true));
     if (state.userResumeEntity != null) {
+      if(title != null) {
+        userResumeEntity!.title = title;
+      }
       try {
         await saveUserResumeUseCase.call(
-            id: userResumeEntity.id,
+            id: userResumeEntity!.id,
             userResumeEntity: userResumeEntity
         );
-
+        emit(state.copyWith(isLoading: false));
       }
       catch (e) {
         emit(state.copyWith(error: e.toString(), isLoading: false));

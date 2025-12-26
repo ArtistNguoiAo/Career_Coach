@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class BaseLoading extends StatelessWidget {
-  const BaseLoading({super.key});
+  const BaseLoading({super.key, this.size});
+
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class BaseLoading extends StatelessWidget {
       child: Center(
         child: LoadingAnimationWidget.fourRotatingDots(
           color: context.theme.primaryColor,
-          size: 40,
+          size: size ?? 40,
         ),
       ),
     );

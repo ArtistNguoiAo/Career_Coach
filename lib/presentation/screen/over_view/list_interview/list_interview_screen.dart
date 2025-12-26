@@ -64,29 +64,36 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, left: 16, right: 16, bottom: 16),
         color: context.theme.backgroundColor,
         child: Column(
           children: [
-            TabBar(
-              controller: _tabController,
-              dividerColor: Colors.transparent,
-              indicatorColor: context.theme.primaryColor,
-              labelColor: context.theme.primaryColor,
-              unselectedLabelColor: context.theme.borderColor,
-              tabs: [
-                Tab(text: context.language.active),
-                Tab(text: context.language.history),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: TabBarView(
+            Container(
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 8, bottom: 8),
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+              ),
+              child: TabBar(
                 controller: _tabController,
-                children: [
-                  _buildInterviewList(true, _activeScrollController),
-                  _buildInterviewList(false, _historyScrollController),
+                dividerColor: Colors.transparent,
+                indicatorColor: context.theme.backgroundColor,
+                labelColor: context.theme.backgroundColor,
+                unselectedLabelColor: context.theme.backgroundColor.withAlpha((255 * 0.8).round()),
+                tabs: [
+                  Tab(text: context.language.active),
+                  Tab(text: context.language.history),
                 ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildInterviewList(true, _activeScrollController),
+                    _buildInterviewList(false, _historyScrollController),
+                  ],
+                ),
               ),
             ),
           ],
@@ -141,6 +148,8 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
         final interviews = isActive ? state.listInterviewActive : state.listInterviewHistory;
 
         return RefreshIndicator(
+          color: context.theme.primaryColor,
+          backgroundColor: Colors.white,
           onRefresh: () async {
             await context.read<ListInterviewCubit>().init();
           },
