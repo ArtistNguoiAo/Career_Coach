@@ -423,4 +423,7 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get draft => 'Bản nháp';
+
+  @override
+  String get downloadSuccess => 'Tải xuống thành công';
 }

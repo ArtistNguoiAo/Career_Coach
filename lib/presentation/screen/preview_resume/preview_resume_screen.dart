@@ -86,7 +86,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                     onTap: () {
                       context.read<PreviewResumeCubit>().saveUserResume(
                         userResumeEntity: state.userResumeEntity!,
-                        title: _nameController.text
+                        title: _nameController.text,
                       );
                     },
                     child: Icon(FontAwesomeIcons.floppyDisk, color: context.theme.backgroundColor, size: 20),
@@ -100,62 +100,69 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
               color: context.theme.backgroundColor,
               child: Column(
                 children: [
-                  Expanded(child: Column(
-                    children: [
-                      Expanded(child: _body(state.pdfData)),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                context.read<PreviewResumeCubit>().reloadPdf();
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  context.language.reload,
-                                  style: TextStyleUtils.bold(color: context.theme.primaryColor, fontSize: 16),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
-                                child: Text(
-                                  context.language.download,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(child: _body(state.pdfData)),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  context.read<PreviewResumeCubit>().reloadPdf();
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: context.theme.primaryColor.withAlpha((255 * 0.1).round()),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    context.language.reload,
+                                    style: TextStyleUtils.bold(color: context.theme.primaryColor, fontSize: 16),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  downloadPdf(
+                                    pdfData: state.pdfData,
+                                    fileName: _nameController.text.isNotEmpty ? _nameController.text : '<Unknown>',
+                                    context: context,
+                                  );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: context.theme.primaryColor,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    context.language.download,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   _footerRow(state.userResumeEntity),
                 ],
               ),
             ),
-            drawer: DrawerPreviewResume(
-              userResumeEntity: state.userResumeEntity,
-            ),
+            drawer: DrawerPreviewResume(userResumeEntity: state.userResumeEntity),
             endDrawer: EndDrawerPreviewResume(
               userResumeEntity: state.userResumeEntity,
               onChanged: (userResumeEntity) {
@@ -179,9 +186,7 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
         }
 
         if (snapshot.hasError) {
-          return const Center(
-            child: Text('Không thể tải file PDF'),
-          );
+          return const Center(child: Text('Không thể tải file PDF'));
         }
 
         final file = snapshot.data!;
@@ -209,6 +214,36 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
     return file;
   }
 
+  Future<void> downloadPdf({
+    required List<int> pdfData,
+    required String fileName,
+    required BuildContext context,
+  }) async {
+    try {
+      final directory = Directory('/storage/emulated/0/Download');
+
+      if (!directory.existsSync()) {
+        directory.createSync(recursive: true);
+      }
+
+      final file = File('${directory.path}/$fileName.pdf');
+      await file.writeAsBytes(pdfData, flush: true);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${context.language.downloadSuccess}: ${file.path}',
+            style: TextStyleUtils.normal(color: context.theme.backgroundColor, fontSize: 12),
+          ),
+          backgroundColor: context.theme.goodColor,
+          duration: const Duration(seconds: 1),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Lỗi tải file: $e')));
+    }
+  }
+
   Widget _footerRow(UserResumeEntity? userResumeEntity) {
     return Builder(
       builder: (context) {
@@ -230,7 +265,10 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                     children: [
                       Icon(FontAwesomeIcons.pencil, size: 12, color: context.theme.textColor),
                       const SizedBox(height: 4),
-                      Text(context.language.content, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
+                      Text(
+                        context.language.content,
+                        style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),
@@ -262,7 +300,10 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                     children: [
                       Icon(FontAwesomeIcons.puzzlePiece, size: 12, color: context.theme.textColor),
                       const SizedBox(height: 4),
-                      Text(context.language.layout, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
+                      Text(
+                        context.language.layout,
+                        style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),
@@ -285,7 +326,10 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
                     children: [
                       Icon(FontAwesomeIcons.palette, size: 12, color: context.theme.textColor),
                       const SizedBox(height: 4),
-                      Text(context.language.theme, style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12)),
+                      Text(
+                        context.language.theme,
+                        style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),

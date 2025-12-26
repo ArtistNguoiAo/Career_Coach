@@ -32,6 +32,7 @@ dependencies:
   flutter_quill: ^11.5.0
   flutter_quill_delta_from_html: ^1.5.3
   vsc_quill_delta_to_html: ^1.0.5
+  permission_handler: ^11.3.1
 
   # ui
   flutter_svg: ^2.2.0

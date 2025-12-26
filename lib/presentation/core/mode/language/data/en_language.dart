@@ -423,4 +423,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get draft => 'Draft';
+
+  @override
+  String get downloadSuccess => 'Download successful';
 }
