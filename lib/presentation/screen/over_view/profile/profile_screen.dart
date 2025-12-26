@@ -3,6 +3,7 @@ import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
+import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_avatar.dart';
 import 'package:career_coach/presentation/screen/over_view/profile/cubit/profile_cubit.dart';
@@ -26,56 +27,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         body: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
-            if (state is ProfileLogoutSuccess) {
+            if (state.isLogoutSuccess) {
               context.router.replaceAll([const LoginRoute()]);
             }
-            if (state is ProfileDeleteAccountSuccess) {
+            if (state.isDeleteAccountSuccess) {
               context.router.replaceAll([const LoginRoute()]);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
                     context.language.deleteAccountSuccess,
-                    style: TextStyleUtils.normal(color: context.theme.backgroundColor, fontSize: 12),
+                    style: TextStyleUtils.normal(color: Colors.white, fontSize: 12),
                   ),
                   backgroundColor: context.theme.goodColor,
                   duration: const Duration(seconds: 1),
                 ),
               );
             }
-            if (state is ProfileError) {
+            if (state.error.isNotEmpty) {
               DialogUtils.showErrorDialog(context: context, message: state.error);
+              state.error = '';
             }
           },
           builder: (context, state) {
             return Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
               color: context.theme.backgroundColor,
               child: Column(
                 children: [
-                  if (state is ProfileLoaded) ...[
-                    _header(state.userEntity, context),
-                  ] else ...[
-                    _header(UserEntity(fullName: "", email: "", phone: "", avatar: "", roles: []), context),
-                  ],
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _featureProfile(context),
-                        Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(vertical: 16),
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(color: context.theme.typeAccountColor),
-                          child: Text(
-                            '${context.language.version}: 1.0.0',
-                            style: TextStyleUtils.normal(color: context.theme.textColor),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        _logoutButton(context),
-                      ],
+                  _header(state.userEntity, context),
+                  _featureProfile(context),
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(color: context.theme.typeAccountColor),
+                    child: Text(
+                      '${context.language.version}: 1.0.0',
+                      style: TextStyleUtils.normal(color: context.theme.textColor),
+                      textAlign: TextAlign.center,
                     ),
                   ),
+                  _logoutButton(context),
                 ],
               ),
             );
@@ -85,82 +76,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _header(UserEntity userEntity, BuildContext context) {
+  Widget _header(UserEntity? userEntity, BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(color: context.theme.primaryColor),
-      child: Row(
-        children: [
-          Container(
-            decoration: BoxDecoration(shape: BoxShape.circle, color: context.theme.backgroundColor),
-            child: BaseAvatar(
-              url: userEntity.avatar,
-              size: 100,
-              padding: 16,
-              onTap: () {
-                DialogUtils.showChooseImageDialog(
-                  context: context,
-                  onClose: (avatar) {
-                    context.read<ProfileCubit>().updateAvatar(avatar);
-                  },
-                );
-              },
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(MediaUtils.imgProfileBackground),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16, left: 16, right: 16, bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.black.withAlpha((0.3 * 255).round()),
+        ),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(shape: BoxShape.circle, color: context.theme.backgroundColor),
+              child: BaseAvatar(
+                url: userEntity?.avatar ?? '',
+                size: 100,
+                border: Border.all(color: context.theme.backgroundColor, width: 2),
+                onTap: () {
+                  DialogUtils.showChooseImageDialog(
+                    context: context,
+                    onClose: (avatar) {
+                      context.read<ProfileCubit>().updateAvatar(avatar);
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        userEntity.fullName,
-                        style: TextStyleUtils.bold(fontSize: 18, color: context.theme.backgroundColor),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          userEntity?.fullName ?? '',
+                          style: TextStyleUtils.bold(fontSize: 18, color: context.theme.backgroundColor),
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        AutoRouter.of(context).push(ProfileUpdateRoute(userEntity: userEntity)).then((value) {
-                          if (value == true) {
-                            context.read<ProfileCubit>().init();
-                          }
-                        });
-                      },
-                      child: Icon(FontAwesomeIcons.penToSquare, color: context.theme.backgroundColor, size: 20),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    FaIcon(FontAwesomeIcons.userLarge, color: context.theme.backgroundColor, size: 12),
-                    const SizedBox(width: 4),
-                    Text(userEntity.email, style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
-                  ],
-                ),
-                Row(
-                  children: [
-                    FaIcon(FontAwesomeIcons.phone, color: context.theme.backgroundColor, size: 12),
-                    const SizedBox(width: 4),
-                    Text(userEntity.phone, style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: context.theme.typeAccountColor,
-                    borderRadius: BorderRadius.circular(100),
+                      SizedBox(height: 8),
+                      InkWell(
+                        onTap: () {
+                          if(userEntity == null) return;
+                          AutoRouter.of(context).push(ProfileUpdateRoute(userEntity: userEntity)).then((value) {
+                            if (value == true) {
+                              context.read<ProfileCubit>().init();
+                            }
+                          });
+                        },
+                        child: Icon(FontAwesomeIcons.penToSquare, color: context.theme.backgroundColor, size: 20),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    userEntity.roles.firstOrNull.toString(),
-                    style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 12),
+                  Row(
+                    children: [
+                      FaIcon(FontAwesomeIcons.userLarge, color: context.theme.backgroundColor, size: 12),
+                      const SizedBox(width: 4),
+                      Text(userEntity?.email ?? "", style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
+                    ],
                   ),
-                ),
-              ],
+                  Row(
+                    children: [
+                      FaIcon(FontAwesomeIcons.phone, color: context.theme.backgroundColor, size: 12),
+                      const SizedBox(width: 4),
+                      Text(userEntity?.phone ?? "", style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -223,17 +215,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             },
           ),
-          Container(height: 1, color: context.theme.borderColor, margin: EdgeInsets.symmetric(vertical: 16)),
-          Text(
-            context.language.policyAndSupport,
-            style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
-          ),
-          SizedBox(height: 8),
-          _featureProfileItem(icon: FontAwesomeIcons.thumbsUp, title: context.language.appReview, onTap: () {}),
-          SizedBox(height: 8),
-          _featureProfileItem(icon: FontAwesomeIcons.reply, title: context.language.feedback, onTap: () {}),
-          SizedBox(height: 8),
-          _featureProfileItem(icon: FontAwesomeIcons.rotate, title: context.language.checkForNewUpdate, onTap: () {}),
         ],
       ),
     );
@@ -273,9 +254,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(context.language.logout, style: TextStyleUtils.bold(color: context.theme.primaryDarkColor)),
+          Text(context.language.logout, style: TextStyleUtils.bold(color: Colors.redAccent)),
           const SizedBox(width: 8),
-          Icon(FontAwesomeIcons.arrowRightFromBracket, color: context.theme.primaryDarkColor, size: 20),
+          Icon(FontAwesomeIcons.arrowRightFromBracket, color: Colors.redAccent, size: 20),
         ],
       ),
     );

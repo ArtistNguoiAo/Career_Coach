@@ -1,8 +1,10 @@
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/core/widgets/base_avatar.dart';
 import 'package:flutter/material.dart';
+
 class HeaderView extends StatelessWidget {
   const HeaderView({super.key, required this.userEntity});
 
@@ -16,33 +18,28 @@ class HeaderView extends StatelessWidget {
         children: [
           Container(
             height: 150 + MediaQuery.of(context).padding.top,
-            padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: MediaQuery.of(context).padding.top + 12,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(MediaUtils.imgProfileBackground), fit: BoxFit.cover),
             ),
             width: double.infinity,
-            color: context.theme.primaryColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  context.language.welcomeApp,
-                  style: TextStyleUtils.bold(
-                    fontSize: 20,
-                    color: context.theme.backgroundColor,
+            child: Container(
+              padding: EdgeInsets.only(left: 16, right: 16, top: MediaQuery.of(context).padding.top + 8),
+              decoration: BoxDecoration(
+                color: Colors.black.withAlpha((0.3 * 255).round()),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(context.language.welcomeApp, style: TextStyleUtils.bold(fontSize: 20, color: Colors.white)),
+                  const SizedBox(height: 4),
+                  Text(
+                    context.language.introduce,
+                    style: TextStyleUtils.normal(fontSize: 16, color: context.theme.backgroundColor),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  context.language.introduce,
-                  style: TextStyleUtils.normal(
-                    fontSize: 16,
-                    color: context.theme.backgroundColor,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -61,9 +58,7 @@ class HeaderView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: context.theme.borderColor.withAlpha(
-                        (0.5 * 255).round(),
-                      ),
+                      color: context.theme.borderColor.withAlpha((0.5 * 255).round()),
                       spreadRadius: 2,
                       blurRadius: 6,
                       offset: const Offset(0, 3),
@@ -83,30 +78,21 @@ class HeaderView extends StatelessWidget {
                           Flexible(
                             child: Text(
                               '${context.language.hello},',
-                              style: TextStyleUtils.normal(
-                                fontSize: 16,
-                                color: context.theme.textColor,
-                              ),
+                              style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
                             ),
                           ),
-                          if(userEntity != null && userEntity!.fullName.isNotEmpty)...[
+                          if (userEntity != null && userEntity!.fullName.isNotEmpty) ...[
                             Flexible(
                               child: Text(
                                 userEntity?.fullName ?? '',
-                                style: TextStyleUtils.bold(
-                                  fontSize: 20,
-                                  color: context.theme.primaryColor,
-                                ),
+                                style: TextStyleUtils.bold(fontSize: 20, color: context.theme.primaryColor),
                               ),
                             ),
                           ],
                           Flexible(
                             child: Text(
                               '${context.language.haveAGoodDay}!',
-                              style: TextStyleUtils.normal(
-                                fontSize: 16,
-                                color: context.theme.textColor,
-                              ),
+                              style: TextStyleUtils.normal(fontSize: 16, color: context.theme.textColor),
                             ),
                           ),
                         ],

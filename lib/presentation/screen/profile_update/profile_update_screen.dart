@@ -47,13 +47,11 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
         create: (context) => ProfileUpdateCubit()..init(widget.userEntity),
         child: BlocConsumer<ProfileUpdateCubit, ProfileUpdateState>(
           listener: (context, state) {
-            if (state is ProfileUpdateLoaded) {
-              _fullNameController.text = state.userEntity.fullName;
-              _emailController.text = state.userEntity.email;
-              _phoneController.text = state.userEntity.phone;
-            }
-            if (state is ProfileUpdateSuccess) {
-              DialogUtils.hideLoadingDialog(context);
+            _fullNameController.text = state.userEntity?.fullName ?? '';
+            _emailController.text = state.userEntity?.email ?? '';
+            _phoneController.text = state.userEntity?.phone ?? '';
+            if (state.isUpdateSuccess) {
+              state.isUpdateSuccess = false;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -65,16 +63,20 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                 ),
               );
             }
-            if (state is ProfileUpdateLoading) {
+            if (state.isLoading) {
               DialogUtils.showLoadingDialog(context);
-            }
-            if (state is ProfileUpdateError) {
+            } else {
               DialogUtils.hideLoadingDialog(context);
-              DialogUtils.showErrorDialog(context: context, message: state.message);
+            }
+            if (state.error.isNotEmpty) {
+              DialogUtils.showErrorDialog(context: context, message: state.error);
             }
           },
           builder: (context, state) {
-            return Padding(
+            return Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: context.theme.backgroundColor,
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
@@ -95,16 +97,12 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                     },
                     child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                        color: context.theme.primaryColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          context.language.save,
-                          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 16),
-                        ),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+                      child: Text(
+                        context.language.save,
+                        textAlign: TextAlign.center,
+                        style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
                       ),
                     ),
                   ),

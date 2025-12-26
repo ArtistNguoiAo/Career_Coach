@@ -8,6 +8,7 @@ class MediaUtils {
   static String get imgAuthBackground => '$baseImage/img_auth_background.svg';
   static String get imgTitleBackground => '$baseImage/img_title_background.png';
   static String get imgChatbot => '$baseImage/img_chatbot.jpg';
+  static String get imgProfileBackground => '$baseImage/img_profile_background.jpg';
 
   // icon
   static String get icGoogle => '$baseIcon/ic_google.svg';

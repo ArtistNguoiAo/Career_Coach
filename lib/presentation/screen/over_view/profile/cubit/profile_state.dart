@@ -1,24 +1,29 @@
 part of 'profile_cubit.dart';
 
-@immutable
-sealed class ProfileState {}
+class ProfileState {
+  final UserEntity? userEntity;
+  String error;
+  final bool isLogoutSuccess;
+  final bool isDeleteAccountSuccess;
 
-final class ProfileInitial extends ProfileState {}
+  ProfileState({
+    this.userEntity,
+    this.error = '',
+    this.isLogoutSuccess = false,
+    this.isDeleteAccountSuccess = false,
+  });
 
-final class ProfileLoading extends ProfileState {}
-
-final class ProfileLoaded extends ProfileState {
-  final UserEntity userEntity;
-
-  ProfileLoaded({required this.userEntity});
-}
-
-final class ProfileLogoutSuccess extends ProfileState {}
-
-final class ProfileDeleteAccountSuccess extends ProfileState {}
-
-final class ProfileError extends ProfileState {
-  final String error;
-
-  ProfileError({required this.error});
+  ProfileState copyWith({
+    UserEntity? userEntity,
+    String? error,
+    bool? isLogoutSuccess,
+    bool? isDeleteAccountSuccess,
+  }) {
+    return ProfileState(
+      userEntity: userEntity ?? this.userEntity,
+      error: error ?? this.error,
+      isLogoutSuccess: isLogoutSuccess ?? this.isLogoutSuccess,
+      isDeleteAccountSuccess: isDeleteAccountSuccess ?? this.isDeleteAccountSuccess,
+    );
+  }
 }

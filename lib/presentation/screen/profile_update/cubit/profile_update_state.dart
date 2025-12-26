@@ -1,26 +1,29 @@
 part of 'profile_update_cubit.dart';
 
-@immutable
-sealed class ProfileUpdateState {}
+class ProfileUpdateState {
+  final UserEntity? userEntity;
+  final bool isLoading;
+  String error;
+  bool isUpdateSuccess;
 
-final class ProfileUpdateInitial extends ProfileUpdateState {}
-
-final class ProfileUpdateLoading extends ProfileUpdateState {}
-
-final class ProfileUpdateSuccess extends ProfileUpdateState {}
-
-final class ProfileUpdateLoaded extends ProfileUpdateState {
-  final UserEntity userEntity;
-
-  ProfileUpdateLoaded({
-    required this.userEntity,
+  ProfileUpdateState({
+    this.userEntity,
+    this.isLoading = false,
+    this.error = '',
+    this.isUpdateSuccess = false,
   });
-}
 
-final class ProfileUpdateError extends ProfileUpdateState {
-  final String message;
-
-  ProfileUpdateError({
-    required this.message,
-  });
+  ProfileUpdateState copyWith({
+    UserEntity? userEntity,
+    bool? isLoading,
+    String? error,
+    bool? isUpdateSuccess,
+  }) {
+    return ProfileUpdateState(
+      userEntity: userEntity ?? this.userEntity,
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      isUpdateSuccess: isUpdateSuccess ?? this.isUpdateSuccess,
+    );
+  }
 }

@@ -9,12 +9,11 @@ import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
-import 'package:meta/meta.dart';
 
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit() : super(ProfileState());
 
   final logoutUseCase = getIt<LogoutUseCase>();
   final getProfileUseCase = getIt<GetProfileUseCase>();
@@ -24,34 +23,23 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> init() async {
     try {
       final userEntity = await getProfileUseCase.call();
-      emit(ProfileLoaded(userEntity: userEntity));
+      emit(state.copyWith(userEntity: userEntity));
     }
     on ApiException catch (e) {
-      emit(ProfileError(error: e.toString()));
-    }
-    catch (e) {
-      emit(ProfileError(error: e.toString()));
+      emit(state.copyWith(error: e.toString()));
     }
   }
 
   Future<void> updateAvatar(File? avatar) async {
-    final currentState = state as ProfileLoaded;
-    emit(ProfileLoading());
     try {
       if (avatar == null) {
-        emit(ProfileLoaded(userEntity: currentState.userEntity));
         return;
       }
       final userEntity = await updateAvatarUseCase.call(avatar);
-      emit(ProfileLoaded(userEntity: userEntity));
+      emit(state.copyWith(userEntity: userEntity));
     }
     on ApiException catch (e) {
-      emit(ProfileError(error: e.toString()));
-      emit(ProfileLoaded(userEntity: currentState.userEntity));
-    }
-    catch (e) {
-      emit(ProfileError(error: e.toString()));
-      emit(ProfileLoaded(userEntity: currentState.userEntity));
+      emit(state.copyWith(error: e.toString()));
     }
   }
 
@@ -62,13 +50,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       await LocalCache.setBool(StringCache.isLoggedIn, false);
       await LocalCache.setString(StringCache.accessToken, '');
       await LocalCache.setString(StringCache.refreshToken, '');
-      emit(ProfileLogoutSuccess());
+      emit(state.copyWith(isLogoutSuccess: true));
     }
     on ApiException catch (e){
-      emit(ProfileError(error: e.toString()));
-    }
-    catch (e) {
-      emit(ProfileError(error: e.toString()));
+      emit(state.copyWith(error: e.toString()));
     }
   }
 
@@ -76,13 +61,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await deleteAccountUseCase.call();
       await LocalCache.clear();
-      emit(ProfileDeleteAccountSuccess());
+      emit(state.copyWith(isDeleteAccountSuccess: true));
     }
     on ApiException catch (e){
-      emit(ProfileError(error: e.toString()));
-    }
-    catch (e) {
-      emit(ProfileError(error: e.toString()));
+      emit(state.copyWith(error: e.toString()));
     }
   }
 }
