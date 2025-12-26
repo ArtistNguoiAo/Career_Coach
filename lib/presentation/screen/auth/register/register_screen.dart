@@ -85,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         size: 16,
                         color: context.theme.textColor,
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
@@ -97,6 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         size: 16,
                         color: context.theme.textColor,
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
@@ -109,6 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         size: 16,
                         color: context.theme.textColor,
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
@@ -140,6 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: context.theme.textColor,
                         ),
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
@@ -174,6 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: context.theme.textColor,
                         ),
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   const SizedBox(height: 16),

@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         size: 16,
                         color: context.theme.textColor,
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Padding(
@@ -103,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: context.theme.textColor,
                         ),
                       ),
+                      maxLines: 1,
                     ),
                   ),
                   Row(

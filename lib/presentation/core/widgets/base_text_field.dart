@@ -30,6 +30,7 @@ class BaseTextField extends StatefulWidget {
     this.maxLength,
     this.prefix,
     this.textInputAction,
+    this.maxLines,
   });
 
   final TextEditingController controller;
@@ -57,6 +58,7 @@ class BaseTextField extends StatefulWidget {
   final int? maxLength;
   final Widget? prefix;
   final TextInputAction? textInputAction;
+  final int? maxLines;
 
   @override
   State<BaseTextField> createState() => _BaseTextFieldState();
@@ -72,7 +74,7 @@ class _BaseTextFieldState extends State<BaseTextField> {
       readOnly: widget.readOnly ?? false,
       textAlign: widget.textAlign ?? TextAlign.start,
       maxLength: widget.maxLength,
-      maxLines: null,
+      maxLines: widget.maxLines,
       textInputAction: widget.textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         isDense: true,
