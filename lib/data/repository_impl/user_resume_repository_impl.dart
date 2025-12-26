@@ -93,4 +93,16 @@ class UserResumeRepositoryImpl implements UserResumeRepository {
     final response = await _userResumeRemote.getPdf(id: id);
     return Uint8List.fromList(response.data);
   }
+
+  @override
+  Future<String> deleteUserResume({required int id}) async {
+    final response = await _userResumeRemote.deleteUserResume(id: id);
+    return response.data;
+  }
+
+  @override
+  Future<String> deleteUserResumeBatch({required List<int> ids}) async {
+    final response = await _userResumeRemote.deleteUserResumeBatch(ids: ids);
+    return response.data;
+  }
 }

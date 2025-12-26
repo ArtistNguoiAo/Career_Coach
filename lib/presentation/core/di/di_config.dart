@@ -55,8 +55,12 @@ import 'package:career_coach/domain/use_case/create_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
+import 'package:career_coach/domain/use_case/delete_user_resume_batch_use_case.dart';
+import 'package:career_coach/domain/use_case/delete_user_resume_use_case.dart';
+import 'package:career_coach/domain/use_case/download_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/end_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/get_activities_use_case.dart';
+import 'package:career_coach/domain/use_case/get_analysis_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/get_avatar_use_case.dart';
 import 'package:career_coach/domain/use_case/get_awards_use_case.dart';
 import 'package:career_coach/domain/use_case/get_certificates_use_case.dart';
@@ -68,6 +72,7 @@ import 'package:career_coach/domain/use_case/get_goal_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_active_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_interview_history_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_message_interview_use_case.dart';
+import 'package:career_coach/domain/use_case/get_list_resume_popular_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_recent_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
@@ -192,6 +197,11 @@ class DiConfig {
     getIt.registerLazySingleton<GetPdfUseCase>(() => GetPdfUseCase(getIt.get()));
     getIt.registerLazySingleton<CreateInterviewUseCase>(() => CreateInterviewUseCase(getIt.get()));
     getIt.registerLazySingleton<EndInterviewUseCase>(() => EndInterviewUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetAnalysisInterviewUseCase>(() => GetAnalysisInterviewUseCase(getIt.get()));
+    getIt.registerLazySingleton<DeleteUserResumeUseCase>(() => DeleteUserResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<DeleteUserResumeBatchUseCase>(() => DeleteUserResumeBatchUseCase(getIt.get()));
+    getIt.registerLazySingleton<GetListResumePopularUseCase>(() => GetListResumePopularUseCase(getIt.get()));
+    getIt.registerLazySingleton<DownloadResumeUseCase>(() => DownloadResumeUseCase(getIt.get()));
 
     await getIt.allReady();
   }

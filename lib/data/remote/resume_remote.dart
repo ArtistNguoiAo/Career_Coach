@@ -16,4 +16,12 @@ abstract class ResumeRemote {
     @Query('size') required int size,
     @Query('type') required String type,
   });
+
+  @GET('/popular')
+  Future<ApiResponse<List<ResumeModel>>> getListResumePopular();
+
+  @GET('/download/{id}')
+  Future<ApiResponse<String>> downloadResume({
+    @Path('id') required int id,
+  });
 }

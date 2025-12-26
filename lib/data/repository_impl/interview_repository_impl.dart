@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:career_coach/data/mapper/analysis_mapper.dart';
 import 'package:career_coach/data/mapper/create_interview_mapper.dart';
 import 'package:career_coach/data/mapper/interview_mapper.dart';
 import 'package:career_coach/data/mapper/message_mapper.dart';
 import 'package:career_coach/data/remote/interview_remote.dart';
 import 'package:career_coach/data/request_body/interview_request_body.dart';
+import 'package:career_coach/domain/entity/analysis_entity.dart';
 import 'package:career_coach/domain/entity/create_interview_entity.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
 import 'package:career_coach/domain/entity/message_entity.dart';
@@ -85,5 +87,11 @@ class InterviewRepositoryImpl implements InterviewRepository {
   Future<InterviewEntity> endInterview({required int sessionId}) async {
     final response = await _interviewRemote.endInterview(sessionId: sessionId);
     return InterviewMapper.toEntity(response.data);
+  }
+
+  @override
+  Future<AnalysisEntity> getAnalysisInterview({required int sessionId}) async {
+    final response = await _interviewRemote.getAnalysisInterview(sessionId: sessionId);
+    return AnalysisMapper.toEntity(response.data);
   }
 }

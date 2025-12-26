@@ -6,4 +6,10 @@ abstract class ResumeRepository {
     required int size,
     required String type,
   });
+
+  Future<List<ResumeEntity>> getListResumePopular();
+
+  Future<String> downloadResume({
+    required int id,
+  });
 }

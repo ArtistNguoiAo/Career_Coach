@@ -33,4 +33,12 @@ abstract class UserResumeRepository {
   Future<List<int>> getPdf({
     required int id,
   });
+
+  Future<String> deleteUserResume({
+    required int id,
+  });
+
+  Future<String> deleteUserResumeBatch({
+    required List<int> ids,
+  });
 }

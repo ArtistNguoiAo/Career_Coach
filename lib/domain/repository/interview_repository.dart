@@ -1,3 +1,4 @@
+import 'package:career_coach/domain/entity/analysis_entity.dart';
 import 'package:career_coach/domain/entity/create_interview_entity.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
 import 'package:career_coach/domain/entity/message_entity.dart';
@@ -28,6 +29,10 @@ abstract class InterviewRepository {
   });
 
   Future<InterviewEntity> endInterview({
+    required int sessionId,
+  });
+
+  Future<AnalysisEntity> getAnalysisInterview({
     required int sessionId,
   });
 }

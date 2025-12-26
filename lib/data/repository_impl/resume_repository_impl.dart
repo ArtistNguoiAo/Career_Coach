@@ -20,4 +20,18 @@ class ResumeRepositoryImpl implements ResumeRepository {
     );
     return response.data.content.map(ResumeMapper.toEntity).toList();
   }
+
+  @override
+  Future<List<ResumeEntity>> getListResumePopular() async {
+    final response = await _resumeRemote.getListResumePopular();
+    return response.data.map(ResumeMapper.toEntity).toList();
+  }
+
+  @override
+  Future<String> downloadResume({
+    required int id,
+  }) async {
+    final response = await _resumeRemote.downloadResume(id: id);
+    return response.data;
+  }
 }

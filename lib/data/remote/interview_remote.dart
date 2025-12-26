@@ -39,4 +39,9 @@ abstract class InterviewRemote {
   Future<ApiResponse<InterviewModel>> endInterview({
     @Path('sessionId') required int sessionId,
   });
+
+  @GET('/{sessionId}/analysis')
+  Future<ApiResponse<dynamic>> getAnalysisInterview({
+    @Path('sessionId') required int sessionId,
+  });
 }

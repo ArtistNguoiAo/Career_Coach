@@ -51,4 +51,14 @@ abstract class UserResumeRemote {
   Future<HttpResponse<List<int>>> getPdf({
     @Path('id') required int id,
   });
+
+  @DELETE('/{id}')
+  Future<ApiResponse<String>> deleteUserResume({
+    @Path('id') required int id,
+  });
+
+  @DELETE('/batch')
+  Future<ApiResponse<String>> deleteUserResumeBatch({
+    @Query('ids') required List<int> ids,
+  });
 }
