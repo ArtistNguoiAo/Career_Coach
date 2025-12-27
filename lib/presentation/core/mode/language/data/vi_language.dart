@@ -450,4 +450,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get analysis => 'Phân tích';
+
+  @override
+  String get errorChoiceCv => 'Vui lòng chọn một CV để tiếp tục.';
+
+  @override
+  String get uploadedCvContent => 'Bấm vào đây để tải lên CV của bạn.';
 }

@@ -596,6 +596,7 @@ class DialogUtils {
         TypeCvSourceEnum cvSource = TypeCvSourceEnum.USER_RESUME;
         UserResumeRecentEntity? selectedResume;
 
+        bool isError = false;
         return StatefulBuilder(
           builder: (context, setState) {
             return Container(
@@ -680,13 +681,37 @@ class DialogUtils {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
                   ] else ...[
                     Text(context.language.uploadCv, style: TextStyleUtils.bold(fontSize: 16)),
                     const SizedBox(height: 8),
-                    Container(height: 60, width: double.infinity, color: context.theme.darkGreyColor),
-                    const SizedBox(height: 16),
+                    InkWell(
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+                        height: 54,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: context.theme.darkGreyColor),
+                        ),
+                        child: Center(
+                          child: Text(
+                            context.language.uploadedCvContent,
+                            style: TextStyleUtils.normal(fontSize: 14, color: context.theme.textColor),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
+                  const SizedBox(height: 8),
+                  if (isError) ...[
+                    Text(
+                      context.language.errorChoiceCv,
+                      style: TextStyleUtils.normal(fontSize: 14, color: Colors.redAccent),
+                    ),
+                  ],
+                  const SizedBox(height: 8),
                   Text(context.language.chooseExperienceLevel, style: TextStyleUtils.bold(fontSize: 16)),
                   const SizedBox(height: 8),
                   Wrap(
@@ -761,6 +786,12 @@ class DialogUtils {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
+                        if (cvSource == TypeCvSourceEnum.USER_RESUME && selectedResume == null) {
+                          setState(() {
+                            isError = true;
+                          });
+                          return;
+                        }
                         onCreate(cvSource, experienceLevel, language, selectedResume);
                       },
                       splashColor: Colors.transparent,
@@ -801,9 +832,7 @@ class DialogUtils {
         UserResumeRecentEntity? selectedResume;
 
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 16),
           child: StatefulBuilder(
             builder: (context, setState) {
@@ -842,29 +871,31 @@ class DialogUtils {
                       title: Text(context.language.saved),
                       contentPadding: EdgeInsets.zero,
                     ),
-                    DropdownButtonFormField<UserResumeRecentEntity>(
-                      value: selectedResume,
-                      hint: Text(context.language.chooseCv),
-                      errorBuilder: (context, error) =>
-                          Text(error.toString(), style: TextStyleUtils.normal(color: context.theme.badColor)),
-                      items: listUserResumeRecent.map((resume) {
-                        return DropdownMenuItem<UserResumeRecentEntity>(value: resume, child: Text(resume.title));
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() => selectedResume = value);
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: context.theme.darkGreyColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: context.theme.primaryColor),
+                    if (selectedOption == TypeCreateResumeEnum.SAVED) ...[
+                      DropdownButtonFormField<UserResumeRecentEntity>(
+                        value: selectedResume,
+                        hint: Text(context.language.chooseCv),
+                        errorBuilder: (context, error) =>
+                            Text(error.toString(), style: TextStyleUtils.normal(color: context.theme.badColor)),
+                        items: listUserResumeRecent.map((resume) {
+                          return DropdownMenuItem<UserResumeRecentEntity>(value: resume, child: Text(resume.title));
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() => selectedResume = value);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: context.theme.darkGreyColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: context.theme.primaryColor),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                     const SizedBox(height: 16),
                     InkWell(
                       onTap: () {

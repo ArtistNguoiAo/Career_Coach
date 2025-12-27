@@ -147,4 +147,6 @@ abstract class BaseLanguage {
   String get communicationScore;
   String get confidenceScore;
   String get analysis;
+  String get errorChoiceCv;
+  String get uploadedCvContent;
 }

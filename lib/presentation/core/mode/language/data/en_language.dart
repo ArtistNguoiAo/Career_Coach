@@ -450,4 +450,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get analysis => 'Analysis';
+
+  @override
+  String get errorChoiceCv => 'Please choose a CV to proceed.';
+
+  @override
+  String get uploadedCvContent => 'Click here to upload your CV.';
 }
