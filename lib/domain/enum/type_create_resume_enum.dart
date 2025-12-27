@@ -1,0 +1,4 @@
+enum TypeCreateResumeEnum {
+  SAVED,
+  NEW,
+}

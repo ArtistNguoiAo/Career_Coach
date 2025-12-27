@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/resume_entity.dart';
 import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
+import 'package:career_coach/domain/enum/type_create_resume_enum.dart';
 import 'package:career_coach/domain/enum/type_cv_source_enum.dart';
 import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
 import 'package:career_coach/domain/enum/type_language_enum.dart';
@@ -783,6 +784,113 @@ class DialogUtils {
               ),
             );
           },
+        );
+      },
+    );
+  }
+
+  static void showCreateResumeWithAIDialog({
+    required BuildContext context,
+    required List<UserResumeRecentEntity> listUserResumeRecent,
+    required Function(UserResumeRecentEntity? selectedResume) onCreate,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        TypeCreateResumeEnum selectedOption = TypeCreateResumeEnum.NEW;
+        UserResumeRecentEntity? selectedResume;
+
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  color: context.theme.lightGreyColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    RadioListTile<TypeCreateResumeEnum>(
+                      value: TypeCreateResumeEnum.NEW,
+                      groupValue: selectedOption,
+                      activeColor: context.theme.primaryColor,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                          selectedResume = null;
+                        });
+                      },
+                      title: Text(context.language.createNew),
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                    RadioListTile<TypeCreateResumeEnum>(
+                      value: TypeCreateResumeEnum.SAVED,
+                      groupValue: selectedOption,
+                      activeColor: context.theme.primaryColor,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                      title: Text(context.language.saved),
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                    DropdownButtonFormField<UserResumeRecentEntity>(
+                      value: selectedResume,
+                      hint: Text(context.language.chooseCv),
+                      errorBuilder: (context, error) =>
+                          Text(error.toString(), style: TextStyleUtils.normal(color: context.theme.badColor)),
+                      items: listUserResumeRecent.map((resume) {
+                        return DropdownMenuItem<UserResumeRecentEntity>(value: resume, child: Text(resume.title));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() => selectedResume = value);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: context.theme.darkGreyColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: context.theme.primaryColor),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    InkWell(
+                      onTap: () {
+                        onCreate(selectedResume);
+                      },
+                      splashColor: Colors.transparent,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: context.theme.primaryColor,
+                        ),
+                        child: Center(
+                          child: Text(
+                            context.language.create,
+                            style: TextStyleUtils.bold(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         );
       },
     );
