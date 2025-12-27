@@ -141,4 +141,5 @@ abstract class BaseLanguage {
   String get downloadSuccess;
   String get selected;
   String get deleteSuccess;
+  String get createCvWithAIContent;
 }

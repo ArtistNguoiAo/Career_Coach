@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
+import 'package:career_coach/domain/use_case/create_new_user_resume_with_ai_use_case.dart';
 import 'package:career_coach/domain/use_case/get_detail_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_pdf_use_case.dart';
 import 'package:career_coach/domain/use_case/save_user_resume_use_case.dart';
@@ -14,27 +15,46 @@ class PreviewResumeCubit extends Cubit<PreviewResumeState> {
 
   final createNewUserResumeUseCase = getIt<CreateNewUserResumeUseCase>();
   final createNewUserResumeCopyUseCase = getIt<CreateNewUserResumeCopyUseCase>();
+  final createNewUserResumeWithAIUseCase = getIt<CreateNewUserResumeWithAIUseCase>();
   final getDetailUserResumeUseCase = getIt<GetDetailUserResumeUseCase>();
   final saveUserResumeUseCase = getIt<SaveUserResumeUseCase>();
   final getPdfUseCase = getIt<GetPdfUseCase>();
 
-  Future<void> init({int? resumeId, int? userResumeId, required bool isCreateNew}) async {
+  Future<void> init({
+    int? resumeId,
+    int? userResumeId,
+    required bool isCreateNew,
+    required bool isCreateWithAI,
+    required String content,
+    int? sourceUserResumeId,
+  }) async {
     await Future.delayed(Duration(milliseconds: 300));
     emit(state.copyWith(isLoading: true));
     if (isCreateNew) {
-      if (userResumeId == null) {
-        final userResumeEntityNew = await createNewUserResumeUseCase(resumeId: resumeId!);
-        final userResumeEntity = await getDetailUserResumeUseCase(id: userResumeEntityNew.id);
-        final pdfData = await getPdfUseCase(id: userResumeEntityNew.id);
-        emit(state.copyWith(userResumeEntity: userResumeEntity, pdfData: pdfData, isLoading: false));
-      } else {
-        final userResumeEntityNew = await createNewUserResumeCopyUseCase(
-          resumeId: resumeId!,
-          userResumeId: userResumeId,
+      if(isCreateWithAI) {
+        final userResumeEntityNew = await createNewUserResumeWithAIUseCase(
+          content: content,
+          sourceUserResumeId: sourceUserResumeId,
         );
         final userResumeEntity = await getDetailUserResumeUseCase(id: userResumeEntityNew.id);
         final pdfData = await getPdfUseCase(id: userResumeEntityNew.id);
         emit(state.copyWith(userResumeEntity: userResumeEntity, pdfData: pdfData, isLoading: false));
+      }
+      else {
+        if (userResumeId == null) {
+          final userResumeEntityNew = await createNewUserResumeUseCase(resumeId: resumeId!);
+          final userResumeEntity = await getDetailUserResumeUseCase(id: userResumeEntityNew.id);
+          final pdfData = await getPdfUseCase(id: userResumeEntityNew.id);
+          emit(state.copyWith(userResumeEntity: userResumeEntity, pdfData: pdfData, isLoading: false));
+        } else {
+          final userResumeEntityNew = await createNewUserResumeCopyUseCase(
+            resumeId: resumeId!,
+            userResumeId: userResumeId,
+          );
+          final userResumeEntity = await getDetailUserResumeUseCase(id: userResumeEntityNew.id);
+          final pdfData = await getPdfUseCase(id: userResumeEntityNew.id);
+          emit(state.copyWith(userResumeEntity: userResumeEntity, pdfData: pdfData, isLoading: false));
+        }
       }
     } else {
       final userResumeEntity = await getDetailUserResumeUseCase(id: userResumeId!);
@@ -46,17 +66,13 @@ class PreviewResumeCubit extends Cubit<PreviewResumeState> {
   Future<void> saveUserResume({required UserResumeEntity? userResumeEntity, String? title}) async {
     emit(state.copyWith(isLoading: true));
     if (state.userResumeEntity != null) {
-      if(title != null) {
+      if (title != null) {
         userResumeEntity!.title = title;
       }
       try {
-        await saveUserResumeUseCase.call(
-            id: userResumeEntity!.id,
-            userResumeEntity: userResumeEntity
-        );
+        await saveUserResumeUseCase.call(id: userResumeEntity!.id, userResumeEntity: userResumeEntity);
         emit(state.copyWith(isLoading: false));
-      }
-      catch (e) {
+      } catch (e) {
         emit(state.copyWith(error: e.toString(), isLoading: false));
       }
     }
@@ -68,8 +84,7 @@ class PreviewResumeCubit extends Cubit<PreviewResumeState> {
       try {
         final pdfData = await getPdfUseCase(id: state.userResumeEntity!.id);
         emit(state.copyWith(pdfData: pdfData, isLoading: false));
-      }
-      catch (e) {
+      } catch (e) {
         emit(state.copyWith(error: e.toString(), isLoading: false));
       }
     }

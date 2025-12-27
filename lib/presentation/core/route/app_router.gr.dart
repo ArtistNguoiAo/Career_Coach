@@ -705,6 +705,9 @@ class PreviewResumeRoute extends _i25.PageRouteInfo<PreviewResumeRouteArgs> {
     int? resumeId,
     int? userResumeId,
     required bool isCreateNew,
+    required bool isCreateWithAI,
+    String content = '',
+    int? sourceUserResumeId,
     List<_i25.PageRouteInfo>? children,
   }) : super(
          PreviewResumeRoute.name,
@@ -713,6 +716,9 @@ class PreviewResumeRoute extends _i25.PageRouteInfo<PreviewResumeRouteArgs> {
            resumeId: resumeId,
            userResumeId: userResumeId,
            isCreateNew: isCreateNew,
+           isCreateWithAI: isCreateWithAI,
+           content: content,
+           sourceUserResumeId: sourceUserResumeId,
          ),
          initialChildren: children,
        );
@@ -728,6 +734,9 @@ class PreviewResumeRoute extends _i25.PageRouteInfo<PreviewResumeRouteArgs> {
         resumeId: args.resumeId,
         userResumeId: args.userResumeId,
         isCreateNew: args.isCreateNew,
+        isCreateWithAI: args.isCreateWithAI,
+        content: args.content,
+        sourceUserResumeId: args.sourceUserResumeId,
       );
     },
   );
@@ -739,6 +748,9 @@ class PreviewResumeRouteArgs {
     this.resumeId,
     this.userResumeId,
     required this.isCreateNew,
+    required this.isCreateWithAI,
+    this.content = '',
+    this.sourceUserResumeId,
   });
 
   final _i26.Key? key;
@@ -749,9 +761,15 @@ class PreviewResumeRouteArgs {
 
   final bool isCreateNew;
 
+  final bool isCreateWithAI;
+
+  final String content;
+
+  final int? sourceUserResumeId;
+
   @override
   String toString() {
-    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, isCreateNew: $isCreateNew}';
+    return 'PreviewResumeRouteArgs{key: $key, resumeId: $resumeId, userResumeId: $userResumeId, isCreateNew: $isCreateNew, isCreateWithAI: $isCreateWithAI, content: $content, sourceUserResumeId: $sourceUserResumeId}';
   }
 
   @override
@@ -761,7 +779,10 @@ class PreviewResumeRouteArgs {
     return key == other.key &&
         resumeId == other.resumeId &&
         userResumeId == other.userResumeId &&
-        isCreateNew == other.isCreateNew;
+        isCreateNew == other.isCreateNew &&
+        isCreateWithAI == other.isCreateWithAI &&
+        content == other.content &&
+        sourceUserResumeId == other.sourceUserResumeId;
   }
 
   @override
@@ -769,7 +790,10 @@ class PreviewResumeRouteArgs {
       key.hashCode ^
       resumeId.hashCode ^
       userResumeId.hashCode ^
-      isCreateNew.hashCode;
+      isCreateNew.hashCode ^
+      isCreateWithAI.hashCode ^
+      content.hashCode ^
+      sourceUserResumeId.hashCode;
 }
 
 /// generated route for

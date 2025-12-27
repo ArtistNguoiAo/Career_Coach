@@ -41,4 +41,9 @@ abstract class UserResumeRepository {
   Future<void> deleteUserResumeBatch({
     required List<int> ids,
   });
+
+  Future<UserResumeEntity> createNewUserResumeWithAI({
+    required String content,
+    int? sourceUserResumeId,
+  });
 }

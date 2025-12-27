@@ -3,6 +3,7 @@ import 'package:career_coach/data/data_source/api_service.dart';
 import 'package:career_coach/data/model/user_resume_model.dart';
 import 'package:career_coach/data/model/user_resume_recent_model.dart';
 import 'package:career_coach/data/request_body/user_resume_request_body.dart';
+import 'package:career_coach/data/request_body/user_resume_with_ai_request_body.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -60,5 +61,10 @@ abstract class UserResumeRemote {
   @DELETE('/batch')
   Future<ApiResponse<void>> deleteUserResumeBatch({
     @Query('ids') required List<int> ids,
+  });
+
+  @POST('/ai-create')
+  Future<ApiResponse<UserResumeModel>> createNewUserResumeWithAI({
+    @Body() required UserResumeWithAiRequestBody userResumeWithAiRequestBody,
   });
 }

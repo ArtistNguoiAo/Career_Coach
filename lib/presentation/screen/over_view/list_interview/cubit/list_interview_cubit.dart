@@ -29,7 +29,7 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
       final historyInterviews = await getListInterviewHistoryUseCase.call(page: 0, size: state.pageSize);
 
       final listUserResumeRecent = await getListUserResumeRecentUseCae.call(
-        limit: 3,
+        limit: 5,
       );
 
       emit(

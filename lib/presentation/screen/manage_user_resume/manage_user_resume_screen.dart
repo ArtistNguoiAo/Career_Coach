@@ -131,7 +131,7 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
                   },
                   child: Icon(FontAwesomeIcons.trash, size: 20, color: Colors.white),
                 );
-              }
+              },
             ),
             SizedBox(width: 16),
             InkWell(
@@ -200,7 +200,7 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
         } else {
           DialogUtils.hideLoadingDialog(context);
         }
-        if(state.isDeleteSuccess) {
+        if (state.isDeleteSuccess) {
           state.isDeleteSuccess = false;
           _selectedResumes.clear();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -245,11 +245,17 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
                 onTap: _isSelectionMode
                     ? () => _toggleSelection(userResume.id)
                     : () {
-                        AutoRouter.of(
-                          context,
-                        ).push(PreviewResumeRoute(isCreateNew: false, userResumeId: userResume.id)).then((_) {
-                          context.read<ManageUserResumeCubit>().init();
-                        });
+                        AutoRouter.of(context)
+                            .push(
+                              PreviewResumeRoute(
+                                isCreateNew: false,
+                                userResumeId: userResume.id,
+                                isCreateWithAI: false,
+                              ),
+                            )
+                            .then((_) {
+                              context.read<ManageUserResumeCubit>().init();
+                            });
                       },
                 onLongPress: () {
                   setState(() {

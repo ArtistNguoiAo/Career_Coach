@@ -18,4 +18,5 @@ class MediaUtils {
 
   // lottie
   static String get ltLoading => 'assets/lottie/lt_loading.json';
+  static String get ltBot => 'assets/lottie/lt_bot.json';
 }

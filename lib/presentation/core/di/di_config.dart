@@ -54,6 +54,7 @@ import 'package:career_coach/domain/repository/work_experience_repository.dart';
 import 'package:career_coach/domain/use_case/create_interview_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_copy_use_case.dart';
 import 'package:career_coach/domain/use_case/create_new_user_resume_use_case.dart';
+import 'package:career_coach/domain/use_case/create_new_user_resume_with_ai_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_account_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_user_resume_batch_use_case.dart';
 import 'package:career_coach/domain/use_case/delete_user_resume_use_case.dart';
@@ -202,6 +203,7 @@ class DiConfig {
     getIt.registerLazySingleton<DeleteUserResumeBatchUseCase>(() => DeleteUserResumeBatchUseCase(getIt.get()));
     getIt.registerLazySingleton<GetListResumePopularUseCase>(() => GetListResumePopularUseCase(getIt.get()));
     getIt.registerLazySingleton<DownloadResumeUseCase>(() => DownloadResumeUseCase(getIt.get()));
+    getIt.registerLazySingleton<CreateNewUserResumeWithAIUseCase>(() => CreateNewUserResumeWithAIUseCase(getIt.get()));
 
     await getIt.allReady();
   }

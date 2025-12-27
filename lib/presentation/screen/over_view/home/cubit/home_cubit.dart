@@ -21,7 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       final listResume = await getListResumePopularUseCase.call();
       final listUserResumeRecent = await getListUserResumeRecentUseCae.call(
-        limit: 3,
+        limit: 5,
       );
       final userEntity = await getProfileUseCase.call();
       emit(

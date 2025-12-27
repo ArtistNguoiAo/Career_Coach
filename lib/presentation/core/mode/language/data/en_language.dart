@@ -432,4 +432,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get deleteSuccess => 'Delete successful';
+
+  @override
+  String get createCvWithAIContent => 'Enter your information and let AI create a professional CV for you in just a few seconds.';
 }

@@ -17,11 +17,22 @@ import 'package:path_provider/path_provider.dart';
 
 @RoutePage()
 class PreviewResumeScreen extends StatefulWidget {
-  const PreviewResumeScreen({super.key, this.resumeId, this.userResumeId, required this.isCreateNew});
+  const PreviewResumeScreen({
+    super.key,
+    this.resumeId,
+    this.userResumeId,
+    required this.isCreateNew,
+    required this.isCreateWithAI,
+    this.content = '',
+    this.sourceUserResumeId,
+  });
 
   final int? resumeId;
   final int? userResumeId;
   final bool isCreateNew;
+  final bool isCreateWithAI;
+  final String content;
+  final int? sourceUserResumeId;
 
   @override
   State<PreviewResumeScreen> createState() => _PreviewResumeScreenState();
@@ -34,9 +45,15 @@ class _PreviewResumeScreenState extends State<PreviewResumeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          PreviewResumeCubit()
-            ..init(resumeId: widget.resumeId, userResumeId: widget.userResumeId, isCreateNew: widget.isCreateNew),
+      create: (context) => PreviewResumeCubit()
+        ..init(
+          resumeId: widget.resumeId,
+          userResumeId: widget.userResumeId,
+          isCreateNew: widget.isCreateNew,
+          isCreateWithAI: widget.isCreateWithAI,
+          content: widget.content,
+          sourceUserResumeId: widget.sourceUserResumeId,
+        ),
       child: BlocConsumer<PreviewResumeCubit, PreviewResumeState>(
         listener: (context, state) {
           _nameController.text = state.userResumeEntity?.title ?? '';

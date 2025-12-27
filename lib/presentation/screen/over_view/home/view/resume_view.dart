@@ -79,21 +79,22 @@ class _ResumeViewState extends State<ResumeView> with SingleTickerProviderStateM
               PreviewResumeRoute(
                 resumeId: resumeEntity.id,
                 isCreateNew: true,
+                isCreateWithAI: false,
               ),
             );
           },
           onSaved: () async {
-            final listUserResumeRecent = await getListUserResumeRecentUseCae.call(limit: 3);
             if (!mounted) return;
             DialogUtils.showResumeRecentDialog(
               context: context,
-              listUserResumeRecent: listUserResumeRecent,
+              listUserResumeRecent: widget.listUserResumeRecent,
               onSaved: (userResumeId) {
                 context.router.push(
                   PreviewResumeRoute(
                     resumeId: resumeEntity.id,
                     userResumeId: userResumeId,
                     isCreateNew: true,
+                    isCreateWithAI: false,
                   ),
                 );
               },

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
+import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
 import 'package:career_coach/presentation/screen/over_view/home/cubit/home_cubit.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/header_view.dart';
 import 'package:career_coach/presentation/screen/over_view/home/view/resume_view.dart';
@@ -10,6 +12,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -20,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _contentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -61,20 +66,61 @@ class _HomeScreenState extends State<HomeScreen> {
         TitleView(title: context.language.createCvWithAI),
         const SizedBox(height: 8),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              height: 150,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              viewportFraction: 0.7,
-              onPageChanged: (index, reason) {},
-            ),
-            items: [
-              Container(width: double.infinity, color: context.theme.primaryColor),
-              Container(width: double.infinity, color: context.theme.primaryColor),
-              Container(width: double.infinity, color: context.theme.primaryColor),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Lottie.asset(MediaUtils.ltBot, width: 80, fit: BoxFit.cover),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  context.language.createCvWithAIContent,
+                  style: TextStyleUtils.normal(color: context.theme.primaryDarkColor, fontSize: 14),
+                ),
+              ),
             ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: BaseTextField(
+            controller: _contentController,
+            textInputAction: TextInputAction.newline,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(color: context.theme.borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(color: context.theme.primaryColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(color: context.theme.borderColor),
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        InkWell(
+          onTap: () {
+
+          },
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(color: context.theme.primaryColor, borderRadius: BorderRadius.circular(4)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(FontAwesomeIcons.wandMagicSparkles, color: Colors.white, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  context.language.create,
+                  style: TextStyleUtils.bold(color: Colors.white, fontSize: 16),
+                ),
+              ],
+            ),
           ),
         ),
       ],
