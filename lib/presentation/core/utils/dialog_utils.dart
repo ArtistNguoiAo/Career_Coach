@@ -793,8 +793,8 @@ class DialogUtils {
     required BuildContext context,
     required List<UserResumeRecentEntity> listUserResumeRecent,
     required Function(UserResumeRecentEntity? selectedResume) onCreate,
-  }) {
-    showDialog(
+  }) async {
+    await showDialog(
       context: context,
       builder: (context) {
         TypeCreateResumeEnum selectedOption = TypeCreateResumeEnum.NEW;
@@ -894,5 +894,6 @@ class DialogUtils {
         );
       },
     );
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 }

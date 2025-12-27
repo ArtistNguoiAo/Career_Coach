@@ -72,6 +72,7 @@ class _CreateCvWithAIViewState extends State<CreateCvWithAIView> {
               context: context,
               listUserResumeRecent: widget.listUserResumeRecent,
               onCreate: (selectedResume) {
+                AutoRouter.of(context).maybePop();
                 AutoRouter.of(context).push(
                   PreviewResumeRoute(
                     isCreateNew: true,
@@ -80,6 +81,8 @@ class _CreateCvWithAIViewState extends State<CreateCvWithAIView> {
                     sourceUserResumeId: selectedResume?.id,
                   ),
                 );
+                _contentController.clear();
+                FocusManager.instance.primaryFocus?.unfocus();
               },
             );
           },
@@ -100,5 +103,11 @@ class _CreateCvWithAIViewState extends State<CreateCvWithAIView> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _contentController.dispose();
+    super.dispose();
   }
 }
