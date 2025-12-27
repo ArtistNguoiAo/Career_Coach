@@ -5,7 +5,7 @@ class DeleteUserResumeBatchUseCase {
 
   DeleteUserResumeBatchUseCase(this._userResumeRepository);
 
-  Future<String> call({
+  Future<void> call({
     required List<int> ids,
   }) async {
     return await _userResumeRepository.deleteUserResumeBatch(

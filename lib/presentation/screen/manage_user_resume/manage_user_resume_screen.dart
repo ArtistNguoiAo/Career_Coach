@@ -29,6 +29,8 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
   late TabController _tabController;
   final ScrollController _savedScrollController = ScrollController();
   final ScrollController _draftScrollController = ScrollController();
+  final Set<int> _selectedResumes = {};
+  bool _isSelectionMode = false;
 
   @override
   void initState() {
@@ -43,7 +45,42 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
     _tabController.dispose();
     _savedScrollController.dispose();
     _draftScrollController.dispose();
+    _selectedResumes.clear();
     super.dispose();
+  }
+
+  void _toggleSelection(int resumeId) {
+    setState(() {
+      if (_selectedResumes.contains(resumeId)) {
+        _selectedResumes.remove(resumeId);
+      } else {
+        _selectedResumes.add(resumeId);
+      }
+      _isSelectionMode = true;
+    });
+  }
+
+  void _exitSelectionMode() {
+    setState(() {
+      _selectedResumes.clear();
+      _isSelectionMode = false;
+    });
+  }
+
+  void _toggleSelectAll() {
+    setState(() {
+      final currentResumes = _tabController.index == 0
+          ? context.read<ManageUserResumeCubit>().state.listUserResumeSaved
+          : context.read<ManageUserResumeCubit>().state.listUserResumeDraft;
+
+      if (_selectedResumes.length == currentResumes.length) {
+        _selectedResumes.clear();
+      } else {
+        _selectedResumes.clear();
+        _selectedResumes.addAll(currentResumes.map((r) => r.id).toList());
+      }
+      _isSelectionMode = true;
+    });
   }
 
   void _onSavedScroll() {
@@ -62,18 +99,60 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            AutoRouter.of(context).maybePop();
-          },
-          child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
-        ),
+        leading: _isSelectionMode
+            ? InkWell(
+                onTap: _exitSelectionMode,
+                child: Icon(FontAwesomeIcons.xmark, color: context.theme.backgroundColor, size: 20),
+              )
+            : InkWell(
+                onTap: () {
+                  AutoRouter.of(context).maybePop();
+                },
+                child: Icon(FontAwesomeIcons.chevronLeft, color: context.theme.backgroundColor, size: 20),
+              ),
         centerTitle: true,
-        title: Text(
-          context.language.yourResume,
-          style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
-        ),
+        title: _isSelectionMode
+            ? Text(
+                '${_selectedResumes.length} ${context.language.selected}',
+                style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
+              )
+            : Text(
+                context.language.yourResume,
+                style: TextStyleUtils.bold(color: context.theme.backgroundColor, fontSize: 18),
+              ),
         backgroundColor: context.theme.primaryColor,
+        actions: [
+          if (_isSelectionMode) ...[
+            Builder(
+              builder: (context) {
+                return InkWell(
+                  onTap: () {
+                    context.read<ManageUserResumeCubit>().deleteUserResumeBatch(_selectedResumes.toList());
+                  },
+                  child: Icon(FontAwesomeIcons.trash, size: 20, color: Colors.white),
+                );
+              }
+            ),
+            SizedBox(width: 16),
+            InkWell(
+              onTap: _toggleSelectAll,
+              child: Icon(
+                _selectedResumes.isNotEmpty &&
+                        ((_tabController.index == 0 &&
+                                _selectedResumes.length ==
+                                    context.read<ManageUserResumeCubit>().state.listUserResumeSaved.length) ||
+                            (_tabController.index == 1 &&
+                                _selectedResumes.length ==
+                                    context.read<ManageUserResumeCubit>().state.listUserResumeDraft.length))
+                    ? FontAwesomeIcons.squareCheck
+                    : FontAwesomeIcons.square,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+            SizedBox(width: 16),
+          ],
+        ],
       ),
       body: Container(
         height: double.infinity,
@@ -121,6 +200,24 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
         } else {
           DialogUtils.hideLoadingDialog(context);
         }
+        if(state.isDeleteSuccess) {
+          state.isDeleteSuccess = false;
+          _selectedResumes.clear();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                context.language.deleteSuccess,
+                style: TextStyleUtils.normal(color: context.theme.backgroundColor, fontSize: 12),
+              ),
+              backgroundColor: context.theme.goodColor,
+              duration: const Duration(seconds: 1),
+            ),
+          );
+        }
+        if (state.error.isNotEmpty) {
+          DialogUtils.showErrorDialog(context: context, message: state.error);
+          state.error = '';
+        }
       },
       builder: (context, state) {
         final userResumes = isSaved ? state.listUserResumeSaved : state.listUserResumeDraft;
@@ -135,41 +232,60 @@ class _ManageUserResumeScreenUIState extends State<ManageUserResumeScreenUI> wit
             controller: scrollController,
             padding: EdgeInsets.zero,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: 2 / 3,
+              crossAxisCount: 2,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 2 / 3,
             ),
             itemCount: userResumes.length,
             itemBuilder: (context, index) {
               final userResume = userResumes[index];
+              final isSelected = _selectedResumes.contains(userResume.id);
               return InkWell(
-                onTap: () {
-                  AutoRouter.of(context).push(
-                    PreviewResumeRoute(isCreateNew: false, userResumeId: userResume.id)
-                  ).then((_) {
-                    context.read<ManageUserResumeCubit>().init();
+                onTap: _isSelectionMode
+                    ? () => _toggleSelection(userResume.id)
+                    : () {
+                        AutoRouter.of(
+                          context,
+                        ).push(PreviewResumeRoute(isCreateNew: false, userResumeId: userResume.id)).then((_) {
+                          context.read<ManageUserResumeCubit>().init();
+                        });
+                      },
+                onLongPress: () {
+                  setState(() {
+                    _toggleSelection(userResume.id);
                   });
                 },
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: context.theme.lightGreyColor.withAlpha((255 * 0.5).round()),
+                    border: isSelected ? Border.all(color: context.theme.primaryColor, width: 2) : null,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            userResume.title,
-                            style: TextStyleUtils.bold(color: context.theme.textColor, fontSize: 16),
-                          ),
-                        ],
+                      if (_isSelectionMode) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Checkbox(
+                              value: isSelected,
+                              onChanged: (_) => _toggleSelection(userResume.id),
+                              checkColor: context.theme.backgroundColor,
+                              activeColor: context.theme.primaryColor,
+                            ),
+                          ],
+                        ),
+                      ],
+                      Expanded(child: Container()),
+                      Text(
+                        userResume.title,
+                        style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 16),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 8),
                     ],
                   ),
                 ),

@@ -53,12 +53,12 @@ abstract class UserResumeRemote {
   });
 
   @DELETE('/{id}')
-  Future<ApiResponse<String>> deleteUserResume({
+  Future<ApiResponse<void>> deleteUserResume({
     @Path('id') required int id,
   });
 
   @DELETE('/batch')
-  Future<ApiResponse<String>> deleteUserResumeBatch({
+  Future<ApiResponse<void>> deleteUserResumeBatch({
     @Query('ids') required List<int> ids,
   });
 }

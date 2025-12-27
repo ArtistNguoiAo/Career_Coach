@@ -426,4 +426,10 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get downloadSuccess => 'Tải xuống thành công';
+
+  @override
+  String get selected => 'Đã chọn';
+
+  @override
+  String get deleteSuccess => 'Xóa thành công';
 }

@@ -5,7 +5,7 @@ class DeleteUserResumeUseCase {
 
   DeleteUserResumeUseCase(this._userResumeRepository);
 
-  Future<String> call({
+  Future<void> call({
     required int id,
   }) async {
     return await _userResumeRepository.deleteUserResume(

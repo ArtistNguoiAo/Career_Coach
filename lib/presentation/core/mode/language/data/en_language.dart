@@ -426,4 +426,10 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get downloadSuccess => 'Download successful';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get deleteSuccess => 'Delete successful';
 }

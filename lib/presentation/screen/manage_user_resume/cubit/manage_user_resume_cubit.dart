@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:career_coach/domain/entity/user_resume_entity.dart';
 import 'package:career_coach/domain/enum/type_resume_created_enum.dart';
 import 'package:career_coach/domain/use_case/delete_user_resume_batch_use_case.dart';
-import 'package:career_coach/domain/use_case/delete_user_resume_use_case.dart';
 import 'package:career_coach/domain/use_case/get_list_user_resume_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
 
@@ -12,7 +11,6 @@ class ManageUserResumeCubit extends Cubit<ManageUserResumeState> {
   ManageUserResumeCubit() : super(ManageUserResumeState());
 
   final GetListUserResumeUseCase getListUserResumeUseCase = getIt<GetListUserResumeUseCase>();
-  final DeleteUserResumeUseCase deleteUserResumeUseCase = getIt<DeleteUserResumeUseCase>();
   final DeleteUserResumeBatchUseCase deleteUserResumeBatchUseCase = getIt<DeleteUserResumeBatchUseCase>();
 
   Future<void> init() async {
@@ -99,6 +97,38 @@ class ManageUserResumeCubit extends Cubit<ManageUserResumeState> {
     } catch (e) {
       emit(state.copyWith(isLoadingMore: false));
       rethrow;
+    }
+  }
+
+  Future<void> deleteUserResumeBatch(List<int> ids) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await deleteUserResumeBatchUseCase.call(ids: ids);
+      final listUserResumeSaved = await getListUserResumeUseCase.call(
+        page: 0,
+        size: state.pageSize,
+        status: TypeResumeCreatedEnum.SAVED.name,
+      );
+
+      final listUserResumeDraft = await getListUserResumeUseCase.call(
+        page: 0,
+        size: state.pageSize,
+        status: TypeResumeCreatedEnum.DRAFT.name,
+      );
+      emit(
+        state.copyWith(
+          listUserResumeSaved: listUserResumeSaved,
+          listUserResumeDraft: listUserResumeDraft,
+          currentPageSaved: 0,
+          currentPageDraft: 0,
+          hasReachedMaxSaved: listUserResumeSaved.length < state.pageSize,
+          hasReachedMaxDraft: listUserResumeDraft.length < state.pageSize,
+          isLoading: false,
+          isDeleteSuccess: true,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(error: e.toString(), isLoading: false));
     }
   }
 }

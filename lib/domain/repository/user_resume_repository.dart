@@ -34,11 +34,11 @@ abstract class UserResumeRepository {
     required int id,
   });
 
-  Future<String> deleteUserResume({
+  Future<void> deleteUserResume({
     required int id,
   });
 
-  Future<String> deleteUserResumeBatch({
+  Future<void> deleteUserResumeBatch({
     required List<int> ids,
   });
 }

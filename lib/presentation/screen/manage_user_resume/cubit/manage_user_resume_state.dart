@@ -10,8 +10,10 @@ class ManageUserResumeState {
   final bool isLoading;
   final bool isLoadingMore;
   final int pageSize;
+  String error;
+  bool isDeleteSuccess;
 
-  const ManageUserResumeState({
+  ManageUserResumeState({
     this.listUserResumeSaved = const [],
     this.listUserResumeDraft = const [],
     this.currentPageSaved = 0,
@@ -21,6 +23,8 @@ class ManageUserResumeState {
     this.isLoading = true,
     this.isLoadingMore = false,
     this.pageSize = 20,
+    this.error = '',
+    this.isDeleteSuccess = false,
   });
 
   ManageUserResumeState copyWith({
@@ -33,6 +37,8 @@ class ManageUserResumeState {
     bool? isLoading,
     bool? isLoadingMore,
     int? pageSize,
+    String? error,
+    bool? isDeleteSuccess,
   }) {
     return ManageUserResumeState(
       listUserResumeSaved: listUserResumeSaved ?? this.listUserResumeSaved,
@@ -44,6 +50,8 @@ class ManageUserResumeState {
       isLoading: isLoading ?? this.isLoading,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       pageSize: pageSize ?? this.pageSize,
+      error: error ?? this.error,
+      isDeleteSuccess: isDeleteSuccess ?? this.isDeleteSuccess,
     );
   }
 }

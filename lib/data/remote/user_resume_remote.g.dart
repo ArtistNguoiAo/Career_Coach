@@ -265,12 +265,12 @@ class _UserResumeRemote implements UserResumeRemote {
   }
 
   @override
-  Future<ApiResponse<String>> deleteUserResume({required int id}) async {
+  Future<ApiResponse<void>> deleteUserResume({required int id}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<String>>(
+    final _options = _setStreamType<ApiResponse<void>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -281,12 +281,9 @@ class _UserResumeRemote implements UserResumeRemote {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<String> _value;
+    late ApiResponse<void> _value;
     try {
-      _value = ApiResponse<String>.fromJson(
-        _result.data!,
-        (json) => json as String,
-      );
+      _value = ApiResponse<void>.fromJson(_result.data!, (json) => () {}());
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -295,14 +292,14 @@ class _UserResumeRemote implements UserResumeRemote {
   }
 
   @override
-  Future<ApiResponse<String>> deleteUserResumeBatch({
+  Future<ApiResponse<void>> deleteUserResumeBatch({
     required List<int> ids,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'ids': ids};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<String>>(
+    final _options = _setStreamType<ApiResponse<void>>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -313,12 +310,9 @@ class _UserResumeRemote implements UserResumeRemote {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<String> _value;
+    late ApiResponse<void> _value;
     try {
-      _value = ApiResponse<String>.fromJson(
-        _result.data!,
-        (json) => json as String,
-      );
+      _value = ApiResponse<void>.fromJson(_result.data!, (json) => () {}());
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

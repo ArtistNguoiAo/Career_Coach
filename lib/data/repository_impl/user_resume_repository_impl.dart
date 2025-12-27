@@ -95,14 +95,12 @@ class UserResumeRepositoryImpl implements UserResumeRepository {
   }
 
   @override
-  Future<String> deleteUserResume({required int id}) async {
-    final response = await _userResumeRemote.deleteUserResume(id: id);
-    return response.data;
+  Future<void> deleteUserResume({required int id}) async {
+    await _userResumeRemote.deleteUserResume(id: id);
   }
 
   @override
-  Future<String> deleteUserResumeBatch({required List<int> ids}) async {
-    final response = await _userResumeRemote.deleteUserResumeBatch(ids: ids);
-    return response.data;
+  Future<void> deleteUserResumeBatch({required List<int> ids}) async {
+    await _userResumeRemote.deleteUserResumeBatch(ids: ids);
   }
 }

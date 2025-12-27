@@ -139,4 +139,6 @@ abstract class BaseLanguage {
   String get yourResume;
   String get draft;
   String get downloadSuccess;
+  String get selected;
+  String get deleteSuccess;
 }
