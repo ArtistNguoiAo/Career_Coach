@@ -1,5 +1,6 @@
 import 'package:career_coach/data/data_source/api_response.dart';
 import 'package:career_coach/data/data_source/api_service.dart';
+import 'package:career_coach/data/model/analysis_model.dart';
 import 'package:career_coach/data/model/create_interview_model.dart';
 import 'package:career_coach/data/model/interview_model.dart';
 import 'package:career_coach/data/model/message_model.dart';
@@ -41,7 +42,7 @@ abstract class InterviewRemote {
   });
 
   @GET('/{sessionId}/analysis')
-  Future<ApiResponse<dynamic>> getAnalysisInterview({
+  Future<ApiResponse<AnalysisModel>> getAnalysisInterview({
     @Path('sessionId') required int sessionId,
   });
 }

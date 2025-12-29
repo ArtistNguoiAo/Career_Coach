@@ -34,5 +34,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SkillRoute.page),
     AutoRoute(page: OtherInformationRoute.page),
     AutoRoute(page: MessageRoute.page),
+    AutoRoute(page: AnalysisRoute.page),
   ];
 }

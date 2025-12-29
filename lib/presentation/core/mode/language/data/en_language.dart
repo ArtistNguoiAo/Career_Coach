@@ -435,4 +435,19 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get createCvWithAIContent => 'Enter your information and let AI create a professional CV for you in just a few seconds.';
+
+  @override
+  String get overallScore => 'Overall score';
+
+  @override
+  String get technicalScore => 'Technical score';
+
+  @override
+  String get communicationScore => 'Communication score';
+
+  @override
+  String get confidenceScore => 'Confidence score';
+
+  @override
+  String get analysis => 'Analysis';
 }

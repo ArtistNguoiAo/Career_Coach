@@ -435,4 +435,19 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get createCvWithAIContent => 'Nhập thông tin của bạn và để AI tạo CV chuyên nghiệp cho bạn trong vài giây.';
+
+  @override
+  String get overallScore => 'Điểm tổng';
+
+  @override
+  String get technicalScore => 'Điểm kỹ thuật';
+
+  @override
+  String get communicationScore => 'Điểm giao tiếp';
+
+  @override
+  String get confidenceScore => 'Điểm tự tin';
+
+  @override
+  String get analysis => 'Phân tích';
 }

@@ -199,14 +199,14 @@ class _InterviewRemote implements InterviewRemote {
   }
 
   @override
-  Future<ApiResponse<dynamic>> getAnalysisInterview({
+  Future<ApiResponse<AnalysisModel>> getAnalysisInterview({
     required int sessionId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<dynamic>>(
+    final _options = _setStreamType<ApiResponse<AnalysisModel>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -217,11 +217,11 @@ class _InterviewRemote implements InterviewRemote {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<dynamic> _value;
+    late ApiResponse<AnalysisModel> _value;
     try {
-      _value = ApiResponse<dynamic>.fromJson(
+      _value = ApiResponse<AnalysisModel>.fromJson(
         _result.data!,
-        (json) => json as dynamic,
+        (json) => AnalysisModel.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

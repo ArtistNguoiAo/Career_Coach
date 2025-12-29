@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/domain/enum/type_message_role_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
@@ -338,17 +339,22 @@ class _MessageScreenState extends State<MessageScreen> {
           );
         }
         else {
-          return Container(
-            padding: EdgeInsets.all(12),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: context.theme.primaryColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              context.language.interviewAnalysis,
-              style: TextStyleUtils.normal(color: Colors.white),
-              textAlign: TextAlign.center,
+          return InkWell(
+            onTap: () {
+              AutoRouter.of(context).push(AnalysisRoute(sessionId: widget.sessionId));
+            },
+            child: Container(
+              padding: EdgeInsets.all(12),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: context.theme.primaryColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                context.language.interviewAnalysis,
+                style: TextStyleUtils.normal(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
             ),
           );
         }

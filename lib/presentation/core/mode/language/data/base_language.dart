@@ -142,4 +142,9 @@ abstract class BaseLanguage {
   String get selected;
   String get deleteSuccess;
   String get createCvWithAIContent;
+  String get overallScore;
+  String get technicalScore;
+  String get communicationScore;
+  String get confidenceScore;
+  String get analysis;
 }
