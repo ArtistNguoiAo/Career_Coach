@@ -47,6 +47,7 @@ dependencies:
   flutter_pdfview: ^1.4.3
   path_provider: ^2.1.2
   fl_chart: ^0.71.0
+  sleek_circular_slider: ^2.0.1
 
   cupertino_icons: ^1.0.8
 

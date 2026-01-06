@@ -47,20 +47,39 @@ class _ResumeViewState extends State<ResumeView> with SingleTickerProviderStateM
       children: [
         TitleView(title: context.language.cvTemplate),
         const SizedBox(height: 8),
-        Container(
-          height: 300,
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return _itemResume(
-                resumeEntity: widget.listResume[index],
-              );
-            },
-            separatorBuilder: (_, __) => SizedBox(width: 16),
-            itemCount: widget.listResume.length,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return _itemResume(
+                      resumeEntity: widget.listResume[index],
+                    );
+                  },
+                  separatorBuilder: (_, __) => SizedBox(width: 16),
+                  itemCount: widget.listResume.length,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                context.router.push(ListCvRoute());
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Icon(
+                  FontAwesomeIcons.chevronRight,
+                  size: 16,
+                  color: context.theme.textColor,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

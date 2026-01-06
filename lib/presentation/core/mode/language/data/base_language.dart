@@ -149,4 +149,9 @@ abstract class BaseLanguage {
   String get analysis;
   String get errorChoiceCv;
   String get uploadedCvContent;
+  String get strengths;
+  String get weaknesses;
+  String get detailedFeedback;
+  String get recommendations;
+  String get keywordMatches;
 }

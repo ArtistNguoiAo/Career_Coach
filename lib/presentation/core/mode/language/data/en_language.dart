@@ -440,13 +440,13 @@ class EnLanguage extends BaseLanguage {
   String get overallScore => 'Overall score';
 
   @override
-  String get technicalScore => 'Technical score';
+  String get technicalScore => 'Technical\nscore';
 
   @override
-  String get communicationScore => 'Communication score';
+  String get communicationScore => 'Communication\nscore';
 
   @override
-  String get confidenceScore => 'Confidence score';
+  String get confidenceScore => 'Confidence\nscore';
 
   @override
   String get analysis => 'Analysis';
@@ -456,4 +456,19 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get uploadedCvContent => 'Click here to upload your CV.';
+
+  @override
+  String get strengths => 'Strengths';
+
+  @override
+  String get weaknesses => 'Weaknesses';
+
+  @override
+  String get detailedFeedback => 'Detailed feedback';
+
+  @override
+  String get recommendations => 'Recommendations';
+
+  @override
+  String get keywordMatches => 'Keyword matches';
 }

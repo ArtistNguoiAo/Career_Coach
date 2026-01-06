@@ -35,5 +35,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: OtherInformationRoute.page),
     AutoRoute(page: MessageRoute.page),
     AutoRoute(page: AnalysisRoute.page),
+    AutoRoute(page: ListCvRoute.page),
   ];
 }

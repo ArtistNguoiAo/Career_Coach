@@ -440,13 +440,13 @@ class ViLanguage extends BaseLanguage {
   String get overallScore => 'Điểm tổng';
 
   @override
-  String get technicalScore => 'Điểm kỹ thuật';
+  String get technicalScore => 'Điểm\nkỹ\nthuật';
 
   @override
-  String get communicationScore => 'Điểm giao tiếp';
+  String get communicationScore => 'Điểm\ngiao\ntiếp';
 
   @override
-  String get confidenceScore => 'Điểm tự tin';
+  String get confidenceScore => 'Điểm\ntự\ntin';
 
   @override
   String get analysis => 'Phân tích';
@@ -456,4 +456,19 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get uploadedCvContent => 'Bấm vào đây để tải lên CV của bạn.';
+
+  @override
+  String get strengths => 'Điểm mạnh';
+
+  @override
+  String get weaknesses => 'Điểm cần cải thiện';
+
+  @override
+  String get detailedFeedback => 'Phản hồi chi tiết';
+
+  @override
+  String get recommendations => 'Khuyến nghị';
+
+  @override
+  String get keywordMatches => 'Từ khóa phù hợp';
 }
