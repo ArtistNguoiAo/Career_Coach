@@ -3,6 +3,7 @@ import 'package:career_coach/domain/enum/type_experience_level_enum.dart';
 import 'package:career_coach/domain/enum/type_font_family_enum.dart';
 import 'package:career_coach/domain/enum/type_interview_status_enum.dart';
 import 'package:career_coach/domain/enum/type_language_enum.dart';
+import 'package:career_coach/domain/enum/type_resume_enum.dart';
 import 'package:career_coach/domain/enum/type_resume_section_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:flutter/cupertino.dart';
@@ -116,6 +117,23 @@ class StringUtils {
         return "Active";
       case TypeInterviewStatusEnum.COMPLETED:
         return "Completed";
+    }
+  }
+
+  static String convertTypeResumeEnum(BuildContext context, TypeResumeEnum type) {
+    switch (type) {
+      case TypeResumeEnum.BASIC:
+        return context.language.basic;
+      case TypeResumeEnum.MODERN:
+        return context.language.modern;
+      case TypeResumeEnum.CREATIVE:
+        return context.language.creative;
+      case TypeResumeEnum.PROFESSIONAL:
+        return context.language.professional;
+      case TypeResumeEnum.TECHNICAL:
+        return context.language.technical;
+      default:
+        return context.language.all;
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:career_coach/domain/entity/analysis_entity.dart';
 import 'package:career_coach/domain/entity/create_interview_entity.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
@@ -26,6 +28,7 @@ abstract class InterviewRepository {
     int? userResumeId,
     required TypeCvExperienceLevelEnum experienceLevel,
     required TypeLanguageEnum language,
+    File? file,
   });
 
   Future<InterviewEntity> endInterview({

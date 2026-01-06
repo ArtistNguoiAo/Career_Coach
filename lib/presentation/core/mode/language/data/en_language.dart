@@ -471,4 +471,22 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get keywordMatches => 'Keyword matches';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get basic => 'Basic';
+
+  @override
+  String get modern => 'Modern';
+
+  @override
+  String get creative => 'Creative';
+
+  @override
+  String get professional => 'Professional';
+
+  @override
+  String get technical => 'Technical';
 }

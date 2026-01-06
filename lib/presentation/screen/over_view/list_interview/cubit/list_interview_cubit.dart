@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:career_coach/domain/entity/interview_entity.dart';
 import 'package:career_coach/domain/entity/user_resume_recent_entity.dart';
@@ -101,6 +103,7 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
     int? userResumeId,
     required TypeCvExperienceLevelEnum experienceLevel,
     required TypeLanguageEnum language,
+    File? file,
   }) async {
     emit(state.copyWith(isLoading: true));
     try {
@@ -109,6 +112,7 @@ class ListInterviewCubit extends Cubit<ListInterviewState> {
         userResumeId: userResumeId,
         experienceLevel: experienceLevel,
         language: language,
+        file: file,
       );
       emit(state.copyWith(isLoading: false, isSuccess: true, sessionId: createInterviewEntity.sessionId));
     }

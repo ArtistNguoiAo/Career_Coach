@@ -154,4 +154,10 @@ abstract class BaseLanguage {
   String get detailedFeedback;
   String get recommendations;
   String get keywordMatches;
+  String get all;
+  String get basic;
+  String get modern;
+  String get creative;
+  String get professional;
+  String get technical;
 }

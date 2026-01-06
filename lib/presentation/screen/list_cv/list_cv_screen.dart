@@ -1,5 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:career_coach/domain/enum/type_resume_enum.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/route/app_router.gr.dart';
+import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
+import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
 import 'package:career_coach/presentation/screen/list_cv/cubit/list_cv_cubit.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +19,12 @@ class ListCvScreen extends StatefulWidget {
 }
 
 class _ListCvScreenState extends State<ListCvScreen> {
-  final List<String> tabs = [
-    'Tất cả',
-    'Cơ bản',
-    'Hiện đại',
-    'Sáng tạo',
-    'Chuyên nghiệp',
-    'Kỹ thuật',
-  ];
-  int selectedIndex = 0;
+  TypeResumeEnum selectedType = TypeResumeEnum.ALL;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ListCvCubit()..init(),
+      create: (context) => ListCvCubit()..init(typeResumeEnum: selectedType),
       child: Scaffold(
         appBar: AppBar(
           leading: InkWell(
@@ -50,37 +47,40 @@ class _ListCvScreenState extends State<ListCvScreen> {
           color: context.theme.backgroundColor,
           child: BlocConsumer<ListCvCubit, ListCvState>(
             listener: (context, state) {
-
+              selectedType = state.selectedType;
             },
             builder: (context, state) {
               return Column(
                 children: [
                   Wrap(
                     spacing: 8,
-                    children: List.generate(tabs.length, (index) {
-                      final isSelected = selectedIndex == index;
-
-                      return ChoiceChip(
-                        label: Text(
-                          tabs[index],
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontWeight: FontWeight.w500,
+                    runSpacing: 8,
+                    children: TypeResumeEnum.values.map((type) {
+                      final isSelected = selectedType == type;
+                      return InkWell(
+                        onTap: () {
+                          context.read<ListCvCubit>().init(typeResumeEnum: type);
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: isSelected ? context.theme.primaryColor.withAlpha((255 * 0.1).round()) : null,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: isSelected ? context.theme.primaryColor : context.theme.darkGreyColor,
+                            ),
+                          ),
+                          child: Text(
+                            StringUtils.convertTypeResumeEnum(context, type),
+                            style: TextStyleUtils.normal(
+                              fontSize: 14,
+                              color: isSelected ? context.theme.primaryColor : context.theme.textColor,
+                            ),
                           ),
                         ),
-                        selected: isSelected,
-                        selectedColor: context.theme.primaryColor,
-                        checkmarkColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.grey.shade300),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        onSelected: (_) {
-                          setState(() => selectedIndex = index);
-                        },
                       );
-                    }),
+                    }).toList(),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -94,77 +94,111 @@ class _ListCvScreenState extends State<ListCvScreen> {
                       ),
                       itemCount: state.listResume.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: context.theme.borderColor),
-                            color: context.theme.backgroundColor,
-                          ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(4),
-                                    topRight: Radius.circular(4),
-                                  ),
-                                  child: Banner(
-                                    message: state.listResume[index].type.name,
-                                    location: BannerLocation.topEnd,
-                                    color: context.theme.goodColor,
-                                    child: Image.network(
-                                      state.listResume[index].thumbnailUrl,
-                                      height: double.infinity,
-                                      fit: BoxFit.cover,
+                        return InkWell(
+                          onTap: () {
+                            DialogUtils.showPreviewResumeDialog(
+                                context: context,
+                                resumeEntity: state.listResume[index],
+                                onCreateNew: () {
+                                  context.router.push(
+                                    PreviewResumeRoute(
+                                      resumeId: state.listResume[index].id,
+                                      isCreateNew: true,
+                                      isCreateWithAI: false,
+                                    ),
+                                  );
+                                },
+                                onSaved: () async {
+                                  if (!mounted) return;
+                                  DialogUtils.showResumeRecentDialog(
+                                    context: context,
+                                    listUserResumeRecent: state.listUserResumeRecent,
+                                    onSaved: (userResumeId) {
+                                      context.router.push(
+                                        PreviewResumeRoute(
+                                          resumeId: state.listResume[index].id,
+                                          userResumeId: userResumeId,
+                                          isCreateNew: true,
+                                          isCreateWithAI: false,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(color: context.theme.borderColor),
+                              color: context.theme.backgroundColor,
+                            ),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(4),
+                                      topRight: Radius.circular(4),
+                                    ),
+                                    child: Banner(
+                                      message: state.listResume[index].type.name,
+                                      location: BannerLocation.topEnd,
+                                      color: context.theme.goodColor,
+                                      child: Image.network(
+                                        state.listResume[index].thumbnailUrl,
+                                        height: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  state.listResume[index].title,
-                                  style: TextStyleUtils.bold(color: context.theme.textColor),
+                                const SizedBox(height: 8),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Text(
+                                    state.listResume[index].title,
+                                    style: TextStyleUtils.bold(color: context.theme.textColor),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 8),
-                                  Icon(
-                                    FontAwesomeIcons.eye,
-                                    size: 14,
-                                    color: context.theme.darkGreyColor,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    state.listResume[index].viewCount.toString(),
-                                    style: TextStyleUtils.normal(
-                                      fontSize: 14,
+                                const SizedBox(height: 8),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      FontAwesomeIcons.eye,
+                                      size: 14,
                                       color: context.theme.darkGreyColor,
                                     ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Icon(
-                                    FontAwesomeIcons.download,
-                                    size: 14,
-                                    color: context.theme.darkGreyColor,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    state.listResume[index].downloadCount.toString(),
-                                    style: TextStyleUtils.normal(
-                                      fontSize: 14,
+                                    SizedBox(width: 4),
+                                    Text(
+                                      state.listResume[index].viewCount.toString(),
+                                      style: TextStyleUtils.normal(
+                                        fontSize: 14,
+                                        color: context.theme.darkGreyColor,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      FontAwesomeIcons.download,
+                                      size: 14,
                                       color: context.theme.darkGreyColor,
                                     ),
-                                  ),
-                                  SizedBox(width: 8),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                            ],
+                                    SizedBox(width: 4),
+                                    Text(
+                                      state.listResume[index].downloadCount.toString(),
+                                      style: TextStyleUtils.normal(
+                                        fontSize: 14,
+                                        color: context.theme.darkGreyColor,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                              ],
+                            ),
                           ),
                         );
                       },

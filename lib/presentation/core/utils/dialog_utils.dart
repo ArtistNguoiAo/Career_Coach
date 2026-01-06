@@ -11,6 +11,7 @@ import 'package:career_coach/presentation/core/extension/ext_context.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
@@ -583,6 +584,7 @@ class DialogUtils {
       TypeCvExperienceLevelEnum experienceLevel,
       TypeLanguageEnum languageUser,
       UserResumeRecentEntity? selectedResume,
+      File? uploadedFile
     )
     onCreate,
   }) {
@@ -595,6 +597,8 @@ class DialogUtils {
         TypeCvExperienceLevelEnum experienceLevel = TypeCvExperienceLevelEnum.INTERN;
         TypeCvSourceEnum cvSource = TypeCvSourceEnum.USER_RESUME;
         UserResumeRecentEntity? selectedResume;
+        File? file;
+        String? pdfFileName;
 
         bool isError = false;
         return StatefulBuilder(
@@ -685,8 +689,18 @@ class DialogUtils {
                     Text(context.language.uploadCv, style: TextStyleUtils.bold(fontSize: 16)),
                     const SizedBox(height: 8),
                     InkWell(
-                      onTap: () {
-                        
+                      onTap: () async {
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf'],
+                        );
+
+                        if (result != null && result.files.isNotEmpty) {
+                          setState(() {
+                            file = File(result.files.single.path!);
+                            pdfFileName = result.files.single.name;
+                          });
+                        }
                       },
                       child: Container(
                         height: 54,
@@ -697,7 +711,9 @@ class DialogUtils {
                         ),
                         child: Center(
                           child: Text(
-                            context.language.uploadedCvContent,
+                            pdfFileName ?? context.language.uploadedCvContent,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyleUtils.normal(fontSize: 14, color: context.theme.textColor),
                           ),
                         ),
@@ -792,7 +808,7 @@ class DialogUtils {
                           });
                           return;
                         }
-                        onCreate(cvSource, experienceLevel, language, selectedResume);
+                        onCreate(cvSource, experienceLevel, language, selectedResume, file);
                       },
                       splashColor: Colors.transparent,
                       child: Container(

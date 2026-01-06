@@ -471,4 +471,22 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get keywordMatches => 'Từ khóa phù hợp';
+
+  @override
+  String get all => 'Tất cả';
+
+  @override
+  String get basic => 'Cơ bản';
+
+  @override
+  String get modern => 'Hiện đại';
+
+  @override
+  String get creative => 'Sáng tạo';
+
+  @override
+  String get professional => 'Chuyên nghiệp';
+
+  @override
+  String get technical => 'Kỹ thuật';
 }

@@ -1,4 +1,5 @@
 enum TypeResumeEnum {
+  ALL,
   BASIC,
   MODERN,
   CREATIVE,
@@ -21,7 +22,7 @@ extension TypeResumeEnumExtension on TypeResumeEnum {
       case 'TECHNICAL':
         return TypeResumeEnum.TECHNICAL;
       default:
-        return TypeResumeEnum.BASIC;
+        return TypeResumeEnum.ALL;
     }
   }
 }

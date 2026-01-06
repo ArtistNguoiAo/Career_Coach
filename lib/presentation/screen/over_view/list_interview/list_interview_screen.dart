@@ -123,13 +123,14 @@ class _ListInterviewScreenUIState extends State<ListInterviewScreenUI> with Sing
               DialogUtils.showCreateInterviewDialog(
                 context: context,
                 listUserResumeRecent: state.listUserResumeRecent,
-                onCreate: (cvSource, experienceLevel, language, selectedResume) {
+                onCreate: (cvSource, experienceLevel, language, selectedResume, file) {
                   AutoRouter.of(context).maybePop();
                   context.read<ListInterviewCubit>().createInterview(
                     cvSource: cvSource,
                     userResumeId: selectedResume?.id,
                     experienceLevel: experienceLevel,
                     language: language,
+                    file: file,
                   );
                 },
               );
