@@ -434,7 +434,7 @@ class EnLanguage extends BaseLanguage {
   String get deleteSuccess => 'Delete successful';
 
   @override
-  String get createCvWithAIContent => 'Enter your information and let AI create a professional CV for you in just a few seconds.';
+  String get createCvWithAIContent => 'Enter your CV description and let AI create a professional CV for you in seconds.';
 
   @override
   String get overallScore => 'Overall score';
@@ -489,4 +489,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get technical => 'Technical';
+
+  @override
+  String get refresh => 'Refresh';
 }

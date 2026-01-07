@@ -1,23 +1,24 @@
 import 'package:career_coach/data/model/analysis_model.dart';
 import 'package:career_coach/domain/entity/analysis_entity.dart';
+import 'package:career_coach/domain/enum/type_analysis_status_enum.dart';
 
 class AnalysisMapper {
-  static AnalysisEntity toEntity(AnalysisModel activityModel) {
+  static AnalysisEntity toEntity(AnalysisModel analysisModel) {
     return AnalysisEntity(
-      id: activityModel.id,
-      sessionId: activityModel.sessionId,
-      overallScore: activityModel.overallScore,
-      technicalScore: activityModel.technicalScore,
-      communicationScore: activityModel.communicationScore,
-      confidenceScore: activityModel.confidenceScore,
-      strengths: activityModel.strengths,
-      weaknesses: activityModel.weaknesses,
-      detailedFeedback: activityModel.detailedFeedback,
-      recommendations: activityModel.recommendations,
-      keywordMatches: activityModel.keywordMatches,
-      analysisStatus: activityModel.analysisStatus,
-      createdAt: activityModel.createdAt,
-      updatedAt: activityModel.updatedAt,
+      id: analysisModel.id,
+      sessionId: analysisModel.sessionId,
+      overallScore: analysisModel.overallScore,
+      technicalScore: analysisModel.technicalScore,
+      communicationScore: analysisModel.communicationScore,
+      confidenceScore: analysisModel.confidenceScore,
+      strengths: analysisModel.strengths,
+      weaknesses: analysisModel.weaknesses,
+      detailedFeedback: analysisModel.detailedFeedback,
+      recommendations: analysisModel.recommendations,
+      keywordMatches: analysisModel.keywordMatches,
+      analysisStatus: TypeAnalysisStatusEnumExtension.fromString(analysisModel.analysisStatus),
+      createdAt: analysisModel.createdAt,
+      updatedAt: analysisModel.updatedAt,
     );
   }
 }

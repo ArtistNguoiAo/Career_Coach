@@ -7,6 +7,7 @@ import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
 import 'package:career_coach/presentation/core/utils/string_utils.dart';
 import 'package:career_coach/presentation/core/utils/text_style_utils.dart';
+import 'package:career_coach/presentation/core/widgets/base_markdown.dart';
 import 'package:career_coach/presentation/core/widgets/base_text_field.dart';
 import 'package:career_coach/presentation/screen/message/cubit/message_cubit.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,9 @@ class _MessageScreenState extends State<MessageScreen> {
         }
         if (state.isEndInterviewSuccess) {
           isChanged = true;
+          AutoRouter.of(context).push(
+            AnalysisRoute(sessionId: widget.sessionId),
+          );
         }
       },
       builder: (context, state) {
@@ -104,81 +108,76 @@ class _MessageScreenState extends State<MessageScreen> {
                 Expanded(
                   child: Builder(
                     builder: (context) {
-                      return InkWell(
-                        onTap: () {
-                          Scaffold.of(context).openEndDrawer();
-                        },
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(image: AssetImage(MediaUtils.imgChatbot), fit: BoxFit.cover),
-                              ),
+                      return Row(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(image: AssetImage(MediaUtils.imgChatbot), fit: BoxFit.cover),
                             ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Bot Assistant", style: TextStyleUtils.bold(color: context.theme.textColor)),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                    decoration: BoxDecoration(
-                                      color: state.status == TypeInterviewStatusEnum.ACTIVE
-                                          ? context.theme.goodColor.withAlpha((255 * 0.1).round())
-                                          : context.theme.mediumColor.withAlpha((255 * 0.1).round()),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(
-                                      StringUtils.convertTypeInterviewStatusEnum(state.status),
-                                      style: TextStyleUtils.bold(
-                                        fontSize: 12,
-                                        color: state.status == TypeInterviewStatusEnum.ACTIVE
-                                            ? context.theme.goodColor
-                                            : context.theme.mediumColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (state.status == TypeInterviewStatusEnum.ACTIVE) ...[
-                              const SizedBox(width: 8),
-                              InkWell(
-                                onTap: () {
-                                  DialogUtils.showEndPreviewDialog(
-                                    context: context,
-                                    onEnd: (bool isConfirm) {
-                                      if (isConfirm) {
-                                        context.read<MessageCubit>().endInterview();
-                                      }
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Bot Assistant", style: TextStyleUtils.bold(color: context.theme.textColor)),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                   decoration: BoxDecoration(
-                                    color: context.theme.badColor.withAlpha((255 * 0.1).round()),
+                                    color: state.status == TypeInterviewStatusEnum.ACTIVE
+                                        ? context.theme.goodColor.withAlpha((255 * 0.1).round())
+                                        : context.theme.mediumColor.withAlpha((255 * 0.1).round()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Icon(FontAwesomeIcons.stop, color: context.theme.badColor, size: 12),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        context.language.end,
-                                        style: TextStyleUtils.bold(fontSize: 12, color: context.theme.badColor),
-                                      ),
-                                    ],
+                                  child: Text(
+                                    StringUtils.convertTypeInterviewStatusEnum(state.status),
+                                    style: TextStyleUtils.bold(
+                                      fontSize: 12,
+                                      color: state.status == TypeInterviewStatusEnum.ACTIVE
+                                          ? context.theme.goodColor
+                                          : context.theme.mediumColor,
+                                    ),
                                   ),
                                 ),
+                              ],
+                            ),
+                          ),
+                          if (state.status == TypeInterviewStatusEnum.ACTIVE) ...[
+                            const SizedBox(width: 8),
+                            InkWell(
+                              onTap: () {
+                                DialogUtils.showEndPreviewDialog(
+                                  context: context,
+                                  onEnd: (bool isConfirm) {
+                                    if (isConfirm) {
+                                      context.read<MessageCubit>().endInterview();
+                                    }
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: context.theme.badColor.withAlpha((255 * 0.1).round()),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(FontAwesomeIcons.stop, color: context.theme.badColor, size: 12),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      context.language.end,
+                                      style: TextStyleUtils.bold(fontSize: 12, color: context.theme.badColor),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
+                            ),
                           ],
-                        ),
+                        ],
                       );
                     },
                   ),
@@ -281,9 +280,8 @@ class _MessageScreenState extends State<MessageScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              state.listMessage[index - countMinus].content,
-                              style: TextStyleUtils.normal(color: context.theme.primaryDarkColor),
+                            BaseMarkdown(
+                              data: state.listMessage[index - countMinus].content,
                             ),
                             SizedBox(height: 4),
                             Text(

@@ -16,8 +16,8 @@ class ApiService extends DioMixin {
   ApiService._internal() {
     options = BaseOptions(
       baseUrl: ApiUrl.baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 60),
+      receiveTimeout: const Duration(seconds: 60),
       headers: {'accept': '*/*'},
     );
 

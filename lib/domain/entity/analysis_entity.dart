@@ -1,3 +1,5 @@
+import 'package:career_coach/domain/enum/type_analysis_status_enum.dart';
+
 class AnalysisEntity {
   final int id;
   final int sessionId;
@@ -10,7 +12,7 @@ class AnalysisEntity {
   final String detailedFeedback;
   final String recommendations;
   final String keywordMatches;
-  final String analysisStatus;
+  final TypeAnalysisStatusEnum analysisStatus;
   final String createdAt;
   final String updatedAt;
 

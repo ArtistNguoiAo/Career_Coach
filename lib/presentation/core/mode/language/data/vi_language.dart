@@ -434,7 +434,7 @@ class ViLanguage extends BaseLanguage {
   String get deleteSuccess => 'Xóa thành công';
 
   @override
-  String get createCvWithAIContent => 'Nhập thông tin của bạn và để AI tạo CV chuyên nghiệp cho bạn trong vài giây.';
+  String get createCvWithAIContent => 'Nhập mô tả CV của bạn và để AI tạo CV chuyên nghiệp cho bạn trong vài giây.';
 
   @override
   String get overallScore => 'Điểm tổng';
@@ -489,4 +489,7 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get technical => 'Kỹ thuật';
+
+  @override
+  String get refresh => 'Làm mới';
 }

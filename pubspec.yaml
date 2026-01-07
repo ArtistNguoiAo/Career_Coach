@@ -49,6 +49,7 @@ dependencies:
   path_provider: ^2.1.2
   fl_chart: ^0.71.0
   sleek_circular_slider: ^2.0.1
+  flutter_markdown_plus: ^1.0.7
 
   cupertino_icons: ^1.0.8
 

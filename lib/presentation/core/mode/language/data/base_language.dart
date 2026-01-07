@@ -160,4 +160,5 @@ abstract class BaseLanguage {
   String get creative;
   String get professional;
   String get technical;
+  String get refresh;
 }

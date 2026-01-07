@@ -134,6 +134,7 @@ class _ListCvScreenState extends State<ListCvScreen> {
                               color: context.theme.backgroundColor,
                             ),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: ClipRRect(

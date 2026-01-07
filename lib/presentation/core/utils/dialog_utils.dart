@@ -635,6 +635,7 @@ class DialogUtils {
                         onTap: () {
                           setState(() {
                             cvSource = cvSrc;
+                            isError = false;
                           });
                         },
                         child: AnimatedContainer(
@@ -803,6 +804,12 @@ class DialogUtils {
                     child: InkWell(
                       onTap: () {
                         if (cvSource == TypeCvSourceEnum.USER_RESUME && selectedResume == null) {
+                          setState(() {
+                            isError = true;
+                          });
+                          return;
+                        }
+                        if (cvSource == TypeCvSourceEnum.PDF_UPLOAD && file == null) {
                           setState(() {
                             isError = true;
                           });
