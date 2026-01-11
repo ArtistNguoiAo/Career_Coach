@@ -492,4 +492,7 @@ class EnLanguage extends BaseLanguage {
 
   @override
   String get refresh => 'Refresh';
+
+  @override
+  String get language => 'Language';
 }

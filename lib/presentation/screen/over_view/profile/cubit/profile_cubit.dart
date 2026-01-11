@@ -9,6 +9,7 @@ import 'package:career_coach/domain/use_case/get_profile_use_case.dart';
 import 'package:career_coach/domain/use_case/logout_use_case.dart';
 import 'package:career_coach/domain/use_case/update_avatar_use_case.dart';
 import 'package:career_coach/presentation/core/di/di_config.dart';
+import 'package:career_coach/presentation/core/mode/language/inherited_language_widget.dart';
 
 part 'profile_state.dart';
 

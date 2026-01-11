@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:career_coach/domain/entity/user_entity.dart';
 import 'package:career_coach/presentation/core/extension/ext_context.dart';
+import 'package:career_coach/presentation/core/mode/language/inherited_language_widget.dart';
+import 'package:career_coach/presentation/core/mode/theme/inherited_theme_widget.dart';
 import 'package:career_coach/presentation/core/route/app_router.gr.dart';
 import 'package:career_coach/presentation/core/utils/dialog_utils.dart';
 import 'package:career_coach/presentation/core/utils/media_utils.dart';
@@ -10,6 +12,9 @@ import 'package:career_coach/presentation/screen/over_view/profile/cubit/profile
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:career_coach/presentation/core/mode/theme/cubit/theme_cubit.dart';
+import 'package:career_coach/presentation/core/mode/language/cubit/language_cubit.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -62,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     decoration: BoxDecoration(color: context.theme.typeAccountColor),
                     child: Text(
                       '${context.language.version}: 1.0.0',
-                      style: TextStyleUtils.normal(color: context.theme.textColor),
+                      style: TextStyleUtils.normal(color: Colors.black),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -79,24 +84,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _header(UserEntity? userEntity, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(MediaUtils.imgProfileBackground),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: AssetImage(MediaUtils.imgProfileBackground), fit: BoxFit.cover),
       ),
       child: Container(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 16, left: 16, right: 16, bottom: 16),
-        decoration: BoxDecoration(
-          color: Colors.black.withAlpha((0.3 * 255).round()),
-        ),
+        decoration: BoxDecoration(color: Colors.black.withAlpha((0.3 * 255).round())),
         child: Row(
           children: [
             Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, color: context.theme.backgroundColor),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
               child: BaseAvatar(
                 url: userEntity?.avatar ?? '',
                 size: 100,
-                border: Border.all(color: context.theme.backgroundColor, width: 2),
+                border: Border.all(color: Colors.white, width: 2),
                 onTap: () {
                   DialogUtils.showChooseImageDialog(
                     context: context,
@@ -117,13 +117,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Expanded(
                         child: Text(
                           userEntity?.fullName ?? '',
-                          style: TextStyleUtils.bold(fontSize: 18, color: context.theme.backgroundColor),
+                          style: TextStyleUtils.bold(fontSize: 18, color: Colors.white),
                         ),
                       ),
                       SizedBox(height: 8),
                       InkWell(
                         onTap: () {
-                          if(userEntity == null) return;
+                          if (userEntity == null) return;
                           AutoRouter.of(context).push(ProfileUpdateRoute(userEntity: userEntity)).then((value) {
                             if (value == true) {
                               context.read<ProfileCubit>().init();
@@ -136,16 +136,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Row(
                     children: [
-                      FaIcon(FontAwesomeIcons.userLarge, color: context.theme.backgroundColor, size: 12),
+                      FaIcon(FontAwesomeIcons.userLarge, color: Colors.white, size: 12),
                       const SizedBox(width: 4),
-                      Text(userEntity?.email ?? "", style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
+                      Expanded(
+                        child: Text(
+                          userEntity?.email ?? "",
+                          style: TextStyleUtils.normal(color: Colors.white),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                   Row(
                     children: [
-                      FaIcon(FontAwesomeIcons.phone, color: context.theme.backgroundColor, size: 12),
+                      FaIcon(FontAwesomeIcons.phone, color: Colors.white, size: 12),
                       const SizedBox(width: 4),
-                      Text(userEntity?.phone ?? "", style: TextStyleUtils.normal(color: context.theme.backgroundColor)),
+                      Expanded(
+                        child: Text(
+                          userEntity?.phone ?? "",
+                          style: TextStyleUtils.normal(color: Colors.white),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -181,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Expanded(
                     child: Text(
                       context.language.manageCv,
-                      style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
+                      style: TextStyleUtils.bold(fontSize: 16, color: Colors.black),
                     ),
                   ),
                 ],
@@ -194,14 +208,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyleUtils.bold(fontSize: 16, color: context.theme.textColor),
           ),
           SizedBox(height: 8),
-          _featureProfileItem(
-            icon: FontAwesomeIcons.crown,
-            iconColor: context.theme.premiumColor,
-            title: context.language.upgradeToPremium,
-            onTap: () {},
-          ),
-          SizedBox(height: 8),
           _featureProfileItem(icon: FontAwesomeIcons.key, title: context.language.changePassword, onTap: () {}),
+          SizedBox(height: 8),
+          _languageSwitchItem(context),
+          _themeSwitchItem(context),
           SizedBox(height: 8),
           _featureProfileItem(
             icon: FontAwesomeIcons.ban,
@@ -242,6 +252,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Icon(FontAwesomeIcons.chevronRight, color: context.theme.darkGreyColor, size: 20),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _languageSwitchItem(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 4),
+      child: Row(
+        children: [
+          Image.asset(
+            context.read<LanguageCubit>().state.languageModeEnum == LanguageModeEnum.en
+                ? MediaUtils.imgEn
+                : MediaUtils.imgVi,
+            width: 24,
+            height: 24,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              context.language.language,
+              style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 16),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Switch(
+            value: context.read<LanguageCubit>().state.languageModeEnum == LanguageModeEnum.en,
+            onChanged: (value) {
+              context.read<LanguageCubit>().changeLanguage(
+                context.read<LanguageCubit>().state.languageModeEnum == LanguageModeEnum.en
+                    ? LanguageModeEnum.vi
+                    : LanguageModeEnum.en,
+              );
+            },
+            activeColor: context.theme.primaryColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _themeSwitchItem(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 4),
+      child: Row(
+        children: [
+          Icon(
+            context.read<ThemeCubit>().state.themeModeEnum == ThemeModeEnum.dark
+                ? FontAwesomeIcons.moon
+                : FontAwesomeIcons.sun,
+            size: 20,
+            color: context.theme.primaryColor,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              context.language.theme,
+              style: TextStyleUtils.normal(color: context.theme.textColor, fontSize: 16),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Switch(
+            value: context.read<ThemeCubit>().state.themeModeEnum == ThemeModeEnum.dark,
+            onChanged: (value) {
+              context.read<ThemeCubit>().changeTheme(
+                context.read<ThemeCubit>().state.themeModeEnum == ThemeModeEnum.light
+                    ? ThemeModeEnum.dark
+                    : ThemeModeEnum.light,
+              );
+            },
+            activeColor: context.theme.primaryColor,
+          ),
+        ],
       ),
     );
   }

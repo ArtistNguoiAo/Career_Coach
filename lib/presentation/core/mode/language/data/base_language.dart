@@ -161,4 +161,5 @@ abstract class BaseLanguage {
   String get professional;
   String get technical;
   String get refresh;
+  String get language;
 }

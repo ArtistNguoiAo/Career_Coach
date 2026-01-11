@@ -492,4 +492,7 @@ class ViLanguage extends BaseLanguage {
 
   @override
   String get refresh => 'Làm mới';
+
+  @override
+  String get language => 'Ngôn ngữ';
 }

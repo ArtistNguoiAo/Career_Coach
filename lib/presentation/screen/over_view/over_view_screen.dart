@@ -32,19 +32,19 @@ class _OverViewScreenState extends State<OverViewScreen> {
             backgroundColor: context.theme.backgroundColor,
             items: [
               SalomonBottomBarItem(
-                icon: Icon(IconlyLight.home),
+                icon: Icon(IconlyLight.home, color: context.theme.textColor),
                 activeIcon: Icon(IconlyBold.home),
                 selectedColor: context.theme.primaryColor,
                 title: Text(context.language.home),
               ),
               SalomonBottomBarItem(
-                icon: Icon(IconlyLight.chat),
+                icon: Icon(IconlyLight.chat, color: context.theme.textColor),
                 activeIcon: Icon(IconlyBold.chat),
                 selectedColor: context.theme.primaryColor,
                 title: Text(context.language.chatBot),
               ),
               SalomonBottomBarItem(
-                icon: Icon(IconlyLight.profile),
+                icon: Icon(IconlyLight.profile, color: context.theme.textColor),
                 activeIcon: Icon(IconlyBold.profile),
                 selectedColor: context.theme.primaryColor,
                 title: Text(context.language.profile),
